@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     [self customNavigationBar];
     self.segmentType = XHSegmentTypeFit;
     RecommendedViewController *vc1 = [[RecommendedViewController alloc] init];
