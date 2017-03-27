@@ -7,12 +7,13 @@
 //
 
 #import "ContentViewController.h"
-
 #import "MainCollectionViewCell.h"
 #import "LiveModel.h"
 #import "LIvingViewController.h"
 
-@interface ContentViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface ContentViewController ()
+<UICollectionViewDelegate,
+UICollectionViewDataSource>
 
 
 @end
@@ -21,10 +22,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     [self collectionView];
 }
--(UICollectionView *)collectionView
+
+- (UICollectionView *)collectionView
 {
     if (!_collectionView)
     {
@@ -46,12 +48,14 @@
     }
     return _collectionView;
 }
+
 #pragma mark  ----CollectionViewDataSource
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.infoArray.count;
 }
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //static NSString *cellIdentifier =@"cell1";
     MainCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
@@ -66,7 +70,7 @@
 }
 
 #pragma mark  ----CollectionViewDelegate
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     LIvingViewController *livingVC =[[LIvingViewController alloc]init];
     
@@ -92,14 +96,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

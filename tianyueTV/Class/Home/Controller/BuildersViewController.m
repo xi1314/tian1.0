@@ -8,6 +8,7 @@
 
 #import "BuildersViewController.h"
 #import "LiveModel.h"
+
 @interface BuildersViewController ()
 
 @end
@@ -28,9 +29,9 @@
 //    }];
 
 }
--(void)netRequest
+- (void)netRequest
 {
-//    NSString *url =@"mobileAllBroadcastLiving";
+
     [[NetWorkTool sharedTool]requestMethod:POST URL:@"mobileAllBroadcastLiving" paraments:nil finish:^(id responseObject, NSError *error) {
         [self.collectionView.mj_header endRefreshing];
         [self.collectionView.mj_footer endRefreshing];
@@ -48,24 +49,17 @@
     }];
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

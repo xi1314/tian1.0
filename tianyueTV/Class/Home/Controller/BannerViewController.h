@@ -10,7 +10,7 @@
 
 @interface BannerViewController : UIViewController
 
-@property(nonatomic,copy)NSString *titl;
-@property(nonatomic,copy)NSString *uil;
+@property (nonatomic, copy) NSString *titl;
+@property (nonatomic, copy) NSString *uil;
 
 @end

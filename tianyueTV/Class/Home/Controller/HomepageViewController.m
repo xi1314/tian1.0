@@ -10,17 +10,16 @@
 #import "RecommendedViewController.h"
 #import "BuildersViewController.h"
 #import "LiveModel.h"
-
 #import "ShopDetailViewController.h"
 #import "LIvingViewController.h"
 #import <ImSDK/ImSDK.h>
 
 @interface HomepageViewController ()
+
 //登录腾讯需要的参数
 @property (nonatomic, strong) NSString *userIdentifiler;
 @property (nonatomic, strong) NSString *userSig;
-
-@property(nonatomic,strong)NSMutableArray *typeNameArray;
+@property (nonatomic, strong) NSMutableArray *typeNameArray;
 
 @end
 
@@ -121,7 +120,7 @@
     }];
 }
 
--(void)customNavigationBar
+- (void)customNavigationBar
 {
     UIImageView *centerImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 7, 80, 30)];
     [centerImage setImage:[UIImage imageNamed:@"1"]];
@@ -176,14 +175,6 @@
 //    }];
 //}
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

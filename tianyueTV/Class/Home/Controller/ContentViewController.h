@@ -10,7 +10,7 @@
 
 @interface ContentViewController : UIViewController
 
-@property(nonatomic,strong)UICollectionView *collectionView;
-@property(nonatomic,strong)NSMutableArray *infoArray;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) NSMutableArray *infoArray;
 
 @end

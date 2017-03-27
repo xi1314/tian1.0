@@ -16,8 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title =self.titl;
-    // Do any additional setup after loading the view.
+    
     [self customBackBtn];
     
     UIWebView *webView =[[UIWebView alloc]initWithFrame:self.view.frame];
@@ -29,7 +30,8 @@
     [webView loadRequest:request];
     
 }
--(void)customBackBtn
+
+- (void)customBackBtn
 {
     UIButton *backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame =CGRectMake(0, 0, 44, 44);
@@ -39,23 +41,16 @@
     self.navigationItem.leftBarButtonItem =backItem;
     
 }
--(void)backBtnClick:(id)sender
+
+- (void)backBtnClick:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
