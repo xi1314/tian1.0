@@ -121,7 +121,6 @@ UITextFieldDelegate>
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 /**
  顶部状态按钮
  */
@@ -221,10 +220,12 @@ UITextFieldDelegate>
             @weakify(self);
             [self.alertView initDZAlertViewMessage:@"是否确认取消订单?" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
+                [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
                 NSLog(@"sectionTag %ld",sectionTag);
                 [self requestForCancelOrder:dataDic[@"orderInfoSn"] index:sectionTag];
+                [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
                 [MBProgressHUD showMessage:nil];
             }];
@@ -239,6 +240,7 @@ UITextFieldDelegate>
                 if (tag == 2) { // 取消
                     [self.deliveryView.companySelect setTitle:@"" forState:UIControlStateNormal];
                     self.deliveryView.deliveryNumber.text = nil;
+                    [self.baseMaskView removeAllSubviews];
                     [self.baseMaskView removeFromSuperview];
                 } else if (tag == 3) { // 确定
                     [self requestForDeliveryInfoWithSection:sectionTag];
@@ -254,6 +256,7 @@ UITextFieldDelegate>
             @weakify(self);
             [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
+                [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
 
@@ -268,6 +271,7 @@ UITextFieldDelegate>
             @weakify(self);
             [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
+                [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
                 [self requstForDeleteOrder:sectionTag];
@@ -280,6 +284,7 @@ UITextFieldDelegate>
             @weakify(self);
             [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
+                [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
                 
