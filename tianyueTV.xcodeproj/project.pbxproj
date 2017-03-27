@@ -1761,7 +1761,6 @@
 				046878F11E88AB82004A5EE3 /* source */,
 				046878E91E88AA06004A5EE3 /* netWork */,
 				987D31D11E77A2C700C3DF34 /* Category */,
-				FF0110F41DAB2A02003146A7 /* main */,
 				FF0110CA1DAB26D6003146A7 /* Main.storyboard */,
 				FF0110CD1DAB26D6003146A7 /* Assets.xcassets */,
 				FF0110CF1DAB26D6003146A7 /* LaunchScreen.storyboard */,
@@ -1798,13 +1797,6 @@
 				FF0110E81DAB26D6003146A7 /* Info.plist */,
 			);
 			path = tianyueTVUITests;
-			sourceTree = "<group>";
-		};
-		FF0110F41DAB2A02003146A7 /* main */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
