@@ -1,0 +1,46 @@
+//
+//  PrefixHeader.pch
+//  tianyueTV
+//
+//  Created by wwwwwwww on 2016/10/10.
+//  Copyright © 2016年 wwwwwwww. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+#define kHeightChange(A) (A * [UIScreen mainScreen].bounds.size.height / 1334)
+#define kWidthChange(A) (A * [UIScreen mainScreen].bounds.size.width / 750)
+
+#define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+
+
+#define fHeightChange(A) (A * [UIScreen mainScreen].bounds.size.height / 750)
+#define fWidthChange(A) (A * [UIScreen mainScreen].bounds.size.width / 1334)
+
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+#define WWColor(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
+#define THEME_COLOR WWColor(193, 52, 50)
+#define LINE_COLOR WWColor(229, 229, 229)
+
+#define USER_Defaults [NSUserDefaults standardUserDefaults]
+#define USER_NICK [[NSUserDefaults standardUserDefaults]objectForKey:@"nickName"]
+#define USER_ID [USER_Defaults objectForKey:@"user_id"]
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "AFNetworking.h"
+#import "PureLayout.h"
+#import "NetWorkTool.h"
+#import "UIImageView+WebCache.h"
+#import "MJRefresh.h"
+#import "Masonry.h"
+#import "MBProgressHUD+MJ.h"
+#import <YYKit.h>
+
+#endif /* PrefixHeader_pch */

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddressManageViewController">
+            <connections>
+                <outlet property="addNewBottom" destination="L71-ed-cP6" id="a2X-Na-aLz"/>
+                <outlet property="tableView" destination="I65-av-L4f" id="wjT-f7-Gw9"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="45" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="I65-av-L4f">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="g9x-VV-Iz3"/>
+                        <outlet property="delegate" destination="-1" id="VDS-ea-twe"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="da3-x7-JJ3">
+                    <rect key="frame" x="0.0" y="667" width="375" height="50"/>
+                    <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="kD2-aw-zbQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="添加新地址">
+                        <color key="titleColor" red="0.75686274509999996" green="0.20392156859999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="addNewButton_action:" destination="-1" eventType="touchUpInside" id="R1J-wj-jaS"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="I65-av-L4f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FQY-3G-4bf"/>
+                <constraint firstItem="I65-av-L4f" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HPL-mU-55r"/>
+                <constraint firstAttribute="trailing" secondItem="da3-x7-JJ3" secondAttribute="trailing" id="KlH-kX-v2G"/>
+                <constraint firstAttribute="bottom" secondItem="da3-x7-JJ3" secondAttribute="bottom" constant="-50" id="L71-ed-cP6"/>
+                <constraint firstItem="da3-x7-JJ3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="SdQ-QU-sRl"/>
+                <constraint firstAttribute="bottom" secondItem="I65-av-L4f" secondAttribute="bottom" id="fwv-ME-n3H"/>
+                <constraint firstAttribute="trailing" secondItem="I65-av-L4f" secondAttribute="trailing" id="wWF-mz-bix"/>
+            </constraints>
+            <point key="canvasLocation" x="32.5" y="69.5"/>
+        </view>
+    </objects>
+</document>

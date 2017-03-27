@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>知交</key>
+	<array>
+		<string>教学</string>
+		<string>文艺漫谈</string>
+		<string>史●记</string>
+		<string>原创音乐</string>
+		<string>手绘</string>
+	</array>
+	<key>行</key>
+	<array>
+		<string>探秘</string>
+		<string>人文之旅</string>
+		<string>驴友探险</string>
+		<string>徒步主义</string>
+	</array>
+	<key>住</key>
+	<array>
+		<string>天然养肤</string>
+		<string>闻香识人</string>
+		<string>文房诗礼</string>
+		<string>玩转乐器</string>
+		<string>具象生活</string>
+		<string>居家小物</string>
+		<string>文玩藏品</string>
+		<string>特色客栈</string>
+	</array>
+	<key>食</key>
+	<array>
+		<string>器具</string>
+		<string>烘焙西点</string>
+		<string>户外美食</string>
+		<string>厨艺秀</string>
+		<string>私房菜</string>
+		<string>茶韵</string>
+	</array>
+	<key>衣</key>
+	<array>
+		<string>小饰品 </string>
+		<string>珠宝首饰</string>
+		<string>布艺</string>
+		<string>点睛搭配</string>
+		<string>包罗万象</string>
+		<string>鞋●定制</string>
+		<string>现代</string>
+		<string>古风</string>
+	</array>
+	<key>匠人</key>
+	<array>
+		<string>民间艺术</string>
+		<string>品牌新星</string>
+		<string>名家作品	</string>
+		<string>老字号</string>
+	</array>
+</dict>
+</plist>
