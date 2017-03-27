@@ -100,6 +100,11 @@ typedef void(^OrderCellBlock)(NSInteger tag,NSInteger section);
 @property (assign, nonatomic) NSInteger sectionTag;
 
 /**
+ 判断是卖家，或买家
+ */
+@property (assign, nonatomic) BOOL isSeller;
+
+/**
  计算cell高度
  
  @param content 留言内容
@@ -108,8 +113,13 @@ typedef void(^OrderCellBlock)(NSInteger tag,NSInteger section);
 - (CGFloat)calculateCellHeight:(NSString *)content;
 
 /**
- 复原cell初始状态，避免复用时数据混乱
+ 复原卖家cell初始状态，避免复用时数据混乱
  */
 - (void)resumeCellNormalState;
+
+/**
+ 复原买家cell初始状态
+ */
+- (void)resumeBuyerCellNormalState;
 
 @end

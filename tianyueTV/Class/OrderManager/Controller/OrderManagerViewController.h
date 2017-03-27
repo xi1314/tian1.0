@@ -15,4 +15,5 @@
  判断是否是卖家，卖家1，买家0
  */
 @property (nonatomic, assign) BOOL isSeller;
+
 @end

@@ -172,7 +172,6 @@ UITextFieldDelegate>
     }
 }
 
-
 /**
  设置尾款弹窗按钮
  */
@@ -509,7 +508,12 @@ UITextFieldDelegate>
         cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderManagerTableViewCell" owner:self options:nil] objectAtIndex:0];
         cell.finalPaymentText.delegate = self;
     }
-    [cell resumeCellNormalState];
+    if (_isSeller) {
+        [cell resumeCellNormalState]; // 卖家cell默认状态
+    } else {
+        [cell resumeBuyerCellNormalState]; // 买家cell默认状态
+    }
+    cell.isSeller    = self.isSeller;
     cell.paramDic    = _datasource[indexPath.section][@"goodsList"][0];
     [cell calculateCellHeight:_datasource[indexPath.section][@"goodsList"][0][@"content"]];
     cell.sectionTag  = indexPath.section;
