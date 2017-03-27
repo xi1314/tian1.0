@@ -26,10 +26,12 @@
 }
 
 //此处的URL只用传斜杠后面的地址名
--(void)requestMethod:(requestMthod)method URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished
+- (void)requestMethod:(requestMthod)method URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished
 {
-    NSString *resultURL = [NSString stringWithFormat:@"http://192.168.0.88:8080/%@",url];
-    if (method ==GET)
+    
+    NSString *resultURL = [SERVERADDRESS_Local stringByAppendingString:url];
+    
+    if (method == GET)
     {
         [self GET:resultURL parameters:paraments progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             

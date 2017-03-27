@@ -166,6 +166,7 @@
 		04687B131E88BDF0004A5EE3 /* TypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A8B1E88BDF0004A5EE3 /* TypeView.m */; };
 		04687B141E88BDF0004A5EE3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A8E1E88BDF0004A5EE3 /* BaseViewController.m */; };
 		04687B151E88BDF0004A5EE3 /* TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A911E88BDF0004A5EE3 /* TabbarViewController.m */; };
+		04687B1C1E8914A3004A5EE3 /* BaseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687B1B1E8914A3004A5EE3 /* BaseHandler.m */; };
 		980822A91E0D05A8007D9A11 /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822A81E0D05A8007D9A11 /* cityData.plist */; };
 		980822AB1E0D05B7007D9A11 /* typeData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822AA1E0D05B7007D9A11 /* typeData.plist */; };
 		981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */; };
@@ -511,6 +512,9 @@
 		04687A8E1E88BDF0004A5EE3 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		04687A901E88BDF0004A5EE3 /* TabbarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarViewController.h; sourceTree = "<group>"; };
 		04687A911E88BDF0004A5EE3 /* TabbarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarViewController.m; sourceTree = "<group>"; };
+		04687B171E8912F5004A5EE3 /* NetWorkHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkHeader.h; sourceTree = "<group>"; };
+		04687B1A1E8914A3004A5EE3 /* BaseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseHandler.h; sourceTree = "<group>"; };
+		04687B1B1E8914A3004A5EE3 /* BaseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseHandler.m; sourceTree = "<group>"; };
 		130F6A4356C6EC0083C9B9A3 /* Pods-tianyueTV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTV.release.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTV/Pods-tianyueTV.release.xcconfig"; sourceTree = "<group>"; };
 		2E4621F0EA6FABC96E614E15 /* Pods-tianyueTV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTV/Pods-tianyueTV.debug.xcconfig"; sourceTree = "<group>"; };
 		44FD9F76F5DB5321D06BE284 /* Pods-tianyueTVUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTVUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTVUITests/Pods-tianyueTVUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -613,6 +617,7 @@
 				046878EB1E88AA06004A5EE3 /* NetWorkTool.m */,
 				046878EC1E88AA06004A5EE3 /* Reachability.h */,
 				046878ED1E88AA06004A5EE3 /* Reachability.m */,
+				04687B171E8912F5004A5EE3 /* NetWorkHeader.h */,
 			);
 			path = netWork;
 			sourceTree = "<group>";
@@ -1663,6 +1668,8 @@
 			children = (
 				04687A8D1E88BDF0004A5EE3 /* BaseViewController.h */,
 				04687A8E1E88BDF0004A5EE3 /* BaseViewController.m */,
+				04687B1A1E8914A3004A5EE3 /* BaseHandler.h */,
+				04687B1B1E8914A3004A5EE3 /* BaseHandler.m */,
 			);
 			path = SuperClass;
 			sourceTree = "<group>";
@@ -2204,6 +2211,7 @@
 				04687AD01E88BDF0004A5EE3 /* WWAnchorSpaceViewController.m in Sources */,
 				04687AFB1E88BDF0004A5EE3 /* AddressManageViewController.m in Sources */,
 				04687AB11E88BDF0004A5EE3 /* ChangePasswordViewController.m in Sources */,
+				04687B1C1E8914A3004A5EE3 /* BaseHandler.m in Sources */,
 				04687AF91E88BDF0004A5EE3 /* AddAddressViewController.m in Sources */,
 				04687AB81E88BDF0004A5EE3 /* CustomView.m in Sources */,
 				04687AE71E88BDF0004A5EE3 /* WWMineFiveTableViewCell.m in Sources */,
