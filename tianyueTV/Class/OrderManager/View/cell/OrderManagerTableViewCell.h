@@ -27,6 +27,6 @@ typedef void(^OrderCellBlock)(NSInteger tag,NSInteger section);
 @property (weak, nonatomic) IBOutlet UIButton *secondButton;        //第二个按钮
 @property (weak, nonatomic) IBOutlet UIButton *thirdButton;         //第三个按钮
 @property (assign, nonatomic) NSInteger sectionTag;                 //判断是哪一个cell
-- (CGFloat)calculateCellHeight:(NSString *)content;                 //计算cell高度
+- (CGFloat)calculateCellHeight:(NSString *)content;                
 - (void)resumeCellNormalState;
 @end
