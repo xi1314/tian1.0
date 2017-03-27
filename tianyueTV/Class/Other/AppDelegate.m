@@ -53,6 +53,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
     [self talkingData];//分析数据
     [self firstLoad];//是否是第一次使用APP
     [self shareSDK];//分享
