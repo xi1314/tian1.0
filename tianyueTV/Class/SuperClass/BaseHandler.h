@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define RET      @"ret"       //网络请求返回数据标识
+#define SUCCESS  @"success"   //网络请求返回成功
+#define ERROR    @"error"     //网络请求返回失败
+
+
 /**
  网络请求完成后的回调block
 

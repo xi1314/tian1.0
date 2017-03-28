@@ -13,6 +13,7 @@
 #import "DZAlertView.h"
 #import "UIButton+BadgeValue.h"
 #import "OrderHandle.h"
+#import "OrderModel.h"
 
 @interface OrderManagerViewController ()
 <UITableViewDelegate,
@@ -207,7 +208,7 @@ UITextFieldDelegate>
  */
 - (void)cellButtons_action:(NSInteger)tag
                 sectionTag:(NSInteger)sectionTag {
-    NSLog(@"sectionTag %ld",sectionTag);
+    NSLog(@"sectionTag %ld", sectionTag);
     NSDictionary *dataDic = _datasource[sectionTag][@"goodsList"][0];
     UIWindow *window      = [UIApplication sharedApplication].keyWindow;
     NSInteger order       = [dataDic[@"orderStauts"] integerValue];
@@ -296,6 +297,111 @@ UITextFieldDelegate>
 }
 
 
+/**
+ cell按钮点击事件
+ 
+ @param tag 判断点击哪一个Button 0-2
+ @param orderSnModel cell对应的model对象
+ */
+- (void)cellButtons_action:(NSInteger)tag
+                     model:(OrderSnModel *)orderSnModel {
+    
+    GoodsInfoModel *goodsInfoModel = orderSnModel.goodsList[0];
+
+    UIWindow *window      = [UIApplication sharedApplication].keyWindow;
+    NSInteger order       = [goodsInfoModel.orderStauts integerValue];
+    NSInteger shop        = [goodsInfoModel.shippingStatus integerValue];
+    NSInteger pay         = [goodsInfoModel.payStatus integerValue];
+    if (order == 0 && shop == 0 && pay == 0) { // 代付款
+        if (tag == 1) { // 取消订单
+            [window addSubview:self.baseMaskView];
+            [self.baseMaskView addSubview:self.alertView];
+            @weakify(self);
+            [self.alertView initDZAlertViewMessage:@"是否确认取消订单?" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+                @strongify(self);
+                [self.baseMaskView removeAllSubviews];
+                [self.baseMaskView removeFromSuperview];
+            } rightHandle:^(UIButton *button) {
+                @strongify(self);
+                
+                int index = (int)[self.datasource indexOfObject:orderSnModel];
+                [self requestForCancelOrder:goodsInfoModel.orderInfoSn index:index];
+                [self.baseMaskView removeAllSubviews];
+                [self.baseMaskView removeFromSuperview];
+                [MBProgressHUD showMessage:nil];
+            }];
+        }
+    } else if (order == 1 && shop == 0 && pay == 2) { // 待发货
+        if (tag == 1) { // 立即发货
+            [window addSubview:self.baseMaskView];
+            [self.baseMaskView addSubview:self.deliveryView];
+            @weakify(self);
+            self.deliveryView.buttonBlock = ^(NSInteger tag){
+                @strongify(self);
+                if (tag == 2) { // 取消
+                    [self.deliveryView.companySelect setTitle:@"" forState:UIControlStateNormal];
+                    self.deliveryView.deliveryNumber.text = nil;
+                    [self.baseMaskView removeAllSubviews];
+                    [self.baseMaskView removeFromSuperview];
+                } else if (tag == 3) { // 确定
+                    
+                    int index = (int)[self.datasource indexOfObject:orderSnModel];
+                    [self requestForDeliveryInfoWithSection:index];
+                }
+            };
+        }
+    } else if (order == 0 && shop == 0 && pay == 2) { // 待确认
+        if (tag == 1) { // 取消订单
+            
+        } else if (tag == 2) { // 确认订单，进入待发货
+            [window addSubview:self.baseMaskView];
+            [self.baseMaskView addSubview:self.alertView];
+            @weakify(self);
+            [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+                @strongify(self);
+                [self.baseMaskView removeAllSubviews];
+                [self.baseMaskView removeFromSuperview];
+            } rightHandle:^(UIButton *button) {
+                
+            }];
+        }
+    } else if (order == 1 && shop == 1 && pay == 2) { // 待收货
+        
+    } else if (order == 1 && shop == 2 && pay == 2) { // 已完成
+        if (tag == 2) {
+            [window addSubview:self.baseMaskView];
+            [self.baseMaskView addSubview:self.alertView];
+            @weakify(self);
+            [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+                @strongify(self);
+                [self.baseMaskView removeAllSubviews];
+                [self.baseMaskView removeFromSuperview];
+            } rightHandle:^(UIButton *button) {
+                @strongify(self);
+                int index = (int)[self.datasource indexOfObject:orderSnModel];
+                
+                [self requstForDeleteOrder:index];
+            }];
+        }
+    } else if (order == 2) { // 已取消
+        if (tag == 2) { // 删除订单
+            [window addSubview:self.baseMaskView];
+            [self.baseMaskView addSubview:self.alertView];
+            @weakify(self);
+            [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+                @strongify(self);
+                [self.baseMaskView removeAllSubviews];
+                [self.baseMaskView removeFromSuperview];
+            } rightHandle:^(UIButton *button) {
+                
+            }];
+        }
+    } else if (shop == 4 && pay == 2) { // 退款
+        
+    }
+}
+
+
 #pragma mark - Private method
 - (void)hiddenBaseMaskView {
     [super hiddenBaseMaskView];
@@ -308,9 +414,40 @@ UITextFieldDelegate>
  */
 - (void)requestForDatasource {
     
-    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage responseObject:^(id respondsObject, NSError *error) {
+    @weakify(self);
+    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage completeBlock:^(id respondsObject, NSError *error) {
+        
+        @strongify(self);
+        [MBProgressHUD hideHUD];
+        [self.tableView.mj_footer endRefreshing];
+        
+        if (respondsObject) {
+            
+            OrderModel *orderM = (OrderModel *)respondsObject;
+//            NSLog(@"orderM.waitPayCount :%@", orderM.waitPayCount);
+//            
+//            NSLog(@"count  :%d", (int)orderM.orderSnList.count);
+//            
+//            OrderSnModel *snM = orderM.orderSnList[1];
+//            NSLog(@"count2  :%d", (int)snM.goodsList.count);
+//            
+//            GoodsInfoModel *gnM = snM.goodsList[0];
+//            NSLog(@"gnM.orderInfoSn :%@", gnM.orderInfoSn);
+//            NSLog(@"gnM.id :%@", gnM.ID);
+            
+            if (orderM.orderSnList.count) {
+                [_datasource addObjectsFromArray:orderM.orderSnList];
+            }
+            
+            [self.tableView reloadData];
+//            if (_datasource.count) {
+//                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+//            }
+            
+        }
         
     }];
+    
     
     /*
     NSString *page    = [NSString stringWithFormat:@"%ld",_indexPage];
@@ -452,7 +589,7 @@ UITextFieldDelegate>
  @param index cell的tag值，判断第几个cell
  */
 - (void)requestForCancelOrder:(NSString *)orderInfo
-                        index:(NSInteger)index {
+                        index:(int)index {
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:orderInfo,@"orderInfoSn", nil];
     @weakify(self);
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"updateOrderStatus_app" paraments:dic finish:^(id responseObject, NSError *error) {
@@ -521,14 +658,23 @@ UITextFieldDelegate>
     } else {
         [cell resumeBuyerCellNormalState]; // 买家cell默认状态
     }
-    cell.isSeller    = self.isSeller;
+    cell.isSeller = self.isSeller;
+    
+    OrderSnModel *orderSnM = _datasource[indexPath.section];
+    GoodsInfoModel *goodsInfoM = orderSnM.goodsList[0];
+    [cell configureCell:goodsInfoM];
+    
+    /*
     cell.paramDic    = _datasource[indexPath.section][@"goodsList"][0];
     [cell calculateCellHeight:_datasource[indexPath.section][@"goodsList"][0][@"content"]];
     cell.sectionTag  = indexPath.section;
+    */
+    
     @weakify(self);
-    cell.buttonBlock = ^(NSInteger tag,NSInteger section) {
+    cell.buttonBlock = ^(NSInteger tag) {
         @strongify(self);
-        [self cellButtons_action:tag sectionTag:section];
+//        [self cellButtons_action:tag sectionTag:indexPath.section];
+        [self cellButtons_action:tag model:orderSnM];
     };
     return cell;
 }
@@ -542,7 +688,10 @@ UITextFieldDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.orderCell calculateCellHeight:_datasource[indexPath.section][@"goodsList"][0][@"content"]];
+    OrderSnModel *orderSnM = _datasource[indexPath.section];
+    GoodsInfoModel *goodsInfoM = orderSnM.goodsList[0];
+    
+    return goodsInfoM.cellHeight;
 }
 
 #pragma mark - UITextFieldDelegate

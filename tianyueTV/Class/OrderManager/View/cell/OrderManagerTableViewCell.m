@@ -8,7 +8,77 @@
 
 #import "OrderManagerTableViewCell.h"
 
+@interface OrderManagerTableViewCell ()
+
+/**
+ 留言
+ */
+@property (weak, nonatomic) IBOutlet UITextView *messgeTextView;
+
+/**
+ 订单时间
+ */
+@property (weak, nonatomic) IBOutlet UILabel *orderTime;
+
+/**
+ 产品图片
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *orderImgView;
+
+/**
+ 名称
+ */
+@property (weak, nonatomic) IBOutlet UILabel *orderTitle;
+
+/**
+ 规格
+ */
+@property (weak, nonatomic) IBOutlet UILabel *size;
+
+/**
+ 颜色
+ */
+@property (weak, nonatomic) IBOutlet UILabel *color;
+
+/**
+ 价格x数量
+ */
+@property (weak, nonatomic) IBOutlet UILabel *priceCount;
+
+/**
+ 成品、定制标示
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *typeImgView;
+
+/**
+ 已设置尾款的价格
+ */
+@property (weak, nonatomic) IBOutlet UILabel *finalPayLabel;
+
+/**
+ 第一个按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *firstButton;
+
+/**
+ 第二个按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *secondButton;
+
+/**
+ 第三个按钮
+ */
+@property (weak, nonatomic) IBOutlet UIButton *thirdButton;
+
+/**
+ cell对应的model
+ */
+@property (nonatomic, strong) GoodsInfoModel *goodsModel;
+
+@end
+
 @implementation OrderManagerTableViewCell
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.messgeTextView.layer.borderColor = LINE_COLOR.CGColor;
@@ -32,17 +102,28 @@
 }
 
 /**
- 数据处理
+ 刷新cell
  
- @param paramDic 数据源
+ @param goodInfoM cell对应的model
  */
-- (void)setParamDic:(NSDictionary *)paramDic {
-    _paramDic = paramDic;
-    self.orderTitle.text = _paramDic[@"goodsName"];
-    self.priceCount.text = [NSString stringWithFormat:@"¥%@x%@",_paramDic[@"goodsPrice"],_paramDic[@"goodsNum"]];
-    self.orderTime.text  = [NSString stringWithFormat:@"下单时间:%@",_paramDic[@"goodsOrder_time"]];
-    [self.orderImgView sd_setImageWithURL:[NSURL URLWithString:_paramDic[@"goodsImage"]] placeholderImage:[UIImage imageNamed:@"big-portfolio-img3"]];
-    NSArray *arr = [_paramDic[@"goodsAttr"] componentsSeparatedByString:@","];
+- (void)configureCell:(GoodsInfoModel *)goodInfoM
+{
+    self.goodsModel = goodInfoM;
+    
+    // 定制需求
+    NSString *string;
+    if (goodInfoM.content.length != 0) {
+        string = [NSString stringWithFormat:@"定制需求:%@",goodInfoM.content];
+    } else {
+        string = [NSString stringWithFormat:@"定制需求:无"];
+    }
+    self.messgeTextView.text = string;
+    
+    self.orderTitle.text = goodInfoM.goodsName;
+    self.priceCount.text = [NSString stringWithFormat:@"¥%@x%@", goodInfoM.goodsPrice, goodInfoM.goodsNum];
+    self.orderTime.text  = [NSString stringWithFormat:@"下单时间:%@", goodInfoM.goodsOrder_time];
+    [self.orderImgView sd_setImageWithURL:[NSURL URLWithString:goodInfoM.goodsImage] placeholderImage:[UIImage imageNamed:@"big-portfolio-img3"]];
+    NSArray *arr = [goodInfoM.goodsAttr componentsSeparatedByString:@","];
     for (int i = 0; i < arr.count; i++) {
         NSArray *arr1 = [arr[i] componentsSeparatedByString:@";"];
         if (i == 0) {
@@ -53,17 +134,18 @@
         }
     }
     // 成品0、定制1
-    if ([_paramDic[@"goodsType"] integerValue] == 0) {
+    if ([goodInfoM.goodsType integerValue] == 0) {
         self.typeImgView.image = [UIImage imageNamed:@"iv_finishProduct"];
-    } else if ([_paramDic[@"goodsType"] integerValue] == 1) {
+    } else if ([goodInfoM.goodsType integerValue] == 1) {
         self.typeImgView.image = [UIImage imageNamed:@"im_dingzhi"];
     }
     if (_isSeller) {
-        [self judgeStateWithOrder:[_paramDic[@"orderStauts"] integerValue] shopping:[_paramDic[@"shippingStatus"] integerValue] pay:[_paramDic[@"payStatus"] integerValue]];
+        [self judgeStateWithOrder:[goodInfoM.orderStauts integerValue] shopping:[goodInfoM.shippingStatus integerValue] pay:[goodInfoM.payStatus integerValue]];
     } else {
-        [self judgeBuyerStateWithOrder:[_paramDic[@"orderStauts"] integerValue] shopping:[_paramDic[@"shippingStatus"] integerValue] pay:[_paramDic[@"payStatus"] integerValue]];
+        [self judgeBuyerStateWithOrder:[goodInfoM.orderStauts integerValue] shopping:[goodInfoM.shippingStatus integerValue] pay:[goodInfoM.payStatus integerValue]];
     }
 }
+
 
 #pragma mark - Private method
 /**
@@ -81,22 +163,22 @@
             self.thirdButton.selected = YES;
         } else if (pay == 2) {
             // 成品0、定制1
-            if ([_paramDic[@"goodsType"] integerValue] == 0) { // 成品已支付
+            if ([self.goodsModel.goodsType integerValue] == 0) { // 成品已支付
                 self.finalPayLabel.text      = @"已支付全款";
                 self.finalPayLabel.textColor = WWColor(69, 69, 69);
                 self.secondButton.selected   = YES;
                 [self.secondButton setTitle:@"取消订单" forState:UIControlStateNormal];
-            } else if ([_paramDic[@"goodsType"] integerValue] == 1) {
+            } else if ([self.goodsModel.goodsType integerValue] == 1) {
                 // 判断尾款订单号
-                NSString *orderNo = _paramDic[@"retainageOrderNo"];
-                if ([_paramDic[@"retainage"] floatValue] == -1) { // 未设置尾款
+                NSString *orderNo = self.goodsModel.retainageOrderNo;
+                if ([self.goodsModel.retainage floatValue] == -1) { // 未设置尾款
                     self.finalPaymentText.hidden = NO;
                     self.finalPayLabel.hidden    = YES;
-                } else if([_paramDic[@"retainage"] floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
+                } else if([self.goodsModel.retainage floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
                     self.finalPaymentText.hidden = YES;
                     self.finalPayLabel.hidden    = NO;
                     self.finalPayLabel.textColor = THEME_COLOR;
-                    NSString *string = [NSString stringWithFormat:@"尾款未支付(¥%@)",_paramDic[@"retainage"]];
+                    NSString *string = [NSString stringWithFormat:@"尾款未支付(¥%@)", self.goodsModel.retainage];
                     [self changeStringColor:string];
                 } else if (orderNo.length > 0) { // 尾款已支付
                     self.finalPayLabel.text      = @"已支付全款";
@@ -118,7 +200,8 @@
         self.thirdButton.selected    = YES;
         [self.secondButton setTitle:@"查看物流" forState:UIControlStateNormal];
     } else if (order == 1 && shopping == 2 && pay == 2) { // 已完成
-        if ([_paramDic[@""] integerValue] == 4) {
+        
+        if ([self.goodsModel.refoundStatus integerValue] == 4) {
             // 已退款的完成
             self.finalPayLabel.text = @"已退款";
         } else {
@@ -126,6 +209,7 @@
             self.finalPayLabel.text = @"交易成功";
             self.finalPayLabel.textColor = WWColor(143, 213, 149);
         }
+         
     } else if (order == 2) { // 已取消
         self.finalPayLabel.text     = @"卖家取消";
         self.secondButton.selected  = YES;
@@ -154,22 +238,22 @@
         [self.secondButton setTitle:@"立即发货" forState:UIControlStateNormal];
     } else if (order == 0 && shopping == 0 && pay == 2) { // 待确认
         // 成品0、定制1
-        if ([_paramDic[@"goodsType"] integerValue] == 0) { // 成品已支付
+        if ([self.goodsModel.goodsType integerValue] == 0) { // 成品已支付
             self.finalPayLabel.text      = @"已支付全款";
             self.finalPayLabel.textColor = WWColor(69, 69, 69);
             self.secondButton.selected   = YES;
             [self.secondButton setTitle:@"取消订单" forState:UIControlStateNormal];
-        } else if ([_paramDic[@"goodsType"] integerValue] == 1) {
+        } else if ([self.goodsModel.goodsType integerValue] == 1) {
             // 判断尾款订单号
-            NSString *orderNo = _paramDic[@"retainageOrderNo"];
-            if ([_paramDic[@"retainage"] floatValue] == -1) { // 未设置尾款
+            NSString *orderNo = self.goodsModel.retainageOrderNo;
+            if ([self.goodsModel.retainage floatValue] == -1) { // 未设置尾款
                 self.finalPaymentText.hidden = NO;
                 self.finalPayLabel.hidden    = YES;
-            } else if([_paramDic[@"retainage"] floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
+            } else if([self.goodsModel.retainage floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
                 self.finalPaymentText.hidden = YES;
                 self.finalPayLabel.hidden    = NO;
                 self.finalPayLabel.textColor = THEME_COLOR;
-                NSString *string = [NSString stringWithFormat:@"尾款未支付(¥%@)",_paramDic[@"retainage"]];
+                NSString *string = [NSString stringWithFormat:@"尾款未支付(¥%@)", self.goodsModel.retainage];
                 [self changeStringColor:string];
             } else if (orderNo.length > 0) { // 尾款已支付
                 self.finalPayLabel.text      = @"已支付全款";
@@ -183,7 +267,8 @@
         self.thirdButton.selected    = YES;
         [self.secondButton setTitle:@"查看物流" forState:UIControlStateNormal];
     } else if (order == 1 && shopping == 2 && pay == 2) { // 已完成
-        if ([_paramDic[@""] integerValue] == 4) {
+        
+        if ([self.goodsModel.refoundStatus integerValue] == 4) {
             // 已退款的完成
             self.finalPayLabel.text = @"已退款";
         } else {
@@ -191,6 +276,7 @@
             self.finalPayLabel.text = @"交易成功";
             self.finalPayLabel.textColor = WWColor(143, 213, 149);
         }
+        
     } else if (order == 2) { // 已取消
         self.finalPayLabel.text     = @"卖家取消";
         self.secondButton.selected  = YES;
@@ -249,34 +335,10 @@
     [self.thirdButton setTitle:@"支付尾款" forState:UIControlStateNormal];
 }
 
-/**
- 计算cell高度
- 
- @param content 留言内容
- @return cell动态高度值
- */
-- (CGFloat)calculateCellHeight:(NSString *)content {
-    // 定制需求
-    NSString *string;
-    if (content.length != 0) {
-        string = [NSString stringWithFormat:@"定制需求:%@",content];
-    } else {
-        string = [NSString stringWithFormat:@"定制需求:无"];
-    }
-    self.messgeTextView.text = string;
-    CGSize titleSize         = [string boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-20, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size;
-    if (titleSize.height < 30) {
-        return 210;
-    } else {
-        return 195 + titleSize.height;
-    }
-    return 210;
-}
-
 #pragma mark - Button method
 - (IBAction)cellButtons_action:(UIButton *)sender {
     if (self.buttonBlock && !sender.selected) {
-        self.buttonBlock(sender.tag - 250,self.sectionTag);
+        self.buttonBlock(sender.tag - 250);
     }
 }
 

@@ -15,10 +15,10 @@
  
  @param userID 用户ID
  @param page   页码
- @param responseObject 返回值
+ @param completeBlock 返回值
  */
 + (void)requestForDatasourceWithUser:(NSString *)userID
                                 page:(NSInteger)page
-                      responseObject:(HandlerBlock)responseObject;
+                       completeBlock:(HandlerBlock)completeBlock;
 
 @end
