@@ -19,16 +19,21 @@
  */
 + (void)requestForDatasourceWithUser:(NSString *)userID
                                 page:(NSInteger)page
-                      responseObject:(OrderHandleBlock)responseObject;
+                      responseObject:(HandlerBlock)responseObject
 {
-    NSString *pageStr = [NSString stringWithFormat:@"%ld",page];
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:userID,@"userId",pageStr,@"currentPage", nil];
+    NSDictionary *params = @{@"userId" : userID,
+                             @"currentPage" : @(page)};
     
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"orderInfo_app" paraments:dic finish:^(id responseObject, NSError *error) {
-    
-//        if (self.handleBlock) {
-//            self.handleBlock(responseObject, error);
-//        }
-    }];
+    [[NetWorkTool sharedTool] requestMethod:POST
+                                        URL:api_orderInfo_app
+                                  paraments:params
+                                     finish:^(id responseObject, NSError *error) {
+                                         
+                                         NSLog(@"resop  :%@", responseObject);
+                                         
+                                     }];
 }
+
+
+
 @end

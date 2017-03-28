@@ -12,6 +12,7 @@
 #import "DeliveryView.h"
 #import "DZAlertView.h"
 #import "UIButton+BadgeValue.h"
+#import "OrderHandle.h"
 
 @interface OrderManagerViewController ()
 <UITableViewDelegate,
@@ -304,6 +305,12 @@ UITextFieldDelegate>
  全部订单（卖家）
  */
 - (void)requestForDatasource {
+    
+    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage responseObject:^(id respondsObject, NSError *error) {
+        
+    }];
+    
+    /*
     NSString *page    = [NSString stringWithFormat:@"%ld",_indexPage];
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"10085",@"userId",page,@"currentPage", nil];
     @weakify(self);
@@ -324,6 +331,7 @@ UITextFieldDelegate>
             }
         }
     }];
+     */
 }
 
 

@@ -6,12 +6,19 @@
 //  Copyright © 2017年 wwwwwwww. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "BaseHandler.h"
 
-typedef void(^OrderHandleBlock)(id respondsObject,NSError *error);
+@interface OrderHandle : BaseHandler
 
-@interface OrderHandle : NSObject
-
-
+/**
+ 全部订单（卖家）
+ 
+ @param userID 用户ID
+ @param page   页码
+ @param responseObject 返回值
+ */
++ (void)requestForDatasourceWithUser:(NSString *)userID
+                                page:(NSInteger)page
+                      responseObject:(HandlerBlock)responseObject;
 
 @end
