@@ -21,7 +21,7 @@
                                 page:(NSInteger)page
                       responseObject:(OrderHandleBlock)responseObject;
 {
-    NSString *pageStr    = [NSString stringWithFormat:@"%ld",page];
+    NSString *pageStr = [NSString stringWithFormat:@"%ld",page];
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:userID,@"userId",pageStr,@"currentPage", nil];
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"orderInfo_app" paraments:dic finish:^(id responseObject, NSError *error) {

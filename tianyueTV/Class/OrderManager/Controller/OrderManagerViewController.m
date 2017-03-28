@@ -139,7 +139,7 @@ UITextFieldDelegate>
             [self requestForDatasource];
         } break;
             
-        case 1: { // 代付款
+        case 1: { // 待付款
             [self requestForOrderWithOrder:0 shopping:0 pay:0];
         } break;
             
@@ -195,8 +195,6 @@ UITextFieldDelegate>
         }
     };
 }
-
-
 
 /**
  cell按钮点击事件
