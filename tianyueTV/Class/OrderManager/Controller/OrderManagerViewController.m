@@ -110,7 +110,11 @@ UITextFieldDelegate>
                 [self updateOrderData]; // 卖家刷新其他状态订单
             }
         } else {
-            [self requestForPersonalData]; // 买家刷新全部订单
+            if (_nowButton.tag == 230) {
+                [self requestForPersonalData]; // 买家刷新全部订单
+            } else {
+                [self updateBuyerOrderData]; // 买家刷新其他订单状态
+            }
         }
         
     }];
@@ -138,35 +142,43 @@ UITextFieldDelegate>
     [MBProgressHUD showMessage:@"加载中"];
     switch (sender.tag - 230) {
         case 0: { // 全部订单
-            [self requestForDatasource];
+            if (_isSeller) {
+                [self requestForDatasource];
+            } else {
+                [self requestForPersonalData];
+            }
         } break;
             
-        case 1: { // 代付款
-            [self requestForOrderWithOrder:0 shopping:0 pay:0];
+        case 1: { // 待付款、确认
+            if (_isSeller) {
+                [self requestForOrderWithOrder:0 shopping:0 pay:0];
+            } else {
+                [self requestForBuyerOrderWithOrder:0 shopping:0 pay:0];
+            }
         } break;
             
-        case 2: { // 待确认
-            [self requestForOrderWithOrder:0 shopping:0 pay:2];
+        case 2: { // 待发货
+            if (_isSeller) {
+                [self requestForOrderWithOrder:1 shopping:0 pay:2];
+            } else {
+                [self requestForBuyerOrderWithOrder:1 shopping:0 pay:2];
+            }
         } break;
             
-        case 3: { // 待发货
-            [self requestForOrderWithOrder:1 shopping:0 pay:2];
+        case 3: { // 待收货
+            if (_isSeller) {
+                [self requestForOrderWithOrder:1 shopping:1 pay:2];
+            } else {
+                [self requestForBuyerOrderWithOrder:1 shopping:1 pay:2];
+            }
         } break;
             
-        case 4: { // 待收货
-            [self requestForOrderWithOrder:1 shopping:1 pay:2];
-        } break;
-            
-        case 5: { // 退款
-            [self requestForOrderWithOrder:0 shopping:4 pay:2];
-        } break;
-            
-        case 6: { // 已完成
-            [self requestForOrderWithOrder:1 shopping:2 pay:2];
-        } break;
-            
-        case 7: { // 已取消
-            [self requestForOrderWithOrder:2 shopping:0 pay:0];
+        case 4: { // 退款
+            if (_isSeller) {
+                [self requestForOrderWithOrder:0 shopping:4 pay:2];
+            } else {
+                [self requestForBuyerOrderWithOrder:0 shopping:4 pay:2];
+            }
         } break;
             
         default:
@@ -197,8 +209,6 @@ UITextFieldDelegate>
         }
     };
 }
-
-
 
 /**
  cell按钮点击事件
@@ -424,17 +434,7 @@ UITextFieldDelegate>
         if (respondsObject) {
             
             OrderModel *orderM = (OrderModel *)respondsObject;
-//            NSLog(@"orderM.waitPayCount :%@", orderM.waitPayCount);
-//            
-//            NSLog(@"count  :%d", (int)orderM.orderSnList.count);
-//            
-//            OrderSnModel *snM = orderM.orderSnList[1];
-//            NSLog(@"count2  :%d", (int)snM.goodsList.count);
-//            
-//            GoodsInfoModel *gnM = snM.goodsList[0];
-//            NSLog(@"gnM.orderInfoSn :%@", gnM.orderInfoSn);
-//            NSLog(@"gnM.id :%@", gnM.ID);
-            
+
             if (orderM.orderSnList.count) {
                 [_datasource addObjectsFromArray:orderM.orderSnList];
             }
@@ -445,32 +445,7 @@ UITextFieldDelegate>
 //            }
             
         }
-        
     }];
-    
-    
-    /*
-    NSString *page    = [NSString stringWithFormat:@"%ld",_indexPage];
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"10085",@"userId",page,@"currentPage", nil];
-    @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"orderInfo_app" paraments:dic finish:^(id responseObject, NSError *error) {
-        @strongify(self);
-        [MBProgressHUD hideHUD];
-        [self.tableView.mj_footer endRefreshing];
-        NSLog(@"responseObject %@",responseObject);
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-            NSArray *arr = responseObject[@"orderSnList"];
-            if (arr.count) {
-                [_datasource addObjectsFromArray:responseObject[@"orderSnList"]];
-            }
-//            NSLog(@"_datasource %@",_datasource);
-            [self.tableView reloadData];
-            if (_datasource.count) {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            }
-        }
-    }];
-     */
 }
 
 
@@ -559,7 +534,7 @@ UITextFieldDelegate>
  */
 - (void)requestForPersonalData {
     NSString *page    = [NSString stringWithFormat:@"%ld",_indexPage];
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",page,@"currentPage", nil];
+    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"10085",@"userId",page,@"currentPage", nil];
     @weakify(self);
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"personalOrder_app" paraments:dic finish:^(id responseObject, NSError *error) {
         @strongify(self);
@@ -581,6 +556,68 @@ UITextFieldDelegate>
     }];
 }
 
+/**
+ 根据状态请求订单（买家)
+ 
+ @param order 订单类型
+ @param shopping 购买类型
+ @param pay 支付类型
+ */
+- (void)requestForBuyerOrderWithOrder:(NSInteger)order
+                        shopping:(NSInteger)shopping
+                             pay:(NSInteger)pay {
+    NSString *orderStr    = [NSString stringWithFormat:@"%ld",order];
+    NSString *shoppingStr = [NSString stringWithFormat:@"%ld",shopping];
+    NSString *payStr      = [NSString stringWithFormat:@"%ld",pay];
+    NSString *page        = [NSString stringWithFormat:@"%ld",_indexPage];
+    NSDictionary *dic     = [[NSDictionary alloc] initWithObjectsAndKeys:@"10085",@"userId",page,@"currentPage",orderStr,@"orderStauts",shoppingStr,@"shippingStatus",payStr,@"payStatus", nil];
+    _nowRequestDic = dic;
+    @weakify(self);
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"personalOrder_app" paraments:dic finish:^(id responseObject, NSError *error) {
+        @strongify(self);
+        [MBProgressHUD hideHUD];
+        [self.tableView.mj_footer endRefreshing];
+        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
+            NSArray *arr = responseObject[@"orderSnList"];
+            if (arr.count) {
+                [_datasource addObjectsFromArray:responseObject[@"orderSnList"]];
+            }
+            NSLog(@"_datasource %@",_datasource);
+            [self.tableView reloadData];
+            if (_datasource.count) {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            }
+        } else if ([responseObject[@"ret"] isEqualToString:@"error"]) {
+            [MBProgressHUD showError:@"暂无订单"];
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+/**
+ 上拉加载其他分类订单（买家）
+ */
+- (void)updateBuyerOrderData {
+    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithDictionary:_nowRequestDic];
+    [paramDic setObject:[NSString stringWithFormat:@"%ld",_indexPage] forKey:@"currentPage"];
+    NSLog(@"_nowRequestDic %@",paramDic);
+    @weakify(self);
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"personalOrder_app" paraments:paramDic finish:^(id responseObject, NSError *error) {
+        @strongify(self);
+        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
+            [MBProgressHUD hideHUD];
+            NSLog(@"responseObject %@ error %@",responseObject,error);
+            NSArray *arr = responseObject[@"orderSnList"];
+            if (arr.count) {
+                [_datasource addObjectsFromArray:responseObject[@"orderSnList"]];
+            }
+            NSLog(@"_datasource %@",_datasource);
+            [self.tableView reloadData];
+        } else if ([responseObject[@"ret"] isEqualToString:@"error"]) {
+            
+        }
+    }];
+}
 
 /**
  取消订单（卖家）
