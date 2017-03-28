@@ -54,8 +54,28 @@
         }
         
     }];
-
+    
 }
+
++ (void)requestForOrderWithOrder:(NSInteger)order
+                        shopping:(NSInteger)shopping
+                             pay:(NSInteger)pay
+                          userID:(NSString *)userID
+                            page:(NSInteger)page
+                   completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *params = @{@"orderStauts" : @(order),
+                             @"shippingStatus" : @(shopping),
+                             @"payStatus" : @(pay),
+                             @"userId" : userID,
+                             @"currentPage" : @(page)};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_orderInfo_app paraments:params finish:^(id responseObject, NSError *error) {
+        
+    }];
+    
+}
+
 
 /**
  计算cell高度

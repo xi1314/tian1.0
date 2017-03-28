@@ -436,7 +436,7 @@ UITextFieldDelegate>
             OrderModel *orderM = (OrderModel *)respondsObject;
 
             if (orderM.orderSnList.count) {
-                [_datasource addObjectsFromArray:orderM.orderSnList];
+                [self.datasource addObjectsFromArray:orderM.orderSnList];
             }
             
             [self.tableView reloadData];
@@ -700,17 +700,11 @@ UITextFieldDelegate>
     OrderSnModel *orderSnM = _datasource[indexPath.section];
     GoodsInfoModel *goodsInfoM = orderSnM.goodsList[0];
     [cell configureCell:goodsInfoM];
-    
-    /*
-    cell.paramDic    = _datasource[indexPath.section][@"goodsList"][0];
-    [cell calculateCellHeight:_datasource[indexPath.section][@"goodsList"][0][@"content"]];
-    cell.sectionTag  = indexPath.section;
-    */
-    
+  
     @weakify(self);
     cell.buttonBlock = ^(NSInteger tag) {
         @strongify(self);
-//        [self cellButtons_action:tag sectionTag:indexPath.section];
+
         [self cellButtons_action:tag model:orderSnM];
     };
     return cell;
