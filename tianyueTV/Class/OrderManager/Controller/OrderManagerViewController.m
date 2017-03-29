@@ -61,6 +61,21 @@ UITextFieldDelegate>
  */
 @property (strong, nonatomic) NSMutableArray *datasource;
 
+/**
+ 记录上次请求的订单状态
+ */
+@property (assign, nonatomic) NSInteger orderState;
+
+/**
+ 记录上一次的购买状态
+ */
+@property (assign, nonatomic) NSInteger shoppingState;
+
+/**
+ 记录上一次的支付状态
+ */
+@property (assign, nonatomic) NSInteger payState;
+
 @end
 
 @implementation OrderManagerViewController
@@ -175,9 +190,9 @@ UITextFieldDelegate>
             
         case 4: { // 退款
             if (_isSeller) {
-                [self requestForOrderWithOrder:0 shopping:4 pay:2];
+                [self requestForOrderWithOrder:4 shopping:0 pay:2];
             } else {
-                [self requestForBuyerOrderWithOrder:0 shopping:4 pay:2];
+                [self requestForBuyerOrderWithOrder:4 shopping:0 pay:2];
             }
         } break;
             
@@ -212,103 +227,6 @@ UITextFieldDelegate>
 
 /**
  cell按钮点击事件
-
- @param tag 判断点击哪一个Button 0-2
- @param sectionTag 点击cell的section
- */
-- (void)cellButtons_action:(NSInteger)tag
-                sectionTag:(NSInteger)sectionTag {
-    NSLog(@"sectionTag %ld", sectionTag);
-    NSDictionary *dataDic = _datasource[sectionTag][@"goodsList"][0];
-    UIWindow *window      = [UIApplication sharedApplication].keyWindow;
-    NSInteger order       = [dataDic[@"orderStauts"] integerValue];
-    NSInteger shop        = [dataDic[@"shippingStatus"] integerValue];
-    NSInteger pay         = [dataDic[@"payStatus"] integerValue];
-    if (order == 0 && shop == 0 && pay == 0) { // 代付款
-        if (tag == 1) { // 取消订单
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
-            @weakify(self);
-            [self.alertView initDZAlertViewMessage:@"是否确认取消订单?" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-                NSLog(@"sectionTag %ld",sectionTag);
-                [self requestForCancelOrder:dataDic[@"orderInfoSn"] index:sectionTag];
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-                [MBProgressHUD showMessage:nil];
-            }];
-        }
-    } else if (order == 1 && shop == 0 && pay == 2) { // 待发货
-        if (tag == 1) { // 立即发货
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.deliveryView];
-            @weakify(self);
-            self.deliveryView.buttonBlock = ^(NSInteger tag){
-                @strongify(self);
-                if (tag == 2) { // 取消
-                    [self.deliveryView.companySelect setTitle:@"" forState:UIControlStateNormal];
-                    self.deliveryView.deliveryNumber.text = nil;
-                    [self.baseMaskView removeAllSubviews];
-                    [self.baseMaskView removeFromSuperview];
-                } else if (tag == 3) { // 确定
-                    [self requestForDeliveryInfoWithSection:sectionTag];
-                }
-            };
-        }
-    } else if (order == 0 && shop == 0 && pay == 2) { // 待确认
-        if (tag == 1) { // 取消订单
-            
-        } else if (tag == 2) { // 确认订单，进入待发货
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
-            @weakify(self);
-            [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-
-            }];
-        }
-    } else if (order == 1 && shop == 1 && pay == 2) { // 待收货
-        
-    } else if (order == 1 && shop == 2 && pay == 2) { // 已完成
-        if (tag == 2) {
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
-            @weakify(self);
-            [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-                [self requstForDeleteOrder:sectionTag];
-            }];
-        }
-    } else if (order == 2) { // 已取消
-        if (tag == 2) { // 删除订单
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
-            @weakify(self);
-            [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-                
-            }];
-        }
-    } else if (shop == 4 && pay == 2) { // 退款
-        
-    }
-}
-
-
-/**
- cell按钮点击事件
  
  @param tag 判断点击哪一个Button 0-2
  @param orderSnModel cell对应的model对象
@@ -318,10 +236,11 @@ UITextFieldDelegate>
     
     GoodsInfoModel *goodsInfoModel = orderSnModel.goodsList[0];
 
-    UIWindow *window      = [UIApplication sharedApplication].keyWindow;
-    NSInteger order       = [goodsInfoModel.orderStauts integerValue];
-    NSInteger shop        = [goodsInfoModel.shippingStatus integerValue];
-    NSInteger pay         = [goodsInfoModel.payStatus integerValue];
+    UIWindow *window  = [UIApplication sharedApplication].keyWindow;
+    NSInteger order   = [goodsInfoModel.orderStauts integerValue];
+    NSInteger shop = [goodsInfoModel.shippingStatus integerValue];
+    NSInteger pay  = [goodsInfoModel.payStatus integerValue];
+    int index = (int)[self.datasource indexOfObject:orderSnModel];
     if (order == 0 && shop == 0 && pay == 0) { // 代付款
         if (tag == 1) { // 取消订单
             [window addSubview:self.baseMaskView];
@@ -334,11 +253,21 @@ UITextFieldDelegate>
             } rightHandle:^(UIButton *button) {
                 @strongify(self);
                 
-                int index = (int)[self.datasource indexOfObject:orderSnModel];
                 [self requestForCancelOrder:goodsInfoModel.orderInfoSn index:index];
                 [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
                 [MBProgressHUD showMessage:nil];
+            }];
+        } else if (tag == 2) { // 确认订单，进入待发货
+            [window addSubview:self.baseMaskView];
+            [self.baseMaskView addSubview:self.alertView];
+            @weakify(self);
+            [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+                @strongify(self);
+                [self.baseMaskView removeAllSubviews];
+                [self.baseMaskView removeFromSuperview];
+            } rightHandle:^(UIButton *button) {
+                
             }];
         }
     } else if (order == 1 && shop == 0 && pay == 2) { // 待发货
@@ -354,26 +283,13 @@ UITextFieldDelegate>
                     [self.baseMaskView removeAllSubviews];
                     [self.baseMaskView removeFromSuperview];
                 } else if (tag == 3) { // 确定
-                    
-                    int index = (int)[self.datasource indexOfObject:orderSnModel];
-                    [self requestForDeliveryInfoWithSection:index];
+                    [self.baseMaskView removeAllSubviews];
+                    [self.baseMaskView removeFromSuperview];
+                    [self requestForDeliveryInfoWithOrderID:goodsInfoModel.order_id index:index];
                 }
             };
-        }
-    } else if (order == 0 && shop == 0 && pay == 2) { // 待确认
-        if (tag == 1) { // 取消订单
+        } else {
             
-        } else if (tag == 2) { // 确认订单，进入待发货
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
-            @weakify(self);
-            [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-                
-            }];
         }
     } else if (order == 1 && shop == 1 && pay == 2) { // 待收货
         
@@ -388,7 +304,6 @@ UITextFieldDelegate>
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
                 @strongify(self);
-                int index = (int)[self.datasource indexOfObject:orderSnModel];
                 
                 [self requstForDeleteOrder:index];
             }];
@@ -403,7 +318,8 @@ UITextFieldDelegate>
                 [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
-                
+                @strongify(self);
+                [self requestForDeleteOrderWithOrderSn:goodsInfoModel.orderInfoSn tomato:@"" index:index];
             }];
         }
     } else if (shop == 4 && pay == 2) { // 退款
@@ -418,14 +334,14 @@ UITextFieldDelegate>
     [self.view endEditing:YES];
 }
 
-#pragma mark - Networking method
+#pragma mark - 卖家网络请求
 /**
  全部订单（卖家）
  */
 - (void)requestForDatasource {
     
     @weakify(self);
-    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage completeBlock:^(id respondsObject, NSError *error) {
+    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage urlName:api_orderInfo_app completeBlock:^(id respondsObject, NSError *error) {
         
         @strongify(self);
         [MBProgressHUD hideHUD];
@@ -440,14 +356,9 @@ UITextFieldDelegate>
             }
             
             [self.tableView reloadData];
-//            if (_datasource.count) {
-//                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-//            }
-            
         }
     }];
 }
-
 
 /**
  根据状态请求订单（卖家)
@@ -458,29 +369,29 @@ UITextFieldDelegate>
  */
 - (void)requestForOrderWithOrder:(NSInteger)order
                         shopping:(NSInteger)shopping
-                             pay:(NSInteger)pay {
-    NSString *orderStr    = [NSString stringWithFormat:@"%ld",order];
-    NSString *shoppingStr = [NSString stringWithFormat:@"%ld",shopping];
-    NSString *payStr      = [NSString stringWithFormat:@"%ld",pay];
-    NSString *page        = [NSString stringWithFormat:@"%ld",_indexPage];
-    NSDictionary *dic     = [[NSDictionary alloc] initWithObjectsAndKeys:@"10085",@"userId",page,@"currentPage",orderStr,@"orderStauts",shoppingStr,@"shippingStatus",payStr,@"payStatus", nil];
-    _nowRequestDic = dic;
+                             pay:(NSInteger)pay
+{
+    self.orderState = order;
+    self.shoppingState = shopping;
+    self.payState = pay;
+    
     @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"orderInfo_app" paraments:dic finish:^(id responseObject, NSError *error) {
+    [OrderHandle requestForOrderWithOrder:order shopping:shopping pay:pay userID:@"10085" page:_indexPage urlName:api_orderInfo_app completeBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-            NSArray *arr = responseObject[@"orderSnList"];
-            if (arr.count) {
-                [_datasource addObjectsFromArray:responseObject[@"orderSnList"]];
+        
+        if (respondsObject) {
+            
+            OrderModel *oM = (OrderModel *)respondsObject;
+            
+            if (oM.orderSnList.count) {
+                [self.datasource addObjectsFromArray:oM.orderSnList];
             }
-            NSLog(@"_datasource %@",_datasource);
             [self.tableView reloadData];
-            if (_datasource.count) {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            }
-        } else if ([responseObject[@"ret"] isEqualToString:@"error"]) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            
+        } else {
             [MBProgressHUD showError:@"暂无订单"];
             [self.tableView reloadData];
         }
@@ -492,68 +403,139 @@ UITextFieldDelegate>
  上拉加载其他分类订单（卖家）
  */
 - (void)updateOrderData {
-    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithDictionary:_nowRequestDic];
-    [paramDic setObject:[NSString stringWithFormat:@"%ld",_indexPage] forKey:@"currentPage"];
-    NSLog(@"_nowRequestDic %@",paramDic);
-    @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"orderInfo_app" paraments:paramDic finish:^(id responseObject, NSError *error) {
-        @strongify(self);
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-            [MBProgressHUD hideHUD];
-            NSArray *arr = responseObject[@"orderSnList"];
-            if (arr.count) {
-                [_datasource addObjectsFromArray:responseObject[@"orderSnList"]];
+    [OrderHandle requestForOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState userID:@"10085" page:_indexPage urlName:api_orderInfo_app completeBlock:^(id respondsObject, NSError *error) {
+        [self.tableView.mj_footer endRefreshing];
+        
+        if (respondsObject) {
+            
+            OrderModel *oM = (OrderModel *)respondsObject;
+            
+            if (oM.orderSnList.count) {
+                [self.datasource addObjectsFromArray:oM.orderSnList];
             }
-            NSLog(@"_datasource %@",_datasource);
             [self.tableView reloadData];
-        } else if ([responseObject[@"ret"] isEqualToString:@"error"]) {
-
+            
         }
     }];
 }
 
 /**
- 卖家设置尾款（卖家）
+ 卖家设置尾款
  */
 - (void)requestForFinalPayment {
+    
     NSIndexPath *indexPath = [self.tableView indexPathForCell:_selectedCell];
-    NSString *idStr        = [NSString stringWithFormat:@"%@",_datasource[indexPath.section][@"goodsList"][0][@"order_id"]];
-    NSDictionary *dic      = [NSDictionary dictionaryWithObjectsAndKeys:@"10085",@"user_id",idStr,@"orderId",self.paymentView.priceTextField.text,@"retainage", nil];
+    OrderSnModel *snModel = _datasource[indexPath.section];
+    GoodsInfoModel *goodModle = snModel.goodsList[0];
+    
     @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"setRetainage_app" paraments:dic finish:^(id responseObject, NSError *error) {
+    [OrderHandle requestForFinalPaymentWithUser:@"10085" orderID:goodModle.order_id retainage:self.paymentView.priceTextField.text completeBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
-        NSLog(@"%@",responseObject);
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
+        if (respondsObject) {
+            goodModle.retainage = self.paymentView.priceTextField.text;
+            [self.tableView reloadData];
+            
+            self.paymentView.priceTextField.text = nil;
             [self.baseMaskView removeFromSuperview];
         }
     }];
 }
 
 /**
+ 取消订单（卖家）
+ 
+ @param orderInfo 订单编号
+ @param index cell的tag值，判断第几个cell
+ */
+- (void)requestForCancelOrder:(NSString *)orderInfo
+                        index:(int)index
+{
+    @weakify(self);
+    [OrderHandle requestForCancelOrderWithOrderSn:orderInfo completeBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        [MBProgressHUD hideHUD];
+        if (respondsObject) {
+            [_datasource removeObjectAtIndex:index];
+            [self.tableView reloadData];
+        }
+    }];
+}
+
+/**
+ 快递信息、发货
+
+ @param orderID 点单编号
+ */
+- (void)requestForDeliveryInfoWithOrderID:(NSString *)orderID
+                                    index:(NSInteger)index
+{
+    @weakify(self);
+    [OrderHandle requestForDeliveryInfoWithUSer:@"10085" orderID:orderID companyName:self.deliveryView.companySelect.titleLabel.text deliveryNumber:self.deliveryView.deliveryNumber.text completeBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        if (respondsObject) {
+            [MBProgressHUD showSuccess:@"发货成功"];
+            [_datasource removeObjectAtIndex:index];
+            [self.tableView reloadData];
+        }
+        if (error) {
+            [MBProgressHUD showError:@"发货失败"];
+        }
+        self.deliveryView.deliveryNumber.text = nil;
+        self.deliveryView.companySelect.titleLabel.text = nil;
+        
+    }];
+}
+
+/**
+ 删除订单
+
+ @param orderSn 订单编号
+ @param tomato 1买家取消 2 卖家取消
+ @param index index
+ */
+- (void)requestForDeleteOrderWithOrderSn:(NSString *)orderSn
+                                  tomato:(NSString *)tomato
+                                   index:(int)index
+{
+    @weakify(self);
+    [OrderHandle requestForDeleteOrderWithOrderSn:orderSn tomato:tomato completeBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        if (respondsObject) {
+            [MBProgressHUD showSuccess:@"删除成功"];
+            [_datasource removeObjectAtIndex:index];
+            [self.tableView reloadData];
+            [self.baseMaskView removeAllSubviews];
+            [self.baseMaskView removeFromSuperview];
+        } else {
+            [MBProgressHUD showError:@"删除失败"];
+        }
+    }];
+}
+
+#pragma mark - 买家网络请求
+/**
  全部订单（买家）
  */
 - (void)requestForPersonalData {
-    NSString *page    = [NSString stringWithFormat:@"%ld",_indexPage];
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"10085",@"userId",page,@"currentPage", nil];
     @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"personalOrder_app" paraments:dic finish:^(id responseObject, NSError *error) {
+    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage urlName:api_personalOrder_app completeBlock:^(id respondsObject, NSError *error) {
+        
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
-        NSLog(@"responseObject %@",responseObject);
-        NSLog(@"error %@",error);
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-            NSArray *arr = responseObject[@"orderSnList"];
-            if (arr.count) {
-                [_datasource addObjectsFromArray:responseObject[@"orderSnList"]];
+        
+        if (respondsObject) {
+            
+            OrderModel *orderM = (OrderModel *)respondsObject;
+            
+            if (orderM.orderSnList.count) {
+                [self.datasource addObjectsFromArray:orderM.orderSnList];
             }
-//            NSLog(@"_datasource %@",_datasource);
+            
             [self.tableView reloadData];
-            if (_datasource.count) {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            }
         }
     }];
+     
 }
 
 /**
@@ -566,28 +548,28 @@ UITextFieldDelegate>
 - (void)requestForBuyerOrderWithOrder:(NSInteger)order
                         shopping:(NSInteger)shopping
                              pay:(NSInteger)pay {
-    NSString *orderStr    = [NSString stringWithFormat:@"%ld",order];
-    NSString *shoppingStr = [NSString stringWithFormat:@"%ld",shopping];
-    NSString *payStr      = [NSString stringWithFormat:@"%ld",pay];
-    NSString *page        = [NSString stringWithFormat:@"%ld",_indexPage];
-    NSDictionary *dic     = [[NSDictionary alloc] initWithObjectsAndKeys:@"10085",@"userId",page,@"currentPage",orderStr,@"orderStauts",shoppingStr,@"shippingStatus",payStr,@"payStatus", nil];
-    _nowRequestDic = dic;
+    self.orderState = order;
+    self.shoppingState = shopping;
+    self.payState = pay;
+    
     @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"personalOrder_app" paraments:dic finish:^(id responseObject, NSError *error) {
+    [OrderHandle requestForOrderWithOrder:order shopping:shopping pay:pay userID:@"10085" page:_indexPage urlName:api_personalOrder_app completeBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-            NSArray *arr = responseObject[@"orderSnList"];
-            if (arr.count) {
-                [_datasource addObjectsFromArray:responseObject[@"orderSnList"]];
+        
+        if (respondsObject) {
+            NSLog(@"respondsObject %@",respondsObject);
+            OrderModel *oM = (OrderModel *)respondsObject;
+            
+            if (oM.orderSnList.count) {
+                [self.datasource addObjectsFromArray:oM.orderSnList];
+                
             }
-            NSLog(@"_datasource %@",_datasource);
             [self.tableView reloadData];
-            if (_datasource.count) {
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            }
-        } else if ([responseObject[@"ret"] isEqualToString:@"error"]) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            
+        } else {
             [MBProgressHUD showError:@"暂无订单"];
             [self.tableView reloadData];
         }
@@ -598,73 +580,22 @@ UITextFieldDelegate>
  上拉加载其他分类订单（买家）
  */
 - (void)updateBuyerOrderData {
-    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithDictionary:_nowRequestDic];
-    [paramDic setObject:[NSString stringWithFormat:@"%ld",_indexPage] forKey:@"currentPage"];
-    NSLog(@"_nowRequestDic %@",paramDic);
-    @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"personalOrder_app" paraments:paramDic finish:^(id responseObject, NSError *error) {
-        @strongify(self);
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-            [MBProgressHUD hideHUD];
-            NSLog(@"responseObject %@ error %@",responseObject,error);
-            NSArray *arr = responseObject[@"orderSnList"];
-            if (arr.count) {
-                [_datasource addObjectsFromArray:responseObject[@"orderSnList"]];
+    [OrderHandle requestForOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState userID:@"10085" page:_indexPage urlName:api_personalOrder_app completeBlock:^(id respondsObject, NSError *error) {
+        [self.tableView.mj_footer endRefreshing];
+        
+        if (respondsObject) {
+            
+            OrderModel *oM = (OrderModel *)respondsObject;
+            
+            if (oM.orderSnList.count) {
+                [self.datasource addObjectsFromArray:oM.orderSnList];
             }
-            NSLog(@"_datasource %@",_datasource);
             [self.tableView reloadData];
-        } else if ([responseObject[@"ret"] isEqualToString:@"error"]) {
             
         }
     }];
 }
 
-/**
- 取消订单（卖家）
-
- @param orderInfo 订单编号
- @param index cell的tag值，判断第几个cell
- */
-- (void)requestForCancelOrder:(NSString *)orderInfo
-                        index:(int)index {
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:orderInfo,@"orderInfoSn", nil];
-    @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"updateOrderStatus_app" paraments:dic finish:^(id responseObject, NSError *error) {
-        NSLog(@"--- %@",responseObject);
-        @strongify(self);
-        [MBProgressHUD hideHUD];
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-            [_datasource removeObjectAtIndex:index];
-            [self.tableView reloadData];
-        }
-    }];
-}
-
-
-/**
- 快递信息、发货
-
- @param section cell的tag值
- */
-- (void)requestForDeliveryInfoWithSection:(NSInteger)section {
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"10085",@"user_id",_datasource[section][@"goodsList"][0][@"order_id"],@"id",self.deliveryView.companySelect.titleLabel.text,@"shipping_name",self.deliveryView.deliveryNumber.text,@"shipping_no", nil];
-    @weakify(self);
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"sureSendGoods_app" paraments:dic finish:^(id responseObject, NSError *error) {
-        @strongify(self);
-        NSLog(@"%@",responseObject);
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-            [self.baseMaskView removeFromSuperview];
-            [_datasource removeObjectAtIndex:section];
-            [self.tableView reloadData];
-        }
-        if (error) {
-            [self.baseMaskView removeFromSuperview];
-            [MBProgressHUD showError:@"发货失败"];
-        }
-        self.deliveryView.deliveryNumber.text = nil;
-        self.deliveryView.companySelect.titleLabel.text = nil;
-    }];
-}
 
 /**
  删除订单

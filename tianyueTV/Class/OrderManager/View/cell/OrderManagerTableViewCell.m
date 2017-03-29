@@ -209,7 +209,7 @@
         }
          
     } else if (order == 2) { // 已取消
-        self.finalPayLabel.text     = @"卖家取消";
+        self.finalPayLabel.text     = @"已取消";
         self.secondButton.selected  = YES;
         [self.thirdButton setTitle:@"删除订单" forState:UIControlStateNormal];
     } else if (shopping == 4 && pay == 2) { // 退款
@@ -225,61 +225,28 @@
  @param pay      支付状态
  */
 - (void)judgeBuyerStateWithOrder:(NSInteger)order shopping:(NSInteger)shopping pay:(NSInteger)pay {
-
-    if (order == 0 && shopping == 0 && pay == 0) { // 代付款
-        self.finalPayLabel.text = @"等待买家支付";
-        // 按钮状态
-        self.thirdButton.selected = YES;
-    } else if (order == 1 && shopping == 0 && pay == 2) { // 待发货
-        self.finalPayLabel.text = @"已支付全款";
-        self.finalPayLabel.textColor = WWColor(69, 69, 69);
-        self.thirdButton.selected = YES;
-        [self.secondButton setTitle:@"立即发货" forState:UIControlStateNormal];
-    } else if (order == 0 && shopping == 0 && pay == 2) { // 待确认
-        // 成品0、定制1
-        if ([self.goodsModel.goodsType integerValue] == 0) { // 成品已支付
-            self.finalPayLabel.text      = @"已支付全款";
-            self.finalPayLabel.textColor = WWColor(69, 69, 69);
-            self.secondButton.selected   = YES;
-            [self.secondButton setTitle:@"取消订单" forState:UIControlStateNormal];
-        } else if ([self.goodsModel.goodsType integerValue] == 1) {
-            // 判断尾款订单号
-            NSString *orderNo = self.goodsModel.retainageOrderNo;
-            if ([self.goodsModel.retainage floatValue] == -1) { // 未设置尾款
-                self.finalPaymentText.hidden = NO;
-                self.finalPayLabel.hidden    = YES;
-            } else if([self.goodsModel.retainage floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
-                self.finalPaymentText.hidden = YES;
-                self.finalPayLabel.hidden    = NO;
-                self.finalPayLabel.textColor = THEME_COLOR;
-                NSString *string = [NSString stringWithFormat:@"尾款未支付(¥%@)", self.goodsModel.retainage];
-                [self changeStringColor:string];
-            } else if (orderNo.length > 0) { // 尾款已支付
-                self.finalPayLabel.text      = @"已支付全款";
-                self.finalPayLabel.textColor = WWColor(69, 69, 69);
-/*
+    
     if (order == 0 && shopping == 0) { // 代付款
         if (pay == 0) { // 未支付
-            self.finalPayLabel.text = [NSString stringWithFormat:@"未付款(¥%@)",_paramDic[@"goodsPrice"]];
+            self.finalPayLabel.text = [NSString stringWithFormat:@"未付款(¥%@)", self.goodsModel.goodsPrice];
             [self.secondButton setTitle:@"取消订单" forState:UIControlStateNormal];
         } else if (pay == 2) { //已支付全款或订金
             // 成品0、定制1
-            if ([_paramDic[@"goodsType"] integerValue] == 0) { // 成品已支付
+            if ([self.goodsModel.goodsType integerValue] == 0) { // 成品已支付
                 self.finalPayLabel.text   = @"已支付全款";
                 self.thirdButton.selected = YES;
-            } else if ([_paramDic[@"goodsType"] integerValue] == 1) {
+            } else if ([self.goodsModel.goodsType integerValue] == 1) {
                 // 判断尾款订单号
-                NSString *orderNo = _paramDic[@"retainageOrderNo"];
-                if ([_paramDic[@"retainage"] floatValue] == -1) { // 未设置尾款
+                NSString *orderNo = self.goodsModel.retainageOrderNo;
+                if ([self.goodsModel.retainage floatValue] == -1) { // 未设置尾款
                     self.finalPayLabel.text   = @"未设置尾款";
                     self.thirdButton.selected = YES;
-                } else if([_paramDic[@"retainage"] floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
-                    self.finalPayLabel.text = [NSString stringWithFormat:@"尾款未支付(¥%@)",_paramDic[@"retainage"]];
+                } else if([self.goodsModel.retainage floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
+                    self.finalPayLabel.text = [NSString stringWithFormat:@"尾款未支付(¥%@)",self.goodsModel.retainage];
                 } else if (orderNo.length > 0) { // 尾款已支付
-                    self.finalPayLabel.text      = [NSString stringWithFormat:@"已支付尾款(¥%@)",_paramDic[@"retainage"]];
+                    self.finalPayLabel.text      = [NSString stringWithFormat:@"已支付尾款(¥%@)",self.goodsModel.retainage];
                     self.thirdButton.selected = YES;
                 }
-*/
             }
         }
     } else if (order == 1 && shopping == 0 && pay == 2) { // 待发货
@@ -290,7 +257,6 @@
         [self.secondButton setTitle:@"查看物流" forState:UIControlStateNormal];
         [self.thirdButton setTitle:@"确认收货" forState:UIControlStateNormal];
     } else if (order == 1 && shopping == 2 && pay == 2) { // 已完成
-        
         if ([self.goodsModel.refoundStatus integerValue] == 4) {
             // 已退款的完成
             self.finalPayLabel.text = @"已退款";
@@ -299,7 +265,6 @@
             self.finalPayLabel.text = @"交易成功";
             self.finalPayLabel.textColor = WWColor(143, 213, 149);
         }
-        
     } else if (order == 2) { // 已取消
         self.finalPayLabel.text     = @"已取消";
         self.secondButton.selected  = YES;

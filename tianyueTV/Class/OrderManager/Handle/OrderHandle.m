@@ -16,16 +16,18 @@
  
  @param userID 用户ID
  @param page   页码
+ @param urlName 接口名称
  @param completeBlock 返回值
  */
 + (void)requestForDatasourceWithUser:(NSString *)userID
                                 page:(NSInteger)page
+                             urlName:(NSString *)urlName
                        completeBlock:(HandlerBlock)completeBlock
 {
     NSDictionary *params = @{@"userId" : userID,
                              @"currentPage" : @(page)};
 
-    [[NetWorkTool sharedTool] requestMethod:POST URL:api_orderInfo_app paraments:params finish:^(id responseObject, NSError *error) {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:urlName paraments:params finish:^(id responseObject, NSError *error) {
         
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[RET] isEqualToString:SUCCESS]) {
@@ -57,11 +59,23 @@
     
 }
 
+/**
+ 根据状态请求订单
+
+ @param order 订单状态
+ @param shopping 购买状态
+ @param pay 支付状态
+ @param userID 用户id
+ @param page 页码，默认为1
+ @param urlName 接口名称
+ @param completeBlock 返回值
+ */
 + (void)requestForOrderWithOrder:(NSInteger)order
                         shopping:(NSInteger)shopping
                              pay:(NSInteger)pay
                           userID:(NSString *)userID
                             page:(NSInteger)page
+                         urlName:(NSString *)urlName
                    completeBlock:(HandlerBlock)completeBlock
 {
     NSDictionary *params = @{@"orderStauts" : @(order),
@@ -70,8 +84,31 @@
                              @"userId" : userID,
                              @"currentPage" : @(page)};
     
-    [[NetWorkTool sharedTool] requestMethod:POST URL:api_orderInfo_app paraments:params finish:^(id responseObject, NSError *error) {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:urlName paraments:params finish:^(id responseObject, NSError *error) {
+        NSLog(@"respondsObject %@",responseObject);
+        NSDictionary *dic = (NSDictionary *)responseObject;
         
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            OrderModel *orderModle = [OrderModel mj_objectWithKeyValues:dic];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                if (orderModle.orderSnList.count) {
+                    for (int i = 0; i < orderModle.orderSnList.count; i++) {
+                        OrderSnModel *snModle = orderModle.orderSnList[i];
+                        GoodsInfoModel *infoModle = snModle.goodsList[0];
+                        
+                        OrderHandle *handle = [[OrderHandle alloc] init];
+                        infoModle.cellHeight = [handle calculateCellHeight:infoModle.content];
+                    }
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completeBlock(orderModle,nil);
+                });
+            });
+            
+        } else {
+            completeBlock(nil, error);
+        }
     }];
     
 }
@@ -100,5 +137,111 @@
     }
     return 210;
 }
+
+/**
+ 卖家设置尾款
+
+ @param user 用户ID
+ @param orderID 订单ID
+ @param retainage 尾款价格
+ */
++ (void)requestForFinalPaymentWithUser:(NSString *)user
+                               orderID:(NSString *)orderID
+                             retainage:(NSString *)retainage
+                         completeBlock:(HandlerBlock)completeBlock
+{
+    
+    
+    NSDictionary *dic = @{@"user_id":user,
+                          @"orderId":orderID,
+                          @"retainage":retainage};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_setRetainage_app paraments:dic finish:^(id responseObject, NSError *error) {
+        if ([responseObject[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject,nil);
+        } else {
+            completeBlock(nil,error);
+        }
+    }];
+}
+
+/**
+ 取消订单
+
+ @param orderSn 订单编号
+ @param completeBlock 返回值
+ */
++ (void)requestForCancelOrderWithOrderSn:(NSString *)orderSn
+                           completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"orderInfoSn":orderSn};
+
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_updateOrderStatus_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject,nil);
+        } else {
+            completeBlock(nil,responseObject);
+        }
+    }];
+}
+
+/**
+ 设置物流信息
+
+ @param user userID
+ @param orderID 订单编号
+ @param companyName 物流公司名称
+ @param deliveryNumber 物流单号
+ @param completeBlock 返回值
+ */
++ (void)requestForDeliveryInfoWithUSer:(NSString *)user
+                               orderID:(NSString *)orderID
+                           companyName:(NSString *)companyName
+                        deliveryNumber:(NSString *)deliveryNumber
+                         completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"user_id":user,
+                          @"id":orderID,
+                          @"shipping_name":companyName,
+                          @"shipping_no":deliveryNumber};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_sureSendGoods_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSLog(@"responseObject %@",responseObject);
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject,nil);
+        } else {
+            completeBlock(responseObject,error);
+        }
+        
+    }];
+}
+
+/**
+ 删除订单
+
+ @param orderSn 订单编号
+ @param tomato 1买家取消 2卖家取消
+ @param completeVlock 返回值
+ */
++ (void)requestForDeleteOrderWithOrderSn:(NSString *)orderSn
+                                  tomato:(NSString *)tomato
+                           completeBlock:(HandlerBlock)completeVlock
+{
+    NSDictionary *dic = @{@"orderInfoSn":orderSn,
+                          @"tomato":tomato};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_DedeletOrder_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeVlock(responseObject,nil);
+        } else {
+            completeVlock(nil,error);
+        }
+    }];
+}
+
+
 
 @end
