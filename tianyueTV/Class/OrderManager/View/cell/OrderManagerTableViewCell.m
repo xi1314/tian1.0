@@ -175,9 +175,9 @@
                     self.finalPaymentText.hidden = NO;
                     self.finalPayLabel.hidden    = YES;
                 } else if([self.goodsModel.retainage floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
-                    self.finalPaymentText.hidden = YES;
-                    self.finalPayLabel.hidden    = NO;
-                    self.finalPayLabel.textColor = THEME_COLOR;
+//                    self.finalPaymentText.hidden = YES;
+//                    self.finalPayLabel.hidden    = NO;
+//                    self.finalPayLabel.textColor = THEME_COLOR;
                     NSString *string = [NSString stringWithFormat:@"尾款未支付(¥%@)", self.goodsModel.retainage];
                     [self changeStringColor:string];
                 } else if (orderNo.length > 0) { // 尾款已支付
@@ -240,13 +240,12 @@
                 NSString *orderNo = self.goodsModel.retainageOrderNo;
                 if ([self.goodsModel.retainage floatValue] == -1) { // 未设置尾款
                     self.finalPayLabel.text   = @"未设置尾款";
-                    self.thirdButton.selected = YES;
                 } else if([self.goodsModel.retainage floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
                     self.finalPayLabel.text = [NSString stringWithFormat:@"尾款未支付(¥%@)",self.goodsModel.retainage];
                 } else if (orderNo.length > 0) { // 尾款已支付
-                    self.finalPayLabel.text      = [NSString stringWithFormat:@"已支付尾款(¥%@)",self.goodsModel.retainage];
-                    self.thirdButton.selected = YES;
+                    self.finalPayLabel.text = [NSString stringWithFormat:@"已支付尾款(¥%@)",self.goodsModel.retainage];
                 }
+                self.thirdButton.selected = YES;
             }
         }
     } else if (order == 1 && shopping == 0 && pay == 2) { // 待发货

@@ -21,7 +21,7 @@ UITableViewDataSource,
 UITextFieldDelegate>
 
 {
-    NSInteger _indexPage;                      // 页码
+//    NSInteger _indexPage;                      // 页码
     UIButton *_nowButton;                      // 当前选择按钮（顶部）
     OrderManagerTableViewCell *_selectedCell;  // 选择的cell
 }
@@ -76,6 +76,11 @@ UITextFieldDelegate>
  */
 @property (assign, nonatomic) NSInteger payState;
 
+/**
+ 页码
+ */
+@property (assign, nonatomic) NSInteger indexPage;
+
 @end
 
 @implementation OrderManagerViewController
@@ -117,18 +122,20 @@ UITextFieldDelegate>
     @weakify(self);
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
-        _indexPage += 1;
+        self.indexPage += 1;
         if (_isSeller) {
             if (_nowButton.tag == 230) {
                 [self requestForDatasource]; // 卖家刷新全部订单
             } else {
-                [self updateOrderData]; // 卖家刷新其他状态订单
+                [self requestForOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState];
+//                [self updateOrderData]; // 卖家刷新其他状态订单
             }
         } else {
             if (_nowButton.tag == 230) {
                 [self requestForPersonalData]; // 买家刷新全部订单
             } else {
-                [self updateBuyerOrderData]; // 买家刷新其他订单状态
+                [self requestForBuyerOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState];
+//                [self updateBuyerOrderData]; // 买家刷新其他订单状态
             }
         }
         
@@ -150,7 +157,6 @@ UITextFieldDelegate>
         return;
     }
     _indexPage          = 1;
-    _datasource         = [NSMutableArray array];
     sender.selected     = YES;
     _nowButton.selected = NO;
     _nowButton          = sender;
@@ -158,6 +164,7 @@ UITextFieldDelegate>
     switch (sender.tag - 230) {
         case 0: { // 全部订单
             if (_isSeller) {
+                
                 [self requestForDatasource];
             } else {
                 [self requestForPersonalData];
@@ -241,7 +248,7 @@ UITextFieldDelegate>
     NSInteger shop = [goodsInfoModel.shippingStatus integerValue];
     NSInteger pay  = [goodsInfoModel.payStatus integerValue];
     int index = (int)[self.datasource indexOfObject:orderSnModel];
-    if (order == 0 && shop == 0 && pay == 0) { // 代付款
+    if (order == 0 && shop == 0) { // 代付款
         if (tag == 1) { // 取消订单
             [window addSubview:self.baseMaskView];
             [self.baseMaskView addSubview:self.alertView];
@@ -348,15 +355,19 @@ UITextFieldDelegate>
         [self.tableView.mj_footer endRefreshing];
         
         if (respondsObject) {
+            if (_indexPage == 1) {
+                self.datasource = [NSMutableArray array];
+            }
             
             OrderModel *orderM = (OrderModel *)respondsObject;
-
+    
             if (orderM.orderSnList.count) {
                 [self.datasource addObjectsFromArray:orderM.orderSnList];
             }
-            
-            [self.tableView reloadData];
         }
+        
+        [self.tableView reloadData];
+        
     }];
 }
 
@@ -382,39 +393,29 @@ UITextFieldDelegate>
         [self.tableView.mj_footer endRefreshing];
         
         if (respondsObject) {
-            
             OrderModel *oM = (OrderModel *)respondsObject;
-            
-            if (oM.orderSnList.count) {
-                [self.datasource addObjectsFromArray:oM.orderSnList];
+            if (_indexPage == 1) { // 第一次网络请求，清空数据源
+                self.datasource = [NSMutableArray array];
+                
+                if (oM.orderSnList.count) {
+                    [self.datasource addObjectsFromArray:oM.orderSnList];
+                }
+                [self.tableView reloadData];
+                // 回到顶部cell
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            } else {
+                
+                if (oM.orderSnList.count) {
+                    [self.datasource addObjectsFromArray:oM.orderSnList];
+                }
+                [self.tableView reloadData];
             }
-            [self.tableView reloadData];
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
             
         } else {
-            [MBProgressHUD showError:@"暂无订单"];
-            [self.tableView reloadData];
-        }
-    }];
-}
-
-
-/**
- 上拉加载其他分类订单（卖家）
- */
-- (void)updateOrderData {
-    [OrderHandle requestForOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState userID:@"10085" page:_indexPage urlName:api_orderInfo_app completeBlock:^(id respondsObject, NSError *error) {
-        [self.tableView.mj_footer endRefreshing];
-        
-        if (respondsObject) {
-            
-            OrderModel *oM = (OrderModel *)respondsObject;
-            
-            if (oM.orderSnList.count) {
-                [self.datasource addObjectsFromArray:oM.orderSnList];
+            if (_indexPage == 1) {
+                [MBProgressHUD showError:@"暂无订单"];
             }
             [self.tableView reloadData];
-            
         }
     }];
 }
@@ -525,7 +526,9 @@ UITextFieldDelegate>
         [self.tableView.mj_footer endRefreshing];
         
         if (respondsObject) {
-            
+            if (_indexPage == 1) {
+                self.datasource = [NSMutableArray array];
+            }
             OrderModel *orderM = (OrderModel *)respondsObject;
             
             if (orderM.orderSnList.count) {
@@ -562,36 +565,27 @@ UITextFieldDelegate>
             NSLog(@"respondsObject %@",respondsObject);
             OrderModel *oM = (OrderModel *)respondsObject;
             
-            if (oM.orderSnList.count) {
-                [self.datasource addObjectsFromArray:oM.orderSnList];
-                
+            if (_indexPage == 1) {
+                self.datasource = [NSMutableArray array];
+                if (oM.orderSnList.count) {
+                    [self.datasource addObjectsFromArray:oM.orderSnList];
+                    
+                }
+                [self.tableView reloadData];
+                // 回到第一个cell
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+            } else {
+                if (oM.orderSnList.count) {
+                    [self.datasource addObjectsFromArray:oM.orderSnList];
+                    
+                }
+                [self.tableView reloadData];
             }
-            [self.tableView reloadData];
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            
         } else {
-            [MBProgressHUD showError:@"暂无订单"];
-            [self.tableView reloadData];
-        }
-    }];
-}
-
-/**
- 上拉加载其他分类订单（买家）
- */
-- (void)updateBuyerOrderData {
-    [OrderHandle requestForOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState userID:@"10085" page:_indexPage urlName:api_personalOrder_app completeBlock:^(id respondsObject, NSError *error) {
-        [self.tableView.mj_footer endRefreshing];
-        
-        if (respondsObject) {
-            
-            OrderModel *oM = (OrderModel *)respondsObject;
-            
-            if (oM.orderSnList.count) {
-                [self.datasource addObjectsFromArray:oM.orderSnList];
+            if (_indexPage == 1) {
+                [MBProgressHUD showError:@"暂无订单"];
             }
             [self.tableView reloadData];
-            
         }
     }];
 }
