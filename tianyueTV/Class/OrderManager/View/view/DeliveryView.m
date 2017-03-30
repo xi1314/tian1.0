@@ -8,8 +8,15 @@
 
 #import "DeliveryView.h"
 
-@interface DeliveryView()<UITableViewDelegate,UITableViewDataSource>
+@interface DeliveryView()
+<UITableViewDelegate,
+UITableViewDataSource>
+
+/**
+ 数据源
+ */
 @property (strong, nonatomic) NSArray *dataSource;
+
 @end
 
 @implementation DeliveryView
@@ -34,7 +41,7 @@
 }
 
 
-#pragma mark -- Button method
+#pragma mark - Button method
 - (IBAction)deliveryButtons_action:(UIButton *)sender {
     //选择物流公司，展开tableview
     if (sender.tag == 260 || sender.tag == 261) {
@@ -51,7 +58,7 @@
     }
 }
 
-#pragma mark -- UITableViewDelegate,UITableViewDataSource
+#pragma mark - UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _dataSource.count;
 }

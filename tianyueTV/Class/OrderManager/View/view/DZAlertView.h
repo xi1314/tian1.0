@@ -15,6 +15,16 @@ typedef void(^HandleBlock)(UIButton *button);
 @interface DZAlertView : UIView
 
 + (instancetype)shareDZAlertViewInstanceType;
--(void)initDZAlertViewMessage:(NSString *)message leftTitle:(NSString *)leftTitle rightTitle:(NSString *)rightTitle leftHandle:(LeftHandleBlock)leftHandle rightHandle:(RightHandleBlock)rightHandle;
+
+/**
+ 自定义弹框
+
+ @param message 提示内容
+ @param leftTitle 左按钮title
+ @param rightTitle 右按钮title
+ @param leftHandle 左按钮点击操作
+ @param rightHandle 右按钮点击操作
+ */
+- (void)initDZAlertViewMessage:(NSString *)message leftTitle:(NSString *)leftTitle rightTitle:(NSString *)rightTitle leftHandle:(LeftHandleBlock)leftHandle rightHandle:(RightHandleBlock)rightHandle;
 
 @end

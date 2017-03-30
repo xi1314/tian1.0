@@ -255,34 +255,10 @@ UITextFieldDelegate>
     int index = (int)[self.datasource indexOfObject:orderSnModel];
     if (order == 0 && shop == 0) { // 代付款
         if (tag == 1) { // 取消订单
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
             if (pay != 0 && !self.isSeller) { // 买家申请退款
-                @weakify(self);
-                [self.alertView initDZAlertViewMessage:@"申请退款后，钱款将全额退还，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                    @strongify(self);
-                    [self.baseMaskView removeAllSubviews];
-                    [self.baseMaskView removeFromSuperview];
-                } rightHandle:^(UIButton *button) {
-                    @strongify(self);
-                    [self applyOrderRefoudWithOrderSn:goodsInfoModel.orderInfoSn];
-                    [self.baseMaskView removeAllSubviews];
-                    [self.baseMaskView removeFromSuperview];
-                    [MBProgressHUD showMessage:nil];
-                }];
+                [self applyOrderRefoudWithOrderSn:goodsInfoModel.orderInfoSn index:index];
             } else { // 取消订单
-                @weakify(self);
-                [self.alertView initDZAlertViewMessage:@"是否确认取消订单?" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                    @strongify(self);
-                    [self.baseMaskView removeAllSubviews];
-                    [self.baseMaskView removeFromSuperview];
-                } rightHandle:^(UIButton *button) {
-                    @strongify(self);
-                    [self requestForCancelOrder:goodsInfoModel.orderInfoSn index:index];
-                    [self.baseMaskView removeAllSubviews];
-                    [self.baseMaskView removeFromSuperview];
-                    [MBProgressHUD showMessage:nil];
-                }];
+                [self requestForCancelOrder:goodsInfoModel.orderInfoSn index:index];
             }
         } else if (tag == 2) {
             if (_isSeller) { // 确认订单，进入待发货
@@ -306,31 +282,42 @@ UITextFieldDelegate>
             }
         }
     } else if (order == 1 && shop == 0 && pay == 2) { // 待发货
-        if (tag == 1) { // 立即发货
+        if (tag == 1) {
+            if (_isSeller) { // 立即发货
+                [window addSubview:self.baseMaskView];
+                [self.baseMaskView addSubview:self.deliveryView];
+                @weakify(self);
+                self.deliveryView.buttonBlock = ^(NSInteger tag){
+                    @strongify(self);
+                    if (tag == 2) { // 取消
+                        [self.deliveryView.companySelect setTitle:@"" forState:UIControlStateNormal];
+                        self.deliveryView.deliveryNumber.text = nil;
+                        [self.baseMaskView removeAllSubviews];
+                        [self.baseMaskView removeFromSuperview];
+                    } else if (tag == 3) { // 确定
+                        [self.baseMaskView removeAllSubviews];
+                        [self.baseMaskView removeFromSuperview];
+                        [self requestForDeliveryInfoWithOrderID:goodsInfoModel.order_id index:index];
+                    }
+                };
+            } else { // 申请退款
+                [self applyOrderRefoudWithOrderSn:goodsInfoModel.orderInfoSn index:index];
+            }
+        }
+        if (tag == 2) { // 延长发货
             [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.deliveryView];
-            @weakify(self);
-            self.deliveryView.buttonBlock = ^(NSInteger tag){
-                @strongify(self);
-                if (tag == 2) { // 取消
-                    [self.deliveryView.companySelect setTitle:@"" forState:UIControlStateNormal];
-                    self.deliveryView.deliveryNumber.text = nil;
-                    [self.baseMaskView removeAllSubviews];
-                    [self.baseMaskView removeFromSuperview];
-                } else if (tag == 3) { // 确定
-                    [self.baseMaskView removeAllSubviews];
-                    [self.baseMaskView removeFromSuperview];
-                    [self requestForDeliveryInfoWithOrderID:goodsInfoModel.order_id index:index];
-                }
-            };
-        } else {
-            
+            [self.baseMaskView addSubview:self.alertView];
+            [self.alertView initDZAlertViewMessage:@"是否延长发货时间" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+                [self.baseMaskView removeAllSubviews];
+                [self.baseMaskView removeFromSuperview];
+            } rightHandle:^(UIButton *button) {
+                
+            }];
         }
     } else if (order == 1 && shop == 1 && pay == 2) { // 待收货
         if (tag == 1) { // 查看物流
             
         }
-        
     } else if (order == 1 && shop == 2 && pay == 2) { // 已完成
         if (tag == 2) {
             [window addSubview:self.baseMaskView];
@@ -342,7 +329,6 @@ UITextFieldDelegate>
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
                 @strongify(self);
-                
                 [self requstForDeleteOrder:index];
             }];
         }
@@ -527,14 +513,25 @@ UITextFieldDelegate>
 - (void)requestForCancelOrder:(NSString *)orderInfo
                         index:(int)index
 {
+    
     @weakify(self);
-    [OrderHandle requestForCancelOrderWithOrderSn:orderInfo completeBlock:^(id respondsObject, NSError *error) {
+    [self.alertView initDZAlertViewMessage:@"是否确认取消订单?" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
         @strongify(self);
-        [MBProgressHUD hideHUD];
-        if (respondsObject) {
-            [_datasource removeObjectAtIndex:index];
-            [self.tableView reloadData];
-        }
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+    } rightHandle:^(UIButton *button) {
+        @strongify(self);
+        [OrderHandle requestForCancelOrderWithOrderSn:orderInfo completeBlock:^(id respondsObject, NSError *error) {
+            @strongify(self);
+            [MBProgressHUD hideHUD];
+            if (respondsObject) {
+                [_datasource removeObjectAtIndex:index];
+                [self.tableView reloadData];
+            }
+        }];
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+        [MBProgressHUD showMessage:nil];
     }];
 }
 
@@ -667,13 +664,38 @@ UITextFieldDelegate>
     }];
 }
 
-- (void)applyOrderRefoudWithOrderSn:(NSString *)orderSn {
-    [OrderHandle requestForApplyRefoundWithOrderSn:orderSn user:@"10085" completeBlock:^(id respondsObject, NSError *error) {
-        if (respondsObject) {
-            [MBProgressHUD showSuccess:@"申请成功"];
-        } else {
-            [MBProgressHUD showError:@"申请失败"];
-        }
+/**
+ 申请退款
+
+ @param orderSn 订单编号
+ @param index cell编号
+ */
+- (void)applyOrderRefoudWithOrderSn:(NSString *)orderSn
+                              index:(int)index
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self.baseMaskView];
+    [self.baseMaskView addSubview:self.alertView];
+    @weakify(self);
+    [self.alertView initDZAlertViewMessage:@"申请退款后，钱款将全额退还，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+        @strongify(self);
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+    } rightHandle:^(UIButton *button) {
+        @strongify(self);
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+        [MBProgressHUD showMessage:nil];
+        
+        [OrderHandle requestForApplyRefoundWithOrderSn:orderSn user:@"10085" completeBlock:^(id respondsObject, NSError *error) {
+            if (respondsObject) {
+                [MBProgressHUD showSuccess:@"申请成功"];
+                [_datasource removeObjectAtIndex:index];
+                [self.tableView reloadData];
+            } else {
+                [MBProgressHUD showError:@"申请失败"];
+            }
+        }];
     }];
 }
 

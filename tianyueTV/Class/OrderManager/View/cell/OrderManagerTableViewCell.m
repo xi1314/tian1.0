@@ -170,20 +170,13 @@
                 self.secondButton.selected   = YES;
                 [self.secondButton setTitle:@"取消订单" forState:UIControlStateNormal];
             } else if ([self.goodsModel.goodsType integerValue] == 1) {
-                // 判断尾款订单号
-                NSString *orderNo = self.goodsModel.retainageOrderNo;
+//                NSString *orderNo = self.goodsModel.retainageOrderNo;
                 if ([self.goodsModel.retainage floatValue] == -1) { // 未设置尾款
                     self.finalPaymentText.hidden = NO;
                     self.finalPayLabel.hidden    = YES;
-                } else if([self.goodsModel.retainage floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
-//                    self.finalPaymentText.hidden = YES;
-//                    self.finalPayLabel.hidden    = NO;
-//                    self.finalPayLabel.textColor = THEME_COLOR;
+                } else if([self.goodsModel.retainage floatValue] != -1) { // 未支付尾款
                     NSString *string = [NSString stringWithFormat:@"尾款未支付(¥%@)", self.goodsModel.retainage];
                     [self changeStringColor:string];
-                } else if (orderNo.length > 0) { // 尾款已支付
-                    self.finalPayLabel.text      = @"已支付全款";
-                    self.finalPayLabel.textColor = WWColor(69, 69, 69);
                 }
                 self.thirdButton.selected = YES;
             }
@@ -283,13 +276,12 @@
         // 申请纠纷中
         if ([self.goodsModel.order_status_app integerValue] == 8) {
             self.finalPayLabel.text = @"等待工作人员协调";
-            self.secondButton.selected = YES;
-            self.thirdButton.selected = YES;
         } else {
-            self.finalPayLabel.hidden = YES;
-            [self.secondButton setTitle:@"同意退款" forState:UIControlStateNormal];
-            [self.thirdButton setTitle:@"申请纠纷处理" forState:UIControlStateNormal];
+            self.finalPayLabel.text = @"退款中";
         }
+        [self.thirdButton setTitle:@"删除订单" forState:UIControlStateNormal];
+        self.secondButton.selected = YES;
+        self.thirdButton.selected = YES;
     }
 }
 
