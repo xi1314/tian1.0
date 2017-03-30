@@ -18,7 +18,13 @@
 #import "BuildersViewController.h"
 #import "HomepageViewController.h"
 
-@interface RecommendedViewController ()<UITableViewDelegate,UITableViewDataSource,ZQFCycleViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface RecommendedViewController ()
+<UITableViewDelegate,
+UITableViewDataSource,
+ZQFCycleViewDelegate,
+UICollectionViewDelegate,
+UICollectionViewDataSource>
+
 {
     ZQFCycleView *_cycleView;
 }
@@ -39,7 +45,7 @@
     //[self bannerImagesRequest];
 }
 //轮播图
--(void)bannerImagesRequest
+- (void)bannerImagesRequest
 {
 //    NSString *url =@"http://192.168.0.88:8080/AppCarouselfigure";
     //NSString *url =@"http://www.tianyue.tv/AppCarouselfigure";
@@ -56,7 +62,7 @@
         [self.mainTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:0] ,nil] withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
--(void)netRequest
+- (void)netRequest
 {
     //NSString *url =@"http://www.tianyue.tv/mobileAllBroadcastLiving";
 //    NSString *url =@"http://192.168.0.88:8080/mobileAllBroadcastLiving1";
@@ -77,13 +83,13 @@
         [self.mainTableView reloadData];
     }];
 }
-#pragma mark  ---UITableViewDataSource
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+#pragma mark - UITableView DataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 2;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row ==0)
     {
@@ -136,20 +142,20 @@
     }
 }
 //更多按钮的点击方法
--(void)moreBtnClick:(UIButton *)btn
+- (void)moreBtnClick:(UIButton *)btn
 {
     if (self.returnBlock !=nil)
     {
         self.returnBlock(btn.tag);
     }
 }
--(void)returnBtn:(ReturnBlock)block
+- (void)returnBtn:(ReturnBlock)block
 {
     self.returnBlock =block;
 }
-#pragma mark  ---UITableViewDelegate
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - UITableView Delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row ==0)
     {
@@ -160,23 +166,23 @@
     }
 }
 #pragma Mark -----ZQFCycleViewDelegate
--(NSInteger)countOfCycleView:(ZQFCycleView *)cycleView
+- (NSInteger)countOfCycleView:(ZQFCycleView *)cycleView
 {
     return self.bannerArray.count;
 }
--(void)cycleView:(ZQFCycleView *)cycleView willDisplayImageView:(UIImageView *)imageView index:(NSInteger)index
+- (void)cycleView:(ZQFCycleView *)cycleView willDisplayImageView:(UIImageView *)imageView index:(NSInteger)index
 {
     BannerImageModel *model =self.bannerArray[index];
     [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.chart]]];
 }
 
--(void)cycleView:(ZQFCycleView *)cycleView didDisplayTitleLabel:(UILabel *)titleLabel index:(NSInteger)index
+- (void)cycleView:(ZQFCycleView *)cycleView didDisplayTitleLabel:(UILabel *)titleLabel index:(NSInteger)index
 {
     BannerImageModel *model =self.bannerArray[index];
     titleLabel.text =model.carousel_name;
 }
 
--(void)cycleView:(ZQFCycleView *)cycleView didTouchImageView:(UIImageView *)imageView titleLabel:(UILabel *)titleLabel index:(NSInteger)index
+- (void)cycleView:(ZQFCycleView *)cycleView didTouchImageView:(UIImageView *)imageView titleLabel:(UILabel *)titleLabel index:(NSInteger)index
 {
     NSLog(@"--------点击了第%ld张图片-------",index);
     BannerViewController *vc =[[BannerViewController alloc]init];
@@ -188,33 +194,33 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
--(UITableView *)mainTableView
+- (UITableView *)mainTableView
 {
     if (!_mainTableView)
     {
-        _mainTableView =[[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight-64-kHeightChange(64))];
-        _mainTableView.delegate =self;
-        _mainTableView.dataSource =self;
+        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-64-kHeightChange(64))];
+        _mainTableView.delegate = self;
+        _mainTableView.dataSource = self;
         _mainTableView.backgroundColor = [UIColor whiteColor];
-        _mainTableView.separatorStyle =UITableViewCellSelectionStyleNone;
+        _mainTableView.separatorStyle = UITableViewCellSelectionStyleNone;
         [_mainTableView registerClass:[SecondTableViewCell class] forCellReuseIdentifier:@"cellID2"];
         
-        _mainTableView.mj_header =[MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [self netRequest];
         }];
-        _mainTableView.mj_footer =[MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        _mainTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
             [self netRequest];
         }];
         [self.view addSubview:self.mainTableView];
     }
     return _mainTableView;
 }
-#pragma mark  ----CollectionViewDataSource
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+#pragma mark - CollectionView DataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.infoArray.count;
 }
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier =@"cell";
     MainCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -228,8 +234,8 @@
     return cell;
 }
 
-#pragma mark  ----CollectionViewDelegate
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - CollectionView Delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
     LiveModel *model =self.infoArray[indexPath.row];
@@ -258,12 +264,12 @@
     
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.tabBarController.tabBar setHidden:NO];
 }
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [_cycleView stopPlay];
@@ -273,14 +279,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
