@@ -242,6 +242,29 @@
     }];
 }
 
+/**
+ 申请退款
+
+ @param orderSn 订单编号
+ @param user userID
+ @param completeBlock 返回值
+ */
++ (void)requestForApplyRefoundWithOrderSn:(NSString *)orderSn
+                                     user:(NSString *)user
+                            completeBlock:(HandlerBlock)completeBlock {
+    NSDictionary *dic = @{@"orderInfoSn":orderSn,
+                          @"user_id":user};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_applyRefund_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSLog(@"<<< %@",responseObject);
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil,error);
+        }
+    }];
+}
 
 
 @end

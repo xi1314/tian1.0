@@ -214,6 +214,11 @@
 @property (nonatomic, copy) NSString *userId;
 
 /**
+ 订单状态 0：待发货   1：待确认  2/：待发货  3：已发货  4：交易完成（已完成）                           5：已退款（已完成）   6：已取消（只有代付款有取消操作）  7：（不管是定制还是非定制的退款）                                                                            8：卖家申请纠纷处理（退款）
+ */
+@property (nonatomic, copy) NSString *order_status_app;
+
+/**
  cell高度
  */
 @property (nonatomic, assign) float cellHeight;

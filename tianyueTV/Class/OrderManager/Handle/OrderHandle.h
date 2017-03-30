@@ -89,4 +89,15 @@
                                   tomato:(NSString *)tomato
                            completeBlock:(HandlerBlock)completeVlock;
 
+/**
+ 申请退款
+ 
+ @param orderSn 订单编号
+ @param user userID
+ @param completeBlock 返回值
+ */
++ (void)requestForApplyRefoundWithOrderSn:(NSString *)orderSn
+                                     user:(NSString *)user
+                            completeBlock:(HandlerBlock)completeBlock;
+
 @end

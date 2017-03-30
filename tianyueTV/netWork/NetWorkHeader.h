@@ -31,6 +31,9 @@
 //删除订单
 #define api_DedeletOrder_app @"DedeletOrder_app"
 
+//退款申请
+#define api_applyRefund_app @"applyRefund_app"
+
 
 
 

@@ -212,8 +212,17 @@
         self.finalPayLabel.text     = @"已取消";
         self.secondButton.selected  = YES;
         [self.thirdButton setTitle:@"删除订单" forState:UIControlStateNormal];
-    } else if (shopping == 4 && pay == 2) { // 退款
-        
+    } else if (order == 4) { // 退款
+        // 申请纠纷中
+        if ([self.goodsModel.order_status_app integerValue] == 8) {
+            self.finalPayLabel.text = @"等待工作人员协调";
+            self.secondButton.selected = YES;
+            self.thirdButton.selected = YES;
+        } else {
+            self.finalPayLabel.hidden = YES;
+            [self.secondButton setTitle:@"同意退款" forState:UIControlStateNormal];
+            [self.thirdButton setTitle:@"申请纠纷处理" forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -240,12 +249,13 @@
                 NSString *orderNo = self.goodsModel.retainageOrderNo;
                 if ([self.goodsModel.retainage floatValue] == -1) { // 未设置尾款
                     self.finalPayLabel.text   = @"未设置尾款";
+                    self.thirdButton.selected = YES;
                 } else if([self.goodsModel.retainage floatValue] != -1 && orderNo.length == 0) { // 未支付尾款
                     self.finalPayLabel.text = [NSString stringWithFormat:@"尾款未支付(¥%@)",self.goodsModel.retainage];
                 } else if (orderNo.length > 0) { // 尾款已支付
                     self.finalPayLabel.text = [NSString stringWithFormat:@"已支付尾款(¥%@)",self.goodsModel.retainage];
+                    self.thirdButton.selected = YES;
                 }
-                self.thirdButton.selected = YES;
             }
         }
     } else if (order == 1 && shopping == 0 && pay == 2) { // 待发货
@@ -268,8 +278,17 @@
         self.finalPayLabel.text     = @"已取消";
         self.secondButton.selected  = YES;
         [self.thirdButton setTitle:@"删除订单" forState:UIControlStateNormal];
-    } else if (shopping == 4 && pay == 2) { // 退款
-        
+    } else if (order == 4) { // 退款
+        // 申请纠纷中
+        if ([self.goodsModel.order_status_app integerValue] == 8) {
+            self.finalPayLabel.text = @"等待工作人员协调";
+            self.secondButton.selected = YES;
+            self.thirdButton.selected = YES;
+        } else {
+            self.finalPayLabel.hidden = YES;
+            [self.secondButton setTitle:@"同意退款" forState:UIControlStateNormal];
+            [self.thirdButton setTitle:@"申请纠纷处理" forState:UIControlStateNormal];
+        }
     }
 }
 
