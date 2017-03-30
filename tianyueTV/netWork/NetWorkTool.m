@@ -11,7 +11,7 @@
 
 @implementation NetWorkTool
 
-+(instancetype)sharedTool
++ (instancetype)sharedTool
 {
     static NetWorkTool *tool;
     
@@ -52,7 +52,7 @@
     }
 }
 
-+(NetworkStates)getNetworkStatus
++ (NetworkStates)getNetworkStatus
 {
     NSArray *subviews =[[[[UIApplication sharedApplication]valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
     //保持网络状态
@@ -94,6 +94,7 @@
     }
     return status;
 }
+
 @end
 
 
