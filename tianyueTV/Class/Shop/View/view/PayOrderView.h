@@ -11,8 +11,22 @@
 typedef void(^OrderButtonBlock)(NSInteger tag);
 
 @interface PayOrderView : UIView
-@property (copy, nonatomic) OrderButtonBlock buttonBlock;
-@property (weak, nonatomic) IBOutlet UILabel *price;
 
+/**
+ 点击事件
+ */
+@property (copy, nonatomic) OrderButtonBlock buttonBlock;
+
+/**
+ 支付价格
+ */
+@property (copy, nonatomic) NSString *priceString;
+
+/**
+ 加载xib
+
+ @return view
+ */
 + (instancetype)sharePayOrderInstancetype;
+
 @end

@@ -72,7 +72,7 @@
             self.footerPrice.text = [NSString stringWithFormat:@"¥%.2f",_payMoney];
             self.totalPrice.text = [NSString stringWithFormat:@"¥%.2f",(_payMoney+22.0)];
             self.countLabel.text = [NSString stringWithFormat:@"共计%ld件商品  合计：",totalCount];
-            self.payView.price.text = [NSString stringWithFormat:@"%.2f元",(_payMoney+22.0)];
+            self.payView.priceString = [NSString stringWithFormat:@"%.2f",(_payMoney+22.0)];
         }
     }
 }
@@ -80,12 +80,6 @@
 - (void)initilizeUserInterface {
     //隐藏导航栏底部线条，有可能影响其他界面，需注意
     [self useMethodToFindBlackLineAndHind];
-//    self.navigationController.navigationBar.barTintColor = WWColor(248, 248, 248);
-//    self.navigationController.navigationBar.tintColor = WWColor(51, 51, 51);
-//    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:WWColor(51, 51, 51),NSFontAttributeName:[UIFont systemFontOfSize:18]};
-//    
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"向左(5)"] style:UIBarButtonItemStylePlain target:self action:@selector(respondsToBackItem:)];
-//    self.navigationItem.leftBarButtonItem = backItem;
     
     //设置topview阴影
     self.topView.layer.shadowOpacity = 0.8f;
@@ -320,14 +314,6 @@
     }
     return _countLabel;
 }
-
-//- (UIView *)maskView {
-//    if (!_maskView) {
-//        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-//        _maskView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
-//    }
-//    return _maskView;
-//}
 
 - (PayOrderView *)payView {
     if (!_payView) {

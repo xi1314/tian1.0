@@ -43,7 +43,7 @@
         _payMoney += count * price;
         if (i == _dataArr.count - 1) {
             self.footerPrice.text = [NSString stringWithFormat:@"¥%.2f",(_payMoney+22.0)];
-            self.payView.price.text = [NSString stringWithFormat:@"¥%.2f元",(_payMoney+22.0)];
+            self.payView.priceString = [NSString stringWithFormat:@"¥%.2f",(_payMoney+22.0)];
         }
     }
 }

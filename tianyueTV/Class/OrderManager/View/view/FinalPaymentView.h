@@ -7,11 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef void(^FinaPayButtonBlock)(NSInteger tag);
+
+typedef void(^FinaPayButtonBlock)(NSInteger tag,NSString *price);
 
 @interface FinalPaymentView : UIView
 
-@property (weak, nonatomic) IBOutlet UITextField *priceTextField;   //尾款价格
+/**
+ 点击事件
+ */
 @property (nonatomic, copy) FinaPayButtonBlock buttonBlock;
+
+/**
+ 订金价格
+ */
+@property (nonatomic, assign) float price;
+
+/**
+ 加载xib
+
+ @return view
+ */
 + (instancetype)shareFinalPayInstancetype;
+
 @end

@@ -121,7 +121,8 @@
     
     self.orderTitle.text = goodInfoM.goodsName;
     self.priceCount.text = [NSString stringWithFormat:@"¥%@x%@", goodInfoM.goodsPrice, goodInfoM.goodsNum];
-    self.orderTime.text  = [NSString stringWithFormat:@"下单时间:%@", goodInfoM.goodsOrder_time];
+    NSString *time = [goodInfoM.goodsOrder_time substringToIndex:19];
+    self.orderTime.text  = [NSString stringWithFormat:@"下单时间:%@", time];
     [self.orderImgView sd_setImageWithURL:[NSURL URLWithString:goodInfoM.goodsImage] placeholderImage:[UIImage imageNamed:@"big-portfolio-img3"]];
     NSArray *arr = [goodInfoM.goodsAttr componentsSeparatedByString:@","];
     for (int i = 0; i < arr.count; i++) {

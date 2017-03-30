@@ -14,6 +14,7 @@
 #import "UIButton+BadgeValue.h"
 #import "OrderHandle.h"
 #import "OrderModel.h"
+#import "PayOrderView.h"
 
 @interface OrderManagerViewController ()
 <UITableViewDelegate,
@@ -81,6 +82,11 @@ UITextFieldDelegate>
  */
 @property (assign, nonatomic) NSInteger indexPage;
 
+/**
+ 买家支付弹窗
+ */
+@property (strong, nonatomic) PayOrderView *payOrderView;
+
 @end
 
 @implementation OrderManagerViewController
@@ -109,7 +115,6 @@ UITextFieldDelegate>
     } else {
         [self requestForPersonalData];
     }
-    
     for (int i = 0; i < 8; i++) {
         UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
         [button addTarget:self action:@selector(respondsToStatuButtons:) forControlEvents:UIControlEventTouchUpInside];
@@ -213,7 +218,7 @@ UITextFieldDelegate>
  */
 - (void)requestForPayButton {
     @weakify(self);
-    self.paymentView.buttonBlock = ^(NSInteger tag){
+    self.paymentView.buttonBlock = ^(NSInteger tag,NSString *price) {
         @strongify(self);
         switch (tag) {
             case 0: { // 取消
@@ -221,9 +226,9 @@ UITextFieldDelegate>
             } break;
                 
             case 1: { // 确定
-                if (self.paymentView.priceTextField.text.length > 0) {
-                    [self requestForFinalPayment];
-                }
+                [self requestForFinalPaymentWithPrice:price];
+                [self.baseMaskView removeFromSuperview];
+                [MBProgressHUD showMessage:@""];
             } break;
                 
             default:
@@ -260,7 +265,6 @@ UITextFieldDelegate>
                     [self.baseMaskView removeFromSuperview];
                 } rightHandle:^(UIButton *button) {
                     @strongify(self);
-//                    [self requestForCancelOrder:goodsInfoModel.orderInfoSn index:index];
                     [self applyOrderRefoudWithOrderSn:goodsInfoModel.orderInfoSn];
                     [self.baseMaskView removeAllSubviews];
                     [self.baseMaskView removeFromSuperview];
@@ -280,17 +284,26 @@ UITextFieldDelegate>
                     [MBProgressHUD showMessage:nil];
                 }];
             }
-        } else if (tag == 2) { // 确认订单，进入待发货
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
-            @weakify(self);
-            [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-                
-            }];
+        } else if (tag == 2) {
+            if (_isSeller) { // 确认订单，进入待发货
+                [window addSubview:self.baseMaskView];
+                [self.baseMaskView addSubview:self.alertView];
+                @weakify(self);
+                [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+                    @strongify(self);
+                    [self.baseMaskView removeAllSubviews];
+                    [self.baseMaskView removeFromSuperview];
+                } rightHandle:^(UIButton *button) {
+                    
+                }];
+            } else { // 立即支付
+                if (pay == 0) {
+                    NSString *price = [NSString stringWithFormat:@"%.2f",[goodsInfoModel.goodsPrice floatValue]*[goodsInfoModel.goodsNum floatValue]];
+                    [self showPayOrderViewAnmation:price];
+                } else {
+                    [self showPayOrderViewAnmation:goodsInfoModel.retainage];
+                }
+            }
         }
     } else if (order == 1 && shop == 0 && pay == 2) { // 待发货
         if (tag == 1) { // 立即发货
@@ -383,6 +396,27 @@ UITextFieldDelegate>
     [self.view endEditing:YES];
 }
 
+- (void)showPayOrderViewAnmation:(NSString *)price {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self.baseMaskView];
+    self.payOrderView.priceString = price;
+    [self.baseMaskView addSubview:self.payOrderView];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.payOrderView.frame = CGRectMake(0, SCREEN_HEIGHT-365, SCREEN_WIDTH, 365);
+    }];
+    @weakify(self);
+    self.payOrderView.buttonBlock = ^(NSInteger tag) {
+        @strongify(self);
+        if (tag == 0) { // 关闭
+            self.payOrderView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 365);
+            [self.baseMaskView removeFromSuperview];
+        }
+        if (tag == 1) { // 确认支付
+            
+        }
+    };
+}
+
 #pragma mark - 卖家网络请求
 /**
  全部订单（卖家）
@@ -457,8 +491,8 @@ UITextFieldDelegate>
         } else {
             if (_indexPage == 1) {
                 [MBProgressHUD showError:@"暂无订单"];
+                self.datasource = [NSMutableArray array];
             }
-            self.datasource = [NSMutableArray array];
             [self.tableView reloadData];
         }
     }];
@@ -467,21 +501,19 @@ UITextFieldDelegate>
 /**
  卖家设置尾款
  */
-- (void)requestForFinalPayment {
+- (void)requestForFinalPaymentWithPrice:(NSString *)price {
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:_selectedCell];
     OrderSnModel *snModel = _datasource[indexPath.section];
     GoodsInfoModel *goodModle = snModel.goodsList[0];
     
     @weakify(self);
-    [OrderHandle requestForFinalPaymentWithUser:@"10085" orderID:goodModle.order_id retainage:self.paymentView.priceTextField.text completeBlock:^(id respondsObject, NSError *error) {
+    [OrderHandle requestForFinalPaymentWithUser:@"10085" orderID:goodModle.order_id retainage:price completeBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
+        [MBProgressHUD hideHUD];
         if (respondsObject) {
-            goodModle.retainage = self.paymentView.priceTextField.text;
+            goodModle.retainage = price;
             [self.tableView reloadData];
-            
-            self.paymentView.priceTextField.text = nil;
-            [self.baseMaskView removeFromSuperview];
         }
     }];
 }
@@ -628,8 +660,8 @@ UITextFieldDelegate>
         } else {
             if (_indexPage == 1) {
                 [MBProgressHUD showError:@"暂无订单"];
+                self.datasource = [NSMutableArray array];
             }
-            self.datasource = [NSMutableArray array];
             [self.tableView reloadData];
         }
     }];
@@ -706,18 +738,26 @@ UITextFieldDelegate>
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.baseMaskView];
-    [self.baseMaskView addSubview:self.paymentView];
-    _selectedCell = (OrderManagerTableViewCell *)[[textField superview] superview];
-    return NO;
+    // 设置尾款时弹窗
+//    if (textField != self.paymentView.priceTextField) {
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window addSubview:self.baseMaskView];
+        [self.baseMaskView addSubview:self.paymentView];
+        _selectedCell = (OrderManagerTableViewCell *)[[textField superview] superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:_selectedCell];
+        OrderSnModel *snM = _datasource[indexPath.section];
+        GoodsInfoModel *goodM = snM.goodsList[0];
+        self.paymentView.price = [goodM.goodsPrice floatValue] * [goodM.goodsNum floatValue];
+        return NO;
+//    }
+//    return YES;
 }
 
 #pragma mark - Getter method
 - (FinalPaymentView *)paymentView {
     if (!_paymentView) {
         _paymentView        = [FinalPaymentView shareFinalPayInstancetype];
-        _paymentView.frame  = CGRectMake(0, 0, SCREEN_WIDTH-80, 152);
+        _paymentView.frame  = CGRectMake(0, 0, SCREEN_WIDTH-80, 162);
         _paymentView.center = CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-20);
     }
     return _paymentView;
@@ -739,6 +779,14 @@ UITextFieldDelegate>
         _deliveryView.center = CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40);
     }
     return _deliveryView;
+}
+
+- (PayOrderView *)payOrderView {
+    if (!_payOrderView) {
+        _payOrderView = [PayOrderView sharePayOrderInstancetype];
+        _payOrderView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 365);
+    }
+    return _payOrderView;
 }
 
 @end

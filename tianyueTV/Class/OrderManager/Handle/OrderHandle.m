@@ -253,7 +253,7 @@
                                      user:(NSString *)user
                             completeBlock:(HandlerBlock)completeBlock {
     NSDictionary *dic = @{@"orderInfoSn":orderSn,
-                          @"user_id":user};
+                          @"userId":user};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_applyRefund_app paraments:dic finish:^(id responseObject, NSError *error) {
         NSLog(@"<<< %@",responseObject);

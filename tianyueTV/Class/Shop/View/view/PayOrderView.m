@@ -8,6 +8,15 @@
 
 #import "PayOrderView.h"
 
+@interface PayOrderView()
+
+/**
+ 支付价格
+ */
+@property (weak, nonatomic) IBOutlet UILabel *price;
+
+@end
+
 @implementation PayOrderView
 
 + (instancetype)sharePayOrderInstancetype {
@@ -15,11 +24,21 @@
     return arr.firstObject;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+}
+
 
 - (IBAction)orderButtons_action:(UIButton *)sender {
     if (self.buttonBlock) {
         self.buttonBlock(sender.tag - 220);
     }
+}
+
+- (void)setPriceString:(NSString *)priceString {
+    _priceString = priceString;
+    self.price.text = [NSString stringWithFormat:@"%@元",self.priceString];
 }
 
 @end
