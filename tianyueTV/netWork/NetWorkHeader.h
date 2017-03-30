@@ -13,6 +13,27 @@
 
 
 
-
 //我的订单（卖家）
 #define api_orderInfo_app  @"orderInfo_app"
+
+//全部订单（买家）
+#define api_personalOrder_app @"personalOrder_app"
+
+//卖家设置尾款
+#define api_setRetainage_app @"setRetainage_app"
+
+//取消订单
+#define api_updateOrderStatus_app @"updateOrderStatus_app"
+
+//设置物流信息
+#define api_sureSendGoods_app @"sureSendGoods_app"
+
+//删除订单
+#define api_DedeletOrder_app @"DedeletOrder_app"
+
+
+
+
+
+
+
