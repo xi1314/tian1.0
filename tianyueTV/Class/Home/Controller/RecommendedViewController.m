@@ -44,45 +44,48 @@ UICollectionViewDataSource>
     [self mainTableView];
     //[self bannerImagesRequest];
 }
+
 //轮播图
 - (void)bannerImagesRequest
 {
 //    NSString *url =@"http://192.168.0.88:8080/AppCarouselfigure";
     //NSString *url =@"http://www.tianyue.tv/AppCarouselfigure";
     
-    [[NetWorkTool sharedTool]requestMethod:POST URL:@"AppCarouselfigure" paraments:nil finish:^(id responseObject, NSError *error) {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"AppCarouselfigure" paraments:nil finish:^(id responseObject, NSError *error) {
         
-        NSArray *data =responseObject[@"appList"];
-        self.bannerArray =[NSMutableArray array];
+        NSArray *data = responseObject[@"appList"];
+        self.bannerArray = [NSMutableArray array];
         [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            BannerImageModel *model =[[BannerImageModel alloc]initWithDictionary:obj];
+            BannerImageModel *model = [[BannerImageModel alloc] initWithDictionary:obj];
             [self.bannerArray addObject:model];
         }];
         [self.mainTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:0] ,nil] withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
+
 - (void)netRequest
 {
     //NSString *url =@"http://www.tianyue.tv/mobileAllBroadcastLiving";
 //    NSString *url =@"http://192.168.0.88:8080/mobileAllBroadcastLiving1";
     
-    [[NetWorkTool sharedTool]requestMethod:POST URL:@"mobileAllBroadcastLiving1" paraments:nil finish:^(id responseObject, NSError *error) {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"mobileAllBroadcastLiving1" paraments:nil finish:^(id responseObject, NSError *error) {
         [self.mainTableView.mj_header endRefreshing];
         [self.mainTableView.mj_footer endRefreshing];
         
-        NSLog(@"---responseObject---%@-----%@----",responseObject,error);
-        NSArray *data =responseObject[@"dataList"];
-        self.infoArray =[NSMutableArray array];
+        NSLog(@"---responseObject---%@-----%@----", responseObject, error);
+        NSArray *data = responseObject[@"dataList"];
+        self.infoArray = [NSMutableArray array];
         [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            LiveModel *model =[[LiveModel alloc]initWithDictionary:obj];
+            LiveModel *model = [[LiveModel alloc] initWithDictionary:obj];
             [self.infoArray addObject:model];
         }];
-        NSLog(@"--dataList--%@----",self.infoArray);
+        NSLog(@"--dataList--%@----", self.infoArray);
         [self.mainTableView reloadData];
     }];
 }
+
 #pragma mark - UITableView DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -96,68 +99,68 @@ UICollectionViewDataSource>
         UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:@"cellID"];
         if (!cell)
         {
-            cell =[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
+            cell =[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
         }
-        cell.userInteractionEnabled =YES;
-        cell.selectionStyle =UITableViewCellSelectionStyleNone;
-        cell.selected =YES;
+        cell.userInteractionEnabled = YES;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selected = YES;
         
-        _cycleView =[[ZQFCycleView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeightChange(270)) delegate:self];
+        _cycleView =[[ZQFCycleView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeightChange(270)) delegate:self];
         [_cycleView startPlayWithTimeInterval:5];
         [cell addSubview:_cycleView];
         
-        UIImageView *grayLine =[[UIImageView alloc]initWithImage:[UIImage createImageWithColor:WWColor(228, 228, 228)]];
-        grayLine.frame =CGRectMake(0, kHeightChange(270), kWidth, kHeightChange(10)) ;
+        UIImageView *grayLine = [[UIImageView alloc] initWithImage:[UIImage createImageWithColor:WWColor(228, 228, 228)]];
+        grayLine.frame = CGRectMake(0, kHeightChange(270), kWidth, kHeightChange(10)) ;
         [cell addSubview:grayLine];
         
         return cell;
         
     }else
     {
-        SecondTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:@"cellID2"];
+        SecondTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID2"];
         if (!cell)
         {
-            cell =[[SecondTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID2"];
+            cell = [[SecondTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID2"];
         }
-        cell.SecondCollectionView.delegate =self;
-        cell.SecondCollectionView.dataSource =self;
-        cell.SecondCollectionView.tag =33;
+        cell.SecondCollectionView.delegate = self;
+        cell.SecondCollectionView.dataSource = self;
+        cell.SecondCollectionView.tag = 33;
         [cell.SecondCollectionView reloadData];
-        if (self.infoArray.count==0)
+        if (self.infoArray.count == 0)
         {
-            cell.typeLabel .hidden =YES;
-            cell.moreBtn.hidden =YES ;
+            cell.typeLabel.hidden = YES;
+            cell.moreBtn.hidden = YES ;
         }else
         {
-            cell.typeLabel.hidden =NO;
-            cell.moreBtn.hidden =NO ;
+            cell.typeLabel.hidden = NO;
+            cell.moreBtn.hidden = NO ;
         }
         [cell.grayLine removeFromSuperview];
         [cell.moreBtn addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        cell.moreBtn.tag =indexPath.row;
-        cell.userInteractionEnabled =YES;
-        cell.selectionStyle =UITableViewCellSelectionStyleNone;
-        cell.selected =YES;
+        cell.moreBtn.tag = indexPath.row;
+        cell.userInteractionEnabled = YES;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selected = YES;
         return cell;
     }
 }
 //更多按钮的点击方法
 - (void)moreBtnClick:(UIButton *)btn
 {
-    if (self.returnBlock !=nil)
+    if (self.returnBlock != nil)
     {
         self.returnBlock(btn.tag);
     }
 }
 - (void)returnBtn:(ReturnBlock)block
 {
-    self.returnBlock =block;
+    self.returnBlock = block;
 }
 
 #pragma mark - UITableView Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row ==0)
+    if (indexPath.row == 0)
     {
         return kHeightChange(280);
     }else
@@ -172,24 +175,24 @@ UICollectionViewDataSource>
 }
 - (void)cycleView:(ZQFCycleView *)cycleView willDisplayImageView:(UIImageView *)imageView index:(NSInteger)index
 {
-    BannerImageModel *model =self.bannerArray[index];
-    [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.chart]]];
+    BannerImageModel *model = self.bannerArray[index];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", model.chart]]];
 }
 
 - (void)cycleView:(ZQFCycleView *)cycleView didDisplayTitleLabel:(UILabel *)titleLabel index:(NSInteger)index
 {
-    BannerImageModel *model =self.bannerArray[index];
-    titleLabel.text =model.carousel_name;
+    BannerImageModel *model = self.bannerArray[index];
+    titleLabel.text = model.carousel_name;
 }
 
 - (void)cycleView:(ZQFCycleView *)cycleView didTouchImageView:(UIImageView *)imageView titleLabel:(UILabel *)titleLabel index:(NSInteger)index
 {
     NSLog(@"--------点击了第%ld张图片-------",index);
-    BannerViewController *vc =[[BannerViewController alloc]init];
-    UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:vc];
-    BannerImageModel *model =self.bannerArray[index];
-    vc.titl =model.carousel_name;
-    vc.uil =model.uil;
+    BannerViewController *vc = [[BannerViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    BannerImageModel *model = self.bannerArray[index];
+    vc.titl = model.carousel_name;
+    vc.uil = model.uil;
     [self.tabBarController.tabBar setHidden:YES];
     [self presentViewController:nav animated:YES completion:nil];
 }

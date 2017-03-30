@@ -17,13 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title =self.titl;
+    self.title = self.titl;
     
     [self customBackBtn];
     
-    UIWebView *webView =[[UIWebView alloc]initWithFrame:self.view.frame];
+    UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.frame];
     
-    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:self.uil]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.uil]];
     
     [webView setScalesPageToFit:YES];
     [self.view addSubview:webView];
@@ -33,12 +33,12 @@
 
 - (void)customBackBtn
 {
-    UIButton *backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame =CGRectMake(0, 0, 44, 44);
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 0, 44, 44);
     [backBtn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem =[[UIBarButtonItem alloc]initWithCustomView:backBtn];
-    self.navigationItem.leftBarButtonItem =backItem;
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = backItem;
     
 }
 

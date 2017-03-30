@@ -1884,7 +1884,7 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 3472FPLT8A;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 0;
@@ -2508,8 +2508,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.codery.tianyueyuanzhu.ZSWL.tianyueTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e13daa50-fd8a-42a7-b068-98cc9183f909";
-				PROVISIONING_PROFILE_SPECIFIER = tianyue_people_develop;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2525,7 +2525,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing Zhishu Network Technology Co., Ltd. (3472FPLT8A)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3472FPLT8A;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

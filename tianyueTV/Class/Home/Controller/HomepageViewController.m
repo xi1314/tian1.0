@@ -51,18 +51,18 @@
         livingVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:livingVC animated:YES];
     };
-    vc1.title =@"推荐";
+    vc1.title = @"推荐";
     BuildersViewController *vc2 = [[BuildersViewController alloc] init];
-    vc2.title =@"匠人";
+    vc2.title = @"匠人";
     BuildersViewController *vc3 = [[BuildersViewController alloc] init];
-    vc3.title =@"衣";
+    vc3.title = @"衣";
     BuildersViewController *vc4 = [[BuildersViewController alloc] init];
-    vc4.title =@"食";
+    vc4.title = @"食";
     BuildersViewController *vc5 = [[BuildersViewController alloc] init];
-    vc5.title =@"住";
+    vc5.title = @"住";
     BuildersViewController *vc6 = [[BuildersViewController alloc] init];
-    vc6.title =@"行";
-    self.viewControllers =@[vc1,vc2,vc3,vc4,vc5,vc6];
+    vc6.title = @"行";
+    self.viewControllers = @[vc1,vc2,vc3,vc4,vc5,vc6];
     
     [self loginIMSDk];
 
@@ -102,7 +102,7 @@
 {
 //    NSString *url =@"http://192.168.0.88:8080/appTytype_sood";
     
-    [[NetWorkTool sharedTool]requestMethod:POST URL:@"appTytype_sood" paraments:nil finish:^(id responseObject, NSError *error) {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"appTytype_sood" paraments:nil finish:^(id responseObject, NSError *error) {
     
         if ([responseObject[@"ret"] isEqualToString:@"success"])
         {
