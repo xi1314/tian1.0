@@ -61,13 +61,13 @@
    // [PLStreamingEnv initEnv];//初始化推流端
     [self checkNetworkStates];//网络状态的监听
     //对键盘的处理
-    IQKeyboardManager *manager =[IQKeyboardManager sharedManager];
-    manager.enableAutoToolbar =YES;
-    manager.shouldResignOnTouchOutside =YES;
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enableAutoToolbar = YES;
+    manager.shouldResignOnTouchOutside = YES;
     
     return YES;
 }
--(void)talkingData
+- (void)talkingData
 {
     [TalkingData setExceptionReportEnabled:YES];
     
@@ -76,11 +76,11 @@
 }
 - (void)firstLoad
 {
-    NSString *key =@"CFBundleShortVersionString";
-    NSString *lastVersion =[[NSUserDefaults standardUserDefaults]objectForKey:key];
+    NSString *key = @"CFBundleShortVersionString";
+    NSString *lastVersion = [[NSUserDefaults standardUserDefaults]objectForKey:key];
     
-    NSString *currentVersion =[[NSUserDefaults standardUserDefaults]objectForKey:key];
-    NSLog(@"前面%@----当前%@",lastVersion,currentVersion);
+    NSString *currentVersion = [[NSUserDefaults standardUserDefaults]objectForKey:key];
+    NSLog(@"前面%@----当前%@", lastVersion, currentVersion);
 
     if ([currentVersion isEqualToString:lastVersion])
     {
@@ -88,50 +88,50 @@
         [self autoLogin];
     }else
     {
-        self.window.rootViewController =[[GuideViewController alloc]init];
-        [[NSUserDefaults standardUserDefaults]setObject:currentVersion forKey:key];
-        [[NSUserDefaults standardUserDefaults]synchronize];
+        self.window.rootViewController = [[GuideViewController alloc] init];
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
--(void)checkNetworkStates
+- (void)checkNetworkStates
 {
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(networkChange) name:kReachabilityChangedNotification object:nil];
-    _reacha =[Reachability reachabilityWithHostName:@"http://www.baidu.com"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChange) name:kReachabilityChangedNotification object:nil];
+    _reacha = [Reachability reachabilityWithHostName:@"http://www.baidu.com"];
     [_reacha startNotifier];
 }
--(void)networkChange
+- (void)networkChange
 {
-    NetworkStates currentStates =[NetWorkTool getNetworkStatus];
-    if (currentStates ==_preStatus) return;
-    _preStatus =currentStates;
+    NetworkStates currentStates = [NetWorkTool getNetworkStatus];
+    if (currentStates == _preStatus) return;
+    _preStatus = currentStates;
 }
 
 //自动登录
--(void)autoLogin
+- (void)autoLogin
 {
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"cookies"])
     {
         NSLog(@"no cookies");
-        self.window.rootViewController =[[ViewController alloc]init];
+        self.window.rootViewController = [[ViewController alloc]init];
     }else
     {
 
-        HomepageViewController *liveVC =[[HomepageViewController alloc]init];
-        liveVC.tabBarItem.image =[UIImage imageNamed:@""];
-        UINavigationController *liveNav =[[UINavigationController alloc]initWithRootViewController:liveVC];
-        liveNav.tabBarItem.image =[UIImage imageNamed:@"直播-拷贝-2"];
-        liveNav.title =@"直播";
+        HomepageViewController *liveVC = [[HomepageViewController alloc]init];
+        liveVC.tabBarItem.image = [UIImage imageNamed:@""];
+        UINavigationController *liveNav = [[UINavigationController alloc]initWithRootViewController:liveVC];
+        liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
+        liveNav.title = @"直播";
         
-        MineViewController *mineVC =[[MineViewController alloc]init];
-        UINavigationController *mineNav =[[UINavigationController alloc]initWithRootViewController:mineVC];
-        mineNav.tabBarItem.image =[UIImage imageNamed:@"我的"];
-        mineNav.title =@"我的";
+        MineViewController *mineVC = [[MineViewController alloc]init];
+        UINavigationController *mineNav = [[UINavigationController alloc]initWithRootViewController:mineVC];
+        mineNav.tabBarItem.image = [UIImage imageNamed:@"我的"];
+        mineNav.title = @"我的";
         
         
-        SearchViewController *findVC =[[SearchViewController alloc]init];
-        UINavigationController *findNav =[[UINavigationController alloc]initWithRootViewController:findVC];
-        findNav.tabBarItem.image =[UIImage imageNamed:@"发现-(5)"];
-        findNav.title =@"发现";
+        SearchViewController *findVC = [[SearchViewController alloc]init];
+        UINavigationController *findNav = [[UINavigationController alloc]initWithRootViewController:findVC];
+        findNav.tabBarItem.image = [UIImage imageNamed:@"发现-(5)"];
+        findNav.title = @"发现";
         
         TabbarViewController *tabbar = [[TabbarViewController alloc] init];        
         tabbar.viewControllers = @[liveNav,findNav,mineNav];
@@ -139,12 +139,11 @@
     }
 
 }
--(void)shareSDK
+- (void)shareSDK
 {
     [ShareSDK registerApp:@"17b8b02db64b8"
      
-          activePlatforms:@[
-                            @(SSDKPlatformTypeSinaWeibo),
+          activePlatforms:@[@(SSDKPlatformTypeSinaWeibo),
                             @(SSDKPlatformTypeWechat),
                             @(SSDKPlatformTypeQQ)]
                  onImport:^(SSDKPlatformType platformType)
