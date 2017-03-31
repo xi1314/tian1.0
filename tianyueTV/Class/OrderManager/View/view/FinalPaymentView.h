@@ -12,14 +12,10 @@ typedef void(^FinaPayButtonBlock)(NSInteger tag,NSString *price);
 
 @interface FinalPaymentView : UIView
 
-/**
- 点击事件
- */
+// 点击事件
 @property (nonatomic, copy) FinaPayButtonBlock buttonBlock;
 
-/**
- 订金价格
- */
+// 订金价格
 @property (nonatomic, assign) float price;
 
 /**

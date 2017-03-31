@@ -11,14 +11,11 @@
 #import "FinalPaymentView.h"
 
 @interface FinalPaymentView ()
-/**
- 尾款输入框
- */
+
+// 尾款输入框
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 
-/**
- 提示语
- */
+// 提示语
 @property (weak, nonatomic) IBOutlet UILabel *remaindLabel;
 
 @end

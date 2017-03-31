@@ -132,7 +132,6 @@
 		04687AF11E88BDF0004A5EE3 /* DeliveryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A471E88BDF0004A5EE3 /* DeliveryView.xib */; };
 		04687AF21E88BDF0004A5EE3 /* DZAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A491E88BDF0004A5EE3 /* DZAlertView.m */; };
 		04687AF31E88BDF0004A5EE3 /* DZAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A4A1E88BDF0004A5EE3 /* DZAlertView.xib */; };
-		04687AF41E88BDF0004A5EE3 /* FinalPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A4C1E88BDF0004A5EE3 /* FinalPaymentView.m */; };
 		04687AF51E88BDF0004A5EE3 /* FinalPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A4D1E88BDF0004A5EE3 /* FinalPaymentView.xib */; };
 		04687AF61E88BDF0004A5EE3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A501E88BDF0004A5EE3 /* AppDelegate.m */; };
 		04687AF71E88BDF0004A5EE3 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A541E88BDF0004A5EE3 /* SearchResultViewController.m */; };
@@ -167,6 +166,7 @@
 		04687B141E88BDF0004A5EE3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A8E1E88BDF0004A5EE3 /* BaseViewController.m */; };
 		04687B151E88BDF0004A5EE3 /* TabbarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A911E88BDF0004A5EE3 /* TabbarViewController.m */; };
 		04687B1C1E8914A3004A5EE3 /* BaseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687B1B1E8914A3004A5EE3 /* BaseHandler.m */; };
+		04832EF41E8E36F70080A06C /* FinalPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04832EF31E8E36F70080A06C /* FinalPaymentView.m */; };
 		980822A91E0D05A8007D9A11 /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822A81E0D05A8007D9A11 /* cityData.plist */; };
 		980822AB1E0D05B7007D9A11 /* typeData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822AA1E0D05B7007D9A11 /* typeData.plist */; };
 		981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */; };
@@ -458,7 +458,6 @@
 		04687A491E88BDF0004A5EE3 /* DZAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DZAlertView.m; sourceTree = "<group>"; };
 		04687A4A1E88BDF0004A5EE3 /* DZAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DZAlertView.xib; sourceTree = "<group>"; };
 		04687A4B1E88BDF0004A5EE3 /* FinalPaymentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalPaymentView.h; sourceTree = "<group>"; };
-		04687A4C1E88BDF0004A5EE3 /* FinalPaymentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalPaymentView.m; sourceTree = "<group>"; };
 		04687A4D1E88BDF0004A5EE3 /* FinalPaymentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FinalPaymentView.xib; sourceTree = "<group>"; };
 		04687A4F1E88BDF0004A5EE3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04687A501E88BDF0004A5EE3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -515,6 +514,7 @@
 		04687B171E8912F5004A5EE3 /* NetWorkHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkHeader.h; sourceTree = "<group>"; };
 		04687B1A1E8914A3004A5EE3 /* BaseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseHandler.h; sourceTree = "<group>"; };
 		04687B1B1E8914A3004A5EE3 /* BaseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseHandler.m; sourceTree = "<group>"; };
+		04832EF31E8E36F70080A06C /* FinalPaymentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalPaymentView.m; sourceTree = "<group>"; };
 		130F6A4356C6EC0083C9B9A3 /* Pods-tianyueTV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTV.release.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTV/Pods-tianyueTV.release.xcconfig"; sourceTree = "<group>"; };
 		2E4621F0EA6FABC96E614E15 /* Pods-tianyueTV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTV/Pods-tianyueTV.debug.xcconfig"; sourceTree = "<group>"; };
 		44FD9F76F5DB5321D06BE284 /* Pods-tianyueTVUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTVUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTVUITests/Pods-tianyueTVUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1500,7 +1500,7 @@
 				04687A491E88BDF0004A5EE3 /* DZAlertView.m */,
 				04687A4A1E88BDF0004A5EE3 /* DZAlertView.xib */,
 				04687A4B1E88BDF0004A5EE3 /* FinalPaymentView.h */,
-				04687A4C1E88BDF0004A5EE3 /* FinalPaymentView.m */,
+				04832EF31E8E36F70080A06C /* FinalPaymentView.m */,
 				04687A4D1E88BDF0004A5EE3 /* FinalPaymentView.xib */,
 			);
 			path = view;
@@ -2178,6 +2178,7 @@
 				04687ABC1E88BDF0004A5EE3 /* AVFile+UploadMoreFile.m in Sources */,
 				04687ADF1E88BDF0004A5EE3 /* WWMineThirdViewController.m in Sources */,
 				04687AB61E88BDF0004A5EE3 /* ViewController.m in Sources */,
+				04832EF41E8E36F70080A06C /* FinalPaymentView.m in Sources */,
 				04687AE21E88BDF0004A5EE3 /* WWMineFirstViewController.m in Sources */,
 				04687AB41E88BDF0004A5EE3 /* loginViewController.m in Sources */,
 				04687A981E88BDF0004A5EE3 /* BasicButton.m in Sources */,
@@ -2222,7 +2223,6 @@
 				04687AD71E88BDF0004A5EE3 /* WWBiaoqiaoTableViewCell.m in Sources */,
 				04687A951E88BDF0004A5EE3 /* HomepageViewController.m in Sources */,
 				04687AED1E88BDF0004A5EE3 /* OrderModel.m in Sources */,
-				04687AF41E88BDF0004A5EE3 /* FinalPaymentView.m in Sources */,
 				04687AD51E88BDF0004A5EE3 /* WWBiaoqianViewController.m in Sources */,
 				04687AD41E88BDF0004A5EE3 /* WWChatRoomView.m in Sources */,
 				04687B151E88BDF0004A5EE3 /* TabbarViewController.m in Sources */,

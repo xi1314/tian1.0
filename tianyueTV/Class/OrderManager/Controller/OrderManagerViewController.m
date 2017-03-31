@@ -26,64 +26,40 @@ UITextFieldDelegate>
     OrderManagerTableViewCell *_selectedCell;  // 选择的cell
 }
 
-/**
- 列表
- */
+// 列表
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-/**
- 支付弹窗
- */
+// 支付弹窗
 @property (strong, nonatomic) FinalPaymentView *paymentView;
 
-/**
- 计算高度对象
- */
+// 计算高度对象
 @property (strong, nonatomic) OrderManagerTableViewCell *orderCell;
 
-/**
- 自定义提示框
- */
+// 自定义提示框
 @property (strong, nonatomic) DZAlertView *alertView;
 
-/**
- 设置物流弹框
- */
+// 设置物流弹框
 @property (strong, nonatomic) DeliveryView *deliveryView;
 
-/**
- 存储当前请求参数
- */
+// 存储当前请求参数
 @property (strong, nonatomic) NSDictionary *nowRequestDic;
 
-/**
- 数据数组
- */
+// 数据数组
 @property (strong, nonatomic) NSMutableArray *datasource;
 
-/**
- 记录上次请求的订单状态
- */
+// 记录上次请求的订单状态
 @property (assign, nonatomic) NSInteger orderState;
 
-/**
- 记录上一次的购买状态
- */
+// 记录上一次的购买状态
 @property (assign, nonatomic) NSInteger shoppingState;
 
-/**
- 记录上一次的支付状态
- */
+// 记录上一次的支付状态
 @property (assign, nonatomic) NSInteger payState;
 
-/**
- 页码
- */
+// 页码
 @property (assign, nonatomic) NSInteger indexPage;
 
-/**
- 买家支付弹窗
- */
+// 买家支付弹窗
 @property (strong, nonatomic) PayOrderView *payOrderView;
 
 @end

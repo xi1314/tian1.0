@@ -11,9 +11,7 @@
 
 @interface OrderManagerViewController : BaseViewController
 
-/**
- 判断是否是卖家，卖家1，买家0
- */
+// 判断是否是卖家，卖家1，买家0
 @property (nonatomic, assign) BOOL isSeller;
 
 @end

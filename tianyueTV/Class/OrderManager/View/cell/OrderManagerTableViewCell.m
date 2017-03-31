@@ -10,69 +10,43 @@
 
 @interface OrderManagerTableViewCell ()
 
-/**
- 留言
- */
+// 留言
 @property (weak, nonatomic) IBOutlet UITextView *messgeTextView;
 
-/**
- 订单时间
- */
+// 订单时间
 @property (weak, nonatomic) IBOutlet UILabel *orderTime;
 
-/**
- 产品图片
- */
+// 产品图片
 @property (weak, nonatomic) IBOutlet UIImageView *orderImgView;
 
-/**
- 名称
- */
+// 名称
 @property (weak, nonatomic) IBOutlet UILabel *orderTitle;
 
-/**
- 规格
- */
+// 规格
 @property (weak, nonatomic) IBOutlet UILabel *size;
 
-/**
- 颜色
- */
+// 颜色
 @property (weak, nonatomic) IBOutlet UILabel *color;
 
-/**
- 价格x数量
- */
+// 价格x数量
 @property (weak, nonatomic) IBOutlet UILabel *priceCount;
 
-/**
- 成品、定制标示
- */
+// 成品、定制标示
 @property (weak, nonatomic) IBOutlet UIImageView *typeImgView;
 
-/**
- 已设置尾款的价格
- */
+// 已设置尾款的价格
 @property (weak, nonatomic) IBOutlet UILabel *finalPayLabel;
 
-/**
- 第一个按钮
- */
+// 第一个按钮
 @property (weak, nonatomic) IBOutlet UIButton *firstButton;
 
-/**
- 第二个按钮
- */
+// 第二个按钮
 @property (weak, nonatomic) IBOutlet UIButton *secondButton;
 
-/**
- 第三个按钮
- */
+// 第三个按钮
 @property (weak, nonatomic) IBOutlet UIButton *thirdButton;
 
-/**
- cell对应的model
- */
+// cell对应的model
 @property (nonatomic, strong) GoodsInfoModel *goodsModel;
 
 @end

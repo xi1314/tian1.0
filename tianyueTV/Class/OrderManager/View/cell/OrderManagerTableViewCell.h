@@ -19,19 +19,13 @@ typedef void(^OrderCellBlock)(NSInteger tag);
 @interface OrderManagerTableViewCell : UITableViewCell
 <UITextFieldDelegate>
 
-/**
- Button block
- */
+// Button block
 @property (copy, nonatomic) OrderCellBlock buttonBlock;
 
-/**
- 输入尾款textfield
- */
+// 输入尾款textfield
 @property (weak, nonatomic) IBOutlet UITextField *finalPaymentText;
 
-/**
- 判断是卖家，或买家
- */
+// 判断是卖家，或买家
 @property (assign, nonatomic) BOOL isSeller;
 
 /**

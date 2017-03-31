@@ -12,9 +12,7 @@
 <UITableViewDelegate,
 UITableViewDataSource>
 
-/**
- 数据源
- */
+// 数据源
 @property (strong, nonatomic) NSArray *dataSource;
 
 @end
