@@ -152,9 +152,9 @@
 {
     
     
-    NSDictionary *dic = @{@"user_id":user,
-                          @"orderId":orderID,
-                          @"retainage":retainage};
+    NSDictionary *dic = @{@"user_id" : user,
+                          @"orderId" : orderID,
+                          @"retainage" : retainage};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_setRetainage_app paraments:dic finish:^(id responseObject, NSError *error) {
         if ([responseObject[RET] isEqualToString:SUCCESS]) {
@@ -174,7 +174,7 @@
 + (void)requestForCancelOrderWithOrderSn:(NSString *)orderSn
                            completeBlock:(HandlerBlock)completeBlock
 {
-    NSDictionary *dic = @{@"orderInfoSn":orderSn};
+    NSDictionary *dic = @{@"orderInfoSn" : orderSn};
 
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_updateOrderStatus_app paraments:dic finish:^(id responseObject, NSError *error) {
         NSDictionary *dic = (NSDictionary *)responseObject;
@@ -201,10 +201,10 @@
                         deliveryNumber:(NSString *)deliveryNumber
                          completeBlock:(HandlerBlock)completeBlock
 {
-    NSDictionary *dic = @{@"user_id":user,
-                          @"id":orderID,
-                          @"shipping_name":companyName,
-                          @"shipping_no":deliveryNumber};
+    NSDictionary *dic = @{@"user_id" : user,
+                          @"id" : orderID,
+                          @"shipping_name" : companyName,
+                          @"shipping_no" : deliveryNumber};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_sureSendGoods_app paraments:dic finish:^(id responseObject, NSError *error) {
         NSLog(@"responseObject %@",responseObject);
@@ -229,8 +229,8 @@
                                   tomato:(NSString *)tomato
                            completeBlock:(HandlerBlock)completeVlock
 {
-    NSDictionary *dic = @{@"orderInfoSn":orderSn,
-                          @"tomato":tomato};
+    NSDictionary *dic = @{@"orderInfoSn" : orderSn,
+                          @"tomato" : tomato};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_DedeletOrder_app paraments:dic finish:^(id responseObject, NSError *error) {
         NSDictionary *dic = (NSDictionary *)responseObject;
@@ -252,8 +252,8 @@
 + (void)requestForApplyRefoundWithOrderSn:(NSString *)orderSn
                                      user:(NSString *)user
                             completeBlock:(HandlerBlock)completeBlock {
-    NSDictionary *dic = @{@"orderInfoSn":orderSn,
-                          @"userId":user};
+    NSDictionary *dic = @{@"orderInfoSn" : orderSn,
+                          @"userId" : user};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_applyRefund_app paraments:dic finish:^(id responseObject, NSError *error) {
         NSLog(@"<<< %@",responseObject);
