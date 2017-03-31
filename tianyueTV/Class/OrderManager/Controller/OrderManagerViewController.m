@@ -760,6 +760,7 @@ UITextFieldDelegate>
         [MBProgressHUD showMessage:nil];
         
         [OrderHandle requestForApplyRefoundWithOrderSn:orderSn user:@"10085" completeBlock:^(id respondsObject, NSError *error) {
+            @strongify(self);
             if (respondsObject) {
                 [MBProgressHUD showSuccess:@"申请成功"];
                 [_datasource removeObjectAtIndex:index];
