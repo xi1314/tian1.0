@@ -10,13 +10,13 @@
 
 @interface UIButton (BadgeValue)
 /**
- 设置右上角的badge
+ 设置右上角的badge，调用该方法前需要先设置Button title
  
  @param badgeValue badge显示的数字
- @param color      数字的颜色，默认为白色
+ @param color      badgeValue的背景色，text为白色
  */
 - (void)setBadgeValue:(NSString *)badgeValue
-        withTextColor:(UIColor *)color;
+        withBackColor:(UIColor *)color;
 
 /**
  *  移除角标

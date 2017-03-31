@@ -22,7 +22,6 @@ UITableViewDataSource,
 UITextFieldDelegate>
 
 {
-//    NSInteger _indexPage;                      // 页码
     UIButton *_nowButton;                      // 当前选择按钮（顶部）
     OrderManagerTableViewCell *_selectedCell;  // 选择的cell
 }
@@ -133,14 +132,12 @@ UITextFieldDelegate>
                 [self requestForDatasource]; // 卖家刷新全部订单
             } else {
                 [self requestForOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState];
-//                [self updateOrderData]; // 卖家刷新其他状态订单
             }
         } else {
             if (_nowButton.tag == 230) {
                 [self requestForPersonalData]; // 买家刷新全部订单
             } else {
                 [self requestForBuyerOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState];
-//                [self updateBuyerOrderData]; // 买家刷新其他订单状态
             }
         }
         
@@ -415,14 +412,21 @@ UITextFieldDelegate>
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
-        
+        [self.tableView.mj_footer isAutomaticallyHidden];
         if (respondsObject) {
             if (_indexPage == 1) {
                 self.datasource = [NSMutableArray array];
             }
             
             OrderModel *orderM = (OrderModel *)respondsObject;
-    
+            // 设置角标
+            NSArray *badgeArr = @[orderM.totalPage,orderM.waitPayCount,orderM.waitDeliverCount,orderM.waitTakeDeliverCount,orderM.refundCount];
+            NSLog(@"badgeArr %@",badgeArr);
+            for (int i = 0; i < 5; i++) {
+                UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
+                [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
+            }
+            
             if (orderM.orderSnList.count) {
                 [self.datasource addObjectsFromArray:orderM.orderSnList];
             }
@@ -473,7 +477,13 @@ UITextFieldDelegate>
                 }
                 [self.tableView reloadData];
             }
-            
+            // 设置角标
+            NSArray *badgeArr = @[oM.totalPage,oM.waitPayCount,oM.waitDeliverCount,oM.waitTakeDeliverCount,oM.refundCount];
+            NSLog(@"badgeArr %@",badgeArr);
+            for (int i = 0; i < 5; i++) {
+                UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
+                [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
+            }
         } else {
             if (_indexPage == 1) {
                 [MBProgressHUD showError:@"暂无订单"];
@@ -607,7 +617,13 @@ UITextFieldDelegate>
             if (orderM.orderSnList.count) {
                 [self.datasource addObjectsFromArray:orderM.orderSnList];
             }
-            
+            // 设置角标
+            NSArray *badgeArr = @[orderM.totalPage,orderM.waitPayCount,orderM.waitDeliverCount,orderM.waitTakeDeliverCount,orderM.refundCount];
+            NSLog(@"badgeArr %@",badgeArr);
+            for (int i = 0; i < 5; i++) {
+                UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
+                [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
+            }
             [self.tableView reloadData];
         }
     }];
@@ -653,6 +669,13 @@ UITextFieldDelegate>
                     
                 }
                 [self.tableView reloadData];
+            }
+            // 设置角标
+            NSArray *badgeArr = @[oM.totalPage,oM.waitPayCount,oM.waitDeliverCount,oM.waitTakeDeliverCount,oM.refundCount];
+            NSLog(@"badgeArr %@",badgeArr);
+            for (int i = 0; i < 5; i++) {
+                UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
+                [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
             }
         } else {
             if (_indexPage == 1) {

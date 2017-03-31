@@ -15,10 +15,10 @@ NSUInteger const badgeViewTag = 10240;
  设置右上角的badge，调用该方法前需要先设置Button title
  
  @param badgeValue badge显示的数字
- @param color      数字的颜色，默认为白色
+ @param color      badgeValue的背景色，text为白色
  */
 - (void)setBadgeValue:(NSString *)badgeValue
-        withTextColor:(UIColor *)color;
+        withBackColor:(UIColor *)color;
 {
     if (!badgeValue || badgeValue.length == 0) { NSLog(@"badgeValue is nil"); return; }
     
@@ -34,21 +34,23 @@ NSUInteger const badgeViewTag = 10240;
     UILabel *badValueLabel = [[UILabel alloc]init];
     [badValueLabel setTag:badgeViewTag];
     [badValueLabel setTextAlignment:NSTextAlignmentCenter];
-    [badValueLabel setTextColor:color];
+    [badValueLabel setTextColor:[UIColor whiteColor]];
     [badValueLabel setText:badgeValue];
     [self setSubFrameWithBadge:badValueLabel];
     [badValueLabel setFont:[UIFont boldSystemFontOfSize:10]];
     [badValueLabel setCenter:rightTopInsidePoint];
+    [badValueLabel setBackgroundColor:color];
     /**
      *  处理成圆形
      */
     badValueLabel.layer.masksToBounds = YES;
     badValueLabel.layer.cornerRadius = badValueLabel.frame.size.height / 2;
-    badValueLabel.layer.borderWidth = 1;
-    badValueLabel.layer.borderColor = color.CGColor;
     
-    [self addSubview:badValueLabel];
-    [self sendSubviewToBack:self.titleLabel];
+    if ([badgeValue integerValue] > 0) {
+        [self addSubview:badValueLabel];
+        [self sendSubviewToBack:self.titleLabel];
+    }
+    
 }
 
 
