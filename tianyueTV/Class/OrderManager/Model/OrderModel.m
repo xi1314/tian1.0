@@ -16,9 +16,7 @@
  @return 字典
  */
 + (NSDictionary *)objectClassInArray{
-    return @{
-             @"orderSnList" : @"OrderSnModel"
-             };
+    return @{@"orderSnList" : @"OrderSnModel"};
 }
 
 @end
@@ -33,9 +31,7 @@
  @return 字典
  */
 + (NSDictionary *)objectClassInArray{
-    return @{
-             @"goodsList" : @"GoodsInfoModel"
-             };
+    return @{@"goodsList" : @"GoodsInfoModel"};
 }
 
 @end
@@ -50,9 +46,7 @@
  @return 字典
  */
 + (NSDictionary *)replacedKeyFromPropertyName{
-    return @{
-             @"ID" : @"id"
-             };
+    return @{@"ID" : @"id"};
 }
 
 @end
