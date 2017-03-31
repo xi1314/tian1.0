@@ -22,6 +22,8 @@ NSUInteger const badgeViewTag = 10240;
 {
     if (!badgeValue || badgeValue.length == 0) { NSLog(@"badgeValue is nil"); return; }
     
+//    [self removeBadge];
+    
     if (!color) { color = [UIColor redColor]; }
     
     if ([badgeValue integerValue] > 99) { badgeValue = @"99+"; }
@@ -79,7 +81,7 @@ NSUInteger const badgeViewTag = 10240;
 /**
  移除badgeLabel
  */
-- (void)removeBadge;
+- (void)removeBadgeValue;
 {
     id badgeView = nil;
     if ([self.layer masksToBounds])

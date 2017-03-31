@@ -89,14 +89,14 @@
         AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:editCellIdentifier];
         if (!cell) {
             cell = [[[NSBundle mainBundle]
-                     loadNibNamed:@"AddressTableViewCell" owner:self options:nil] objectAtIndex:1];
+                     loadNibNamed:@"AddressTableViewCell" owner:nil options:nil] objectAtIndex:1];
         }
         return cell;
     }
     AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
     if (!cell) {
         cell = [[[NSBundle mainBundle]
-                 loadNibNamed:@"AddressTableViewCell" owner:self options:nil] objectAtIndex:0];
+                 loadNibNamed:@"AddressTableViewCell" owner:nil options:nil] objectAtIndex:0];
     }
     return cell;
     

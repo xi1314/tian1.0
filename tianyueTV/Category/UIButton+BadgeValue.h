@@ -21,5 +21,5 @@
 /**
  *  移除角标
  */
-- (void)removeBadge;
+- (void)removeBadgeValue;
 @end

@@ -90,7 +90,7 @@
         if (indexPath.row < self.dataArr.count) {
             OrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:orderCellIdentifier];
             if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderTableViewCell" owner:self options:nil] objectAtIndex:0];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderTableViewCell" owner:nil options:nil] objectAtIndex:0];
             }
             cell.dataDic = self.dataArr[indexPath.row];
             return cell;

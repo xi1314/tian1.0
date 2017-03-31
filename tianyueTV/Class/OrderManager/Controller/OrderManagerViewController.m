@@ -446,6 +446,7 @@ UITextFieldDelegate>
             NSLog(@"badgeArr %@",badgeArr);
             for (int i = 0; i < 4; i++) {
                 UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
+                [button removeBadgeValue];
                 [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
             }
             
@@ -512,6 +513,7 @@ UITextFieldDelegate>
             NSLog(@"badgeArr %@",badgeArr);
             for (int i = 0; i < 4; i++) {
                 UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
+                [button removeBadgeValue];
                 [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
             }
         } else {
@@ -657,6 +659,7 @@ UITextFieldDelegate>
             NSLog(@"badgeArr %@",badgeArr);
             for (int i = 0; i < 4; i++) {
                 UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
+                [button removeBadgeValue];
                 [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
             }
             // 数据少于5条时，停止上拉请求数据
@@ -721,6 +724,7 @@ UITextFieldDelegate>
             NSLog(@"badgeArr %@",badgeArr);
             for (int i = 0; i < 4; i++) {
                 UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
+                [button removeBadgeValue];
                 [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
             }
         } else {
@@ -793,7 +797,7 @@ UITextFieldDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OrderManagerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"kOrderManagerTableViewCell"];
     if (!cell) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderManagerTableViewCell" owner:self options:nil] objectAtIndex:0];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderManagerTableViewCell" owner:nil options:nil] objectAtIndex:0];
         cell.finalPaymentText.delegate = self;
     }
     if (_isSeller) {
