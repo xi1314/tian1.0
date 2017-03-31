@@ -100,4 +100,15 @@
                                      user:(NSString *)user
                             completeBlock:(HandlerBlock)completeBlock;
 
+/**
+ 确认收货
+ 
+ @param orderSn 订单编号
+ @param user 用户ID
+ @param completeBlock 返回值
+ */
++ (void)requestForSureDeliveryWithOrderSn:(NSString *)orderSn
+                                     user:(NSString *)user
+                            completeBlock:(HandlerBlock)completeBlock;
+
 @end

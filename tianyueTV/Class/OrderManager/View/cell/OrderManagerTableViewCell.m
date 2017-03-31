@@ -142,6 +142,7 @@
                 self.finalPayLabel.text      = @"已支付全款";
                 self.finalPayLabel.textColor = WWColor(69, 69, 69);
                 self.secondButton.selected   = YES;
+                self.thirdButton.selected = YES;
                 [self.secondButton setTitle:@"取消订单" forState:UIControlStateNormal];
             } else if ([self.goodsModel.goodsType integerValue] == 1) {
 //                NSString *orderNo = self.goodsModel.retainageOrderNo;

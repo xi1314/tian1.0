@@ -94,11 +94,7 @@ UITextFieldDelegate>
         UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
         [button addTarget:self action:@selector(respondsToStatuButtons:) forControlEvents:UIControlEventTouchUpInside];
     }
-}
-
-- (void)initilizeUserInterface {
-    if (_isSeller) { self.title = @"收到订单"; }
-    else { self.title = @"我的订单"; }
+    // 上拉加载
     @weakify(self);
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
@@ -118,6 +114,30 @@ UITextFieldDelegate>
         }
         
     }];
+    
+    // 下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        self.indexPage = 1;
+        if (_isSeller) {
+            if (_nowButton.tag == 230) {
+                [self requestForDatasource]; // 卖家刷新全部订单
+            } else {
+                [self requestForOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState];
+            }
+        } else {
+            if (_nowButton.tag == 230) {
+                [self requestForPersonalData]; // 买家刷新全部订单
+            } else {
+                [self requestForBuyerOrderWithOrder:self.orderState shopping:self.shoppingState pay:self.payState];
+            }
+        }
+    }];
+}
+
+- (void)initilizeUserInterface {
+    if (_isSeller) { self.title = @"收到订单"; }
+    else { self.title = @"我的订单"; }
 }
 
 
@@ -139,6 +159,8 @@ UITextFieldDelegate>
     _nowButton.selected = NO;
     _nowButton          = sender;
     [MBProgressHUD showMessage:@"加载中"];
+    [self.tableView.mj_footer setHidden:NO];
+    [self.tableView.mj_header setHidden:NO];
     switch (sender.tag - 230) {
         case 0: { // 全部订单
             if (_isSeller) {
@@ -226,6 +248,7 @@ UITextFieldDelegate>
     NSInteger shop = [goodsInfoModel.shippingStatus integerValue];
     NSInteger pay  = [goodsInfoModel.payStatus integerValue];
     int index = (int)[self.datasource indexOfObject:orderSnModel];
+    @weakify(self);
     if (order == 0 && shop == 0) { // 代付款
         if (tag == 1) { // 取消订单
             if (pay != 0 && !self.isSeller) { // 买家申请退款
@@ -237,7 +260,6 @@ UITextFieldDelegate>
             if (_isSeller) { // 确认订单，进入待发货
                 [window addSubview:self.baseMaskView];
                 [self.baseMaskView addSubview:self.alertView];
-                @weakify(self);
                 [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                     @strongify(self);
                     [self.baseMaskView removeAllSubviews];
@@ -259,7 +281,6 @@ UITextFieldDelegate>
             if (_isSeller) { // 立即发货
                 [window addSubview:self.baseMaskView];
                 [self.baseMaskView addSubview:self.deliveryView];
-                @weakify(self);
                 self.deliveryView.buttonBlock = ^(NSInteger tag){
                     @strongify(self);
                     if (tag == 2) { // 取消
@@ -279,8 +300,8 @@ UITextFieldDelegate>
         }
         if (tag == 2) { // 延长发货
             [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
             [self.alertView initDZAlertViewMessage:@"是否延长发货时间" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+                @strongify(self);
                 [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
@@ -290,12 +311,13 @@ UITextFieldDelegate>
     } else if (order == 1 && shop == 1 && pay == 2) { // 待收货
         if (tag == 1) { // 查看物流
             
+        } else if (tag == 2) { // 确认收货
+            [self makeSureDeliveryWithOrderSn:goodsInfoModel.orderInfoSn index:index];
         }
     } else if (order == 1 && shop == 2 && pay == 2) { // 已完成
         if (tag == 2) {
             [window addSubview:self.baseMaskView];
             [self.baseMaskView addSubview:self.alertView];
-            @weakify(self);
             [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
                 [self.baseMaskView removeAllSubviews];
@@ -309,7 +331,6 @@ UITextFieldDelegate>
         if (tag == 2) { // 删除订单
             [window addSubview:self.baseMaskView];
             [self.baseMaskView addSubview:self.alertView];
-            @weakify(self);
             [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
                 [self.baseMaskView removeAllSubviews];
@@ -322,19 +343,16 @@ UITextFieldDelegate>
     } else if (order == 4) { // 退款
         if (tag == 1) { // 同意退款
             [window addSubview:self.baseMaskView];
-            @weakify(self);
             [self.alertView initDZAlertViewMessage:@"同意退款后订金金额将退还买家，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
                 [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
-//                @strongify(self);
                 
             }];
             [self.baseMaskView addSubview:self.alertView];
         } else if (tag == 2) { // 申请纠纷
             [window addSubview:self.baseMaskView];
-            @weakify(self);
             [self.alertView initDZAlertViewMessage:@"确认让工作人员介入处理吗？是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
                 [self.baseMaskView removeAllSubviews];
@@ -355,6 +373,11 @@ UITextFieldDelegate>
     [self.view endEditing:YES];
 }
 
+/**
+ 立即支付
+
+ @param price 价格
+ */
 - (void)showPayOrderViewAnmation:(NSString *)price {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.baseMaskView];
@@ -376,6 +399,27 @@ UITextFieldDelegate>
     };
 }
 
+- (void)makeSureDeliveryWithOrderSn:(NSString *)orderSn index:(int)index {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self.baseMaskView];
+    [self.baseMaskView addSubview:self.alertView];
+    @weakify(self);
+    [self.alertView initDZAlertViewMessage:@"确认收货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+        @strongify(self);
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+    } rightHandle:^(UIButton *button) {
+        @strongify(self);
+        [OrderHandle requestForSureDeliveryWithOrderSn:orderSn user:@"10085" completeBlock:^(id respondsObject, NSError *error) {
+            if (respondsObject) {
+                [MBProgressHUD showSuccess:@"确认成功"];
+            }
+        }];
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+    }];
+}
+
 #pragma mark - 卖家网络请求
 /**
  全部订单（卖家）
@@ -388,27 +432,31 @@ UITextFieldDelegate>
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
-        [self.tableView.mj_footer isAutomaticallyHidden];
+        if (self.tableView.mj_header.state == MJRefreshStateRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+        }
         if (respondsObject) {
-            if (_indexPage == 1) {
+            if (_indexPage == 1) { // 第一次网络请求
                 self.datasource = [NSMutableArray array];
             }
             
             OrderModel *orderM = (OrderModel *)respondsObject;
             // 设置角标
-            NSArray *badgeArr = @[orderM.totalPage,orderM.waitPayCount,orderM.waitDeliverCount,orderM.waitTakeDeliverCount,orderM.refundCount];
+            NSArray *badgeArr = @[orderM.waitPayCount,orderM.waitDeliverCount,orderM.waitTakeDeliverCount,orderM.refundCount];
             NSLog(@"badgeArr %@",badgeArr);
-            for (int i = 0; i < 5; i++) {
-                UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
+            for (int i = 0; i < 4; i++) {
+                UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
                 [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
             }
             
             if (orderM.orderSnList.count) {
                 [self.datasource addObjectsFromArray:orderM.orderSnList];
             }
-
+            // 数据少于5条时，停止上拉请求数据
+            if (orderM.orderSnList.count < 5) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }
-        
         [self.tableView reloadData];
         
     }];
@@ -434,7 +482,9 @@ UITextFieldDelegate>
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
-        
+        if (self.tableView.mj_header.state == MJRefreshStateRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+        }
         if (respondsObject) {
             OrderModel *oM = (OrderModel *)respondsObject;
             if (_indexPage == 1) { // 第一次网络请求，清空数据源
@@ -453,18 +503,25 @@ UITextFieldDelegate>
                 }
                 [self.tableView reloadData];
             }
+            
+            if (oM.orderSnList.count < 5) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
             // 设置角标
-            NSArray *badgeArr = @[oM.totalPage,oM.waitPayCount,oM.waitDeliverCount,oM.waitTakeDeliverCount,oM.refundCount];
+            NSArray *badgeArr = @[oM.waitPayCount,oM.waitDeliverCount,oM.waitTakeDeliverCount,oM.refundCount];
             NSLog(@"badgeArr %@",badgeArr);
-            for (int i = 0; i < 5; i++) {
-                UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
+            for (int i = 0; i < 4; i++) {
+                UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
                 [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
             }
         } else {
             if (_indexPage == 1) {
                 [MBProgressHUD showError:@"暂无订单"];
                 self.datasource = [NSMutableArray array];
+                [self.tableView.mj_footer setHidden:YES];
+                [self.tableView.mj_header setHidden:YES];
             }
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
             [self.tableView reloadData];
         }
     }];
@@ -583,7 +640,9 @@ UITextFieldDelegate>
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
-        
+        if (self.tableView.mj_header.state == MJRefreshStateRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+        }
         if (respondsObject) {
             if (_indexPage == 1) {
                 self.datasource = [NSMutableArray array];
@@ -594,11 +653,15 @@ UITextFieldDelegate>
                 [self.datasource addObjectsFromArray:orderM.orderSnList];
             }
             // 设置角标
-            NSArray *badgeArr = @[orderM.totalPage,orderM.waitPayCount,orderM.waitDeliverCount,orderM.waitTakeDeliverCount,orderM.refundCount];
+            NSArray *badgeArr = @[orderM.waitPayCount,orderM.waitDeliverCount,orderM.waitTakeDeliverCount,orderM.refundCount];
             NSLog(@"badgeArr %@",badgeArr);
-            for (int i = 0; i < 5; i++) {
-                UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
+            for (int i = 0; i < 4; i++) {
+                UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
                 [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
+            }
+            // 数据少于5条时，停止上拉请求数据
+            if (orderM.orderSnList.count < 5) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             [self.tableView reloadData];
         }
@@ -625,7 +688,9 @@ UITextFieldDelegate>
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
-        
+        if (self.tableView.mj_header.state == MJRefreshStateRefreshing) {
+            [self.tableView.mj_header endRefreshing];
+        }
         if (respondsObject) {
             NSLog(@"respondsObject %@",respondsObject);
             OrderModel *oM = (OrderModel *)respondsObject;
@@ -646,19 +711,27 @@ UITextFieldDelegate>
                 }
                 [self.tableView reloadData];
             }
+            
+            if (oM.orderSnList.count < 5) {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            
             // 设置角标
-            NSArray *badgeArr = @[oM.totalPage,oM.waitPayCount,oM.waitDeliverCount,oM.waitTakeDeliverCount,oM.refundCount];
+            NSArray *badgeArr = @[oM.waitPayCount,oM.waitDeliverCount,oM.waitTakeDeliverCount,oM.refundCount];
             NSLog(@"badgeArr %@",badgeArr);
-            for (int i = 0; i < 5; i++) {
-                UIButton *button = (UIButton *)[self.view viewWithTag:230+i];
+            for (int i = 0; i < 4; i++) {
+                UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
                 [button setBadgeValue:badgeArr[i] withBackColor:THEME_COLOR];
             }
         } else {
             if (_indexPage == 1) {
                 [MBProgressHUD showError:@"暂无订单"];
                 self.datasource = [NSMutableArray array];
+                [self.tableView.mj_footer setHidden:YES];
+                [self.tableView.mj_header setHidden:YES];
             }
             [self.tableView reloadData];
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
     }];
 }

@@ -34,7 +34,8 @@
 //退款申请
 #define api_applyRefund_app @"applyRefund_app"
 
-
+//确认收货
+#define api_refundqueren_app @"refundqueren_app"
 
 
 

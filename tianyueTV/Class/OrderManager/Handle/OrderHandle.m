@@ -266,5 +266,31 @@
     }];
 }
 
+/**
+ 确认收货
+
+ @param orderSn 订单编号
+ @param user 用户ID
+ @param completeBlock 返回值
+ */
++ (void)requestForSureDeliveryWithOrderSn:(NSString *)orderSn
+                                     user:(NSString *)user
+                            completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"orderInfoSn" : orderSn,
+                          @"user_id" : user};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_refundqueren_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        NSLog(@"%@,%@",responseObject,error);
+        
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject,nil);
+        } else {
+            completeBlock(nil,error);
+        }
+    }];
+}
+
 
 @end
