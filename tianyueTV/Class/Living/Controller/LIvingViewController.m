@@ -254,12 +254,10 @@
     //当设备在一定时间内没有触摸动作，iOS会锁屏，设置属性让他不会锁屏
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
-  //  [self.player play];
-//    NSString *flvUrl = @"";
 //    frame 参数被废弃，画面区域的大小改成了时刻铺满您传入的view
     [self.livePlayer setupVideoWidget:CGRectMake(0, 0, 0, 0) containView:self.livingView insertIndex:0];
-    self.flvUrl = @"rtmp://live.hkstv.hk.lxdns.com/live/hks";
-    [self.livePlayer startPlay:self.flvUrl type:PLAY_TYPE_LIVE_RTMP];
+//    self.flvUrl = @"rtmp://live.hkstv.hk.lxdns.com/live/hks";
+//    [self.livePlayer startPlay:self.flvUrl type:PLAY_TYPE_LIVE_RTMP];
 }
 
 //添加进度轮

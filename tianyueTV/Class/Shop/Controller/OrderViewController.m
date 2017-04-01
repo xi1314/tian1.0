@@ -131,8 +131,6 @@
 
 #pragma mark -- Tap method
 - (IBAction)topViewTop_action:(UITapGestureRecognizer *)sender {
-//    WaitingOrderViewController *orderVC = [[WaitingOrderViewController alloc] init];
-//    [self.navigationController pushViewController:orderVC animated:YES];
     
     AddressManageViewController *addressVC = [[AddressManageViewController alloc] init];
     [self.navigationController pushViewController:addressVC animated:YES];
@@ -152,6 +150,7 @@
 
 //提交订单
 - (IBAction)commitButton_action:(UIButton *)sender {
+    [self requestForOrderPay];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.baseMaskView];
     [self.baseMaskView addSubview:self.payView];
@@ -190,11 +189,14 @@
 #pragma mark -- Newworking request
 - (void)requestForOrderPay {
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.dataArr[0][@"goodsAndNum"],@"goodsAndNum",moneyStr,@"payMoney",@"112",@"addressId",@"test",@"messagedds", nil];
-    NSLog(@"%@",dic);
+    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.dataArr[0][@"goodsAndNum"],@"goodsAndNum",moneyStr,@"payMoney",@"112",@"addressId",self.messageText.text,@"messagedds", nil];
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"toPay_app" paraments:dic finish:^(id responseObject, NSError *error) {
-        NSLog(@"%@",error);
-        NSLog(@"%@",responseObject);
+        NSLog(@">>>>> %@",responseObject);
+        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
+            [MBProgressHUD showSuccess:@"提交成功"];
+        } else {
+            [MBProgressHUD showError:@"订单提交失败"];
+        }
     }];
 }
 

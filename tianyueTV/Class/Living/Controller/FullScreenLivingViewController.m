@@ -153,8 +153,8 @@
     //    NSString *flvUrl = @"";
     //    frame 参数被废弃，画面区域的大小改成了时刻铺满您传入的view
     [self.livePlayer setupVideoWidget:CGRectMake(0, 0, 0, 0) containView:self.livingView insertIndex:0];
-    self.flvUrl = @"rtmp://live.hkstv.hk.lxdns.com/live/hks";
-    [self.livePlayer startPlay:self.flvUrl type:PLAY_TYPE_LIVE_RTMP];
+//    self.flvUrl = @"rtmp://live.hkstv.hk.lxdns.com/live/hks";
+//    [self.livePlayer startPlay:self.flvUrl type:PLAY_TYPE_LIVE_RTMP];
 }
 
 #pragma mark ------横屏下按钮的触发事件

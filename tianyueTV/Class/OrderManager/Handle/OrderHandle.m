@@ -28,7 +28,7 @@
                              @"currentPage" : @(page)};
 
     [[NetWorkTool sharedTool] requestMethod:POST URL:urlName paraments:params finish:^(id responseObject, NSError *error) {
-        
+        NSLog(@"%@",responseObject);
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[RET] isEqualToString:SUCCESS]) {
             
@@ -288,6 +288,55 @@
             completeBlock(responseObject,nil);
         } else {
             completeBlock(nil,error);
+        }
+    }];
+}
+
+/**
+ 申请纠纷
+
+ @param orderID 订单ID
+ @param user userID
+ @param completeBlock 返回值
+ */
++ (void)requestForOrderDisputeWithOrderID:(NSString *)orderID
+                                     user:(NSString *)user
+                            completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"order_id" : orderID,
+                          @"user_id" : user};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_Order_dispute_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        NSLog(@"申请纠纷 %@",responseObject);
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+    }];
+    
+}
+
+
+/**
+ 已支付定金订单的取消
+
+ @param orderSn 订单编号
+ @param completeBlock 返回值
+ */
++ (void)requestForRefoundWithOrderSn:(NSString *)orderSn
+                       completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"orderInfoSn" : orderSn};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_updateMJOrder paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil, responseObject);
         }
     }];
 }

@@ -9,11 +9,22 @@
 #import "AddressManageViewController.h"
 #import "AddressTableViewCell.h"
 #import "AddAddressViewController.h"
+#import "ShopHandle.h"
+#import "AddressModel.h"
 
-@interface AddressManageViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AddressManageViewController ()
+<UITableViewDelegate,
+UITableViewDataSource>
+
+// 列表
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+// 数据源
 @property (strong, nonatomic) NSMutableArray *dataSource;
+
+// 约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *addNewBottom;
+
 @end
 
 @implementation AddressManageViewController
@@ -27,8 +38,15 @@
 #pragma mark -- init method
 - (void)initilizeDatasource {
     _dataSource = [NSMutableArray array];
-    NSArray *arr = @[@"",@""];
-    _dataSource = [arr mutableCopy];
+    @weakify(self);
+    [ShopHandle requestForAddressListWithUSer:USER_ID completeBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        AddressModel *addM = (AddressModel *)respondsObject;
+        if (respondsObject) {
+            [self.dataSource addObjectsFromArray:addM.sAddresses_list];
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 - (void)initilizeUserInterface {
@@ -81,8 +99,6 @@
     return 1;
 }
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //编辑状态
     if (self.isEdit) {
@@ -91,6 +107,7 @@
             cell = [[[NSBundle mainBundle]
                      loadNibNamed:@"AddressTableViewCell" owner:nil options:nil] objectAtIndex:1];
         }
+        
         return cell;
     }
     AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
@@ -98,8 +115,8 @@
         cell = [[[NSBundle mainBundle]
                  loadNibNamed:@"AddressTableViewCell" owner:nil options:nil] objectAtIndex:0];
     }
+    [cell configCellWithModel:_dataSource[indexPath.section]];
     return cell;
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -111,6 +128,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    AddressInfoModel *infoM = _dataSource[indexPath.section];
+    return infoM.cellHeight;
 }
 
 

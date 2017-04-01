@@ -167,7 +167,6 @@
         self.thirdButton.selected    = YES;
         [self.secondButton setTitle:@"查看物流" forState:UIControlStateNormal];
     } else if (order == 1 && shopping == 2 && pay == 2) { // 已完成
-        
         if ([self.goodsModel.refoundStatus integerValue] == 4) {
             // 已退款的完成
             self.finalPayLabel.text = @"已退款";
@@ -176,7 +175,7 @@
             self.finalPayLabel.text = @"交易成功";
             self.finalPayLabel.textColor = WWColor(143, 213, 149);
         }
-         
+        self.secondButton.selected = YES;
     } else if (order == 2) { // 已取消
         self.finalPayLabel.text     = @"已取消";
         self.secondButton.selected  = YES;
@@ -243,6 +242,8 @@
             self.finalPayLabel.text = @"交易成功";
             self.finalPayLabel.textColor = WWColor(143, 213, 149);
         }
+        self.secondButton.selected = YES;
+        [self.thirdButton setTitle:@"删除订单" forState:UIControlStateNormal];
     } else if (order == 2) { // 已取消
         self.finalPayLabel.text     = @"已取消";
         self.secondButton.selected  = YES;

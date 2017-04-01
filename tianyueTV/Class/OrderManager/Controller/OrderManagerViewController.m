@@ -62,6 +62,9 @@ UITextFieldDelegate>
 // 买家支付弹窗
 @property (strong, nonatomic) PayOrderView *payOrderView;
 
+// window
+@property (strong, nonatomic) UIWindow *window;
+
 @end
 
 @implementation OrderManagerViewController
@@ -242,44 +245,35 @@ UITextFieldDelegate>
                      model:(OrderSnModel *)orderSnModel {
     
     GoodsInfoModel *goodsInfoModel = orderSnModel.goodsList[0];
-
-    UIWindow *window  = [UIApplication sharedApplication].keyWindow;
     NSInteger order   = [goodsInfoModel.orderStauts integerValue];
     NSInteger shop = [goodsInfoModel.shippingStatus integerValue];
     NSInteger pay  = [goodsInfoModel.payStatus integerValue];
     int index = (int)[self.datasource indexOfObject:orderSnModel];
     @weakify(self);
     if (order == 0 && shop == 0) { // 代付款
-        if (tag == 1) { // 取消订单
+        if (tag == 1) {
             if (pay != 0 && !self.isSeller) { // 买家申请退款
                 [self applyOrderRefoudWithOrderSn:goodsInfoModel.orderInfoSn index:index];
-            } else { // 取消订单
-                [self requestForCancelOrder:goodsInfoModel.orderInfoSn index:index];
+            } else {
+                if (pay == 2) { // 卖家取消已支付定金的订单
+                    [self sellerCancelOrderAndRefoundWithOrderSn:goodsInfoModel.orderInfoSn index:index];
+                } else { // 取消订单
+                    [self requestForCancelOrder:goodsInfoModel.orderInfoSn index:index];
+                }
             }
         } else if (tag == 2) {
-            if (_isSeller) { // 确认订单，进入待发货
-                [window addSubview:self.baseMaskView];
-                [self.baseMaskView addSubview:self.alertView];
-                [self.alertView initDZAlertViewMessage:@"欣然接货，开始备货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                    @strongify(self);
-                    [self.baseMaskView removeAllSubviews];
-                    [self.baseMaskView removeFromSuperview];
-                } rightHandle:^(UIButton *button) {
-                    
-                }];
-            } else { // 立即支付
-                if (pay == 0) {
-                    NSString *price = [NSString stringWithFormat:@"%.2f",[goodsInfoModel.goodsPrice floatValue]*[goodsInfoModel.goodsNum floatValue]];
-                    [self showPayOrderViewAnmation:price];
-                } else {
-                    [self showPayOrderViewAnmation:goodsInfoModel.retainage];
-                }
+             // 立即支付
+            if (pay == 0) {
+                NSString *price = [NSString stringWithFormat:@"%.2f",[goodsInfoModel.goodsPrice floatValue]*[goodsInfoModel.goodsNum floatValue]];
+                [self showPayOrderViewAnmation:price];
+            } else {
+                [self showPayOrderViewAnmation:goodsInfoModel.retainage];
             }
         }
     } else if (order == 1 && shop == 0 && pay == 2) { // 待发货
         if (tag == 1) {
             if (_isSeller) { // 立即发货
-                [window addSubview:self.baseMaskView];
+                [self.window addSubview:self.baseMaskView];
                 [self.baseMaskView addSubview:self.deliveryView];
                 self.deliveryView.buttonBlock = ^(NSInteger tag){
                     @strongify(self);
@@ -299,7 +293,8 @@ UITextFieldDelegate>
             }
         }
         if (tag == 2) { // 延长发货
-            [window addSubview:self.baseMaskView];
+            [self.window addSubview:self.baseMaskView];
+            [self.baseMaskView addSubview:self.alertView];
             [self.alertView initDZAlertViewMessage:@"是否延长发货时间" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
                 [self.baseMaskView removeAllSubviews];
@@ -315,35 +310,21 @@ UITextFieldDelegate>
             [self makeSureDeliveryWithOrderSn:goodsInfoModel.orderInfoSn index:index];
         }
     } else if (order == 1 && shop == 2 && pay == 2) { // 已完成
-        if (tag == 2) {
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
-            [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-                @strongify(self);
-                [self requstForDeleteOrder:index];
-            }];
+        if (tag == 2) { // 删除订单
+            [self deleteOrderWithorderSn:goodsInfoModel.orderInfoSn tomato:@"" index:index];
         }
     } else if (order == 2) { // 已取消
-        if (tag == 2) { // 删除订单
-            [window addSubview:self.baseMaskView];
-            [self.baseMaskView addSubview:self.alertView];
-            [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-                @strongify(self);
-                [self requestForDeleteOrderWithOrderSn:goodsInfoModel.orderInfoSn tomato:@"" index:index];
-            }];
+        if (tag == 2) {
+            if (_isSeller) { // 卖家删除订单
+                [self deleteOrderWithorderSn:goodsInfoModel.orderInfoSn tomato:@"2"   index:index];
+            } else { // 买家删除
+                [self deleteOrderWithorderSn:goodsInfoModel.orderInfoSn tomato:@"1"   index:index];
+            }
         }
     } else if (order == 4) { // 退款
         if (tag == 1) { // 同意退款
-            [window addSubview:self.baseMaskView];
-            [self.alertView initDZAlertViewMessage:@"同意退款后订金金额将退还买家，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+            [self.window addSubview:self.baseMaskView];
+            [self.alertView initDZAlertViewMessage:@"同意退款后订单金额将退还买家，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
                 @strongify(self);
                 [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
@@ -352,16 +333,7 @@ UITextFieldDelegate>
             }];
             [self.baseMaskView addSubview:self.alertView];
         } else if (tag == 2) { // 申请纠纷
-            [window addSubview:self.baseMaskView];
-            [self.alertView initDZAlertViewMessage:@"确认让工作人员介入处理吗？是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
-                @strongify(self);
-                [self.baseMaskView removeAllSubviews];
-                [self.baseMaskView removeFromSuperview];
-            } rightHandle:^(UIButton *button) {
-//                @strongify(self);
-                
-            }];
-            [self.baseMaskView addSubview:self.alertView];
+            [self applyForDisputeWithOrderID:goodsInfoModel.order_id index:index];
         }
     }
 }
@@ -379,8 +351,7 @@ UITextFieldDelegate>
  @param price 价格
  */
 - (void)showPayOrderViewAnmation:(NSString *)price {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.baseMaskView];
+    [self.window addSubview:self.baseMaskView];
     self.payOrderView.priceString = price;
     [self.baseMaskView addSubview:self.payOrderView];
     [UIView animateWithDuration:0.3 animations:^{
@@ -399,9 +370,14 @@ UITextFieldDelegate>
     };
 }
 
+/**
+ 确认收货
+
+ @param orderSn 订单编号
+ @param index cell编号
+ */
 - (void)makeSureDeliveryWithOrderSn:(NSString *)orderSn index:(int)index {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.baseMaskView];
+    [self.window addSubview:self.baseMaskView];
     [self.baseMaskView addSubview:self.alertView];
     @weakify(self);
     [self.alertView initDZAlertViewMessage:@"确认收货" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
@@ -413,11 +389,110 @@ UITextFieldDelegate>
         [OrderHandle requestForSureDeliveryWithOrderSn:orderSn user:@"10085" completeBlock:^(id respondsObject, NSError *error) {
             if (respondsObject) {
                 [MBProgressHUD showSuccess:@"确认成功"];
+                [self.datasource removeObjectAtIndex:index];
+                [self.tableView reloadData];
             }
         }];
         [self.baseMaskView removeAllSubviews];
         [self.baseMaskView removeFromSuperview];
     }];
+}
+
+/**
+ 删除订单
+
+ @param orderSn 订单编号
+ @param tomato 1买家取消 2 卖家取消
+ @param index cell编号
+ */
+- (void)deleteOrderWithorderSn:(NSString *)orderSn
+                        tomato:(NSString *)tomato
+                         index:(int)index
+{
+    [self.window addSubview:self.baseMaskView];
+    [self.baseMaskView addSubview:self.alertView];
+    @weakify(self);
+    [self.alertView initDZAlertViewMessage:@"订单删除后不可恢复，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+        @strongify(self);
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+    } rightHandle:^(UIButton *button) {
+        [OrderHandle requestForDeleteOrderWithOrderSn:orderSn tomato:tomato completeBlock:^(id respondsObject, NSError *error) {
+            @strongify(self);
+            if (respondsObject) {
+                [MBProgressHUD showSuccess:@"删除成功"];
+                [_datasource removeObjectAtIndex:index];
+                [self.tableView reloadData];
+                [self.baseMaskView removeAllSubviews];
+                [self.baseMaskView removeFromSuperview];
+            } else {
+                [MBProgressHUD showError:@"删除失败"];
+            }
+        }];
+    }];
+}
+
+/**
+ 申请纠纷
+
+ @param orderID 订单ID
+ @param index cell index
+ */
+- (void)applyForDisputeWithOrderID:(NSString *)orderID index:(int)index {
+    [self.window addSubview:self.baseMaskView];
+    [self.baseMaskView addSubview:self.alertView];
+    @weakify(self);
+    [self.alertView initDZAlertViewMessage:@"确认让工作人员介入处理吗？是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+        @strongify(self);
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+    } rightHandle:^(UIButton *button) {
+        @strongify(self);
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+        [OrderHandle requestForOrderDisputeWithOrderID:orderID user:@"10085" completeBlock:^(id respondsObject, NSError *error) {
+            @strongify(self);
+            [MBProgressHUD showMessage:nil];
+            if (respondsObject) {
+                [MBProgressHUD hideHUD];
+                NSLog(@"respondsObject %@",respondsObject);
+                OrderSnModel *snM = [_datasource objectAtIndex:index];
+                GoodsInfoModel *goodM = snM.goodsList[0];
+                goodM.order_status_app = @"8";
+                [self.tableView reloadData];
+            } else {
+                [MBProgressHUD showError:@"申请失败"];
+            }
+        }];
+    }];
+}
+
+- (void)sellerCancelOrderAndRefoundWithOrderSn:(NSString *)orderSn
+                                         index:(int)index
+{
+    [self.window addSubview:self.baseMaskView];
+    [self.baseMaskView addSubview:self.alertView];
+    @weakify(self);
+    [self.alertView initDZAlertViewMessage:@"取消订单后，定金会退还买家，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
+        @strongify(self);
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+     } rightHandle:^(UIButton *button) {
+         @strongify(self);
+         [self.baseMaskView removeAllSubviews];
+         [self.baseMaskView removeFromSuperview];
+         [MBProgressHUD showMessage:nil];
+         [OrderHandle requestForRefoundWithOrderSn:orderSn completeBlock:^(id respondsObject, NSError *error) {
+             @strongify(self);
+             if (respondsObject) {
+                 [MBProgressHUD hideHUD];
+                 [_datasource removeObjectAtIndex:index];
+                 [self.tableView reloadData];
+             } else {
+                 [MBProgressHUD showError:@"取消失败"];
+             }
+         }];
+     }];
 }
 
 #pragma mark - 卖家网络请求
@@ -558,7 +633,8 @@ UITextFieldDelegate>
 - (void)requestForCancelOrder:(NSString *)orderInfo
                         index:(int)index
 {
-    
+    [self.window addSubview:self.baseMaskView];
+    [self.baseMaskView addSubview:self.alertView];
     @weakify(self);
     [self.alertView initDZAlertViewMessage:@"是否确认取消订单?" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
         @strongify(self);
@@ -602,32 +678,6 @@ UITextFieldDelegate>
         self.deliveryView.deliveryNumber.text = nil;
         self.deliveryView.companySelect.titleLabel.text = nil;
         
-    }];
-}
-
-/**
- 删除订单
-
- @param orderSn 订单编号
- @param tomato 1买家取消 2 卖家取消
- @param index index
- */
-- (void)requestForDeleteOrderWithOrderSn:(NSString *)orderSn
-                                  tomato:(NSString *)tomato
-                                   index:(int)index
-{
-    @weakify(self);
-    [OrderHandle requestForDeleteOrderWithOrderSn:orderSn tomato:tomato completeBlock:^(id respondsObject, NSError *error) {
-        @strongify(self);
-        if (respondsObject) {
-            [MBProgressHUD showSuccess:@"删除成功"];
-            [_datasource removeObjectAtIndex:index];
-            [self.tableView reloadData];
-            [self.baseMaskView removeAllSubviews];
-            [self.baseMaskView removeFromSuperview];
-        } else {
-            [MBProgressHUD showError:@"删除失败"];
-        }
     }];
 }
 
@@ -695,7 +745,6 @@ UITextFieldDelegate>
             [self.tableView.mj_header endRefreshing];
         }
         if (respondsObject) {
-            NSLog(@"respondsObject %@",respondsObject);
             OrderModel *oM = (OrderModel *)respondsObject;
             
             if (_indexPage == 1) {
@@ -749,8 +798,7 @@ UITextFieldDelegate>
 - (void)applyOrderRefoudWithOrderSn:(NSString *)orderSn
                               index:(int)index
 {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.baseMaskView];
+    [self.window addSubview:self.baseMaskView];
     [self.baseMaskView addSubview:self.alertView];
     @weakify(self);
     [self.alertView initDZAlertViewMessage:@"申请退款后，钱款将全额退还，是否继续" leftTitle:@"否" rightTitle:@"是" leftHandle:^(UIButton *button) {
@@ -838,18 +886,14 @@ UITextFieldDelegate>
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     // 设置尾款时弹窗
-//    if (textField != self.paymentView.priceTextField) {
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        [window addSubview:self.baseMaskView];
-        [self.baseMaskView addSubview:self.paymentView];
-        _selectedCell = (OrderManagerTableViewCell *)[[textField superview] superview];
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:_selectedCell];
-        OrderSnModel *snM = _datasource[indexPath.section];
-        GoodsInfoModel *goodM = snM.goodsList[0];
-        self.paymentView.price = [goodM.goodsPrice floatValue] * [goodM.goodsNum floatValue];
-        return NO;
-//    }
-//    return YES;
+    [self.window addSubview:self.baseMaskView];
+    [self.baseMaskView addSubview:self.paymentView];
+    _selectedCell = (OrderManagerTableViewCell *)[[textField superview] superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:_selectedCell];
+    OrderSnModel *snM = _datasource[indexPath.section];
+    GoodsInfoModel *goodM = snM.goodsList[0];
+    self.paymentView.price = [goodM.goodsPrice floatValue] * [goodM.goodsNum floatValue];
+    return NO;
 }
 
 #pragma mark - Getter method
@@ -886,6 +930,13 @@ UITextFieldDelegate>
         _payOrderView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 365);
     }
     return _payOrderView;
+}
+
+- (UIWindow *)window {
+    if (!_window) {
+        _window = [UIApplication sharedApplication].keyWindow;
+    }
+    return _window;
 }
 
 @end

@@ -246,6 +246,7 @@
             //网络请求参数
             dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.goodID,@"gid",self.chooseView.goodCount,@"storeNum",self.chooseView.typeID,@"gTypeInfo", nil];
         }
+        NSLog(@"dic %@",dic);
         [[NetWorkTool sharedTool] requestMethod:POST URL:@"buyAtOnce_app" paraments:dic finish:^(id responseObject, NSError *error) {
             [MBProgressHUD hideHUD];
             NSLog(@"--- %@",responseObject);

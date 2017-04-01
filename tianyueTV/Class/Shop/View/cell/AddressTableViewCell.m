@@ -8,6 +8,19 @@
 
 #import "AddressTableViewCell.h"
 
+@interface AddressTableViewCell ()
+
+//姓名
+@property (weak, nonatomic) IBOutlet UILabel *name;
+
+// 电话
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+
+// 地址
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+
+@end
+
 @implementation AddressTableViewCell
 
 - (void)awakeFromNib {
@@ -30,10 +43,17 @@
     
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+/**
+ 刷新cell
 
-    // Configure the view for the selected state
+ @param addressModel cell对应的model
+ */
+- (void)configCellWithModel:(AddressInfoModel *)addressModel {
+    self.addressModel = addressModel;
+    self.name.text = self.addressModel.name;
+    self.phoneLabel.text = self.addressModel.telephone;
+    self.addressLabel.text = self.addressModel.address;
 }
+
 
 @end

@@ -111,4 +111,24 @@
                                      user:(NSString *)user
                             completeBlock:(HandlerBlock)completeBlock;
 
+/**
+ 申请纠纷
+ 
+ @param orderID 订单ID
+ @param user userID
+ @param completeBlock 返回值
+ */
++ (void)requestForOrderDisputeWithOrderID:(NSString *)orderID
+                                     user:(NSString *)user
+                            completeBlock:(HandlerBlock)completeBlock;
+
+/**
+ 已支付定金订单的取消
+ 
+ @param orderSn 订单编号
+ @param completeBlock 返回值
+ */
++ (void)requestForRefoundWithOrderSn:(NSString *)orderSn
+                       completeBlock:(HandlerBlock)completeBlock;
+
 @end

@@ -37,6 +37,15 @@
 //确认收货
 #define api_refundqueren_app @"refundqueren_app"
 
+// 申请纠纷
+#define api_Order_dispute_app @"Order_dispute_app"
+
+// 取消已支付定金的订单
+#define api_updateMJOrder @"updateMJOrder"
+
+// 请求地址列表
+#define api_address_list @"address_list"
+
 
 
 

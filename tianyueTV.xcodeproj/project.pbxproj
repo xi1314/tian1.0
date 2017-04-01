@@ -171,6 +171,8 @@
 		980822AB1E0D05B7007D9A11 /* typeData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822AA1E0D05B7007D9A11 /* typeData.plist */; };
 		981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */; };
 		98285E8F929C186BEA3EDD6D /* libPods-tianyueTVUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC026177855CDB192D1BB06 /* libPods-tianyueTVUITests.a */; };
+		987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842231E8F7FB50084BF82 /* ShopHandle.m */; };
+		987842271E8F993D0084BF82 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842261E8F993D0084BF82 /* AddressModel.m */; };
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
 		C61854BB213EA5F6E946D609 /* libPods-tianyueTVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D1542CAE7A70696F02677D /* libPods-tianyueTVTests.a */; };
 		EF8A61C61D2F0782479BAC3F /* libPods-tianyueTV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */; };
@@ -525,6 +527,10 @@
 		980822AA1E0D05B7007D9A11 /* typeData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = typeData.plist; sourceTree = "<group>"; };
 		981ED63B1E84F31200835219 /* UIButton+BadgeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BadgeValue.h"; sourceTree = "<group>"; };
 		981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BadgeValue.m"; sourceTree = "<group>"; };
+		987842221E8F7FB50084BF82 /* ShopHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopHandle.h; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.h; sourceTree = SOURCE_ROOT; };
+		987842231E8F7FB50084BF82 /* ShopHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopHandle.m; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.m; sourceTree = SOURCE_ROOT; };
+		987842251E8F993D0084BF82 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
+		987842261E8F993D0084BF82 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		987D31D21E77A2C700C3DF34 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tianyueTV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1602,6 +1608,8 @@
 		04687A6C1E88BDF0004A5EE3 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				987842221E8F7FB50084BF82 /* ShopHandle.h */,
+				987842231E8F7FB50084BF82 /* ShopHandle.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -1611,6 +1619,8 @@
 			children = (
 				04687A6E1E88BDF0004A5EE3 /* MessageModel.h */,
 				04687A6F1E88BDF0004A5EE3 /* MessageModel.m */,
+				987842251E8F993D0084BF82 /* AddressModel.h */,
+				987842261E8F993D0084BF82 /* AddressModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2118,6 +2128,7 @@
 				04687AD81E88BDF0004A5EE3 /* WWSettingView.m in Sources */,
 				04687ADC1E88BDF0004A5EE3 /* WWMineModel.m in Sources */,
 				0468792E1E88B71C004A5EE3 /* AnimOperationManager.m in Sources */,
+				987842271E8F993D0084BF82 /* AddressModel.m in Sources */,
 				0468792D1E88B71C004A5EE3 /* AnimOperation.m in Sources */,
 				04687AC81E88BDF0004A5EE3 /* WWGuanliSecondViewController.m in Sources */,
 				04687AB71E88BDF0004A5EE3 /* CustomRegistView.m in Sources */,
@@ -2136,6 +2147,7 @@
 				0468790B1E88AB83004A5EE3 /* WWImageURLCacher.m in Sources */,
 				04687AC71E88BDF0004A5EE3 /* WWRealNameView.m in Sources */,
 				04687AC91E88BDF0004A5EE3 /* WWMineSecondViewController.m in Sources */,
+				987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */,
 				04687AEA1E88BDF0004A5EE3 /* OrderManagerViewController.m in Sources */,
 				04687AE61E88BDF0004A5EE3 /* WWMineFiveModel.m in Sources */,
 				0468791F1E88B2A1004A5EE3 /* XHSegmentViewController.m in Sources */,
