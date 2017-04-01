@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '752BA50D7CFD10FB008B9E5D3FAE0374'
+               BlueprintIdentifier = '2ADF4807966437C6B68AA9B9E6CC9C36'
                BlueprintName = 'UPYUN'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libUPYUN.a'>
