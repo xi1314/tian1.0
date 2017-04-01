@@ -1,20 +1,24 @@
 # UPYUN iOS SDK
 [![Build Status](https://travis-ci.org/upyun/ios-sdk.svg?branch=master)](https://travis-ci.org/upyun/ios-sdk)
+[![Latest Stable Version](https://img.shields.io/cocoapods/v/UPYUN.svg)](https://github.com/upyun/ios-sdk/releases)
+![Platform](http://img.shields.io/cocoapods/p/UPYUN.svg)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](License.md)
 
 UPYUN iOS SDK, 集成:
 - [又拍云存储 表单 API接口](http://docs.upyun.com/api/form_api/) 
 - [又拍云存储 分块上传接口](http://docs.upyun.com/api/multipart_upload/)
 
 ## 运行环境
-- iOS 7.0 及以上版本, ARC 模式, 采用 NSURLSession 做网络库
-
+- iOS 7.0 及以上版本, ARC 模式, 使用系统网络库 NSURLSession 
+ 
+- 如想使用 LivePhot 的相关功能, 要求 iOS 9.1 及以上版本, ARC 模式, (需要 Photos , PhotosUI, MobileCoreServices 等framework , 没有导入会 bulid failed)
 
 ## 使用说明：
-1.直接下载, 引入 `UPYUNSDK` 文件夹, `#import "UpYun.h"` 即可使用
+ 1.直接下载, 引入 `UPYUNSDK` 文件夹, `#import "UpYun.h"` 即可使用
 
-2.通过 CocoaPods 
+ 2.通过 CocoaPods 
         ```
-	      pod 'UPYUN', '~> 1.0.0'
+	      pod 'UPYUN', '~> 1.0.3'
         ``` , `#import "UpYun.h"` 即可使用
 
 
@@ -27,12 +31,20 @@ UPYUN iOS SDK, 集成:
 * `DEFAULT_RETRY_TIMES` : 失败之后重传次数, 默认2次
 * `SingleBlockSize` : 单个分块大小, 默认500KB
 
-**注意: 如果需要在上传的过程中不断变动一些参数值, 建议初始化 `UpYun` 之后, 通过 `UpYun` 的属性来修改**
+**注意1: 如果需要在上传的过程中不断变动一些参数值, 建议初始化 `UpYun` 之后, 通过 `UpYun` 的属性来修改** 
+
+**注意2: 如果发现上传失败的时候,内存没有释放, 建议修改 [UPYUNConfig.m](https://github.com/upyun/ios-sdk/blob/master/UpYunSDK/UPYUNConfig.m) 的 `FormAPIDomain` 和 `MutAPIDomain` 修改为 http 可以解决. 该问题仅在请求的数据传输中断的情况下出现 2016-9-18**
+```` 
+sharedInstance.FormAPIDomain = @"http://v0.api.upyun.com/" 
+sharedInstance.MutAPIDomain = @"http://m0.api.upyun.com/" 
+```` 
 
 
 ## 上传接口
 
-> 详细示例请见 UpYunSDKDemo 的 [Viewcontroller](https://github.com/upyun/ios-sdk/blob/master/UpYunSDKDemo/UpYunSDKDemo/ViewController.m) 或着 [test](https://github.com/upyun/ios-sdk/blob/master/UpYunSDKDemo/UpYunSDKDemoTests/UpYunSDKDemoTests.m)。
+> 详细示详见 UpYunSDKDemo 的 [Viewcontroller](https://github.com/upyun/ios-sdk/blob/master/UpYunSDKDemo/UpYunSDKDemo/ViewController.m) 或着 [test](https://github.com/upyun/ios-sdk/blob/master/UpYunSDKDemo/UpYunSDKDemoTests/UpYunSDKDemoTests.m)。
+> 
+> 详细 LivePhoto 相关使用, 详见 UpYunSDKDemo 的 [UPLivePhotoViewController](https://github.com/upyun/ios-sdk/blob/master/UpYunSDKDemo/UpYunSDKDemo/UPLivePhotoViewController.m) 。
 
 ### 文件上传
 
@@ -84,7 +96,7 @@ uy.uploadMethod = UPFormUpload;
 * 回调中的参数：
   * `error`: 失败后返回的错误信息
 
-#### 5、`progressBlocker` 上传进度度回调
+#### 5、`progressBlocker` 上传进度回调
 * 回调中的参数：
   * `percent`: 上传进度的百分比
   * `requestDidSendBytes`: 已经发送的数据量
@@ -94,11 +106,18 @@ uy.uploadMethod = UPFormUpload;
   * `policy`: 经过处理的 policy 字符串, 用户可以直接上传到用户服务端与 `密钥` 拼接, 
 * 返回的参数：
   * `sinature`: 用户服务端使用上传的 `policy` 生成的 sinature , 或者用户自己生成 `sinature`
- 
-#### 7、`params` [可选参数](http://docs.upyun.com/api/form_api/#api_1)
 
-#### 8、`uploadMethod` 上传方法选择
-* 默认根据文件大小选择表单还是分块上传, 可以通过 `uy.uploadMethod = UPFormUpload` 来选择表单上传, `uy.uploadMethod = UPMUtUPload` 来选择分开上传.
+#### 7、`policyBlocker` 用户获取 policy 回调 
+* 返回的参数：
+  * `policy`: 用户服务端生成的 `policy` , 或者用户自己生成 `policy`
+
+#### 8、`params` [可选参数](http://docs.upyun.com/api/form_api/#api_1)
+
+#### 9、`uploadMethod` 上传方法选择
+* 默认根据文件大小选择表单还是分块上传, 可以通过 `uy.uploadMethod = UPFormUpload` 来选择表单上传, `uy.uploadMethod = UPMutUPload` 来选择分块上传.
+
+#### 10、`dateExpiresIn` 用户服务端生成的过期时间
+* 默认用户服务端生成的过期时间,防止手机时间和服务端时间不一致出现的上传错误,一般情况用不上.用户可以自行在上传的时候配置。注意必须符合文档要求
 
 
 
@@ -106,4 +125,4 @@ uy.uploadMethod = UPFormUpload;
 * `-1997`: 参数 `filepath` , 找不到文件
 * `-1998`: 参数 `file` 以 `UIImage` 、 `NSData` 类型传入时, `saveKey` 带有 `{filename}` 
 * `-1999`: 参数 `file `以 `UIImage` 、 `NSData`、 `NSString` 外的类型传入
-* 其他错误代码详见 [表单API错误代码表](http://docs.upyun.com/api/errno/)
+* 其他错误代码详见 [API错误代码表](http://docs.upyun.com/api/errno/)

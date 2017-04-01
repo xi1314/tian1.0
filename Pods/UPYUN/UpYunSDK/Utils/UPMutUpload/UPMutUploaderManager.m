@@ -153,13 +153,15 @@ static NSTimeInterval ValidTimeSpan = 600.0f;
     
     id singleUploadProgressBlcok = ^(float percent) {
         @synchronized(_progressArray) {
-                _progressArray[index] = [NSNumber numberWithFloat:percent];
-                float sumPercent = 0;
-                for (NSNumber *num in _progressArray) {
-                    sumPercent += [num floatValue];
-                }
-                float totalPercent = sumPercent/_progressArray.count;
+            _progressArray[index] = [NSNumber numberWithFloat:percent];
+            float sumPercent = 0;
+            for (NSNumber *num in _progressArray) {
+                sumPercent += [num floatValue];
+            }
+            float totalPercent = sumPercent/_progressArray.count;
+            if (progressBlock) {
                 progressBlock(totalPercent, 100);
+            }
         }
     };
     
@@ -235,7 +237,12 @@ static NSTimeInterval ValidTimeSpan = 600.0f;
                        progressBlock:(void (^)(float percent))progressBlock
                        completeBlock:(UPCompeleteBlock)completeBlock {
     
-    NSDictionary *policyParameters = @{@"save_token":saveToken, @"expiration":DATE_STRING(ValidTimeSpan), @"block_index":@(blockIndex), @"block_hash":[fileBlockData MD5HexDigest]};
+    
+    
+    NSString *expiresIn = self.dateExpiresIn.length == 0 ? DATE_STRING(ValidTimeSpan) : self.dateExpiresIn;
+    
+    
+    NSDictionary *policyParameters = @{@"save_token":saveToken, @"expiration":expiresIn, @"block_index":@(blockIndex), @"block_hash":[fileBlockData MD5HexDigest]};
     
     NSString *uploadPolicy = [self dictionaryToJSONStringBase64Encoding:policyParameters];
     
@@ -248,6 +255,9 @@ static NSTimeInterval ValidTimeSpan = 600.0f;
     [multiBody addDictionary:parameters];
     
     NSString *fileName = [_filePathURL lastPathComponent];
+    if (!fileName) {
+        fileName = self.fileName;
+    }
     if (!fileName) {
         fileName = @"fileName";
     }
@@ -297,8 +307,10 @@ static NSTimeInterval ValidTimeSpan = 600.0f;
                         completeBlock:(void (^)(NSError * error,
                                                 NSDictionary * result,
                                                 BOOL completed))completeBlock {
+    
+    NSString *expiresIn = self.dateExpiresIn.length == 0 ? DATE_STRING(ValidTimeSpan) : self.dateExpiresIn;
     NSDictionary *parameters = @{@"save_token":saveToken,
-                                  @"expiration":DATE_STRING(ValidTimeSpan)};
+                                  @"expiration":expiresIn};
     
     NSString *mergePolicy = [self dictionaryToJSONStringBase64Encoding:parameters];
     [self ministrantRequestWithSignature:[self createSignatureWithToken:tokenSecret
@@ -364,10 +376,10 @@ static NSTimeInterval ValidTimeSpan = 600.0f;
 //生成单个文件块
 + (NSData *)getBlockWithFilePath:(NSString *)filePath offset:(NSInteger)index {
     NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
-    NSInteger blickSize = [UPYUNConfig sharedInstance].SingleBlockSize;
-    NSInteger startLocation = index * blickSize;
+    NSInteger blockSize = [UPYUNConfig sharedInstance].SingleBlockSize;
+    NSInteger startLocation = index * blockSize;
     [handle seekToFileOffset:startLocation];
-    NSData *subData = [handle readDataOfLength:blickSize];
+    NSData *subData = [handle readDataOfLength:blockSize];
     [handle closeFile];
     return [subData copy];
 }

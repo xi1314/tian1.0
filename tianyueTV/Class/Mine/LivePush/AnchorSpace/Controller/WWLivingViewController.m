@@ -666,6 +666,7 @@
 - (void)countDownHandle{
     //新版UI
     [self.view addSubview:self.lightBlackView];
+    /*
     [self.lightBlackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).with.offset(0);
         make.left.equalTo(self.view.mas_left).with.offset(0);
@@ -673,14 +674,16 @@
         make.bottom.equalTo(self.view.mas_bottom).with.offset(0);
         
     }];
+     */
     
     //倒计时
     [self.lightBlackView addSubview:self.countDownLabel];
+    /*
     [self.countDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.lightBlackView.mas_centerX).with.offset(0);
         make.centerY.equalTo(self.lightBlackView.mas_centerY).with.offset(0);
     }];
-    
+    */
     _secondsCountDown = 3;
     _countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
     self.countDownLabel.text = [NSString stringWithFormat:@"%d",_secondsCountDown];
@@ -861,11 +864,15 @@
     
     //暂停按钮
     [self.view addSubview:self.pauseButton];
+    
+    /*
     [self.pauseButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.mas_right).with.offset(kWidthChange(-20));
 //        make.size.mas_equalTo(CGSizeMake(kWidthChange(90), kHeightChange(112)));
         make.top.equalTo(self.toggleCameraButton.mas_bottom).with.offset(kHeightChange(200));
     }];
+     */
+     
     [self.pauseButton sizeToFit];
     
     
@@ -915,9 +922,12 @@
 #pragma mark ----竖屏切换-----
 - (void)shupingChange{
     [self.view addSubview:self.bottomView];
+    
+    /*
     [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(kHeightChange(510));
     }];
+     */
     
     [UIView animateWithDuration:0.2 animations:^{
         
@@ -925,21 +935,24 @@
 
     }];
     
-
+/*
     [self.chatView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.bottomView.mas_bottom).with.offset(0);
         make.right.equalTo(self.bottomView.mas_right).with.offset(0);
         make.left.equalTo(self.bottomView.mas_left).with.offset(0);
         make.top.equalTo(self.bottomView.mas_top).with.offset(0);
     }];
+ */
     
+    /*
     [self.chatView.chatRoomTableView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.chatView.mas_top).with.offset(0);
         make.left.equalTo(self.chatView.mas_left).with.offset(0);
         make.width.mas_equalTo(SCREEN_WIDTH);
         make.height.mas_equalTo(kHeightChange(430));
     }];
-    
+    */
+     
 //     [self.topBgView removeFromSuperview];
     [self.view addSubview:self.topBgView];
     [self.topBgView autoPinEdgeToSuperviewEdge:ALEdgeRight];
@@ -1006,19 +1019,24 @@
     
     //暂停按钮
     [self.view addSubview:self.pauseButton];
+    /*
     [self.pauseButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.mas_right).with.offset(kWidthChange(-20));
         //        make.size.mas_equalTo(CGSizeMake(kWidthChange(90), kHeightChange(112)));
         make.top.equalTo(self.toggleCameraButton.mas_bottom).with.offset(kHeightChange(200));
     }];
+     */
     [self.pauseButton sizeToFit];
 }
 
 #pragma mark ----横屏切换-----
 - (void)hengpingChangge{
+    
+    /*
     [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(0.38*SCREEN_HEIGHT);
     }];
+     */
     [UIView animateWithDuration:0.2 animations:^{
         
         [self.bottomView layoutIfNeeded];
@@ -1026,12 +1044,14 @@
     }];
     
     //聊天页面
+    /*
     [self.chatView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.bottomView.mas_bottom).with.offset(0);
         make.right.equalTo(self.bottomView.mas_right).with.offset(0);
         make.left.equalTo(self.bottomView.mas_left).with.offset(0);
         make.top.equalTo(self.bottomView.mas_top).with.offset(0);
     }];
+     */
 
     // 摄像头切换
     [self.toggleCameraButton removeFromSuperview];
@@ -1073,20 +1093,25 @@
     [self.changeButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.startButton withOffset:kWidthChange(0)];
     [self.changeButton sizeToFit];
     
+    /*
     [self.chatView.chatRoomTableView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.chatView.mas_top).with.offset(0);
         make.left.equalTo(self.chatView.mas_left).with.offset(0);
         make.width.mas_equalTo(SCREEN_HEIGHT);
         make.height.mas_equalTo(0.38*SCREEN_HEIGHT - kHeightChange(100));
     }];
+     */
     
     
     //暂停按钮
     [self.view addSubview:self.pauseButton];
+    
+    /*
     [self.pauseButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view.mas_right).with.offset(kWidthChange(-20));
         make.top.equalTo(self.toggleCameraButton.mas_bottom).with.offset(kHeightChange(400));
     }];
+     */
     [self.pauseButton sizeToFit];
     
 }
@@ -1311,6 +1336,8 @@
 - (UIButton *)pauseButton{
     if (!_pauseButton) {
         _pauseButton = [[UIButton alloc] init];
+        _pauseButton.frame = CGRectMake(SCREEN_WIDTH - kWidthChange(20) - 50, self.toggleCameraButton.bottom + kHeightChange(200), 50, 50 * 80 / 68);
+        
         [_pauseButton setBackgroundImage:[UIImage imageNamed:@"矩形-5-拷贝"] forState:UIControlStateNormal];
         [_pauseButton addTarget:self action:@selector(respondsToPauseHandle:) forControlEvents:UIControlEventTouchUpInside];
         _pauseButton.hidden = YES;
@@ -1322,6 +1349,7 @@
 - (UIView *)lightBlackView{
     if (!_lightBlackView) {
         _lightBlackView = [[UIView alloc] init];
+        _lightBlackView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         _lightBlackView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     }
     return _lightBlackView;
@@ -1331,6 +1359,7 @@
 - (UILabel *)countDownLabel{
     if (!_countDownLabel) {
         _countDownLabel = [[UILabel alloc] init];
+        _countDownLabel.center = CGPointMake(self.lightBlackView.centerX, self.lightBlackView.centerY);
         _countDownLabel.font = [UIFont boldSystemFontOfSize:kWidthChange(80)];
         _countDownLabel.textColor = [UIColor whiteColor];
     }
@@ -1456,6 +1485,8 @@
 - (UIView *)bottomView{
     if (!_bottomView) {
         _bottomView = [[UIView alloc] init];
+        _bottomView.frame = CGRectMake(0, SCREEN_HEIGHT - kHeightChange(510), SCREEN_WIDTH, kHeightChange(510));
+        
 //        _bottomView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
         _bottomView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
         

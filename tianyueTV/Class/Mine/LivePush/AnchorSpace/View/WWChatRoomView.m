@@ -176,12 +176,14 @@
     //
     //底部背景图
     [self addSubview:self.bottomView];
+    /*
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).with.offset(0);
         make.left.equalTo(self.mas_left).with.offset(0);
         make.right.equalTo(self.mas_right).with.offset(0);
         make.height.mas_equalTo(kHeightChange(72));
     }];
+     */
     
     [self addSubview:self.hudongButton];
     [self.hudongButton autoPinEdgeToSuperviewEdge:ALEdgeLeft];
@@ -202,6 +204,7 @@
     [self.lineView autoSetDimension:ALDimensionHeight toSize:kHeightChange(2)];
     
     [self addSubview:self.showOrHiddenButton];
+    /*
     [self.showOrHiddenButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).with.offset(kWidthChange(-50));
         make.bottom.equalTo(self.mas_bottom).with.offset(kHeightChange(-25));
@@ -209,6 +212,7 @@
         make.height.mas_equalTo(kHeightChange(30));
         
     }];
+     */
 //    [self.showOrHiddenButton sizeToFit];
     
 //    [self addObserver:self forKeyPath:@"messageArray" options:NSKeyValueObservingOptionOld context:nil];
@@ -235,6 +239,8 @@
 - (UIView *)bottomView{
     if (!_bottomView) {
         _bottomView = [[UIView alloc] init];
+        _bottomView.frame = CGRectMake(0, SCREEN_HEIGHT - 72, SCREEN_WIDTH, 72);
+        
         _bottomView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
 //        _bottomView.backgroundColor = [UIColor yellowColor];
     }
@@ -245,6 +251,8 @@
 - (UIButton *)showOrHiddenButton{
     if (!_showOrHiddenButton) {
         _showOrHiddenButton = [[UIButton alloc] init];
+        _showOrHiddenButton.frame = CGRectMake(SCREEN_WIDTH - kWidthChange(60) - kWidthChange(50), SCREEN_HEIGHT - kHeightChange(30) - kHeightChange(25), kWidthChange(60), kHeightChange(30));
+        
         [_showOrHiddenButton setBackgroundImage:[UIImage imageNamed:@"收起"] forState:UIControlStateNormal];
         [_showOrHiddenButton setBackgroundImage:[UIImage imageNamed:@"显示"] forState:UIControlStateSelected];
         [_showOrHiddenButton addTarget:self action:@selector(respondsToShowOrHiddenButton:) forControlEvents:UIControlEventTouchUpInside];

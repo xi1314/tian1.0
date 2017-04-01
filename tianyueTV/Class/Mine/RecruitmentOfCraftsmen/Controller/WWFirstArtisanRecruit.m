@@ -83,29 +83,38 @@
 
 #pragma mark ----setUI----
 - (void)setUI{
+    
+    
     [self.view addSubview:self.topImageView];
+
+    /*
     [self.topImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).with.offset(64);
         make.left.equalTo(self.view.mas_left).with.offset(0);
         make.right.equalTo(self.view.mas_right).with.offset(0);
     }];
-    [self.topImageView sizeToFit];
+     */
+    
     
     [self.view addSubview:self.ImmediateEntryButton];
+    /*
     [self.ImmediateEntryButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).with.offset(kHeightChange(-231));
         make.centerX.equalTo(self.view.mas_centerX).with.offset(0);
 
     }];
+     */
     
-    [self.ImmediateEntryButton sizeToFit];
+    
 }
 
 #pragma mark ----Getters----
 - (UIImageView *)topImageView{
     if (!_topImageView) {
         _topImageView = [[UIImageView alloc] init];
+        _topImageView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_WIDTH * 1206 / 1125);
         _topImageView.image = [UIImage imageNamed:@"【天越源作，在乎每个源头的你】"];
+//        [_topImageView sizeToFit];
     }
     return _topImageView;
 }
@@ -113,9 +122,12 @@
 - (UIButton *)ImmediateEntryButton{
     if (!_ImmediateEntryButton) {
         _ImmediateEntryButton = [[UIButton alloc] init];
+        _ImmediateEntryButton.frame = CGRectMake(0, SCREEN_HEIGHT - 64 -  231 - 40, 40 * 477 / 129, 40);
 //        _ImmediateEntryButton.backgroundColor = [UIColor greenColor];
         [_ImmediateEntryButton setBackgroundImage:[UIImage imageNamed:@"即刻入驻"] forState:UIControlStateNormal];
         [_ImmediateEntryButton addTarget:self action:@selector(respondsToImmediateEntryButton:) forControlEvents:UIControlEventTouchUpInside];
+        _ImmediateEntryButton.center = CGPointMake(SCREEN_WIDTH/2.0f, _ImmediateEntryButton.centerY);
+//        [_ImmediateEntryButton sizeToFit];
     }
     return _ImmediateEntryButton;
 }

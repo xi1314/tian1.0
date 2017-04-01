@@ -19,7 +19,6 @@ pod 'ShareSDK3/ShareSDKPlatforms/SinaWeibo'
 pod 'ShareSDK3/ShareSDKPlatforms/WeChat'
 pod 'ShareSDK3/ShareSDKUI'
 pod 'MJRefresh'
-pod 'Masonry'
 pod 'BarrageRenderer', '~> 1.9.0'
 pod 'UPYUN', '~> 1.0.0'
 

@@ -83,13 +83,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "ShareSDK3/ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenApi_IOS_Bundle.bundle"
   install_resource "ShareSDK3/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle"
   install_resource "ShareSDK3/ShareSDK/Support/Optional/ShareSDKUI.bundle"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/Default-568h@2x.png"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/Default.png"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/Default@2x.png"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/image.jpg"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/test2.png"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/ViewController_iPad.xib"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/ViewController_iPhone.xib"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
@@ -98,13 +91,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "ShareSDK3/ShareSDK/Support/PlatformSDK/QQSDK/TencentOpenApi_IOS_Bundle.bundle"
   install_resource "ShareSDK3/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle"
   install_resource "ShareSDK3/ShareSDK/Support/Optional/ShareSDKUI.bundle"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/Default-568h@2x.png"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/Default.png"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/Default@2x.png"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/image.jpg"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/test2.png"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/ViewController_iPad.xib"
-  install_resource "UPYUN/UpYunSDKDemo/UpYunSDKDemo/ViewController_iPhone.xib"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

@@ -31,6 +31,8 @@ static WWImageURLCacher *instance = nil;
 }
 
 - (void)ww_setCacheWithImageView:(UIImageView *)imageView imageURL:(NSString *)imageURL imageKey:(NSString *)imageKey{
+    
+    /*
     [imageView setShowActivityIndicatorView:YES];
     [imageView setIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [imageView sd_setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:nil];
@@ -39,6 +41,7 @@ static WWImageURLCacher *instance = nil;
     } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
         [[SDWebImageManager sharedManager].imageCache storeImage:image forKey:imageKey toDisk:YES];
     }];
+     */
     
     //从缓存图片显示
     UIImage *cacheImage = [[SDWebImageManager sharedManager].imageCache imageFromDiskCacheForKey:imageKey];
@@ -48,11 +51,13 @@ static WWImageURLCacher *instance = nil;
 - (void)ww_setCacheWithImageButton:(UIButton *)imageButton imageURL:(NSString *)imageURL imageKey:(NSString *)imageKey{
     [imageButton sd_setImageWithURL:[NSURL URLWithString:imageURL] forState:UIControlStateNormal placeholderImage:nil];
     
+    /*
     [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderContinueInBackground progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         
     } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
         [[SDWebImageManager sharedManager].imageCache storeImage:image forKey:imageKey toDisk:YES];
     }];
+     */
     //从缓存图片显示
     UIImage *cacheImage = [[SDWebImageManager sharedManager].imageCache imageFromDiskCacheForKey:imageKey];
     [imageButton setImage:cacheImage forState:UIControlStateNormal];

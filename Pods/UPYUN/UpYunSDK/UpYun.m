@@ -17,6 +17,16 @@
 #define SUB_SAVE_KEY_FILENAME @"{filename}"
 
 
+@interface UpYun ()
+
+@property (nonatomic, strong) NSDictionary *extParams;
+@property (nonatomic, strong) UPHTTPClient *client;
+@property (nonatomic, strong) UPMutUploaderManager *manager;
+
+@property (nonatomic, strong) NSString *fileName;
+
+@end
+
 @implementation UpYun
 
 - (instancetype)init {
@@ -27,6 +37,8 @@
         self.mutUploadSize = [UPYUNConfig sharedInstance].DEFAULT_MUTUPLOAD_SIZE;
         self.retryTimes = [UPYUNConfig sharedInstance].DEFAULT_RETRY_TIMES;
         self.uploadMethod = UPFormUpload;
+        self.params = [NSMutableDictionary new];
+        self.extParams = [NSMutableDictionary new];
     }
     return self;
 }
@@ -87,11 +99,149 @@
     }
 }
 
-- (void)uploadFile:(id)file saveKey:(NSString *)saveKey {
+#ifdef __IPHONE_9_1
 
+- (void)uploadLivePhoto:(PHLivePhoto *)livePhotoAsset saveKey:(NSString *)saveKey  {
+    [self uploadLivePhoto:livePhotoAsset saveKey:saveKey extParams:nil];
+}
+
+- (void)uploadLivePhoto:(PHLivePhoto *)livePhotoAsset saveKey:(NSString *)saveKey extParams:(NSDictionary *)extParams {
+    
+    if (![self extractLivePhoto:livePhotoAsset]) {
+        return;
+    };
+    
+    UPSuccessBlock tmpSuccessBlocker = [self.successBlocker copy];
+    UPFailBlock tmpFailBlocker = [self.failBlocker copy];
+    UPProgressBlock tmpProgressBlocker = [self.progressBlocker copy];
+    
+    __block NSError *writeError = nil;
+    __block NSMutableArray *responseArray = [NSMutableArray array];
+    _successBlocker = ^(NSURLResponse *response, id responseData) {
+        
+        [responseArray addObject:responseData];
+        if (tmpSuccessBlocker && (responseArray.count > 1)) {
+            tmpSuccessBlocker(response, responseArray);
+            [[NSFileManager defaultManager] removeItemAtPath:PATH_MOVIE_FILE error:nil];
+            [[NSFileManager defaultManager] removeItemAtPath:PATH_PHOTO_FILE error:nil];
+        }
+    };
+    
+    _failBlocker = ^(NSError * error) {
+        if (tmpFailBlocker && !writeError) {
+            tmpFailBlocker(error);
+        }
+        [[NSFileManager defaultManager] removeItemAtPath:PATH_MOVIE_FILE error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:PATH_PHOTO_FILE error:nil];
+        writeError = error;
+    };
+    
+    NSUInteger photoFileSize = [[NSFileManager defaultManager] attributesOfItemAtPath:PATH_PHOTO_FILE error:nil].fileSize;
+    NSUInteger moveFileSize = [[NSFileManager defaultManager] attributesOfItemAtPath:PATH_MOVIE_FILE error:nil].fileSize;
+    
+    NSUInteger totalSize = (photoFileSize+moveFileSize);
+    _progressBlocker = ^(CGFloat percent, int64_t requestDidSendBytes) {
+        if (tmpProgressBlocker) {
+            tmpProgressBlocker(percent*requestDidSendBytes/totalSize, totalSize);
+        }
+    };
+    
+    [self uploadFile:PATH_PHOTO_FILE saveKey:[NSString stringWithFormat:@"%@.jpg",saveKey]];
+    [self uploadFile:PATH_MOVIE_FILE saveKey:[NSString stringWithFormat:@"%@.mov",saveKey] extParams:extParams];
+}
+
+
+- (BOOL)extractLivePhoto:(PHLivePhoto *)livePhotoAsset {
+    if (!livePhotoAsset) {
+        NSError *error = [NSError errorWithDomain:ERROR_DOMAIN
+                                           code:-2016
+                                       userInfo:@{@"message":@"livePhotoAsset 不存在"}];
+        
+        if (_failBlocker) {
+            _failBlocker(error);
+        }
+        return NO;
+    }
+    
+    [[NSFileManager defaultManager] removeItemAtPath:PATH_MOVIE_FILE error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:PATH_PHOTO_FILE error:nil];
+    
+    NSArray *assetResArray= [PHAssetResource assetResourcesForLivePhoto:livePhotoAsset];
+    PHAssetResource *movieResource;
+    PHAssetResource *photoResource;
+    for (PHAssetResource *assetRes in assetResArray) {
+        if (assetRes.type == PHAssetResourceTypePhoto) {
+            photoResource = assetRes;
+        }
+        if (assetRes.type == PHAssetResourceTypePairedVideo) {
+            movieResource = assetRes;
+        }
+    }
+    __block NSError *writeError = nil;
+    __block BOOL twoHanldeOK = NO;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    [[PHAssetResourceManager defaultManager] writeDataForAssetResource:movieResource toFile:[NSURL fileURLWithPath:PATH_MOVIE_FILE] options:nil completionHandler:^(NSError * error) {
+        writeError = error;
+        if (twoHanldeOK) {
+            dispatch_semaphore_signal(semaphore);
+        }
+        twoHanldeOK = YES;
+    }];
+    
+    [[PHAssetResourceManager defaultManager] writeDataForAssetResource:photoResource toFile:[NSURL fileURLWithPath:PATH_PHOTO_FILE] options:nil completionHandler:^(NSError * error) {
+        writeError = error;
+        if (twoHanldeOK) {
+            dispatch_semaphore_signal(semaphore);
+        }
+        twoHanldeOK = YES;
+    }];
+    
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    
+    if (writeError) {
+        if (_failBlocker) {
+            _failBlocker(writeError);
+        }
+    }
+    
+    return writeError==nil;
+}
+
+#endif
+
+
+- (void)uploadFile:(id)file saveKey:(NSString *)saveKey {
+    [self uploadFile:file saveKey:saveKey extParams:nil];
+}
+
+- (void)uploadFile:(id)file saveKey:(NSString *)saveKey fileType:(NSString *)fileType {
+    [self uploadFile:file saveKey:saveKey extParams:nil];
+}
+
+- (void)uploadFile:(id)file saveKey:(NSString *)saveKey extParams:(NSDictionary *)extParams {
     if (![self checkFile:file]) {
         return;
     }
+    self.extParams = extParams;
+    self.fileName = nil;
+    
+    if([file isKindOfClass:[UIImage class]]) {
+        [self uploadImage:file savekey:saveKey];
+    } else if([file isKindOfClass:[NSData class]]) {
+        [self uploadFileData:file savekey:saveKey];
+    } else if([file isKindOfClass:[NSString class]]) {
+        [self uploadFilePath:file savekey:saveKey];
+    }
+}
+
+- (void)uploadFile:(id)file saveKey:(NSString *)saveKey fileName:(NSString *)fileName extParams:(NSDictionary *)extParams {
+    if (![self checkFile:file]) {
+        return;
+    }
+    self.extParams = extParams;
+    self.fileName = fileName;
     
     if([file isKindOfClass:[UIImage class]]) {
         [self uploadImage:file savekey:saveKey];
@@ -149,16 +299,31 @@
         }
     };
     
-    NSString *policy = [self getPolicyWithSaveKey:savekey];
+    NSString *policy = @"";
+    
+    if (_policyBlocker) {
+        policy = _policyBlocker();
+    }
+    
+    if (policy.length == 0) {
+        NSString *message = @"policyBlocker 返回值不正确,将进行本地计算";
+        NSError *err = [NSError errorWithDomain:ERROR_DOMAIN
+                                           code:-1999
+                                       userInfo:@{@"message":message}];
+        if (_failBlocker && _policyBlocker) {
+            _failBlocker(err);
+            return;
+        }
+        policy = [self getPolicyWithSaveKey:savekey];
+    }
+
     __block NSString *signature = @"";
     if (_signatureBlocker) {
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            signature = _signatureBlocker([policy stringByAppendingString:@"&"]);
-        });
+        signature = _signatureBlocker([policy stringByAppendingString:@"&"]);
     } else if (self.passcode.length > 0) {
         signature = [self getSignatureWithPolicy:policy];
     } else {
-        NSString *message = _signatureBlocker ? @"没有提供密钥" : @"没有实现signatureBlock";
+        NSString *message = _signatureBlocker ? @"signatureBlock 没有返回 signature" : @"没有提供密钥";
         NSError *err = [NSError errorWithDomain:ERROR_DOMAIN
                                            code:-1999
                                        userInfo:@{@"message":message}];
@@ -173,6 +338,9 @@
     
     NSString *fileName = [filePath lastPathComponent];
     if (!fileName) {
+        fileName = self.fileName;
+    }
+    if (!fileName) {
         fileName = @"fileName";
     }
     [multiBody addFileData:data OrFilePath:filePath fileName:fileName fileType:nil];
@@ -182,8 +350,8 @@
     request.HTTPBody = [multiBody dataFromPart];
     [request setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", multiBody.boundary] forHTTPHeaderField:@"Content-Type"];
     
-    UPHTTPClient *client = [[UPHTTPClient alloc]init];
-    [client uploadRequest:request success:httpSuccess failure:httpFail progress:httpProgress];
+    _client = [[UPHTTPClient alloc]init];
+    [_client uploadRequest:request success:httpSuccess failure:httpFail progress:httpProgress];
 }
 
 #pragma mark----mut upload
@@ -194,14 +362,18 @@
                    RetryTimes:(NSInteger)retryTimes {
     NSDictionary *fileInfo = [UPMutUploaderManager getFileInfoDicWithFileData:data OrFilePath:filePath];
     NSDictionary *signaturePolicyDic = [self constructingSignatureAndPolicyWithFileInfo:fileInfo saveKey:savekey];
+    if (!signaturePolicyDic) {
+        return;
+    }
     
     NSString *signature = signaturePolicyDic[@"signature"];
     NSString *policy = signaturePolicyDic[@"policy"];
     
-    UPMutUploaderManager *manager = [[UPMutUploaderManager alloc]initWithBucket:self.bucket];
-
+    _manager = [[UPMutUploaderManager alloc]initWithBucket:self.bucket];
+    _manager.dateExpiresIn = self.dateExpiresIn;
+    _manager.fileName = self.fileName;
     __weak typeof(self)weakSelf = self;
-    [manager uploadWithFile:data OrFilePath: filePath policy:policy signature:signature progressBlock:_progressBlocker completeBlock:^(NSError *error, NSDictionary *result, BOOL completed) {
+    [_manager uploadWithFile:data OrFilePath: filePath policy:policy signature:signature progressBlock:_progressBlocker completeBlock:^(NSError *error, NSDictionary *result, BOOL completed) {
             if (completed) {
                 if (_successBlocker) {
                     _successBlocker(result[@"response"], result[@"responseData"]);
@@ -218,6 +390,12 @@
     }];
 }
 
+
+- (void)cancel {
+    [_client cancel];
+    [_manager cancelAllTasks];
+}
+
 #pragma mark--Utils---
 
 /**
@@ -227,48 +405,70 @@
  */
 - (NSDictionary *)constructingSignatureAndPolicyWithFileInfo:(NSDictionary *)fileInfo saveKey:(NSString*) saveKey{
     NSMutableDictionary *mutableDic = [[NSMutableDictionary alloc]initWithDictionary:fileInfo];
+    NSString *expiresIn = self.dateExpiresIn.length == 0 ? DATE_STRING(self.expiresIn) : self.dateExpiresIn;
+    [mutableDic setObject:expiresIn forKey:@"expiration"];//设置授权过期时间
+    [mutableDic setObject:saveKey forKey:@"path"];//设置保存路径
+    
     if (self.params) {
         for (NSString *key in self.params.keyEnumerator) {
             [mutableDic setObject:[self.params objectForKey:key] forKey:key];
         }
     }
-    [mutableDic setObject:DATE_STRING(self.expiresIn) forKey:@"expiration"];//设置授权过期时间
-    [mutableDic setObject:saveKey forKey:@"path"];//设置保存路径
+    
+    if (self.extParams.count > 0) {
+        for (NSString *key in self.extParams.keyEnumerator) {
+            [mutableDic setObject:[self.extParams objectForKey:key] forKey:key];
+        }
+    }
+    self.extParams = nil;
+    
     /**
      *  这个 mutableDic 可以塞入其他可选参数 见：http://docs.upyun.com/api/multipart_upload/#_2
      */
+    NSString *policy = @"";
     
-    NSString *policy = [self dictionaryToJSONStringBase64Encoding:mutableDic];
+    if (_policyBlocker) {
+        policy = _policyBlocker();
+    }
+    
+    if (policy.length == 0) {
+        NSString *message = @"policyBlocker 返回值不正确,将进行本地计算";
+        NSError *err = [NSError errorWithDomain:ERROR_DOMAIN
+                                           code:-1999
+                                       userInfo:@{@"message":message}];
+        if (_failBlocker && _policyBlocker) {
+            _failBlocker(err);
+            return nil;
+        }
+        
+        policy = [self dictionaryToJSONStringBase64Encoding:mutableDic];
+    }
     
     __block NSString *signature = @"";
     if (_signatureBlocker) {
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            signature = _signatureBlocker(policy);
-        });
+        signature = _signatureBlocker(policy);
     } else if (self.passcode) {
-        NSArray *keys = [[mutableDic allKeys] sortedArrayUsingSelector:@selector(compare:)];
-        for (NSString * key in keys) {
-            NSString * value = mutableDic[key];
-            signature = [NSString stringWithFormat:@"%@%@%@", signature, key, value];
-        }
-        signature = [signature stringByAppendingString:self.passcode];
+        signature = [NSString stringWithFormat:@"%@&%@", policy, self.passcode];
+        signature = [signature MD5];
     } else {
-        NSString *message = _signatureBlocker ? @"没有提供密钥" : @"没有实现signatureBlock";
+        NSString *message = _signatureBlocker ? @"signatureBlock 没有返回 signature" : @"没有提供密钥";
         NSError *err = [NSError errorWithDomain:ERROR_DOMAIN
                                            code:-1999
                                        userInfo:@{@"message":message}];
         if (_failBlocker) {
             _failBlocker(err);
+            return nil;
         }
     }
-    return @{@"signature":[signature MD5],
+    return @{@"signature":signature,
              @"policy":policy};
 }
 
 - (NSString *)getPolicyWithSaveKey:(NSString *)savekey {
+    NSString *expiresIn = self.dateExpiresIn.length == 0 ? DATE_STRING(self.expiresIn) : self.dateExpiresIn;
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:self.bucket forKey:@"bucket"];
-    [dic setObject:DATE_STRING(self.expiresIn) forKey:@"expiration"];
+    [dic setObject:expiresIn forKey:@"expiration"];
     if (savekey && ![savekey isEqualToString:@""]) {
         [dic setObject:savekey forKey:@"save-key"];
     }
@@ -277,8 +477,17 @@
             [dic setObject:[self.params objectForKey:key] forKey:key];
         }
     }
+    
+    if (self.extParams.count > 0) {
+        for (NSString *key in self.extParams.keyEnumerator) {
+            [dic setObject:[self.extParams objectForKey:key] forKey:key];
+        }
+    }
+    self.extParams = nil;
     NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+    
     NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
     return [json Base64encode];
 }
 
@@ -306,6 +515,11 @@
     }
 
     if(rangeFileName.location != NSNotFound || rangeFileNameOnDic.location != NSNotFound) {
+        
+        if (self.fileName) {
+            return YES;
+        }
+        
         NSString *message = [NSString stringWithFormat:@"传入file为NSData或者UIImage时,不能使用%@方式生成savekey", SUB_SAVE_KEY_FILENAME];
         NSError *err = [NSError errorWithDomain:ERROR_DOMAIN
                                            code:-1998

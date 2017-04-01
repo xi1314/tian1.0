@@ -24,17 +24,21 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.feedbackView];
+    /*
     [self.feedbackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).with.offset(kHeightChange(150)+64);
         make.centerX.equalTo(self.view.mas_centerX).with.offset(0);
         make.size.mas_equalTo(CGSizeMake(kWidthChange(500), kHeightChange(300)));
     }];
+     */
     [self.view addSubview:self.quedingButton];
+    /*
     [self.quedingButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).with.offset(kHeightChange(-400));
         make.centerX.equalTo(self.view.mas_centerX).with.offset(0);
     }];
-    [self.quedingButton sizeToFit];
+     */
+//    [self.quedingButton sizeToFit];
     
 }
 
@@ -78,6 +82,9 @@
 - (UIButton *)quedingButton{
     if (!_quedingButton) {
         _quedingButton = [[UIButton alloc] init];
+        _quedingButton.frame = CGRectMake(0, SCREEN_HEIGHT - kHeightChange(400) - 40, 40 * 900 / 110, 40);
+        _quedingButton.center = CGPointMake(SCREEN_WIDTH/2.0f, _quedingButton.centerY);
+    
         [_quedingButton setTitle:@"确定" forState:UIControlStateNormal];
         _quedingButton.titleLabel.font = [UIFont systemFontOfSize:kWidthChange(38)];
         [_quedingButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
@@ -88,7 +95,8 @@
 
 -(UITextView *)feedbackView{
     if (!_feedbackView) {
-        _feedbackView = [[UITextView alloc] init];
+        _feedbackView = [[UITextView alloc] initWithFrame:CGRectMake(0, kHeightChange(150)+64, kWidthChange(500), kHeightChange(300))];
+        _feedbackView.center = CGPointMake(SCREEN_WIDTH/2.0f, _feedbackView.centerY);
         _feedbackView.delegate = self;
         _feedbackView.text = @"请输入反馈信息";
         _feedbackView.backgroundColor = [UIColor lightGrayColor];

@@ -31,6 +31,7 @@
 #pragma mark -----setUI----
 - (void)setUI{
     [self.view addSubview:self.mainTableView];
+    /*
     [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view.mas_top).with.offset(64);
         make.left.equalTo(self.view.mas_left).with.offset(0);
@@ -38,6 +39,7 @@
         make.right.equalTo(self.view.mas_right).with.offset(0);
         
     }];
+     */
 }
 
 #pragma mark -----UITableViewDataSource,UITableViewDelegate----
@@ -61,6 +63,8 @@
 - (UITableView *)mainTableView{
     if (!_mainTableView) {
         _mainTableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+        _mainTableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+        
         [_mainTableView registerClass:[WWShopsTableViewCell class] forCellReuseIdentifier:@"WWShopsTableViewCell"];
         _mainTableView.dataSource = self;
         _mainTableView.delegate = self;
