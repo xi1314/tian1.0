@@ -31,8 +31,11 @@ UITableViewDataSource>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initilizeDatasource];
     [self initilizeUserInterface];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self initilizeDatasource];
 }
 
 #pragma mark -- init method
@@ -43,8 +46,18 @@ UITableViewDataSource>
         @strongify(self);
         if (respondsObject) {
             AddressModel *addM = (AddressModel *)respondsObject;
-            [self.dataSource addObjectsFromArray:addM.sAddresses_list];
-            [self.tableView reloadData];
+            for (int i = 0; i < addM.sAddresses_list.count; i++) {
+                AddressInfoModel *infoModle = addM.sAddresses_list[i];
+                if ([infoModle.isDefault isEqualToString:@"1"]) {
+                    [self.dataSource insertObject:infoModle atIndex:0];
+                } else {
+                    [self.dataSource addObject:infoModle];
+                }
+                // 遍历最后一个元素，刷新列表
+                if (i == addM.sAddresses_list.count - 1) {
+                    [self.tableView reloadData];
+                }
+            }
         }
     }];
 }
@@ -61,12 +74,12 @@ UITableViewDataSource>
 }
 
 #pragma mark -- Button method
-//返回
+// 返回
 - (void)respondsToBackItem:(UIBarButtonItem *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-//管理
+// 管理
 - (void)respondsToRightItem:(UIBarButtonItem *)sender {
     self.isEdit = !self.isEdit;
     if (self.isEdit) {
@@ -84,26 +97,43 @@ UITableViewDataSource>
     [self.tableView reloadData];
 }
 
-//添加新地址
+// 添加新地址
 - (IBAction)addNewButton_action:(UIButton *)sender {
     AddAddressViewController *addVC = [[AddAddressViewController alloc] init];
     [self.navigationController pushViewController:addVC animated:YES];
 }
 
 // cell按钮点击事件
-- (void)cellButton_actionWith:(NSInteger)tag {
+- (void)cellButton_actionWithTag:(NSInteger)tag
+                         section:(NSUInteger)section
+{
+    AddressInfoModel *infoModle = _dataSource[section];
     switch (tag) {
         case 0: { // 默认地址
-            
+            if ([infoModle.isDefault isEqualToString:@"1"]) {
+                return;
+            } else {
+                @weakify(self);
+                [ShopHandle reqeustForDefaultAddressWithUser:USER_ID isDefault:@"1" addressID:infoModle.ID completeBlock:^(id respondsObject, NSError *error) {
+                    @strongify(self);
+                    if (respondsObject) {
+                        [self initilizeDatasource];
+                    } else {
+                        [MBProgressHUD showError:@"设置失败"];
+                    }
+                }];
+            }
         } break;
           
         case 1: { // 编辑
             AddAddressViewController *addVC = [[AddAddressViewController alloc] init];
+            addVC.dataModel = _dataSource[section];
             [self.navigationController pushViewController:addVC animated:YES];
         } break;
             
         case 2: { // 删除
-            
+            [MBProgressHUD showMessage:nil];
+            [self deleteAddressWithSection:section addressID:infoModle.ID];
         }
             
         default:
@@ -130,7 +160,7 @@ UITableViewDataSource>
         }
         [cell configEditCellWithModel:_dataSource[indexPath.section]];
         cell.cellBlock = ^(NSInteger tag){
-            
+            [self cellButton_actionWithTag:tag section:indexPath.section];
         };
         return cell;
     }
@@ -176,8 +206,18 @@ UITableViewDataSource>
 }
 
 #pragma mark -- Pravite method
-- (void)deleteAddress {
-    
+- (void)deleteAddressWithSection:(NSInteger)section
+                       addressID:(NSString *)addressID
+{
+    [ShopHandle requestForDeleteAddressWithUser:USER_ID addressID:addressID completeBlock:^(id respondsObject, NSError *error) {
+        [MBProgressHUD hideHUD];
+        if (respondsObject) {
+            [_dataSource removeObjectAtIndex:section];
+            [self.tableView reloadData];
+        } else {
+            [MBProgressHUD showError:@"删除失败"];
+        }
+    }];
 }
 
 @end

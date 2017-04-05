@@ -50,8 +50,8 @@
                 <constraint firstAttribute="trailing" secondItem="da3-x7-JJ3" secondAttribute="trailing" id="KlH-kX-v2G"/>
                 <constraint firstAttribute="bottom" secondItem="da3-x7-JJ3" secondAttribute="bottom" constant="-50" id="L71-ed-cP6"/>
                 <constraint firstItem="da3-x7-JJ3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="SdQ-QU-sRl"/>
-                <constraint firstAttribute="bottom" secondItem="I65-av-L4f" secondAttribute="bottom" id="fwv-ME-n3H"/>
                 <constraint firstAttribute="trailing" secondItem="I65-av-L4f" secondAttribute="trailing" id="wWF-mz-bix"/>
+                <constraint firstItem="da3-x7-JJ3" firstAttribute="top" secondItem="I65-av-L4f" secondAttribute="bottom" id="wgM-tx-c6o"/>
             </constraints>
             <point key="canvasLocation" x="32.5" y="69.5"/>
         </view>

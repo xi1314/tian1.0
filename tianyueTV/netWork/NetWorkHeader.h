@@ -52,5 +52,8 @@
 // 删除地址
 #define api_add_delete @"add_delect_app"
 
+// 设置默认地址、编辑地址
+#define api_editAdd_app @"mrAddr_app"
+
 
 

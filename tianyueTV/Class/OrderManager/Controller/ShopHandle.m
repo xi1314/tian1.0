@@ -129,4 +129,75 @@
     }];
 }
 
+/**
+ 设置默认地址
+
+ @param user 用户id
+ @param isDefault 1默认，0不是默认
+ @param addressID 地址id
+ @param completeBlock 返回值
+ */
++ (void)reqeustForDefaultAddressWithUser:(NSString *)user
+                               isDefault:(NSString *)isDefault
+                               addressID:(NSString *)addressID
+                           completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"userId" : user,
+                          @"id" : addressID,
+                          @"isDefault" : isDefault};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_editAdd_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+    }];
+}
+
+/**
+ 编辑地址
+
+ @param user 用户id
+ @param addressID 地址id
+ @param name 收件人姓名
+ @param phone 电话
+ @param province 省
+ @param city 市
+ @param address 详细地址
+ @param zipcode 邮编
+ @param completeBlock 返回值
+ */
++ (void)requestForEditAddressWithUser:(NSString *)user
+                            addressID:(NSString *)addressID
+                                 name:(NSString *)name
+                                phone:(NSString *)phone
+                             province:(NSString *)province
+                                 city:(NSString *)city
+                              address:(NSString *)address
+                              zipcode:(NSString *)zipcode
+                        completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"userId" : user,
+                          @"id" : addressID,
+                          @"name" : name,
+                          @"telephone" : phone,
+                          @"provinceName" : province,
+                          @"cityName" : city,
+                          @"address" : address,
+                          @"zipCode" : zipcode};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_editAdd_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+    }];
+}
+
 @end

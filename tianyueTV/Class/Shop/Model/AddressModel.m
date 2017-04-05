@@ -29,7 +29,7 @@
  @return 字典
  */
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"id" : @"ID"};
+    return @{@"ID" : @"id"};
 }
 
 @end

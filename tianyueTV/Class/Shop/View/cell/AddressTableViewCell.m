@@ -28,6 +28,8 @@
 // 地址（edit）
 @property (weak, nonatomic) IBOutlet UILabel *address_edit;
 
+// 默认地址（edit）
+@property (weak, nonatomic) IBOutlet UIButton *defaultButton;
 
 @end
 
@@ -59,6 +61,11 @@
     self.name_edit.text = self.addressModel.name;
     self.phone_edit.text = self.addressModel.telephone;
     self.address_edit.text = self.addressModel.address;
+    if ([self.addressModel.isDefault isEqualToString:@"1"]) {
+        self.defaultButton.selected = YES;
+    } else {
+        self.defaultButton.selected = NO;
+    }
 }
 
 #pragma mark -- Button method

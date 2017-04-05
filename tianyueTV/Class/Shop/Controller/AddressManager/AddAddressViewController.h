@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddressModel.h"
 
 @interface AddAddressViewController : UIViewController
+
+// 数据源
+@property (nonatomic, strong) AddressInfoModel *dataModel;
 
 @end
