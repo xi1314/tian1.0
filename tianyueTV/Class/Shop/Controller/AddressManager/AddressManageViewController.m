@@ -41,9 +41,10 @@ UITableViewDataSource>
     @weakify(self);
     [ShopHandle requestForAddressListWithUSer:USER_ID completeBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
-        AddressModel *addM = (AddressModel *)respondsObject;
         if (respondsObject) {
+            AddressModel *addM = (AddressModel *)respondsObject;
             [self.dataSource addObjectsFromArray:addM.sAddresses_list];
+            NSLog(@"dataSource... %@",self.dataSource);
             [self.tableView reloadData];
         }
     }];
