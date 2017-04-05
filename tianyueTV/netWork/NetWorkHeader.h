@@ -46,7 +46,11 @@
 // 请求地址列表
 #define api_address_list @"address_list"
 
+// 添加新地址
+#define api_address_new @"add_sevn_app"
 
+// 删除地址
+#define api_add_delete @"add_delect_app"
 
 
 

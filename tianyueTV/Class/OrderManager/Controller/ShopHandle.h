@@ -11,6 +11,45 @@
 
 @interface ShopHandle : BaseHandler
 
+/**
+ 地址列表
+ 
+ @param user 用户id
+ @param completeBlock 返回值
+ */
 + (void)requestForAddressListWithUSer:(NSString *)user
                         completeBlock:(HandlerBlock)completeBlock;
+
+/**
+ 添加地址
+ 
+ @param user 用户id
+ @param name 收件人姓名
+ @param phone 电话
+ @param province 省
+ @param city 市
+ @param address 详细地址
+ @param zipcode 邮编
+ @param completeBlock 返回值
+ */
++ (void)requestForAddNewAddressWithUser:(NSString *)user
+                                   name:(NSString *)name
+                                  phone:(NSString *)phone
+                               province:(NSString *)province
+                                   city:(NSString *)city
+                                address:(NSString *)address
+                                zipcode:(NSString *)zipcode
+                          completeBlock:(HandlerBlock)completeBlock;
+
+/**
+ 删除地址
+ 
+ @param user 用户id
+ @param addressID 地址id
+ @param completeBlock 返回值
+ */
++ (void)requestForDeleteAddressWithUser:(NSString *)user
+                              addressID:(NSString *)addressID
+                          completeBlock:(HandlerBlock)completeBlock;
+
 @end

@@ -51,4 +51,7 @@
 // cell高度
 @property (nonatomic, assign) float cellHeight;
 
+// 是否是编辑状态
+@property (nonatomic, assign) BOOL isEdit;
+
 @end

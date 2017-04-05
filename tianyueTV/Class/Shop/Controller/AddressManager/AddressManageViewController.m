@@ -44,7 +44,6 @@ UITableViewDataSource>
         if (respondsObject) {
             AddressModel *addM = (AddressModel *)respondsObject;
             [self.dataSource addObjectsFromArray:addM.sAddresses_list];
-            NSLog(@"dataSource... %@",self.dataSource);
             [self.tableView reloadData];
         }
     }];
@@ -91,6 +90,27 @@ UITableViewDataSource>
     [self.navigationController pushViewController:addVC animated:YES];
 }
 
+// cell按钮点击事件
+- (void)cellButton_actionWith:(NSInteger)tag {
+    switch (tag) {
+        case 0: { // 默认地址
+            
+        } break;
+          
+        case 1: { // 编辑
+            AddAddressViewController *addVC = [[AddAddressViewController alloc] init];
+            [self.navigationController pushViewController:addVC animated:YES];
+        } break;
+            
+        case 2: { // 删除
+            
+        }
+            
+        default:
+            break;
+    }
+}
+
 #pragma mark -- UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return _dataSource.count;
@@ -108,7 +128,10 @@ UITableViewDataSource>
             cell = [[[NSBundle mainBundle]
                      loadNibNamed:@"AddressTableViewCell" owner:nil options:nil] objectAtIndex:1];
         }
-        
+        [cell configEditCellWithModel:_dataSource[indexPath.section]];
+        cell.cellBlock = ^(NSInteger tag){
+            
+        };
         return cell;
     }
     AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCellIdentifier];
@@ -127,15 +150,34 @@ UITableViewDataSource>
     return CGFLOAT_MIN;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+    view.backgroundColor = WWColor(241, 241, 241);
+    return view;
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 10;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+    view.backgroundColor = WWColor(241, 241, 241);
+    return view;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressInfoModel *infoM = _dataSource[indexPath.section];
+    if (self.isEdit) {
+       return infoM.cellHeight + 40;
+    }
     return infoM.cellHeight;
 }
 
-
+#pragma mark -- Pravite method
+- (void)deleteAddress {
+    
+}
 
 @end

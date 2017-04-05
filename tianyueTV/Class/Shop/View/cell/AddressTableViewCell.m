@@ -10,7 +10,7 @@
 
 @interface AddressTableViewCell ()
 
-//姓名
+// 姓名
 @property (weak, nonatomic) IBOutlet UILabel *name;
 
 // 电话
@@ -19,28 +19,22 @@
 // 地址
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 
+// 姓名（edit）
+@property (weak, nonatomic) IBOutlet UILabel *name_edit;
+
+// 电话（edit）
+@property (weak, nonatomic) IBOutlet UILabel *phone_edit;
+
+// 地址（edit）
+@property (weak, nonatomic) IBOutlet UILabel *address_edit;
+
+
 @end
 
 @implementation AddressTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.layer.shadowOpacity = 0.8f;
-    self.layer.shadowColor = WWColor(241, 241, 241).CGColor;
-    
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(-5, -5)];
-    
-    CGFloat paintingWidth = SCREEN_WIDTH;
-    CGFloat paintingHeight = self.bounds.size.height;
-    CGFloat shadowWidth = 8;
-    //添加直线
-    [path addLineToPoint:CGPointMake(-5, -3)];
-    [path addLineToPoint:CGPointMake(paintingWidth +5, -3)];
-    [path addLineToPoint:CGPointMake(paintingWidth +5, paintingHeight+shadowWidth)];
-    [path addLineToPoint:CGPointMake(-5, paintingHeight + shadowWidth)];
-    self.layer.shadowPath = path.CGPath;
-    
 }
 
 /**
@@ -53,6 +47,26 @@
     self.name.text = self.addressModel.name;
     self.phoneLabel.text = self.addressModel.telephone;
     self.addressLabel.text = self.addressModel.address;
+}
+
+/**
+ 刷新edit cell
+
+ @param addressModel 对应的model
+ */
+- (void)configEditCellWithModel:(AddressInfoModel *)addressModel {
+    self.addressModel = addressModel;
+    self.name_edit.text = self.addressModel.name;
+    self.phone_edit.text = self.addressModel.telephone;
+    self.address_edit.text = self.addressModel.address;
+}
+
+#pragma mark -- Button method
+- (IBAction)cellButtons_action:(UIButton *)sender {
+    NSLog(@"%ld",sender.tag);
+    if (self.cellBlock) {
+        self.cellBlock(sender.tag - 100);
+    }
 }
 
 

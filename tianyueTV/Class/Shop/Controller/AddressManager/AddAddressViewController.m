@@ -7,8 +7,12 @@
 //
 
 #import "AddAddressViewController.h"
+#import "ShopHandle.h"
 
 @interface AddAddressViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
+@property (weak, nonatomic) IBOutlet UITextView *addressTextView;
 
 @end
 
@@ -39,12 +43,23 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 //确认
 - (void)respondsToRightItem:(UIBarButtonItem *)sender {
-    
+    @weakify(self);
+    [ShopHandle requestForAddNewAddressWithUser:USER_ID name:self.nameTextField.text phone:self.phoneTextField.text province:@"重庆市" city:@"九龙坡区" address:self.addressTextView.text zipcode:@"400030" completeBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        NSLog(@"respondsObject.. %@ %@",respondsObject,error);
+        if (respondsObject) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [MBProgressHUD showError:@"添加失败"];
+        }
+    }];
 }
 
-
+// 删除地址
+- (IBAction)deleteAddress_action:(UIButton *)sender {
+    
+}
 
 @end
