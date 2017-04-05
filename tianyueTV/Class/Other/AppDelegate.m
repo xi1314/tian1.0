@@ -139,6 +139,7 @@
     }
 
 }
+
 - (void)shareSDK
 {
     [ShareSDK registerApp:@"17b8b02db64b8"
