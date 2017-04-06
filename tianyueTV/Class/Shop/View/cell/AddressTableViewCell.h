@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AddressModel.h"
 
-typedef void(^AddressCellBlock)(NSInteger tag);
+typedef void(^AddressCellBlock)(NSInteger tag, AddressInfoModel *model);
 
 static NSString *normalCellIdentifier = @"kNormalCellIdentifier";
 static NSString *editCellIdentifier = @"kEditCellIdentifier";

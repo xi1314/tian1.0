@@ -72,6 +72,7 @@ UICollectionViewDataSource>
 #pragma mark  ----CollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     LIvingViewController *livingVC =[[LIvingViewController alloc]init];
     
     LiveModel *model =self.infoArray[indexPath.row];

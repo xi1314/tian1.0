@@ -77,6 +77,9 @@
 
 // 删除地址
 - (IBAction)deleteAddress_action:(UIButton *)sender {
+    if (!self.dataModel) {
+        return;
+    }
     [MBProgressHUD showMessage:nil];
     @weakify(self);
     if (self.dataModel) {

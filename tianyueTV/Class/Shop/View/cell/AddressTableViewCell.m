@@ -70,9 +70,8 @@
 
 #pragma mark -- Button method
 - (IBAction)cellButtons_action:(UIButton *)sender {
-    NSLog(@"%ld",sender.tag);
     if (self.cellBlock) {
-        self.cellBlock(sender.tag - 100);
+        self.cellBlock(sender.tag - 100,self.addressModel);
     }
 }
 

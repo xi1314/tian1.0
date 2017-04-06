@@ -48,7 +48,11 @@ UITableViewDataSource>
             AddressModel *addM = (AddressModel *)respondsObject;
             for (int i = 0; i < addM.sAddresses_list.count; i++) {
                 AddressInfoModel *infoModle = addM.sAddresses_list[i];
+                infoModle.index = i;
                 if ([infoModle.isDefault isEqualToString:@"1"]) {
+                    NSLog(@".... %d",i);
+                    [self updateCellWithRow:i];
+                    infoModle.index = 0;
                     [self.dataSource insertObject:infoModle atIndex:0];
                 } else {
                     [self.dataSource addObject:infoModle];
@@ -105,35 +109,24 @@ UITableViewDataSource>
 
 // cell按钮点击事件
 - (void)cellButton_actionWithTag:(NSInteger)tag
-                         section:(NSUInteger)section
+                           model:(AddressInfoModel *)model
 {
-    AddressInfoModel *infoModle = _dataSource[section];
+    int row = model.index;
+    NSLog(@"row %d",row);
     switch (tag) {
         case 0: { // 默认地址
-            if ([infoModle.isDefault isEqualToString:@"1"]) {
-                return;
-            } else {
-                @weakify(self);
-                [ShopHandle reqeustForDefaultAddressWithUser:USER_ID isDefault:@"1" addressID:infoModle.ID completeBlock:^(id respondsObject, NSError *error) {
-                    @strongify(self);
-                    if (respondsObject) {
-                        [self initilizeDatasource];
-                    } else {
-                        [MBProgressHUD showError:@"设置失败"];
-                    }
-                }];
-            }
+            [self setDefaultAddressWithRow:row];
         } break;
           
         case 1: { // 编辑
             AddAddressViewController *addVC = [[AddAddressViewController alloc] init];
-            addVC.dataModel = _dataSource[section];
+            addVC.dataModel = model;
             [self.navigationController pushViewController:addVC animated:YES];
         } break;
             
         case 2: { // 删除
             [MBProgressHUD showMessage:nil];
-            [self deleteAddressWithSection:section addressID:infoModle.ID];
+            [self deleteAddressWithRow:row addressID:model.ID];
         }
             
         default:
@@ -142,12 +135,8 @@ UITableViewDataSource>
 }
 
 #pragma mark -- UITableViewDelegate,UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _dataSource.count;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return _dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -158,9 +147,13 @@ UITableViewDataSource>
             cell = [[[NSBundle mainBundle]
                      loadNibNamed:@"AddressTableViewCell" owner:nil options:nil] objectAtIndex:1];
         }
-        [cell configEditCellWithModel:_dataSource[indexPath.section]];
-        cell.cellBlock = ^(NSInteger tag){
-            [self cellButton_actionWithTag:tag section:indexPath.section];
+        [cell configEditCellWithModel:_dataSource[indexPath.row]];
+        
+        cell.cellBlock = ^(NSInteger tag, AddressInfoModel *model){
+            NSLog(@"model index : %d",model.index);
+            if (model.index != 0) {
+               [self cellButton_actionWithTag:tag model:model];
+            }
         };
         return cell;
     }
@@ -169,23 +162,9 @@ UITableViewDataSource>
         cell = [[[NSBundle mainBundle]
                  loadNibNamed:@"AddressTableViewCell" owner:nil options:nil] objectAtIndex:0];
     }
-    [cell configCellWithModel:_dataSource[indexPath.section]];
+    [cell configCellWithModel:_dataSource[indexPath.row]];
     return cell;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == _dataSource.count-1) {
-        return 10;
-    }
-    return CGFLOAT_MIN;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
-    view.backgroundColor = WWColor(241, 241, 241);
-    return view;
-}
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 10;
@@ -198,7 +177,7 @@ UITableViewDataSource>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    AddressInfoModel *infoM = _dataSource[indexPath.section];
+    AddressInfoModel *infoM = _dataSource[indexPath.row];
     if (self.isEdit) {
        return infoM.cellHeight + 40;
     }
@@ -206,18 +185,78 @@ UITableViewDataSource>
 }
 
 #pragma mark -- Pravite method
-- (void)deleteAddressWithSection:(NSInteger)section
+
+/**
+ 删除地址
+
+ @param row 需要删除的row
+ @param addressID 地址id
+ */
+- (void)deleteAddressWithRow:(int)row
                        addressID:(NSString *)addressID
 {
     [ShopHandle requestForDeleteAddressWithUser:USER_ID addressID:addressID completeBlock:^(id respondsObject, NSError *error) {
         [MBProgressHUD hideHUD];
         if (respondsObject) {
-            [_dataSource removeObjectAtIndex:section];
-            [self.tableView reloadData];
+            [_dataSource removeObjectAtIndex:row];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            [self.tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
+            [self updateCellWhileDeleteWithRow:row];
         } else {
             [MBProgressHUD showError:@"删除失败"];
         }
     }];
+}
+
+/**
+ 设置默认地址
+
+ @param row 选择的row
+ */
+- (void)setDefaultAddressWithRow:(int)row {
+    [MBProgressHUD showMessage:nil];
+    AddressInfoModel *infoModle = _dataSource[row];
+    @weakify(self);
+    [ShopHandle reqeustForDefaultAddressWithUser:USER_ID isDefault:@"1" addressID:infoModle.ID completeBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        [MBProgressHUD hideHUD];
+        if (respondsObject) {
+            [self updateCellWithRow:row];
+            NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+            AddressInfoModel *lastM = _dataSource[0];
+            lastM.isDefault = @"0";
+            [_dataSource replaceObjectAtIndex:0 withObject:lastM];
+            [self.tableView reloadRowAtIndexPath:firstIndex withRowAnimation:UITableViewRowAnimationNone];
+            
+            infoModle.isDefault = @"1";
+            infoModle.index = 0;
+            [_dataSource insertObject:infoModle atIndex:0];
+            [self.tableView insertRowAtIndexPath:firstIndex withRowAnimation:UITableViewRowAnimationFade];
+            
+            [_dataSource removeObjectAtIndex:row + 1];
+            NSIndexPath *deleIndex = [NSIndexPath indexPathForRow:row + 1 inSection:0];
+            [self.tableView deleteRowAtIndexPath:deleIndex withRowAnimation:UITableViewRowAnimationFade];
+            
+        } else {
+            [MBProgressHUD showError:@"设置失败"];
+        }
+    }];
+}
+
+// 刷新cell的index
+- (void)updateCellWithRow:(int)row {
+    for (int i = 0; i < row; i++) {
+        AddressInfoModel *model = _dataSource[i];
+        model.index += 1;
+    }
+}
+
+// 删除操作是刷新cell
+- (void)updateCellWhileDeleteWithRow:(int)row {
+    for (int i = row; i < self.dataSource.count; i++) {
+        AddressInfoModel *model = _dataSource[i];
+        model.index -= 1;
+    }
 }
 
 @end

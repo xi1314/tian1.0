@@ -55,10 +55,11 @@
 + (CGFloat)calculateCellHeight:(NSString *)address {
 
     CGSize titleSize = [address boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-20, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size;
-    if (titleSize.height < 30) {
-        return 92;
+    
+    if (titleSize.height < 18) {
+        return 100;
     } else {
-        return 80 + titleSize.height;
+        return 90 + titleSize.height;
     }
     return 100;
 }

@@ -54,4 +54,7 @@
 // 是否是编辑状态
 @property (nonatomic, assign) BOOL isEdit;
 
+// cell的索引
+@property (nonatomic, assign) int index;
+
 @end
