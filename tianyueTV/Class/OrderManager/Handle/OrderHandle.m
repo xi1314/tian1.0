@@ -86,9 +86,9 @@
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:urlName paraments:params finish:^(id responseObject, NSError *error) {
         NSLog(@"respondsObject %@",responseObject);
-        NSDictionary *dic = (NSDictionary *)responseObject;
         
-        if ([dic[RET] isEqualToString:SUCCESS]) {
+        if (responseObject) {
+            NSDictionary *dic = (NSDictionary *)responseObject;
             OrderModel *orderModle = [OrderModel mj_objectWithKeyValues:dic];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (orderModle.orderSnList.count) {

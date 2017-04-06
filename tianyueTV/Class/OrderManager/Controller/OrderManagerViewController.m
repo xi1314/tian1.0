@@ -167,7 +167,6 @@ UITextFieldDelegate>
     switch (sender.tag - 230) {
         case 0: { // 全部订单
             if (_isSeller) {
-                
                 [self requestForDatasource];
             } else {
                 [self requestForPersonalData];
@@ -226,7 +225,7 @@ UITextFieldDelegate>
             case 1: { // 确定
                 [self requestForFinalPaymentWithPrice:price];
                 [self.baseMaskView removeFromSuperview];
-                [MBProgressHUD showMessage:@""];
+                [MBProgressHUD showMessage:nil];
             } break;
                 
             default:
@@ -249,6 +248,7 @@ UITextFieldDelegate>
     NSInteger shop = [goodsInfoModel.shippingStatus integerValue];
     NSInteger pay  = [goodsInfoModel.payStatus integerValue];
     int index = (int)[self.datasource indexOfObject:orderSnModel];
+    
     @weakify(self);
     if (order == 0 && shop == 0) { // 代付款
         if (tag == 1) {
@@ -389,7 +389,15 @@ UITextFieldDelegate>
         [OrderHandle requestForSureDeliveryWithOrderSn:orderSn user:@"10085" completeBlock:^(id respondsObject, NSError *error) {
             if (respondsObject) {
                 [MBProgressHUD showSuccess:@"确认成功"];
-                [self.datasource removeObjectAtIndex:index];
+                if (_nowButton.tag == 230) {
+                    OrderSnModel *sModle = _datasource[index];
+                    GoodsInfoModel *goodModel = sModle.goodsList[0];
+                    goodModel.orderStauts = @"1";
+                    goodModel.payStatus = @"2";
+                    goodModel.shippingStatus = @"2";
+                } else {
+                    [self.datasource removeObjectAtIndex:index];
+                }
                 [self.tableView reloadData];
             }
         }];
@@ -486,7 +494,16 @@ UITextFieldDelegate>
              @strongify(self);
              if (respondsObject) {
                  [MBProgressHUD hideHUD];
-                 [_datasource removeObjectAtIndex:index];
+                 if (_nowButton.tag == 230) {
+                     OrderSnModel *sModle = _datasource[index];
+                     GoodsInfoModel *goodModel = sModle.goodsList[0];
+                     goodModel.orderStauts = @"1";
+                     goodModel.payStatus = @"2";
+                     goodModel.shippingStatus = @"2";
+                     goodModel.refoundStatus = @"4";
+                 } else {
+                     [_datasource removeObjectAtIndex:index];
+                 }
                  [self.tableView reloadData];
              } else {
                  [MBProgressHUD showError:@"取消失败"];
@@ -571,7 +588,10 @@ UITextFieldDelegate>
                 }
                 [self.tableView reloadData];
                 // 回到顶部cell
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                if (oM.orderSnList.count) {
+                    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                }
+
             } else {
                 
                 if (oM.orderSnList.count) {
@@ -646,7 +666,13 @@ UITextFieldDelegate>
             @strongify(self);
             [MBProgressHUD hideHUD];
             if (respondsObject) {
-                [_datasource removeObjectAtIndex:index];
+                if (_nowButton.tag == 230) {
+                    OrderSnModel *snModel = _datasource[index];
+                    GoodsInfoModel *goodModel = snModel.goodsList[0];
+                    goodModel.orderStauts = @"2";
+                } else {
+                    [_datasource removeObjectAtIndex:index];
+                }
                 [self.tableView reloadData];
             }
         }];
@@ -664,12 +690,23 @@ UITextFieldDelegate>
 - (void)requestForDeliveryInfoWithOrderID:(NSString *)orderID
                                     index:(NSInteger)index
 {
+    if (self.deliveryView.companySelect.titleLabel.text.length == 0 || self.deliveryView.deliveryNumber.text.length == 0) {
+        return;
+    }
     @weakify(self);
     [OrderHandle requestForDeliveryInfoWithUSer:@"10085" orderID:orderID companyName:self.deliveryView.companySelect.titleLabel.text deliveryNumber:self.deliveryView.deliveryNumber.text completeBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
         if (respondsObject) {
             [MBProgressHUD showSuccess:@"发货成功"];
-            [_datasource removeObjectAtIndex:index];
+            if (_nowButton.tag == 230) {
+                OrderSnModel *sn = _datasource[index];
+                GoodsInfoModel *goodModel = sn.goodsList[0];
+                goodModel.orderStauts = @"1";
+                goodModel.shippingStatus = @"1";
+                goodModel.payStatus = @"2";
+            } else {
+                [_datasource removeObjectAtIndex:index];
+            }
             [self.tableView reloadData];
         }
         if (error) {
@@ -755,7 +792,10 @@ UITextFieldDelegate>
                 }
                 [self.tableView reloadData];
                 // 回到第一个cell
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                if (oM.orderSnList.count) {
+                    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                }
+                
             } else {
                 if (oM.orderSnList.count) {
                     [self.datasource addObjectsFromArray:oM.orderSnList];
@@ -815,7 +855,13 @@ UITextFieldDelegate>
             @strongify(self);
             if (respondsObject) {
                 [MBProgressHUD showSuccess:@"申请成功"];
-                [_datasource removeObjectAtIndex:index];
+                if (_nowButton.tag == 230) {
+                    OrderSnModel *sModle = _datasource[index];
+                    GoodsInfoModel *goodModel = sModle.goodsList[0];
+                    goodModel.orderStauts = @"4";
+                } else {
+                    [_datasource removeObjectAtIndex:index];
+                }
                 [self.tableView reloadData];
             } else {
                 [MBProgressHUD showError:@"申请失败"];
@@ -824,14 +870,6 @@ UITextFieldDelegate>
     }];
 }
 
-/**
- 删除订单
-
- @param index cell tag值
- */
-- (void)requstForDeleteOrder:(NSInteger)index {
-    
-}
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -187,7 +187,7 @@
             self.secondButton.selected = YES;
             self.thirdButton.selected = YES;
         } else {
-            self.finalPayLabel.hidden = YES;
+            self.finalPayLabel.text = @"买家申请退款";
             [self.secondButton setTitle:@"同意退款" forState:UIControlStateNormal];
             [self.thirdButton setTitle:@"申请纠纷处理" forState:UIControlStateNormal];
         }
