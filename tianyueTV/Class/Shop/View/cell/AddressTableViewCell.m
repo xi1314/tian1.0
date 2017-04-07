@@ -49,6 +49,9 @@
     self.name.text = self.addressModel.name;
     self.phoneLabel.text = self.addressModel.telephone;
     self.addressLabel.text = self.addressModel.address;
+    if ([self.addressModel.isDefault isEqualToString:@"1"]) {
+        [self changeStringColor:self.addressModel.address];
+    }
 }
 
 /**
@@ -60,7 +63,11 @@
     self.addressModel = addressModel;
     self.name_edit.text = self.addressModel.name;
     self.phone_edit.text = self.addressModel.telephone;
-    self.address_edit.text = self.addressModel.address;
+    if ([self.addressModel.address containsString:@"[默认地址]"]) {
+        self.address_edit.text = [self.addressModel.address substringFromIndex:6];
+    } else {
+        self.address_edit.text = self.addressModel.address;
+    }
     if ([self.addressModel.isDefault isEqualToString:@"1"]) {
         self.defaultButton.selected = YES;
     } else {
@@ -73,6 +80,24 @@
     if (self.cellBlock) {
         self.cellBlock(sender.tag - 100,self.addressModel);
     }
+}
+
+#pragma mark -- Pravite method
+/**
+ 改变字符串颜色
+ 
+ @param string 需要改变的字符串
+ */
+- (void)changeStringColor:(NSString *)string {
+    if (![string containsString:@"[默认地址]"]) {
+        return;
+    }
+    // 创建对象.
+    NSMutableAttributedString *mAttStri = [[NSMutableAttributedString alloc] initWithString:string];
+    NSRange range = NSMakeRange(0, 6);
+    [mAttStri addAttribute:NSForegroundColorAttributeName value:WWColor(255, 207, 113) range:range];
+    self.addressLabel.attributedText = mAttStri;
+    self.address_edit.attributedText = mAttStri;
 }
 
 

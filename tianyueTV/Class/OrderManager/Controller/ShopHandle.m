@@ -59,7 +59,7 @@
     if (titleSize.height < 18) {
         return 100;
     } else {
-        return 90 + titleSize.height;
+        return 92 + titleSize.height;
     }
     return 100;
 }

@@ -249,7 +249,7 @@
         NSLog(@"dic %@",dic);
         [[NetWorkTool sharedTool] requestMethod:POST URL:@"buyAtOnce_app" paraments:dic finish:^(id responseObject, NSError *error) {
             [MBProgressHUD hideHUD];
-            NSLog(@"--- %@",responseObject);
+            NSLog(@"---、、、、、 %@",responseObject);
             if ([responseObject[@"ret"] isEqualToString:@"success"]) {
                 //加入购物车成功
                 [_goodInfoDic setObject:_chooseViewImgUrl forKey:@"img"];
