@@ -39,8 +39,12 @@
 #import "HomepageViewController.h"
 #import "TabbarViewController.h"
 
+// 极光推送
+#import "JPUSHService.h"
+#import <UserNotifications/UserNotifications.h>
 
-@interface AppDelegate ()
+
+@interface AppDelegate () <JPUSHRegisterDelegate>
 {
     Reachability *_reacha;
     NetworkStates _preStatus;
@@ -54,12 +58,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    [self talkingData];//分析数据
-    [self firstLoad];//是否是第一次使用APP
-    [self shareSDK];//分享
-  //  [PLPlayerEnv initEnv];//初始化播放器
-   // [PLStreamingEnv initEnv];//初始化推流端
-    [self checkNetworkStates];//网络状态的监听
+    [self jPushInit:launchOptions]; //极光推送
+    [self talkingData]; // 分析数据
+    [self firstLoad]; // 是否是第一次使用APP
+    [self shareSDK]; // 分享
+   // [PLPlayerEnv initEnv]; // 初始化播放器
+   // [PLStreamingEnv initEnv]; // 初始化推流端
+    [self checkNetworkStates]; // 网络状态的监听
     //对键盘的处理
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
     manager.enableAutoToolbar = YES;
@@ -67,6 +72,35 @@
     
     return YES;
 }
+
+
+/**
+ 极光推送
+
+ @param launchOptions 字典
+ */
+- (void)jPushInit:(NSDictionary *)launchOptions
+{
+    //极光push  appkey   f3c1cb42c33239e276ba95fe
+    
+    JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert | JPAuthorizationOptionBadge | JPAuthorizationOptionSound;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        // 可以添加自定义categories
+        // NSSet<UNNotificationCategory *> *categories for iOS10 or later
+        // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
+    }
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    
+    //0 (默认值)表示采用的是开发证书，1 表示采用生产证书发布应用。
+    [JPUSHService setupWithOption:launchOptions
+                           appKey:@"f3c1cb42c33239e276ba95fe"
+                          channel:@"App Store"
+                 apsForProduction:0
+            advertisingIdentifier:nil];
+}
+
+// 分析数据
 - (void)talkingData
 {
     [TalkingData setExceptionReportEnabled:YES];
@@ -74,6 +108,8 @@
     [TalkingData sessionStarted:@"542E9E10184343A0961789A4BBEB0160" withChannelId:@""];
     [TalkingDataSMS init:@"542E9E10184343A0961789A4BBEB0160" withSecretId:@""];
 }
+
+// 是否是第一次使用APP
 - (void)firstLoad
 {
     NSString *key = @"CFBundleShortVersionString";
@@ -93,12 +129,15 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
+
+// 网络状态的监听
 - (void)checkNetworkStates
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChange) name:kReachabilityChangedNotification object:nil];
     _reacha = [Reachability reachabilityWithHostName:@"http://www.baidu.com"];
     [_reacha startNotifier];
 }
+
 - (void)networkChange
 {
     NetworkStates currentStates = [NetWorkTool getNetworkStatus];
@@ -140,6 +179,7 @@
 
 }
 
+// 分享
 - (void)shareSDK
 {
     [ShareSDK registerApp:@"17b8b02db64b8"
@@ -192,6 +232,12 @@
      }];
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    /// Required - 注册 DeviceToken
+    [JPUSHService registerDeviceToken:deviceToken];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -211,11 +257,49 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+#pragma mark- JPUSHRegisterDelegate
+
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+    // Required
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+    }
+    completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
+}
+
+// iOS 10 Support
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    // Required
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [JPUSHService handleRemoteNotification:userInfo];
+    }
+    completionHandler();  // 系统要求执行这个方法
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    // Required, iOS 7 Support
+    [JPUSHService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    // Required,For systems with less than or equal to iOS6
+    [JPUSHService handleRemoteNotification:userInfo];
 }
 
 
