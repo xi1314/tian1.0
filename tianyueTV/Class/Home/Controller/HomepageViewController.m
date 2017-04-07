@@ -37,7 +37,7 @@
     vc1.itemSelBlock = ^(LiveModel *liveM){
         
         @strongify(self);
-        
+        /*
         LIvingViewController *livingVC = [[LIvingViewController alloc] init];
         
         livingVC.topic = liveM.stream;
@@ -53,12 +53,11 @@
   
         livingVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:livingVC animated:YES];
-         
-        /*
+         */
+        
         AddressManageViewController *addVC = [[AddressManageViewController alloc] init];
         addVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:addVC animated:YES];
-         */
         
     };
     vc1.title = @"推荐";

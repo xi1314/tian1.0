@@ -115,7 +115,7 @@ UITableViewDataSource>
 //    NSLog(@"row %d",row);
     switch (tag) {
         case 0: { // 默认地址
-            if (model.index != 0) {
+            if ([model.isDefault isEqualToString:@"0"]) {
                 [self setDefaultAddressWithRow:row];
             }
         } break;

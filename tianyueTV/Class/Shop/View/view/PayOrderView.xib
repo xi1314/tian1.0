@@ -16,12 +16,11 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" tag="220" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmS-PZ-gEi">
-                    <rect key="frame" x="16" y="19" width="14" height="14"/>
+                    <rect key="frame" x="0.0" y="1" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="mmS-PZ-gEi" secondAttribute="height" multiplier="1:1" id="8PZ-E6-ZCC"/>
-                        <constraint firstAttribute="width" constant="14" id="9ky-yY-cUC"/>
+                        <constraint firstAttribute="width" constant="50" id="9ky-yY-cUC"/>
                     </constraints>
-                    <state key="normal" image="差"/>
                     <connections>
                         <action selector="orderButtons_action:" destination="qW3-dK-eJA" eventType="touchUpInside" id="IDC-Fm-9cp"/>
                     </connections>
@@ -103,10 +102,18 @@
                         <action selector="orderButtons_action:" destination="qW3-dK-eJA" eventType="touchUpInside" id="pVx-Lp-CNV"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="差" translatesAutoresizingMaskIntoConstraints="NO" id="tRr-Qm-35j">
+                    <rect key="frame" x="16" y="19" width="14" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="tRr-Qm-35j" secondAttribute="height" multiplier="1:1" id="KoR-dt-PVe"/>
+                        <constraint firstAttribute="width" constant="14" id="neg-4D-eXh"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.98159879329999999" green="0.98159879329999999" blue="0.98159879329999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="mmS-PZ-gEi" firstAttribute="leading" secondItem="qW3-dK-eJA" secondAttribute="leading" constant="16" id="6X2-RL-a4i"/>
+                <constraint firstItem="tRr-Qm-35j" firstAttribute="leading" secondItem="qW3-dK-eJA" secondAttribute="leading" constant="16" id="3Ds-MO-W0w"/>
+                <constraint firstItem="mmS-PZ-gEi" firstAttribute="leading" secondItem="qW3-dK-eJA" secondAttribute="leading" id="6X2-RL-a4i"/>
                 <constraint firstItem="k8A-XP-N5v" firstAttribute="centerY" secondItem="Hkw-a0-Sb4" secondAttribute="centerY" id="88a-Vc-hB6"/>
                 <constraint firstItem="gL0-Ly-79O" firstAttribute="leading" secondItem="Hkw-a0-Sb4" secondAttribute="leading" id="AIb-os-a5b"/>
                 <constraint firstAttribute="trailing" secondItem="FgZ-4F-mQc" secondAttribute="trailing" id="BBg-Iy-LyJ"/>
@@ -122,6 +129,7 @@
                 <constraint firstItem="NzX-Oc-yeY" firstAttribute="leading" secondItem="qW3-dK-eJA" secondAttribute="leading" id="cM1-h8-4EX"/>
                 <constraint firstAttribute="trailing" secondItem="9F5-Pj-Vd9" secondAttribute="trailing" constant="30" id="caE-uX-0iy"/>
                 <constraint firstItem="FgZ-4F-mQc" firstAttribute="leading" secondItem="qW3-dK-eJA" secondAttribute="leading" id="dGp-8F-Mog"/>
+                <constraint firstItem="tRr-Qm-35j" firstAttribute="centerY" secondItem="Fom-M1-6DP" secondAttribute="centerY" id="dQm-9S-cdT"/>
                 <constraint firstItem="Hkw-a0-Sb4" firstAttribute="top" secondItem="FgZ-4F-mQc" secondAttribute="bottom" constant="18" id="eIP-kh-I1v"/>
                 <constraint firstItem="Fom-M1-6DP" firstAttribute="centerX" secondItem="qW3-dK-eJA" secondAttribute="centerX" id="leU-gi-TqS"/>
                 <constraint firstAttribute="trailing" secondItem="T31-te-jHk" secondAttribute="trailing" constant="12" id="p0g-wy-Cov"/>
@@ -136,7 +144,7 @@
             <connections>
                 <outlet property="price" destination="2kF-10-2BH" id="Lft-2B-dEr"/>
             </connections>
-            <point key="canvasLocation" x="547.5" y="244"/>
+            <point key="canvasLocation" x="547.5" y="243.5"/>
         </view>
     </objects>
     <resources>
