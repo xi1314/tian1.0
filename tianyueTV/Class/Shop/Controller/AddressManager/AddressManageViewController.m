@@ -112,10 +112,12 @@ UITableViewDataSource>
                            model:(AddressInfoModel *)model
 {
     int row = model.index;
-    NSLog(@"row %d",row);
+//    NSLog(@"row %d",row);
     switch (tag) {
         case 0: { // 默认地址
-            [self setDefaultAddressWithRow:row];
+            if (model.index != 0) {
+                [self setDefaultAddressWithRow:row];
+            }
         } break;
           
         case 1: { // 编辑
@@ -127,7 +129,7 @@ UITableViewDataSource>
         case 2: { // 删除
             [MBProgressHUD showMessage:nil];
             [self deleteAddressWithRow:row addressID:model.ID];
-        }
+        } break;
             
         default:
             break;
@@ -150,10 +152,7 @@ UITableViewDataSource>
         [cell configEditCellWithModel:_dataSource[indexPath.row]];
         
         cell.cellBlock = ^(NSInteger tag, AddressInfoModel *model){
-            NSLog(@"model index : %d",model.index);
-            if (model.index != 0) {
                [self cellButton_actionWithTag:tag model:model];
-            }
         };
         return cell;
     }
