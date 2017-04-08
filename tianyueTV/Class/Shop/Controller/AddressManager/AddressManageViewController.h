@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^AddressBlock)(NSDictionary *dic);
+
 @interface AddressManageViewController : UIViewController
-@property (nonatomic, assign) BOOL isEdit;        //是否是地址管理
+
+// 是否是编辑状态
+@property (nonatomic, assign) BOOL isEdit;
+
+// 选择地址后回调
+@property (nonatomic, copy) AddressBlock block;
+
 @end

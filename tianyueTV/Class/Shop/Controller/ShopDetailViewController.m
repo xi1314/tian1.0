@@ -249,7 +249,7 @@
         NSLog(@"dic %@",dic);
         [[NetWorkTool sharedTool] requestMethod:POST URL:@"buyAtOnce_app" paraments:dic finish:^(id responseObject, NSError *error) {
             [MBProgressHUD hideHUD];
-            NSLog(@"---、、、、、 %@",responseObject);
+//            NSLog(@"---、、、、、 %@",responseObject);
             if ([responseObject[@"ret"] isEqualToString:@"success"]) {
                 //加入购物车成功
                 [_goodInfoDic setObject:_chooseViewImgUrl forKey:@"img"];
@@ -268,6 +268,7 @@
                         [_goodInfoDic setObject:responseObject[@"goodsAndNum"] forKey:@"goodsAndNum"];
                         OrderViewController *orderVC = [[OrderViewController alloc] init];
                         orderVC.dataArr = @[_goodInfoDic];
+                        orderVC.addressDic = responseObject[@"address"][0];
                         [self.navigationController pushViewController:orderVC animated:YES];
                     }
                 }

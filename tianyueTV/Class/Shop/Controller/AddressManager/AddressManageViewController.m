@@ -188,7 +188,15 @@ UITableViewDataSource>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    @weakify(self);
+    if (self.block) {
+        @strongify(self);
+        AddressInfoModel *infoM = _dataSource[indexPath.row];
+        NSDictionary *dic = (NSDictionary *)[infoM mj_keyValues];
+//        NSLog(@"\\\\\\ %@",dic);
+        self.block(dic);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark -- Pravite method

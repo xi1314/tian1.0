@@ -42,7 +42,7 @@
     [self initilizaDataSource];
     [self initilizeUserInterface];
     NSLog(@"--- %@",self.dataArr);
-//    [self.view addSubview:self.payView];
+    NSLog(@"<<<< %@",self.addressDic);
     [self payOrderButtons];
     
 }
@@ -99,10 +99,11 @@
     [path addLineToPoint:CGPointMake(-5, paintingHeight + shadowWidth)];
     self.topView.layer.shadowPath = path.CGPath;
     
-    //隐藏支付view
-//    self.payView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 365);
+    if (self.addressDic.count) {
+        [self configAddressViewWithDic:self.addressDic];
+    }
+    
 }
-
 
 #pragma mark -- Private method
 //当设置navigationBar的背景图片或背景色时，使用该方法都可移除黑线，且不会使translucent属性失效
@@ -128,21 +129,31 @@
     return nil;
 }
 
+/**
+ 设置地址
+
+ @param dic 数据字典
+ */
+- (void)configAddressViewWithDic:(NSDictionary *)dic {
+    self.userName.text = dic[@"name"];
+    self.userPhone.text = [NSString stringWithFormat:@"%@",dic[@"telephone"]];
+    self.postalCode.text = [NSString stringWithFormat:@"%@",dic[@"zipCode"]];
+    self.address.text = dic[@"address"];
+}
 
 #pragma mark -- Tap method
 - (IBAction)topViewTop_action:(UITapGestureRecognizer *)sender {
     
     AddressManageViewController *addressVC = [[AddressManageViewController alloc] init];
+    @weakify(self);
+    addressVC.block = ^(NSDictionary *dic){
+        @strongify(self);
+        [self configAddressViewWithDic:dic];
+    };
     [self.navigationController pushViewController:addressVC animated:YES];
 }
 
 #pragma mark -- Button method
-//返回
-//- (void)respondsToBackItem:(UIBarButtonItem *)sender {
-//    self.navigationController.navigationBar.hidden =YES;
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-
 - (void)respondsToBaseViewBackItem {
     self.navigationController.navigationBar.hidden =YES;
     [self.navigationController popViewControllerAnimated:YES];

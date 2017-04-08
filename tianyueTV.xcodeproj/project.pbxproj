@@ -143,7 +143,6 @@
 		04687AFD1E88BDF0004A5EE3 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A641E88BDF0004A5EE3 /* OrderViewController.m */; };
 		04687AFE1E88BDF0004A5EE3 /* OrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A651E88BDF0004A5EE3 /* OrderViewController.xib */; };
 		04687AFF1E88BDF0004A5EE3 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A671E88BDF0004A5EE3 /* ShopDetailViewController.m */; };
-		04687B001E88BDF0004A5EE3 /* ShopDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A681E88BDF0004A5EE3 /* ShopDetailViewController.xib */; };
 		04687B011E88BDF0004A5EE3 /* WaitingOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A6A1E88BDF0004A5EE3 /* WaitingOrderViewController.m */; };
 		04687B021E88BDF0004A5EE3 /* WaitingOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A6B1E88BDF0004A5EE3 /* WaitingOrderViewController.xib */; };
 		04687B031E88BDF0004A5EE3 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A6F1E88BDF0004A5EE3 /* MessageModel.m */; };
@@ -169,6 +168,7 @@
 		04832EF41E8E36F70080A06C /* FinalPaymentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04832EF31E8E36F70080A06C /* FinalPaymentView.m */; };
 		980822A91E0D05A8007D9A11 /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822A81E0D05A8007D9A11 /* cityData.plist */; };
 		980822AB1E0D05B7007D9A11 /* typeData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822AA1E0D05B7007D9A11 /* typeData.plist */; };
+		9811F0D41E9890C2000BDD67 /* ShopDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9811F0D31E9890C2000BDD67 /* ShopDetailViewController.xib */; };
 		981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */; };
 		98285E8F929C186BEA3EDD6D /* libPods-tianyueTVUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC026177855CDB192D1BB06 /* libPods-tianyueTVUITests.a */; };
 		987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842231E8F7FB50084BF82 /* ShopHandle.m */; };
@@ -485,7 +485,6 @@
 		04687A651E88BDF0004A5EE3 /* OrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderViewController.xib; sourceTree = "<group>"; };
 		04687A661E88BDF0004A5EE3 /* ShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailViewController.h; sourceTree = "<group>"; };
 		04687A671E88BDF0004A5EE3 /* ShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailViewController.m; sourceTree = "<group>"; };
-		04687A681E88BDF0004A5EE3 /* ShopDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailViewController.xib; sourceTree = "<group>"; };
 		04687A691E88BDF0004A5EE3 /* WaitingOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitingOrderViewController.h; sourceTree = "<group>"; };
 		04687A6A1E88BDF0004A5EE3 /* WaitingOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitingOrderViewController.m; sourceTree = "<group>"; };
 		04687A6B1E88BDF0004A5EE3 /* WaitingOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaitingOrderViewController.xib; sourceTree = "<group>"; };
@@ -532,6 +531,7 @@
 		92D1542CAE7A70696F02677D /* libPods-tianyueTVTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tianyueTVTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		980822A81E0D05A8007D9A11 /* cityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityData.plist; sourceTree = "<group>"; };
 		980822AA1E0D05B7007D9A11 /* typeData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = typeData.plist; sourceTree = "<group>"; };
+		9811F0D31E9890C2000BDD67 /* ShopDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailViewController.xib; sourceTree = "<group>"; };
 		981ED63B1E84F31200835219 /* UIButton+BadgeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BadgeValue.h"; sourceTree = "<group>"; };
 		981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BadgeValue.m"; sourceTree = "<group>"; };
 		987842221E8F7FB50084BF82 /* ShopHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopHandle.h; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.h; sourceTree = SOURCE_ROOT; };
@@ -1608,7 +1608,7 @@
 				04687A651E88BDF0004A5EE3 /* OrderViewController.xib */,
 				04687A661E88BDF0004A5EE3 /* ShopDetailViewController.h */,
 				04687A671E88BDF0004A5EE3 /* ShopDetailViewController.m */,
-				04687A681E88BDF0004A5EE3 /* ShopDetailViewController.xib */,
+				9811F0D31E9890C2000BDD67 /* ShopDetailViewController.xib */,
 				04687A691E88BDF0004A5EE3 /* WaitingOrderViewController.h */,
 				04687A6A1E88BDF0004A5EE3 /* WaitingOrderViewController.m */,
 				04687A6B1E88BDF0004A5EE3 /* WaitingOrderViewController.xib */,
@@ -2001,9 +2001,9 @@
 				04687B0E1E88BDF0004A5EE3 /* PayOrderView.xib in Resources */,
 				04687B021E88BDF0004A5EE3 /* WaitingOrderViewController.xib in Resources */,
 				04687B051E88BDF0004A5EE3 /* AddressTableViewCell.xib in Resources */,
-				04687B001E88BDF0004A5EE3 /* ShopDetailViewController.xib in Resources */,
 				04687AFC1E88BDF0004A5EE3 /* AddressManageViewController.xib in Resources */,
 				04687AF11E88BDF0004A5EE3 /* DeliveryView.xib in Resources */,
+				9811F0D41E9890C2000BDD67 /* ShopDetailViewController.xib in Resources */,
 				04687AF51E88BDF0004A5EE3 /* FinalPaymentView.xib in Resources */,
 				04687B121E88BDF0004A5EE3 /* ShopDetailView.xib in Resources */,
 				04687AEB1E88BDF0004A5EE3 /* OrderManagerViewController.xib in Resources */,

@@ -250,12 +250,4 @@
     return _payView;
 }
 
-//- (UIView *)maskView {
-//    if (!_maskView) {
-//        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-//        _maskView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
-//    }
-//    return _maskView;
-//}
-
 @end
