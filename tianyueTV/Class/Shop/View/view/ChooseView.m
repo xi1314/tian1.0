@@ -122,8 +122,8 @@
         NSString *color =[colorarr objectAtIndex:colorView.seletIndex];
         
         for (NSDictionary *dic in self.goodsStock) {
-            NSString *type1 = dic[@"skuColor"];
-            NSString *type2 = dic[@"skuSize"];
+            NSString *type1 = dic[@"commodity_attribute_1"];
+            NSString *type2 = dic[@"commodity_attribute_2"];
             if ([type1 containsString:size] && [type2 containsString:color]) {
                 stock = [dic[@"skuStock"] intValue];
                 self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",dic[@"skuStock"]];
@@ -147,7 +147,7 @@
         [self resumeBtn:colorarr :colorView];
         
         for (NSDictionary *dic in self.goodsStock) {
-            NSString *string = dic[@"skuSize"];
+            NSString *string = dic[@"commodity_attribute_1"];
             if ([string containsString:color]) {
                 self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",dic[@"skuStock"]];
             }
@@ -160,7 +160,7 @@
         //根据所选尺码 取出该尺码对应所有颜色的库存字典
         [self resumeBtn:sizearr :sizeView];
         for (NSDictionary *dic in self.goodsStock) {
-            NSString *color = dic[@"skuColor"];
+            NSString *color = dic[@"commodity_attribute_1"];
             if ([color containsString:size]) {
                 self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",dic[@"skuStock"]];
             }
