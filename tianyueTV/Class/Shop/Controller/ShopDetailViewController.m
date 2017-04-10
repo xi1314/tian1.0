@@ -256,12 +256,12 @@
                 for (NSDictionary *dic in _stockArr) {
                     NSString *strID = [NSString stringWithFormat:@"%@",dic[@"id"]];
                     if ([strID isEqualToString:typeStr]) {
-                        NSString *color = dic[@"skuColor"];
+                        NSString *color = dic[@"commodity_attribute_1"];
                         NSArray *colorArr = [color componentsSeparatedByString:@";"];
                         NSString *colorStr = [NSString stringWithFormat:@"%@:%@",colorArr[0],colorArr[1]];
                         [_goodInfoDic setObject:colorStr forKey:@"color"];
                         
-                        NSString *size = dic[@"skuSize"];
+                        NSString *size = dic[@"commodity_attribute_2"];
                         NSArray *sizeArr = [size componentsSeparatedByString:@";"];
                         NSString *sizeStr = [NSString stringWithFormat:@"%@:%@",sizeArr[0],sizeArr[1]];
                         [_goodInfoDic setObject:sizeStr forKey:@"size"];
