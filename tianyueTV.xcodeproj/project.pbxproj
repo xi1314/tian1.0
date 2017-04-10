@@ -183,6 +183,9 @@
 		CC36CD531E9732F5007E35FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD521E9732F5007E35FF /* Foundation.framework */; };
 		CC36CD551E9732FA007E35FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD541E9732FA007E35FF /* UIKit.framework */; };
 		CC36CD571E973334007E35FF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD561E973334007E35FF /* UserNotifications.framework */; };
+		CC47BC561E9B867E006B1EA2 /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */; };
+		CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */; };
+		CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47BC591E9B869E006B1EA2 /* TianyueTools.m */; };
 		EF8A61C61D2F0782479BAC3F /* libPods-tianyueTV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */; };
 		FF0110C31DAB26D6003146A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0110C21DAB26D6003146A7 /* main.m */; };
 		FF0110CC1DAB26D6003146A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF0110CA1DAB26D6003146A7 /* Main.storyboard */; };
@@ -552,6 +555,11 @@
 		CC36CD541E9732FA007E35FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CC36CD561E973334007E35FF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		CC36CD581E97344B007E35FF /* tianyueTV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tianyueTV.entitlements; sourceTree = "<group>"; };
+		CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.2.a"; sourceTree = "<group>"; };
+		CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.3.a"; sourceTree = "<group>"; };
+		CC47BC551E9B867E006B1EA2 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		CC47BC581E9B869E006B1EA2 /* TianyueTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TianyueTools.h; sourceTree = "<group>"; };
+		CC47BC591E9B869E006B1EA2 /* TianyueTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TianyueTools.m; sourceTree = "<group>"; };
 		D73901487324F69E14ABE92B /* Pods-tianyueTVTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTVTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTVTests/Pods-tianyueTVTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0110BE1DAB26D6003146A7 /* tianyueTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tianyueTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF0110C21DAB26D6003146A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -596,6 +604,8 @@
 				CC36CD551E9732FA007E35FF /* UIKit.framework in Frameworks */,
 				CC36CD531E9732F5007E35FF /* Foundation.framework in Frameworks */,
 				FFFF849F1E514E66008A6909 /* CoreGraphics.framework in Frameworks */,
+				CC47BC561E9B867E006B1EA2 /* jcore-ios-1.1.2.a in Frameworks */,
+				CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */,
 				FF5A61961E2C6E070080352F /* SystemConfiguration.framework in Frameworks */,
 				FF5A61901E2C6DE50080352F /* CoreTelephony.framework in Frameworks */,
 				CC36CD511E9732C0007E35FF /* CoreFoundation.framework in Frameworks */,
@@ -1799,6 +1809,33 @@
 			path = JPush;
 			sourceTree = "<group>";
 		};
+		CC47BC501E9B867E006B1EA2 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				CC47BC581E9B869E006B1EA2 /* TianyueTools.h */,
+				CC47BC591E9B869E006B1EA2 /* TianyueTools.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		CC47BC511E9B867E006B1EA2 /* Vender */ = {
+			isa = PBXGroup;
+			children = (
+				CC47BC521E9B867E006B1EA2 /* JPush */,
+			);
+			path = Vender;
+			sourceTree = "<group>";
+		};
+		CC47BC521E9B867E006B1EA2 /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */,
+				CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */,
+				CC47BC551E9B867E006B1EA2 /* JPUSHService.h */,
+			);
+			path = JPush;
+			sourceTree = "<group>";
+		};
 		FF0110B51DAB26D5003146A7 = {
 			isa = PBXGroup;
 			children = (
@@ -1825,6 +1862,8 @@
 			isa = PBXGroup;
 			children = (
 				CC36CD581E97344B007E35FF /* tianyueTV.entitlements */,
+				CC47BC501E9B867E006B1EA2 /* Tools */,
+				CC47BC511E9B867E006B1EA2 /* Vender */,
 				0468793F1E88BDF0004A5EE3 /* Class */,
 				046878F11E88AB82004A5EE3 /* source */,
 				046878E91E88AA06004A5EE3 /* netWork */,
@@ -2247,6 +2286,7 @@
 				04687AB41E88BDF0004A5EE3 /* loginViewController.m in Sources */,
 				04687A981E88BDF0004A5EE3 /* BasicButton.m in Sources */,
 				04687B061E88BDF0004A5EE3 /* MessageTableViewCell.m in Sources */,
+				CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */,
 				04687AAC1E88BDF0004A5EE3 /* livingView.m in Sources */,
 				046879301E88B71C004A5EE3 /* GSPChatMessage.m in Sources */,
 				04687AA51E88BDF0004A5EE3 /* GiftBtn.m in Sources */,
@@ -2509,6 +2549,7 @@
 					"$(PROJECT_DIR)/tianyueTV/source/TalkingData",
 					"$(PROJECT_DIR)/tianyueTV/Class/Living/Model/chat",
 					"$(PROJECT_DIR)/tianyueTV/Class/Vender/JPush",
+					"$(PROJECT_DIR)/tianyueTV/Vender/JPush",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -2632,6 +2673,7 @@
 					"$(PROJECT_DIR)/tianyueTV/source/TalkingData",
 					"$(PROJECT_DIR)/tianyueTV/Class/Living/Model/chat",
 					"$(PROJECT_DIR)/tianyueTV/Class/Vender/JPush",
+					"$(PROJECT_DIR)/tianyueTV/Vender/JPush",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
