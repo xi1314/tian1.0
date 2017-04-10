@@ -176,8 +176,6 @@
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
 		989B18F01E9B6F38009C3174 /* area.json in Resources */ = {isa = PBXBuildFile; fileRef = 989B18EF1E9B6F38009C3174 /* area.json */; };
 		C61854BB213EA5F6E946D609 /* libPods-tianyueTVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D1542CAE7A70696F02677D /* libPods-tianyueTVTests.a */; };
-		CC36CD4C1E973066007E35FF /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD491E973066007E35FF /* jcore-ios-1.1.2.a */; };
-		CC36CD4D1E973066007E35FF /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD4A1E973066007E35FF /* jpush-ios-3.0.3.a */; };
 		CC36CD4F1E9732B8007E35FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */; };
 		CC36CD511E9732C0007E35FF /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD501E9732C0007E35FF /* CoreFoundation.framework */; };
 		CC36CD531E9732F5007E35FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD521E9732F5007E35FF /* Foundation.framework */; };
@@ -546,9 +544,6 @@
 		987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		989B18EF1E9B6F38009C3174 /* area.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = area.json; sourceTree = "<group>"; };
 		B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tianyueTV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC36CD491E973066007E35FF /* jcore-ios-1.1.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.2.a"; sourceTree = "<group>"; };
-		CC36CD4A1E973066007E35FF /* jpush-ios-3.0.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.3.a"; sourceTree = "<group>"; };
-		CC36CD4B1E973066007E35FF /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CC36CD501E9732C0007E35FF /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		CC36CD521E9732F5007E35FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -620,8 +615,6 @@
 				FF0926041E5AEA3C00615102 /* libc++.tbd in Frameworks */,
 				FF0926021E5AEA0000615102 /* libsqlite3.tbd in Frameworks */,
 				FFFF84A31E514E9B008A6909 /* libiconv.tbd in Frameworks */,
-				CC36CD4D1E973066007E35FF /* jpush-ios-3.0.3.a in Frameworks */,
-				CC36CD4C1E973066007E35FF /* jcore-ios-1.1.2.a in Frameworks */,
 				FFFF84A11E514E7B008A6909 /* libstdc++.tbd in Frameworks */,
 				FFFF849D1E514E5D008A6909 /* CoreMedia.framework in Frameworks */,
 				FFFF849B1E514E52008A6909 /* AVFoundation.framework in Frameworks */,
@@ -744,7 +737,6 @@
 		0468793F1E88BDF0004A5EE3 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				CC36CD471E973066007E35FF /* Vender */,
 				046879401E88BDF0004A5EE3 /* Home */,
 				046879601E88BDF0004A5EE3 /* Living */,
 				0468798D1E88BDF0004A5EE3 /* LoginAndRegister */,
@@ -1791,24 +1783,6 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-		CC36CD471E973066007E35FF /* Vender */ = {
-			isa = PBXGroup;
-			children = (
-				CC36CD481E973066007E35FF /* JPush */,
-			);
-			path = Vender;
-			sourceTree = "<group>";
-		};
-		CC36CD481E973066007E35FF /* JPush */ = {
-			isa = PBXGroup;
-			children = (
-				CC36CD491E973066007E35FF /* jcore-ios-1.1.2.a */,
-				CC36CD4A1E973066007E35FF /* jpush-ios-3.0.3.a */,
-				CC36CD4B1E973066007E35FF /* JPUSHService.h */,
-			);
-			path = JPush;
-			sourceTree = "<group>";
-		};
 		CC47BC501E9B867E006B1EA2 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -2548,7 +2522,6 @@
 					"$(PROJECT_DIR)/Pods/PLMediaStreamingKit/Pod/Library",
 					"$(PROJECT_DIR)/tianyueTV/source/TalkingData",
 					"$(PROJECT_DIR)/tianyueTV/Class/Living/Model/chat",
-					"$(PROJECT_DIR)/tianyueTV/Class/Vender/JPush",
 					"$(PROJECT_DIR)/tianyueTV/Vender/JPush",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -2620,7 +2593,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/tianyueTV/Class/Vender/JPush";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -2672,7 +2645,6 @@
 					"$(PROJECT_DIR)/Pods/PLMediaStreamingKit/Pod/Library",
 					"$(PROJECT_DIR)/tianyueTV/source/TalkingData",
 					"$(PROJECT_DIR)/tianyueTV/Class/Living/Model/chat",
-					"$(PROJECT_DIR)/tianyueTV/Class/Vender/JPush",
 					"$(PROJECT_DIR)/tianyueTV/Vender/JPush",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -2743,7 +2715,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = tianyueTV_distribution;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/tianyueTV/Class/Vender/JPush";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
