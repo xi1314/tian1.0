@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="addressTextView" destination="jiP-CK-7wI" id="qZ1-iJ-Wvj"/>
                 <outlet property="cityButton" destination="Cp5-jd-TDU" id="6bg-el-S3A"/>
+                <outlet property="codeTextField" destination="l0p-hB-OlJ" id="PUK-sm-Ifd"/>
                 <outlet property="nameTextField" destination="QG3-gv-R2J" id="VLJ-yh-szy"/>
                 <outlet property="phoneTextField" destination="c4l-jm-uaE" id="MIh-WK-typ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -116,37 +117,27 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oz0-OS-edb">
                     <rect key="frame" x="0.0" y="216" width="375" height="48"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="街道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpr-EB-OHy">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮编" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpr-EB-OHy">
                             <rect key="frame" x="15" y="15" width="31" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.31372549020000001" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="向左(5)-拷贝-2" translatesAutoresizingMaskIntoConstraints="NO" id="UB2-ZY-kvW">
-                            <rect key="frame" x="355" y="16" width="10" height="16"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="邮编" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="l0p-hB-OlJ">
+                            <rect key="frame" x="96" y="9" width="264" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="16" id="2H8-Bo-pqD"/>
-                                <constraint firstAttribute="width" constant="10" id="WPb-vc-aan"/>
+                                <constraint firstAttribute="height" constant="30" id="tKW-gu-6Qq"/>
                             </constraints>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBk-wG-92h">
-                            <rect key="frame" x="96" y="9" width="244" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="80S-3N-XBb"/>
-                            </constraints>
+                            <color key="textColor" red="0.20000000000000001" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <state key="normal" title="选择街道">
-                                <color key="titleColor" red="0.20000000000000001" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                        </button>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Rpr-EB-OHy" firstAttribute="leading" secondItem="oz0-OS-edb" secondAttribute="leading" constant="15" id="2qX-Lp-HC2"/>
-                        <constraint firstItem="UB2-ZY-kvW" firstAttribute="centerY" secondItem="oz0-OS-edb" secondAttribute="centerY" id="Fc7-ri-XWM"/>
-                        <constraint firstItem="LBk-wG-92h" firstAttribute="centerY" secondItem="oz0-OS-edb" secondAttribute="centerY" id="XpI-qW-t1p"/>
+                        <constraint firstItem="l0p-hB-OlJ" firstAttribute="centerY" secondItem="oz0-OS-edb" secondAttribute="centerY" id="UIj-NW-uoQ"/>
                         <constraint firstAttribute="height" constant="48" id="dS2-wm-fpM"/>
-                        <constraint firstAttribute="trailing" secondItem="UB2-ZY-kvW" secondAttribute="trailing" constant="10" id="qgQ-kb-Wxy"/>
                         <constraint firstItem="Rpr-EB-OHy" firstAttribute="centerY" secondItem="oz0-OS-edb" secondAttribute="centerY" id="zXc-x9-mFb"/>
                     </constraints>
                 </view>
@@ -189,6 +180,8 @@
                 <constraint firstItem="I4d-7H-sjQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2YI-Ze-eqB"/>
                 <constraint firstItem="UkB-0U-BFr" firstAttribute="top" secondItem="u8f-Gk-oLN" secondAttribute="bottom" constant="1" id="7wv-hC-gP7"/>
                 <constraint firstAttribute="trailing" secondItem="nNF-9R-NLk" secondAttribute="trailing" id="9qS-5U-lM5"/>
+                <constraint firstItem="l0p-hB-OlJ" firstAttribute="trailing" secondItem="c4l-jm-uaE" secondAttribute="trailing" id="FFb-5I-oJy"/>
+                <constraint firstItem="l0p-hB-OlJ" firstAttribute="leading" secondItem="c4l-jm-uaE" secondAttribute="leading" id="FbZ-dT-nmp"/>
                 <constraint firstItem="oz0-OS-edb" firstAttribute="top" secondItem="I4d-7H-sjQ" secondAttribute="bottom" constant="1" id="FpK-vn-v09"/>
                 <constraint firstItem="nNF-9R-NLk" firstAttribute="top" secondItem="4Bg-59-xnO" secondAttribute="bottom" constant="15" id="Gub-Ac-6PU"/>
                 <constraint firstAttribute="trailing" secondItem="4Bg-59-xnO" secondAttribute="trailing" id="Hkw-uF-BtB"/>
@@ -204,11 +197,9 @@
                 <constraint firstItem="u8f-Gk-oLN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="69" id="krw-yr-kkh"/>
                 <constraint firstItem="4Bg-59-xnO" firstAttribute="top" secondItem="oz0-OS-edb" secondAttribute="bottom" constant="1" id="mfl-ej-kZX"/>
                 <constraint firstItem="u8f-Gk-oLN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qFH-mz-IYK"/>
-                <constraint firstItem="LBk-wG-92h" firstAttribute="leading" secondItem="Cp5-jd-TDU" secondAttribute="leading" id="sOp-Et-Sh0"/>
                 <constraint firstAttribute="trailing" secondItem="UkB-0U-BFr" secondAttribute="trailing" id="tv7-p9-3N8"/>
                 <constraint firstItem="nNF-9R-NLk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uRo-OR-6Uv"/>
                 <constraint firstItem="I4d-7H-sjQ" firstAttribute="top" secondItem="UkB-0U-BFr" secondAttribute="bottom" constant="1" id="uV7-NC-kgD"/>
-                <constraint firstItem="LBk-wG-92h" firstAttribute="trailing" secondItem="Cp5-jd-TDU" secondAttribute="trailing" id="vwF-oh-rHw"/>
                 <constraint firstItem="QG3-gv-R2J" firstAttribute="leading" secondItem="c4l-jm-uaE" secondAttribute="leading" id="z3T-ni-Zfk"/>
             </constraints>
             <point key="canvasLocation" x="32.5" y="69.5"/>

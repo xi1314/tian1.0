@@ -181,7 +181,7 @@
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.baseMaskView];
     [self.baseMaskView addSubview:self.payView];
-    [self maskViewAddTapGesture];
+//    [self maskViewAddTapGesture];
     [UIView animateWithDuration:0.3 animations:^{
         self.payView.frame = CGRectMake(0, SCREEN_HEIGHT-365, SCREEN_WIDTH, 365);
     }];

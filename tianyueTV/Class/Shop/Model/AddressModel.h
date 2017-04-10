@@ -58,3 +58,13 @@
 @property (nonatomic, assign) int index;
 
 @end
+
+@interface CityModel : NSObject
+
+// 省
+@property (nonatomic, copy) NSString *province;
+
+// 省ID
+@property (nonatomic, copy) NSString *provinceid;
+
+@end

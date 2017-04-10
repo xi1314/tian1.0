@@ -201,4 +201,29 @@
     }];
 }
 
+/**
+ 请求省份
+
+ @param provinceID 省份ID
+ @param cityID 城市ID
+ @param completeBlock 返回值
+ */
++ (void)requestForProvinceWithProvinceID:(NSString *)provinceID
+                                  cityID:(NSString *)cityID
+                           CompleteBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"city_id" : provinceID,
+                          @"area_id" : cityID};
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_province_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        NSLog(@"%@",responseObject);
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+        
+    }];
+}
+
 @end

@@ -30,13 +30,8 @@
 }
 
 #pragma mark -- Private method
-- (void)maskViewAddTapGesture {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenBaseMaskView)];
-    [self.baseMaskView addGestureRecognizer:tap];
-}
-
 - (void)hiddenBaseMaskView {
-    [self.baseMaskView removeFromSuperview];
+
 }
 
 
@@ -45,6 +40,8 @@
     if (!_baseMaskView) {
         _baseMaskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _baseMaskView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenBaseMaskView)];
+        [_baseMaskView addGestureRecognizer:tap];
     }
     return _baseMaskView;
 }

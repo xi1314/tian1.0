@@ -18,6 +18,9 @@ static CGFloat indicateHeight = 40;
 @interface AddAddressViewController ()
 <UIPickerViewDelegate,
 UIPickerViewDataSource>
+{
+    
+}
 
 // 名字
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
@@ -31,6 +34,9 @@ UIPickerViewDataSource>
 // 选择地区
 @property (weak, nonatomic) IBOutlet UIButton *cityButton;
 
+// 邮编
+@property (weak, nonatomic) IBOutlet UITextField *codeTextField;
+
 // 地区选择区
 @property (strong, nonatomic) UIPickerView *pickerView;
 
@@ -43,6 +49,33 @@ UIPickerViewDataSource>
 // 确认
 @property (strong, nonatomic) UIButton *sureButton;
 
+// 省
+@property (strong, nonatomic) NSArray *provinceData;
+
+// 市
+@property (strong, nonatomic) NSArray *cityData;
+
+// 区
+@property (strong, nonatomic) NSArray *regionData;
+
+// 省
+@property (copy, nonatomic) NSString *province;
+
+// 市
+@property (copy, nonatomic) NSString *city;
+
+// 区
+@property (copy, nonatomic) NSString *region;
+
+@property (strong, nonatomic) NSDictionary *dataDic;
+
+@property (strong, nonatomic) NSDictionary *provinceDic;
+
+@property (strong, nonatomic) NSArray *provinceCodeArr;
+
+@property (strong, nonatomic) NSDictionary *cityDic;
+
+@property (strong, nonatomic) NSDictionary *regionDic;
 
 @end
 
@@ -60,6 +93,7 @@ UIPickerViewDataSource>
         self.nameTextField.text = self.dataModel.name;
         self.phoneTextField.text = self.dataModel.telephone;
         self.addressTextView.text = self.dataModel.address;
+        self.codeTextField.text = self.dataModel.zipCode;
     }
 }
 
@@ -77,6 +111,10 @@ UIPickerViewDataSource>
     [self.cityButton addTarget:self action:@selector(selectCity:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)hiddenBaseMaskView {
+    [self dismissPickerViewAnmation];
+}
+
 #pragma mark -- Button method
 //返回
 - (void)respondsToBackItem:(UIBarButtonItem *)sender {
@@ -88,7 +126,7 @@ UIPickerViewDataSource>
     [MBProgressHUD showMessage:nil];
     @weakify(self);
     if (self.dataModel) { // 编辑信息
-        [ShopHandle requestForEditAddressWithUser:USER_ID addressID:self.dataModel.ID name:self.nameTextField.text phone:self.phoneTextField.text province:@"重庆市" city:@"九龙坡区" address:self.addressTextView.text zipcode:@"40000" completeBlock:^(id respondsObject, NSError *error) {
+        [ShopHandle requestForEditAddressWithUser:USER_ID addressID:self.dataModel.ID name:self.nameTextField.text phone:self.phoneTextField.text province:_province city:_city address:self.addressTextView.text zipcode:self.codeTextField.text completeBlock:^(id respondsObject, NSError *error) {
             @strongify(self);
             [MBProgressHUD hideHUD];
             if (respondsObject) {
@@ -98,7 +136,7 @@ UIPickerViewDataSource>
             }
         }];
     } else { // 新增信息
-        [ShopHandle requestForAddNewAddressWithUser:USER_ID name:self.nameTextField.text phone:self.phoneTextField.text province:@"重庆市" city:@"九龙坡区" address:self.addressTextView.text zipcode:@"400030" completeBlock:^(id respondsObject, NSError *error) {
+        [ShopHandle requestForAddNewAddressWithUser:USER_ID name:self.nameTextField.text phone:self.phoneTextField.text province:_province city:_city address:self.addressTextView.text zipcode:self.codeTextField.text completeBlock:^(id respondsObject, NSError *error) {
             @strongify(self);
             [MBProgressHUD hideHUD];
             NSLog(@"respondsObject.. %@ %@",respondsObject,error);
@@ -131,16 +169,39 @@ UIPickerViewDataSource>
     }
 }
 
+// 地区选择框
 - (void)selectCity:(UITextField *)sender {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.baseMaskView];
-//    [self.baseMaskView ]
-    [self.baseMaskView addSubview:self.pickerView];
-    [self.baseMaskView addSubview:self.indicateView];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.indicateView.frame = CGRectMake(0, SCREEN_HEIGHT-indicateHeight-pickerHeight, SCREEN_WIDTH, indicateHeight);
-        self.pickerView.frame = CGRectMake(0, CGRectGetMaxY(self.indicateView.frame), SCREEN_WIDTH, pickerHeight);
-    }];
+    [self showPickerViewAnmation];
+    
+    NSString *areaJsonPath=[[NSBundle mainBundle]pathForResource:@"area.json" ofType:nil];
+    NSString *areaList=[NSString stringWithContentsOfFile:areaJsonPath encoding:NSUTF8StringEncoding error:nil];
+    NSData *jsonData=[areaList dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    _dataDic =[NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+    
+    NSDictionary *province = _dataDic[@"province"];
+    _provinceData = province.allValues;
+    _provinceCodeArr = province.allKeys;
+    [self.pickerView reloadComponent:0];
+    _province = _provinceData[0];
+    
+    _cityDic = _dataDic[@"city"];
+    _cityData = _cityDic[_provinceCodeArr[0]];
+    [self.pickerView reloadComponent:1];
+    _city = _cityData[0][0];
+    
+    _regionDic = _dataDic[@"area"];
+    NSString *regionCode = _cityData[0][1];
+    _regionData = _regionDic[regionCode];
+    [self.pickerView reloadComponent:2];
+    _region = _regionData[0][0];
+}
+
+// 确认地区选择
+- (void)respondsToSureButton:(UIButton *)sender {
+    [self dismissPickerViewAnmation];
+    NSString *string = [NSString stringWithFormat:@"%@%@%@",_province,_city,_region];
+    [self.cityButton setTitle:string forState:UIControlStateNormal];
 }
 
 
@@ -150,9 +211,116 @@ UIPickerViewDataSource>
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (component == 0) {
+        return _provinceData.count;
+    } else if (component == 1) {
+        return _cityData.count;
+    } else if (component == 2) {
+        return _regionData.count;
+    }
     return 3;
 }
 
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3, 30)];
+    label.font = [UIFont systemFontOfSize:15];
+    label.textAlignment = NSTextAlignmentCenter;
+    [myView addSubview:label];
+    if (component == 0) {
+        label.text = _provinceData[row];
+    } else if (component == 1) {
+        label.text = _cityData[row][0];
+    } else if (component == 2) {
+        label.text = _regionData[row][0];
+    }
+    return myView;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if (component == 0) {
+        _cityData = _cityDic[_provinceCodeArr[row]];
+        [self.pickerView reloadComponent:1];
+        
+        NSString *regionCode = _cityData[0][1];
+        _regionData = _regionDic[regionCode];
+        [self.pickerView reloadComponent:2];
+        
+        _province = _provinceData[row];
+        _city = _cityData[0][0];
+        _region = _regionData[0][0];
+    } else if (component == 1) {
+        NSString *regionCode = _cityData[row][1];
+        _regionData = _regionDic[regionCode];
+        [self.pickerView reloadComponent:2];
+        
+        _city = _cityData[row][0];
+        _region = _regionData[0][0];
+    } else if (component == 2) {
+        _region = _regionData[row][0];
+    }
+}
+
+#pragma mark - Pravite method
+// 弹出地区选择框
+- (void)showPickerViewAnmation {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self.baseMaskView];
+    [self.baseMaskView addSubview:self.pickerView];
+    [self.baseMaskView addSubview:self.indicateView];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.indicateView.frame = CGRectMake(0, SCREEN_HEIGHT-indicateHeight-pickerHeight, SCREEN_WIDTH, indicateHeight);
+        self.pickerView.frame = CGRectMake(0, CGRectGetMaxY(self.indicateView.frame), SCREEN_WIDTH, pickerHeight);
+    }];
+}
+
+// 回收地区选择框
+- (void)dismissPickerViewAnmation {
+    [UIView animateWithDuration:0.3 animations:^{
+        self.indicateView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, indicateHeight);
+        self.pickerView.frame = CGRectMake(0, CGRectGetMaxY(self.indicateView.frame), SCREEN_WIDTH, pickerHeight);
+    } completion:^(BOOL finished) {
+        [self.baseMaskView removeAllSubviews];
+        [self.baseMaskView removeFromSuperview];
+    }];
+}
+
+
+/**
+ 请求地区
+
+ @param provinceID 省id
+ @param cityID 市id
+ */
+/*
+- (void)selectCityWithProvinceID:(NSString *)provinceID cityID:(NSString *)cityID {
+    @weakify(self);
+    [ShopHandle requestForProvinceWithProvinceID:provinceID cityID:cityID CompleteBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        if (respondsObject) {
+    
+            if (provinceID.length == 0 && cityID.length == 0) {
+                // 省份
+                _provinceData = respondsObject[@"provinces"];
+                _provinceID = _provinceData[0][@"provinceid"];
+                [self.pickerView reloadComponent:0];
+                [self selectCityWithProvinceID:_provinceID cityID:@""];
+            } else if (provinceID.length != 0 && cityID.length == 0) {
+                // 市
+                _cityData = respondsObject[@"city"];
+                _cityID = _cityData[0][@"cityid"];
+                [self.pickerView reloadComponent:1];
+                [self selectCityWithProvinceID:_provinceID cityID:_cityID];
+            } else {
+                // 区
+                _regionData = respondsObject[@"area"];
+                _regionID = _regionData[0][@"areaid"];
+                [self.pickerView reloadComponent:2];
+            }
+        }
+    }];
+}
+ */
 
 #pragma mark - Getter method
 - (UIView *)indicateView {
@@ -186,7 +354,7 @@ UIPickerViewDataSource>
         [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         [_cancelButton setTitleColor:WWColor(0, 122, 255) forState:UIControlStateNormal];
         _cancelButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        
+        [_cancelButton addTarget:self action:@selector(dismissPickerViewAnmation) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelButton;
 }
@@ -198,6 +366,7 @@ UIPickerViewDataSource>
         [_sureButton setTitle:@"完成" forState:UIControlStateNormal];
         [_sureButton setTitleColor:WWColor(0, 122, 255) forState:UIControlStateNormal];
         _sureButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_sureButton addTarget:self action:@selector(respondsToSureButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sureButton;
 }

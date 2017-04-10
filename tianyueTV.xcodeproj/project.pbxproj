@@ -174,6 +174,7 @@
 		987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842231E8F7FB50084BF82 /* ShopHandle.m */; };
 		987842271E8F993D0084BF82 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842261E8F993D0084BF82 /* AddressModel.m */; };
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
+		989B18F01E9B6F38009C3174 /* area.json in Resources */ = {isa = PBXBuildFile; fileRef = 989B18EF1E9B6F38009C3174 /* area.json */; };
 		C61854BB213EA5F6E946D609 /* libPods-tianyueTVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D1542CAE7A70696F02677D /* libPods-tianyueTVTests.a */; };
 		CC36CD4C1E973066007E35FF /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD491E973066007E35FF /* jcore-ios-1.1.2.a */; };
 		CC36CD4D1E973066007E35FF /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD4A1E973066007E35FF /* jpush-ios-3.0.3.a */; };
@@ -540,6 +541,7 @@
 		987842261E8F993D0084BF82 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		987D31D21E77A2C700C3DF34 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
+		989B18EF1E9B6F38009C3174 /* area.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = area.json; sourceTree = "<group>"; };
 		B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tianyueTV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC36CD491E973066007E35FF /* jcore-ios-1.1.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.2.a"; sourceTree = "<group>"; };
 		CC36CD4A1E973066007E35FF /* jpush-ios-3.0.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.3.a"; sourceTree = "<group>"; };
@@ -654,6 +656,7 @@
 		046878F11E88AB82004A5EE3 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				989B18EF1E9B6F38009C3174 /* area.json */,
 				046879201E88B71C004A5EE3 /* PresentAnimation */,
 				046879161E88B2A1004A5EE3 /* XHSegmentController */,
 				0468790D1E88AC20004A5EE3 /* TalkingData */,
@@ -1998,6 +2001,7 @@
 				04687AFE1E88BDF0004A5EE3 /* OrderViewController.xib in Resources */,
 				04687B0C1E88BDF0004A5EE3 /* ChooseView.xib in Resources */,
 				04687AF31E88BDF0004A5EE3 /* DZAlertView.xib in Resources */,
+				989B18F01E9B6F38009C3174 /* area.json in Resources */,
 				04687B0E1E88BDF0004A5EE3 /* PayOrderView.xib in Resources */,
 				04687B021E88BDF0004A5EE3 /* WaitingOrderViewController.xib in Resources */,
 				04687B051E88BDF0004A5EE3 /* AddressTableViewCell.xib in Resources */,
