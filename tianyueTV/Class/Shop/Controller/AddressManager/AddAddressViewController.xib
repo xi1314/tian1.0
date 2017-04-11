@@ -15,6 +15,7 @@
                 <outlet property="codeTextField" destination="l0p-hB-OlJ" id="PUK-sm-Ifd"/>
                 <outlet property="nameTextField" destination="QG3-gv-R2J" id="VLJ-yh-szy"/>
                 <outlet property="phoneTextField" destination="c4l-jm-uaE" id="MIh-WK-typ"/>
+                <outlet property="placeHolderLabel" destination="FeY-3t-uf1" id="d9k-9l-BSg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -148,9 +149,15 @@
                             <rect key="frame" x="8" y="8" width="359" height="74"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="textColor" red="0.31372549020000001" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请填写详细地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FeY-3t-uf1">
+                            <rect key="frame" x="13" y="16" width="107.5" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.65867152691159603" green="0.66015593404471029" blue="0.68280778657616903" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -158,7 +165,9 @@
                         <constraint firstItem="jiP-CK-7wI" firstAttribute="top" secondItem="4Bg-59-xnO" secondAttribute="top" constant="8" id="MV6-X0-yrC"/>
                         <constraint firstAttribute="height" constant="90" id="bkD-aR-WsP"/>
                         <constraint firstAttribute="bottom" secondItem="jiP-CK-7wI" secondAttribute="bottom" constant="8" id="m9B-jG-Me7"/>
+                        <constraint firstItem="FeY-3t-uf1" firstAttribute="top" secondItem="4Bg-59-xnO" secondAttribute="top" constant="16" id="s1L-DK-nzM"/>
                         <constraint firstAttribute="trailing" secondItem="jiP-CK-7wI" secondAttribute="trailing" constant="8" id="tpG-PJ-sJV"/>
+                        <constraint firstItem="FeY-3t-uf1" firstAttribute="leading" secondItem="4Bg-59-xnO" secondAttribute="leading" constant="13" id="wV5-AY-v3W"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNF-9R-NLk">

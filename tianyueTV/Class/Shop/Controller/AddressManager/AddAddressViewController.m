@@ -8,6 +8,7 @@
 
 #import "AddAddressViewController.h"
 #import "ShopHandle.h"
+#import "TianyueTools.h"
 
 // picker的高度
 static CGFloat pickerHeight = 200;
@@ -17,10 +18,8 @@ static CGFloat indicateHeight = 40;
 
 @interface AddAddressViewController ()
 <UIPickerViewDelegate,
-UIPickerViewDataSource>
-{
-    
-}
+UIPickerViewDataSource,
+UITextViewDelegate>
 
 // 名字
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
@@ -36,6 +35,9 @@ UIPickerViewDataSource>
 
 // 邮编
 @property (weak, nonatomic) IBOutlet UITextField *codeTextField;
+
+// 占位label
+@property (weak, nonatomic) IBOutlet UILabel *placeHolderLabel;
 
 // 地区选择区
 @property (strong, nonatomic) UIPickerView *pickerView;
@@ -67,14 +69,19 @@ UIPickerViewDataSource>
 // 区
 @property (copy, nonatomic) NSString *region;
 
+// 地区数据
 @property (strong, nonatomic) NSDictionary *dataDic;
 
+// 省
 @property (strong, nonatomic) NSDictionary *provinceDic;
 
+// 省ID数组
 @property (strong, nonatomic) NSArray *provinceCodeArr;
 
+// 市
 @property (strong, nonatomic) NSDictionary *cityDic;
 
+// 区
 @property (strong, nonatomic) NSDictionary *regionDic;
 
 @end
@@ -105,7 +112,7 @@ UIPickerViewDataSource>
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"确认" style:UIBarButtonItemStylePlain target:self action:@selector(respondsToRightItem:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    
+    self.addressTextView.delegate = self;
     [self.indicateView addSubview:self.cancelButton];
     [self.indicateView addSubview:self.sureButton];
     
@@ -124,6 +131,23 @@ UIPickerViewDataSource>
 
 //确认
 - (void)respondsToRightItem:(UIBarButtonItem *)sender {
+    if (self.nameTextField.text.length == 0) {
+        [MBProgressHUD showError:@"请输入收货人"];
+        return;
+    } else if (![TianyueTools isMobileNumber:self.phoneTextField.text]) {
+        [MBProgressHUD showError:@"联系电话格式有误"];
+        return;
+    } else if ([self.cityButton.titleLabel.text isEqualToString:@"选择地区"]) {
+        [MBProgressHUD showError:@"请选择地区"];
+        return;
+    } else if (self.codeTextField.text.length != 6) {
+        [MBProgressHUD showError:@"输入邮编有误"];
+        return;
+    } else if (self.addressTextView.text.length == 0) {
+        [MBProgressHUD showError:@"请输入详细地址"];
+        return;
+    }
+    
     [MBProgressHUD showMessage:nil];
     @weakify(self);
     if (self.dataModel) { // 编辑信息
@@ -250,6 +274,7 @@ UIPickerViewDataSource>
         _province = _provinceData[row];
         _city = _cityData[0][0];
         _region = _regionData[0][0];
+        
     } else if (component == 1) {
         NSString *regionCode = _cityData[row][1];
         _regionData = _regionDic[regionCode];
@@ -257,14 +282,29 @@ UIPickerViewDataSource>
         
         _city = _cityData[row][0];
         _region = _regionData[0][0];
+        
     } else if (component == 2) {
         _region = _regionData[row][0];
     }
 }
 
+#pragma mark - UITextViewDelegate
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    self.placeHolderLabel.hidden = YES;
+    return YES;
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    if (textView.text.length == 0) {
+        self.placeHolderLabel.hidden = NO;
+    }
+    return YES;
+}
+
 #pragma mark - Pravite method
 // 弹出地区选择框
 - (void)showPickerViewAnmation {
+    [self.view endEditing:YES];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.baseMaskView];
     [self.baseMaskView addSubview:self.pickerView];
@@ -285,43 +325,6 @@ UIPickerViewDataSource>
         [self.baseMaskView removeFromSuperview];
     }];
 }
-
-
-/**
- 请求地区
-
- @param provinceID 省id
- @param cityID 市id
- */
-/*
-- (void)selectCityWithProvinceID:(NSString *)provinceID cityID:(NSString *)cityID {
-    @weakify(self);
-    [ShopHandle requestForProvinceWithProvinceID:provinceID cityID:cityID CompleteBlock:^(id respondsObject, NSError *error) {
-        @strongify(self);
-        if (respondsObject) {
-    
-            if (provinceID.length == 0 && cityID.length == 0) {
-                // 省份
-                _provinceData = respondsObject[@"provinces"];
-                _provinceID = _provinceData[0][@"provinceid"];
-                [self.pickerView reloadComponent:0];
-                [self selectCityWithProvinceID:_provinceID cityID:@""];
-            } else if (provinceID.length != 0 && cityID.length == 0) {
-                // 市
-                _cityData = respondsObject[@"city"];
-                _cityID = _cityData[0][@"cityid"];
-                [self.pickerView reloadComponent:1];
-                [self selectCityWithProvinceID:_provinceID cityID:_cityID];
-            } else {
-                // 区
-                _regionData = respondsObject[@"area"];
-                _regionID = _regionData[0][@"areaid"];
-                [self.pickerView reloadComponent:2];
-            }
-        }
-    }];
-}
- */
 
 #pragma mark - Getter method
 - (UIView *)indicateView {
