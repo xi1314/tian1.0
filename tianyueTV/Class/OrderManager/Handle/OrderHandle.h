@@ -15,12 +15,12 @@
  
  @param userID 用户ID
  @param page   页码
- @param urlName 接口名称
+ @param isSeller 判断是否为卖家，卖家为1，买家为0
  @param completeBlock 返回值
  */
 + (void)requestForDatasourceWithUser:(NSString *)userID
                                 page:(NSInteger)page
-                             urlName:(NSString *)urlName
+                            isSeller:(BOOL)isSeller
                        completeBlock:(HandlerBlock)completeBlock;
 
 /**
@@ -31,7 +31,7 @@
  @param pay 支付状态
  @param userID 用户id
  @param page 页码，默认为1
- @param urlName 接口名称
+ @param isSeller 判断是否为卖家，卖家为1，买家为0
  @param completeBlock 返回值
  */
 + (void)requestForOrderWithOrder:(NSInteger)order
@@ -39,7 +39,7 @@
                              pay:(NSInteger)pay
                           userID:(NSString *)userID
                             page:(NSInteger)page
-                         urlName:(NSString *)urlName
+                        isSeller:(BOOL)isSeller
                    completeBlock:(HandlerBlock)completeBlock;
 
 /**

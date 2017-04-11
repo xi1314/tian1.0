@@ -519,7 +519,7 @@ UITextFieldDelegate>
 - (void)requestForDatasource {
 
     @weakify(self);
-    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage urlName:api_orderInfo_app completeBlock:^(id respondsObject, NSError *error) {
+    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage isSeller:self.isSeller completeBlock:^(id respondsObject, NSError *error) {
         
         @strongify(self);
         [MBProgressHUD hideHUD];
@@ -571,7 +571,7 @@ UITextFieldDelegate>
     self.payState = pay;
     
     @weakify(self);
-    [OrderHandle requestForOrderWithOrder:order shopping:shopping pay:pay userID:@"10085" page:_indexPage urlName:api_orderInfo_app completeBlock:^(id respondsObject, NSError *error) {
+    [OrderHandle requestForOrderWithOrder:order shopping:shopping pay:pay userID:@"10085" page:_indexPage isSeller:self.isSeller completeBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
@@ -724,7 +724,7 @@ UITextFieldDelegate>
  */
 - (void)requestForPersonalData {
     @weakify(self);
-    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage urlName:api_personalOrder_app completeBlock:^(id respondsObject, NSError *error) {
+    [OrderHandle requestForDatasourceWithUser:@"10085" page:_indexPage isSeller:self.isSeller completeBlock:^(id respondsObject, NSError *error) {
         
         @strongify(self);
         [MBProgressHUD hideHUD];
@@ -767,14 +767,15 @@ UITextFieldDelegate>
  @param pay 支付类型
  */
 - (void)requestForBuyerOrderWithOrder:(NSInteger)order
-                        shopping:(NSInteger)shopping
-                             pay:(NSInteger)pay {
+                             shopping:(NSInteger)shopping
+                                  pay:(NSInteger)pay {
     self.orderState = order;
     self.shoppingState = shopping;
     self.payState = pay;
     
     @weakify(self);
-    [OrderHandle requestForOrderWithOrder:order shopping:shopping pay:pay userID:@"10085" page:_indexPage urlName:api_personalOrder_app completeBlock:^(id respondsObject, NSError *error) {
+    [OrderHandle requestForOrderWithOrder:order shopping:shopping pay:pay userID:@"10085" page:_indexPage isSeller:self.isSeller completeBlock:^(id respondsObject, NSError *error) {
+        
         @strongify(self);
         [MBProgressHUD hideHUD];
         [self.tableView.mj_footer endRefreshing];
