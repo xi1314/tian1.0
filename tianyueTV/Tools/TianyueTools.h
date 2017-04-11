@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+
+// 手机运营商类型
+typedef NS_ENUM(NSInteger, TelVenderType) {
+    TelVender_mobile = 1,         // 移动
+    TelVender_unicom,             // 联通
+    TelVender_Telecommunications  // 电信
+};
+
 @interface TianyueTools : NSObject
 
 
@@ -27,6 +35,15 @@
  @return 是否为正确的手机号码
  */
 + (BOOL)isValidateMobile:(NSString *)mobile;
+
+
+/**
+ 判断手机运营商
+ 
+ @param telephone 手机号码
+ @return 运营商类型
+ */
++ (TelVenderType)mobileOrUniconOrTele:(NSString *)telephone;
 
 
 /**

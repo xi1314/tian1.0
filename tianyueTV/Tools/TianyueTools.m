@@ -66,6 +66,46 @@
 
 
 /**
+ 判断手机运营商
+
+ @param telephone 手机号码
+ @return 运营商类型
+ */
++ (TelVenderType)mobileOrUniconOrTele:(NSString *)telephone
+{
+    // 判断移动手机 134,135,136,137,138,139,150,151,152,157,158,159,182,183,184,187,188,147,178,1705
+    NSString *chinaMobile = @"(^1(3[4-9]|4[7]|5[0-27-9]|7[8]|8[2-478])\\d{8}$)|(^1705\\d{7}$)";
+    
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", chinaMobile];
+    
+    if ([phoneTest evaluateWithObject:telephone]) {
+        return TelVender_mobile;
+    }
+    
+    
+    // 判断联通手机 130,131,132,155,156,185,186,145,176,1709
+    NSString *chinaUnicom = @"(^1(3[0-2]|4[5]|5[56]|7[6]|8[56])\\d{8}$)|(^1709\\d{7}$)";
+    
+    NSPredicate *unicomTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", chinaUnicom];
+    
+    if ([unicomTest evaluateWithObject:telephone]) {
+        return TelVender_unicom;
+    }
+    
+    // 判断电信手机 133,153,180,181,189,177,1700
+    NSString *chinaTele = @"(^1(3[3]|5[3]|7[7]|8[019])\\d{8}$)|(^1700\\d{7}$)";
+    
+    NSPredicate *teleTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", chinaTele];
+    
+    if ([teleTest evaluateWithObject:telephone]) {
+        return TelVender_Telecommunications;
+    }
+    
+    return -1; // 手机运营商错误的情况下返回
+}
+
+
+/**
  邮箱验证
 
  @param email 输入的邮箱地址

@@ -42,6 +42,8 @@
 #import "JPUSHService.h"
 #import <UserNotifications/UserNotifications.h>
 
+#import "TianyueTools.h"
+
 
 @interface AppDelegate () <JPUSHRegisterDelegate>
 {
@@ -56,7 +58,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     [self jPushInit:launchOptions]; //极光推送
     [self talkingData]; // 分析数据
     [self firstLoad]; // 是否是第一次使用APP
