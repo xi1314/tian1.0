@@ -10,8 +10,9 @@
 
 @interface OrderHandle : BaseHandler
 
+
 /**
- 全部订单（卖家）
+ 全部订单（卖家与买家）
  
  @param userID 用户ID
  @param page   页码
@@ -23,8 +24,9 @@
                             isSeller:(BOOL)isSeller
                        completeBlock:(HandlerBlock)completeBlock;
 
+
 /**
- 根据状态请求订单
+ 根据状态请求订单（卖家与买家）
  
  @param order 订单状态
  @param shopping 购买状态
@@ -42,6 +44,7 @@
                         isSeller:(BOOL)isSeller
                    completeBlock:(HandlerBlock)completeBlock;
 
+
 /**
  卖家设置尾款
  
@@ -54,6 +57,7 @@
                              retainage:(NSString *)retainage
                          completeBlock:(HandlerBlock)completeBlock;
 
+
 /**
  取消订单
  
@@ -62,6 +66,7 @@
  */
 + (void)requestForCancelOrderWithOrderSn:(NSString *)orderSn
                            completeBlock:(HandlerBlock)completeBlock;
+
 
 /**
  设置物流信息
@@ -78,6 +83,7 @@
                         deliveryNumber:(NSString *)deliveryNumber
                          completeBlock:(HandlerBlock)completeBlock;
 
+
 /**
  删除订单
  
@@ -88,6 +94,7 @@
 + (void)requestForDeleteOrderWithOrderSn:(NSString *)orderSn
                                   tomato:(NSString *)tomato
                            completeBlock:(HandlerBlock)completeVlock;
+
 
 /**
  申请退款
@@ -100,6 +107,7 @@
                                      user:(NSString *)user
                             completeBlock:(HandlerBlock)completeBlock;
 
+
 /**
  确认收货
  
@@ -110,6 +118,7 @@
 + (void)requestForSureDeliveryWithOrderSn:(NSString *)orderSn
                                      user:(NSString *)user
                             completeBlock:(HandlerBlock)completeBlock;
+
 
 /**
  申请纠纷
@@ -122,6 +131,7 @@
                                      user:(NSString *)user
                             completeBlock:(HandlerBlock)completeBlock;
 
+
 /**
  已支付定金订单的取消
  
@@ -131,4 +141,8 @@
 + (void)requestForRefoundWithOrderSn:(NSString *)orderSn
                        completeBlock:(HandlerBlock)completeBlock;
 
+
 @end
+
+
+

@@ -11,8 +11,9 @@
 
 @implementation OrderHandle
 
+
 /**
- 全部订单（卖家）
+ 全部订单（卖家与买家）
  
  @param userID 用户ID
  @param page   页码
@@ -64,8 +65,9 @@
     
 }
 
+
 /**
- 根据状态请求订单
+ 根据状态请求订单（卖家与买家）
 
  @param order 订单状态
  @param shopping 购买状态
@@ -95,7 +97,6 @@
     }
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:urlString paraments:params finish:^(id responseObject, NSError *error) {
-        NSLog(@"respondsObject %@",responseObject);
         
         if (responseObject) {
             NSDictionary *dic = (NSDictionary *)responseObject;
@@ -148,6 +149,7 @@
     return 210;
 }
 
+
 /**
  卖家设置尾款
 
@@ -161,12 +163,12 @@
                          completeBlock:(HandlerBlock)completeBlock
 {
     
-    
     NSDictionary *dic = @{@"user_id" : user,
                           @"orderId" : orderID,
                           @"retainage" : retainage};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_setRetainage_app paraments:dic finish:^(id responseObject, NSError *error) {
+        
         if ([responseObject[RET] isEqualToString:SUCCESS]) {
             completeBlock(responseObject,nil);
         } else {
@@ -174,6 +176,7 @@
         }
     }];
 }
+
 
 /**
  取消订单
@@ -187,6 +190,7 @@
     NSDictionary *dic = @{@"orderInfoSn" : orderSn};
 
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_updateOrderStatus_app paraments:dic finish:^(id responseObject, NSError *error) {
+        
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
             completeBlock(responseObject,nil);
@@ -195,6 +199,7 @@
         }
     }];
 }
+
 
 /**
  设置物流信息
@@ -217,7 +222,7 @@
                           @"shipping_no" : deliveryNumber};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_sureSendGoods_app paraments:dic finish:^(id responseObject, NSError *error) {
-        NSLog(@"responseObject %@",responseObject);
+        
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
             completeBlock(responseObject,nil);
@@ -227,6 +232,7 @@
         
     }];
 }
+
 
 /**
  删除订单
@@ -243,6 +249,7 @@
                           @"tomato" : tomato};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_DedeletOrder_app paraments:dic finish:^(id responseObject, NSError *error) {
+        
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
             completeVlock(responseObject,nil);
@@ -251,6 +258,7 @@
         }
     }];
 }
+
 
 /**
  申请退款
@@ -262,11 +270,12 @@
 + (void)requestForApplyRefoundWithOrderSn:(NSString *)orderSn
                                      user:(NSString *)user
                             completeBlock:(HandlerBlock)completeBlock {
+    
     NSDictionary *dic = @{@"orderInfoSn" : orderSn,
                           @"userId" : user};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_applyRefund_app paraments:dic finish:^(id responseObject, NSError *error) {
-        NSLog(@"<<< %@",responseObject);
+        
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
             completeBlock(responseObject, nil);
@@ -275,6 +284,7 @@
         }
     }];
 }
+
 
 /**
  确认收货
@@ -301,6 +311,7 @@
         }
     }];
 }
+
 
 /**
  申请纠纷
@@ -353,3 +364,5 @@
 
 
 @end
+
+
