@@ -94,6 +94,7 @@ UIPickerViewDataSource>
         self.phoneTextField.text = self.dataModel.telephone;
         self.addressTextView.text = self.dataModel.address;
         self.codeTextField.text = self.dataModel.zipCode;
+        [self.cityButton setTitle:[NSString stringWithFormat:@"%@%@%@", self.dataModel.provinceName, self.dataModel.cityName, self.dataModel.area] forState:UIControlStateNormal];
     }
 }
 
@@ -126,7 +127,7 @@ UIPickerViewDataSource>
     [MBProgressHUD showMessage:nil];
     @weakify(self);
     if (self.dataModel) { // 编辑信息
-        [ShopHandle requestForEditAddressWithUser:USER_ID addressID:self.dataModel.ID name:self.nameTextField.text phone:self.phoneTextField.text province:_province city:_city address:self.addressTextView.text zipcode:self.codeTextField.text completeBlock:^(id respondsObject, NSError *error) {
+        [ShopHandle requestForEditAddressWithUser:USER_ID addressID:self.dataModel.ID name:self.nameTextField.text phone:self.phoneTextField.text province:_province city:_city area:_region address:self.addressTextView.text zipcode:self.codeTextField.text completeBlock:^(id respondsObject, NSError *error) {
             @strongify(self);
             [MBProgressHUD hideHUD];
             if (respondsObject) {
@@ -136,7 +137,7 @@ UIPickerViewDataSource>
             }
         }];
     } else { // 新增信息
-        [ShopHandle requestForAddNewAddressWithUser:USER_ID name:self.nameTextField.text phone:self.phoneTextField.text province:_province city:_city address:self.addressTextView.text zipcode:self.codeTextField.text completeBlock:^(id respondsObject, NSError *error) {
+        [ShopHandle requestForAddNewAddressWithUser:USER_ID name:self.nameTextField.text phone:self.phoneTextField.text province:_province city:_city area:_region address:self.addressTextView.text zipcode:self.codeTextField.text completeBlock:^(id respondsObject, NSError *error) {
             @strongify(self);
             [MBProgressHUD hideHUD];
             NSLog(@"respondsObject.. %@ %@",respondsObject,error);

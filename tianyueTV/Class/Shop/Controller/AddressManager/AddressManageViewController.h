@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddressModel.h"
 
-typedef void(^AddressBlock)(NSDictionary *dic);
+typedef void(^AddressBlock)(AddressInfoModel *addressModel);
 
 @interface AddressManageViewController : UIViewController
 

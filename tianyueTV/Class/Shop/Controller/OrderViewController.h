@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "AddressModel.h"
 
 @interface OrderViewController : BaseViewController
 
@@ -15,6 +16,9 @@
 @property (nonatomic, strong) NSArray *dataArr;
 
 // 默认地址字典
-@property (nonatomic, strong) NSDictionary *addressDic;
+//@property (nonatomic, strong) NSDictionary *addressDic;
+
+// 地址model
+@property (nonatomic, strong) AddressInfoModel *addressModel;
 
 @end

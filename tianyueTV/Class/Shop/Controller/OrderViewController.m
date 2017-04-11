@@ -42,7 +42,7 @@
     [self initilizaDataSource];
     [self initilizeUserInterface];
     NSLog(@"--- %@",self.dataArr);
-    NSLog(@"<<<< %@",self.addressDic);
+//    NSLog(@"<<<< %@",self.addressDic);
     [self payOrderButtons];
     
 }
@@ -99,8 +99,8 @@
     [path addLineToPoint:CGPointMake(-5, paintingHeight + shadowWidth)];
     self.topView.layer.shadowPath = path.CGPath;
     
-    if (self.addressDic.count) {
-        [self configAddressViewWithDic:self.addressDic];
+    if (self.addressModel) {
+        [self configAddressViewWithModel:self.addressModel];
     }
     
 }
@@ -132,13 +132,13 @@
 /**
  设置地址
 
- @param dic 数据字典
+ @param model 数据模型
  */
-- (void)configAddressViewWithDic:(NSDictionary *)dic {
-    self.userName.text = dic[@"name"];
-    self.userPhone.text = [NSString stringWithFormat:@"%@",dic[@"telephone"]];
-    self.postalCode.text = [NSString stringWithFormat:@"%@",dic[@"zipCode"]];
-    self.address.text = dic[@"address"];
+- (void)configAddressViewWithModel:(AddressInfoModel *)model {
+    self.userName.text = model.name;
+    self.userPhone.text = [NSString stringWithFormat:@"%@",model.telephone];
+    self.postalCode.text = [NSString stringWithFormat:@"%@",model.zipCode];
+    self.address.text = [NSString stringWithFormat:@"%@%@%@%@", model.provinceName, model.cityName, model.area, model.address];
 }
 
 #pragma mark -- Tap method
@@ -146,9 +146,9 @@
     
     AddressManageViewController *addressVC = [[AddressManageViewController alloc] init];
     @weakify(self);
-    addressVC.block = ^(NSDictionary *dic){
+    addressVC.block = ^(AddressInfoModel *model){
         @strongify(self);
-        [self configAddressViewWithDic:dic];
+        [self configAddressViewWithModel:model];
     };
     [self.navigationController pushViewController:addressVC animated:YES];
 }

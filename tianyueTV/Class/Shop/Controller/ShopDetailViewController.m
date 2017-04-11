@@ -268,7 +268,10 @@
                         [_goodInfoDic setObject:responseObject[@"goodsAndNum"] forKey:@"goodsAndNum"];
                         OrderViewController *orderVC = [[OrderViewController alloc] init];
                         orderVC.dataArr = @[_goodInfoDic];
-                        orderVC.addressDic = responseObject[@"address"][0];
+//                        orderVC.addressDic = responseObject[@"address"][0];
+                        orderVC.addressModel = [AddressInfoModel mj_objectWithKeyValues:responseObject[@"address"][0]];
+                        
+                        
                         [self.navigationController pushViewController:orderVC animated:YES];
                     }
                 }

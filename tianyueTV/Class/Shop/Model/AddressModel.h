@@ -39,14 +39,17 @@
 // 电话
 @property (nonatomic, copy) NSString *telephone;
 
-// 省市
+// 省
 @property (nonatomic, copy) NSString *provinceName;
 
 // 邮编
 @property (nonatomic, copy) NSString *zipCode;
 
-// 区
+// 市
 @property (nonatomic, copy) NSString *cityName;
+
+// 区
+@property (nonatomic, copy) NSString *area;
 
 // cell高度
 @property (nonatomic, assign) float cellHeight;

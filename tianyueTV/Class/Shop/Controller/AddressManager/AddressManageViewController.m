@@ -10,7 +10,7 @@
 #import "AddressTableViewCell.h"
 #import "AddAddressViewController.h"
 #import "ShopHandle.h"
-#import "AddressModel.h"
+
 
 @interface AddressManageViewController ()
 <UITableViewDelegate,
@@ -53,7 +53,7 @@ UITableViewDataSource>
                 if ([infoModle.isDefault isEqualToString:@"1"]) {
                     [self updateCellWithRow:i];
                     infoModle.index = 0;
-                    infoModle.address = [NSString stringWithFormat:@"[默认地址]%@",infoModle.address];
+//                    infoModle.address = [NSString stringWithFormat:@"[默认地址]%@",infoModle.address];
                     [self.dataSource insertObject:infoModle atIndex:0];
                 } else {
                     [self.dataSource addObject:infoModle];
@@ -192,9 +192,7 @@ UITableViewDataSource>
     if (self.block) {
         @strongify(self);
         AddressInfoModel *infoM = _dataSource[indexPath.row];
-        NSDictionary *dic = (NSDictionary *)[infoM mj_keyValues];
-//        NSLog(@"\\\\\\ %@",dic);
-        self.block(dic);
+        self.block(infoM);
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -250,7 +248,6 @@ UITableViewDataSource>
             
             infoModle.isDefault = @"1";
             infoModle.index = 0;
-            infoModle.address = [NSString stringWithFormat:@"[默认地址]%@",infoModle.address];
             [_dataSource insertObject:infoModle atIndex:0];
             [self.tableView insertRowAtIndexPath:firstIndex withRowAnimation:UITableViewRowAnimationFade];
             

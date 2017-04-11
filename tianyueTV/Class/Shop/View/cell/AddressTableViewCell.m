@@ -48,9 +48,10 @@
     self.addressModel = addressModel;
     self.name.text = self.addressModel.name;
     self.phoneLabel.text = self.addressModel.telephone;
-    self.addressLabel.text = self.addressModel.address;
+    self.addressLabel.text = [NSString stringWithFormat:@"%@%@%@%@", self.addressModel.provinceName,self.addressModel.cityName,self.addressModel.area,self.addressModel.address];
     if ([self.addressModel.isDefault isEqualToString:@"1"]) {
-        [self changeStringColor:self.addressModel.address];
+        NSString *string = [NSString stringWithFormat:@"[默认地址]%@%@%@%@", self.addressModel.provinceName,self.addressModel.cityName,self.addressModel.area,self.addressModel.address];
+        [self changeStringColor:string];
     }
 }
 
@@ -63,11 +64,9 @@
     self.addressModel = addressModel;
     self.name_edit.text = self.addressModel.name;
     self.phone_edit.text = self.addressModel.telephone;
-    if ([self.addressModel.address containsString:@"[默认地址]"]) {
-        self.address_edit.text = [self.addressModel.address substringFromIndex:6];
-    } else {
-        self.address_edit.text = self.addressModel.address;
-    }
+
+    self.address_edit.text = [NSString stringWithFormat:@"%@%@%@%@", self.addressModel.provinceName,self.addressModel.cityName,self.addressModel.area,self.addressModel.address];
+
     if ([self.addressModel.isDefault isEqualToString:@"1"]) {
         self.defaultButton.selected = YES;
     } else {

@@ -28,6 +28,7 @@
  @param phone 电话
  @param province 省
  @param city 市
+ @param area 区
  @param address 详细地址
  @param zipcode 邮编
  @param completeBlock 返回值
@@ -37,6 +38,7 @@
                                   phone:(NSString *)phone
                                province:(NSString *)province
                                    city:(NSString *)city
+                                   area:(NSString *)area
                                 address:(NSString *)address
                                 zipcode:(NSString *)zipcode
                           completeBlock:(HandlerBlock)completeBlock;
@@ -74,6 +76,7 @@
  @param phone 电话
  @param province 省
  @param city 市
+ @param area 区
  @param address 详细地址
  @param zipcode 邮编
  @param completeBlock 返回值
@@ -84,6 +87,7 @@
                                 phone:(NSString *)phone
                              province:(NSString *)province
                                  city:(NSString *)city
+                                 area:(NSString *)area
                               address:(NSString *)address
                               zipcode:(NSString *)zipcode
                         completeBlock:(HandlerBlock)completeBlock;
