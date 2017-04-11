@@ -134,7 +134,7 @@ UITextViewDelegate>
     if (self.nameTextField.text.length == 0) {
         [MBProgressHUD showError:@"请输入收货人"];
         return;
-    } else if (![TianyueTools isValidateMobile:self.phoneTextField.text]) {
+    } else if (![TianyueTools isMobileNumber:self.phoneTextField.text]) {
         [MBProgressHUD showError:@"联系电话格式有误"];
         return;
     } else if ([self.cityButton.titleLabel.text isEqualToString:@"选择地区"]) {
