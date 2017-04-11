@@ -35,7 +35,7 @@ UITableViewDataSource>
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    _dataSource = @[@"顺丰",@"申通",@"圆通",@"韵达",@"中通",@"天天",@"EMS"];
+    _dataSource = @[@"顺丰", @"申通", @"圆通", @"韵达", @"中通", @"天天", @"EMS"];
 }
 
 
@@ -56,7 +56,7 @@ UITableViewDataSource>
     }
 }
 
-#pragma mark - UITableViewDelegate,UITableViewDataSource
+#pragma mark - UITableViewDelegate, UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _dataSource.count;
 }
@@ -74,7 +74,7 @@ UITableViewDataSource>
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.companySelect setTitle:[NSString stringWithFormat:@"%@",_dataSource[indexPath.row]] forState:UIControlStateNormal];
+    [self.companySelect setTitle:[NSString stringWithFormat:@"%@", _dataSource[indexPath.row]] forState:UIControlStateNormal];
     self.tableView.hidden = YES;
     self.companySelect.selected = NO;
     self.downButton.selected = NO;

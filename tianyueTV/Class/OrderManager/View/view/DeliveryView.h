@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^DeliveryBlock)(NSInteger tag);
+
 @interface DeliveryView : UIView
 
 @property (copy ,nonatomic) DeliveryBlock buttonBlock;
@@ -16,5 +17,7 @@ typedef void(^DeliveryBlock)(NSInteger tag);
 @property (weak, nonatomic) IBOutlet UIButton *downButton;
 @property (weak, nonatomic) IBOutlet UITextField *deliveryNumber;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-+(instancetype)shareDeliveryInstanetype;
+
++ (instancetype)shareDeliveryInstanetype;
+
 @end
