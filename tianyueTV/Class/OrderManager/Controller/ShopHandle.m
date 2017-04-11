@@ -92,6 +92,7 @@
                           @"telephone" : phone,
                           @"provinceName" : province,
                           @"cityName" : city,
+                          @"area" : area,
                           @"address" : address,
                           @"zipCode" : zipcode};
     

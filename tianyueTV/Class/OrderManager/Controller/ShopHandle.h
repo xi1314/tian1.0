@@ -92,15 +92,5 @@
                               zipcode:(NSString *)zipcode
                         completeBlock:(HandlerBlock)completeBlock;
 
-/**
- 请求省份
- 
- @param provinceID 省份ID
- @param cityID 城市ID
- @param completeBlock 返回值
- */
-+ (void)requestForProvinceWithProvinceID:(NSString *)provinceID
-                                  cityID:(NSString *)cityID
-                           CompleteBlock:(HandlerBlock)completeBlock;
 
 @end
