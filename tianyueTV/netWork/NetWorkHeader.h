@@ -7,7 +7,7 @@
 //
 
 //本地服务器地址
-#define SERVERADDRESS_Local  @"http://192.168.0.88:8080/"
+#define SERVERADDRESS  @"http://192.168.0.88:8080/"
 
 
 

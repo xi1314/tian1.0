@@ -29,7 +29,7 @@
 - (void)requestMethod:(requestMthod)method URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished
 {
     
-    NSString *resultURL = [SERVERADDRESS_Local stringByAppendingString:url];
+    NSString *resultURL = [SERVERADDRESS stringByAppendingString:url];
     
     if (method == GET)
     {
