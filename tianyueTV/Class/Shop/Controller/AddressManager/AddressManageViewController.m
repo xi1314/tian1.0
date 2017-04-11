@@ -241,7 +241,6 @@ UITableViewDataSource>
             [self updateCellWithRow:row];
             NSIndexPath *firstIndex = [NSIndexPath indexPathForRow:0 inSection:0];
             AddressInfoModel *lastM = _dataSource[0];
-            lastM.address = [lastM.address substringFromIndex:6];
             lastM.isDefault = @"0";
             [_dataSource replaceObjectAtIndex:0 withObject:lastM];
             [self.tableView reloadRowAtIndexPath:firstIndex withRowAnimation:UITableViewRowAnimationNone];
@@ -255,7 +254,6 @@ UITableViewDataSource>
             NSIndexPath *deleIndex = [NSIndexPath indexPathForRow:row + 1 inSection:0];
             [self.tableView deleteRowAtIndexPath:deleIndex withRowAnimation:UITableViewRowAnimationFade];
             
-//            [self.tableView reloadData];
         } else {
             [MBProgressHUD showError:@"设置失败"];
         }

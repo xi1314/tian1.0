@@ -55,8 +55,6 @@
 // 设置默认地址、编辑地址
 #define api_editAdd_app @"mrAddr_app"
 
-// 请求省份
-#define api_province_app @"Regional_collection_app"
 
 
 
