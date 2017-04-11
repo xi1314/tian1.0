@@ -52,9 +52,9 @@
 + (BOOL)isValidateMobile:(NSString *)mobile
 {
     
-    //手机号简单校验，以13， 15，18开头，八个 \d 数字字符
+    //手机号简单校验，以13， 15，17，18开头，八个 \d 数字字符
     
-    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9]))\\d{8}$";
+    NSString *phoneRegex = @"^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\\d{8}$";
     
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     
