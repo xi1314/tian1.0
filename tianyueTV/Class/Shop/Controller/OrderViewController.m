@@ -73,6 +73,8 @@
             [self.footerPrice sizeToFit];
             self.totalPrice.text = [NSString stringWithFormat:@"¥%.2f",(_payMoney+22.0)];
             self.countLabel.text = [NSString stringWithFormat:@"共计%ld件商品  合计：",totalCount];
+            [self.countLabel sizeToFit];
+            
             self.payView.priceString = [NSString stringWithFormat:@"%.2f",(_payMoney+22.0)];
         }
     }
@@ -258,25 +260,37 @@
     [view addSubview:self.footerPrice];
     [view addSubview:self.countLabel];
     [view addSubview:self.messageText];
-    [view addSubview:self.placeLabel];
-    [view addSubview:self.labelCount];
+//    [view addSubview:self.placeLabel];
+//    [view addSubview:self.labelCount];
 
     self.footerPrice.right = view.right - 10;
     self.footerPrice.top = view.top + 10;
     
-    [self.countLabel autoPinEdge:ALEdgeTrailing toEdge:ALEdgeLeading ofView:self.footerPrice];
-    [self.countLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.footerPrice];
+    self.countLabel.right = self.footerPrice.left;
+    self.countLabel.centerY = self.footerPrice.centerY;
     
-    [self.messageText autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.footerPrice withOffset:10];
-    [self.messageText autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:10];
-    [self.messageText autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:10];
-    [self.messageText autoSetDimension:ALDimensionHeight toSize:120];
+    self.messageText.top = self.footerPrice.bottom + 10;
+    self.messageText.right = view.right - 10;
+    self.messageText.left = view.left + 10;
+    self.messageText.height = 120;
+    self.messageText.backgroundColor = [UIColor redColor];
+    NSLog(@"messageText %@",self.messageText);
     
-    [self.placeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.messageText];
-    [self.placeLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self.messageText];
+//    [self.messageText setBackgroundColor:[UIColor redColor]];
     
-    [self.labelCount autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.messageText withOffset:-5];
-    [self.labelCount autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:self.messageText withOffset:-5];
+//    [self.countLabel autoPinEdge:ALEdgeTrailing toEdge:ALEdgeLeading ofView:self.footerPrice];
+//    [self.countLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.footerPrice];
+    
+//    [self.messageText autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.footerPrice withOffset:10];
+//    [self.messageText autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:10];
+//    [self.messageText autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:10];
+//    [self.messageText autoSetDimension:ALDimensionHeight toSize:120];
+    
+//    [self.placeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.messageText];
+//    [self.placeLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self.messageText];
+//    
+//    [self.labelCount autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.messageText withOffset:-5];
+//    [self.labelCount autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:self.messageText withOffset:-5];
     
     
     return view;
@@ -321,8 +335,8 @@
     if (!_countLabel) {
         _countLabel = [[UILabel alloc] init];
         _countLabel.font = [UIFont systemFontOfSize:14];
-        [_countLabel sizeToFit];
-        _countLabel.text = @"共1件商品  合计：";
+//        [_countLabel sizeToFit];
+//        _countLabel.text = @"共1件商品  合计：";
     }
     return _countLabel;
 }
