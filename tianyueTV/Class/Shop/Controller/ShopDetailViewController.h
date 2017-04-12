@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface ShopDetailViewController : UIViewController
-@property (nonatomic, copy) NSString *goodID;   //商品id
+@interface ShopDetailViewController : BaseViewController
+
+// 商品id
+@property (nonatomic, copy) NSString *goodID;
+
 @end

@@ -51,6 +51,12 @@
 // 设置默认地址、编辑地址
 #define api_editAdd_app @"mrAddr_app"
 
+// 提交订单
+#define api_toPay_app @"toPay_app"
+
+// 商品详情
+#define api_goods_app @"goods_app"
+
 
 
 

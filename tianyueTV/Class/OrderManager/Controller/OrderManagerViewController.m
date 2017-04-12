@@ -340,8 +340,7 @@ UITextFieldDelegate>
 
 
 #pragma mark - Private method
-- (void)hiddenBaseMaskView {
-    [super hiddenBaseMaskView];
+- (void)touchBaseMaskView {
     [self.view endEditing:YES];
 }
 

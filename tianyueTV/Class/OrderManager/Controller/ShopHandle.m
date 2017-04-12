@@ -12,6 +12,66 @@
 @implementation ShopHandle
 
 /**
+ 商品详情
+
+ @param goodID 商品ID
+ @param user 用户ID
+ @param completeBlock 返回值
+ */
++ (void)requestForShopDataWithGoodID:(NSString *)goodID
+                                user:(NSString *)user
+                        completBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"gId" : goodID,
+                          @"user_id" : user};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_goods_app paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        
+        if ([dic[RET] isEqual:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+    }];
+}
+
+/**
+ 提交订单
+
+ @param user 用户ID
+ @param count 数量
+ @param money 价格
+ @param addressID 地址id
+ @param message 留言
+ @param completeBlock 返回值
+ */
++ (void)requestForOrderWithUser:(NSString *)user
+                          count:(NSString *)count
+                          money:(NSString *)money
+                      addressID:(NSString *)addressID
+                        message:(NSString *)message
+                  CompleteBlcok:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"userId" : user,
+                          @"goodsAndNum" : count,
+                          @"payMoney" : money,
+                          @"addressId" : addressID,
+                          @"messagedds" : message};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_toPay_app paraments:dic finish:^(id responseObject, NSError *error) {
+
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+    }];
+}
+
+/**
  地址列表
 
  @param user 用户id

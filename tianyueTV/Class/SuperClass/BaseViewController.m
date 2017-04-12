@@ -30,17 +30,22 @@
 }
 
 #pragma mark -- Private method
-- (void)hiddenBaseMaskView {
+- (void)touchBaseMaskView {
 
 }
 
+
+- (void)addbaseMaskViewOnWindow {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self.baseMaskView];
+}
 
 #pragma mark -- Getter method
 - (UIView *)baseMaskView {
     if (!_baseMaskView) {
         _baseMaskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _baseMaskView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenBaseMaskView)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchBaseMaskView)];
         [_baseMaskView addGestureRecognizer:tap];
     }
     return _baseMaskView;

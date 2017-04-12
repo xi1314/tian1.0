@@ -12,8 +12,20 @@
 
 @property (nonatomic, strong) UIView *baseMaskView;
 
-- (void)respondsToBaseViewBackItem;     //返回按钮
 
-- (void)hiddenBaseMaskView;             //移除遮罩
+/**
+ 添加遮罩到window
+ */
+- (void)addbaseMaskViewOnWindow;
+
+/**
+ 返回按钮
+ */
+- (void)respondsToBaseViewBackItem;
+
+/**
+ 点击遮罩
+ */
+- (void)touchBaseMaskView;
 
 @end

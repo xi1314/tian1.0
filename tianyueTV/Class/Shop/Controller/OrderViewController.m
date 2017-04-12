@@ -11,7 +11,7 @@
 #import "WaitingOrderViewController.h"
 #import "AddressManageViewController.h"
 #import "PayOrderView.h"
-
+#import "ShopHandle.h"
 
 @interface OrderViewController ()
 <UITableViewDelegate,
@@ -76,12 +76,6 @@ UITextViewDelegate>
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden =NO;
 }
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-}
-
 
 #pragma mark - Init method
 - (void)initilizaDataSource {
@@ -199,24 +193,25 @@ UITextViewDelegate>
 }
 
 
-//支付弹窗button
+// 支付弹窗button
 - (void)payOrderButtons {
-    __weak typeof(self)weakSelf = self;
+    @weakify(self);
     self.payView.buttonBlock = ^(NSInteger tag){
+        @strongify(self);
         switch (tag) {
-            case 0:{//关闭
-                [weakSelf hiddenBaseMaskView];
+            case 0:{ // 关闭
                 WaitingOrderViewController *waitingVC = [[WaitingOrderViewController alloc] init];
-                waitingVC.dataArr = [weakSelf.dataArr mutableCopy];
-                [weakSelf.navigationController pushViewController:waitingVC animated:YES];
+                waitingVC.dataArr = [self.dataArr mutableCopy];
+                [self.navigationController pushViewController:waitingVC animated:YES];
+                [self.baseMaskView removeFromSuperview];
             } break;
                 
-            case 1:{//选择支付方式
+            case 1:{ // 选择支付方式
                 
             } break;
                 
-            case 2:{//确认支付
-                [weakSelf requestForOrderPay];
+            case 2:{ // 确认支付
+                [self requestForOrderPay];
             } break;
                 
             default:
@@ -228,10 +223,9 @@ UITextViewDelegate>
 #pragma mark - Newworking request
 - (void)requestForOrderPay {
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
-    NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.dataArr[0][@"goodsAndNum"],@"goodsAndNum",moneyStr,@"payMoney",@"112",@"addressId",self.messageText.text,@"messagedds", nil];
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"toPay_app" paraments:dic finish:^(id responseObject, NSError *error) {
-        NSLog(@">>>>> %@",responseObject);
-        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
+    
+    [ShopHandle requestForOrderWithUser:USER_ID count:self.dataArr[0][@"goodsAndNum"] money:moneyStr addressID:@"112" message:self.messageText.text CompleteBlcok:^(id respondsObject, NSError *error) {
+        if (respondsObject) {
             [MBProgressHUD showSuccess:@"提交成功"];
         } else {
             [MBProgressHUD showError:@"订单提交失败"];
@@ -343,8 +337,6 @@ UITextViewDelegate>
     if (!_countLabel) {
         _countLabel = [[UILabel alloc] init];
         _countLabel.font = [UIFont systemFontOfSize:14];
-//        [_countLabel sizeToFit];
-//        _countLabel.text = @"共1件商品  合计：";
     }
     return _countLabel;
 }

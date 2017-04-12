@@ -12,6 +12,34 @@
 @interface ShopHandle : BaseHandler
 
 /**
+ 商品详情
+ 
+ @param goodID 商品ID
+ @param user 用户ID
+ @param completeBlock 返回值
+ */
++ (void)requestForShopDataWithGoodID:(NSString *)goodID
+                                user:(NSString *)user
+                        completBlock:(HandlerBlock)completeBlock;
+
+/**
+ 提交订单
+ 
+ @param user 用户ID
+ @param count 数量
+ @param money 价格
+ @param addressID 地址id
+ @param message 留言
+ @param completeBlock 返回值
+ */
++ (void)requestForOrderWithUser:(NSString *)user
+                          count:(NSString *)count
+                          money:(NSString *)money
+                      addressID:(NSString *)addressID
+                        message:(NSString *)message
+                  CompleteBlcok:(HandlerBlock)completeBlock;
+
+/**
  地址列表
  
  @param user 用户id
