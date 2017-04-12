@@ -9,10 +9,6 @@
 //本地服务器地址
 #define SERVERADDRESS  @"http://192.168.0.88:8080/"
 
-
-
-
-
 //我的订单（卖家）
 #define api_orderInfo_app  @"orderInfo_app"
 

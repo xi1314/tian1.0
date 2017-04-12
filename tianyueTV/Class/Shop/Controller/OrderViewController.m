@@ -260,6 +260,8 @@
     [view addSubview:self.placeLabel];
     [view addSubview:self.labelCount];
     
+    
+    
     [self.footerPrice autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:view withOffset:-10];
     [self.footerPrice autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:10];
     
