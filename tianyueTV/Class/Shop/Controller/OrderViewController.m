@@ -13,36 +13,61 @@
 #import "PayOrderView.h"
 
 
-@interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource,UITextViewDelegate> {
+@interface OrderViewController ()
+<UITableViewDelegate,
+UITableViewDataSource,
+UITextViewDelegate>
+{
     CGFloat _payMoney;
 }
+
+// 地址view背景
 @property (weak, nonatomic) IBOutlet UIView *topView;
-//footerview使用的属性
-@property (strong, nonatomic) UILabel *countLabel;          //数量
-@property (strong, nonatomic) UILabel *footerPrice;         //合计
-@property (strong, nonatomic) UITextView *messageText;      //用户留言
-@property (strong, nonatomic) UILabel *placeLabel;          //占位label
-@property (strong, nonatomic) UILabel *labelCount;          //label计数
 
-@property (weak, nonatomic) IBOutlet UILabel *userName;     //收货姓名
-@property (weak, nonatomic) IBOutlet UILabel *userPhone;    //电话
-@property (weak, nonatomic) IBOutlet UILabel *postalCode;   //邮编
-@property (weak, nonatomic) IBOutlet UILabel *address;      //地址
-@property (weak, nonatomic) IBOutlet UILabel *totalPrice;   //总合计
+// footerview使用的属性
+// 数量
+@property (strong, nonatomic) UILabel *countLabel;
 
+// 合计
+@property (strong, nonatomic) UILabel *footerPrice;
+
+// 用户留言
+@property (strong, nonatomic) UITextView *messageText;
+
+// 占位label
+@property (strong, nonatomic) UILabel *placeLabel;
+
+// label计数
+@property (strong, nonatomic) UILabel *labelCount;
+
+// 收货姓名
+@property (weak, nonatomic) IBOutlet UILabel *userName;
+
+// 电话
+@property (weak, nonatomic) IBOutlet UILabel *userPhone;
+
+// 邮编
+@property (weak, nonatomic) IBOutlet UILabel *postalCode;
+
+// 地址
+@property (weak, nonatomic) IBOutlet UILabel *address;
+
+// 总合计
+@property (weak, nonatomic) IBOutlet UILabel *totalPrice;
+
+// 支付view
 @property (strong, nonatomic) PayOrderView *payView;
 
-//@property (strong, nonatomic) UIView *maskView;
 
 @end
 
 @implementation OrderViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initilizaDataSource];
     [self initilizeUserInterface];
     NSLog(@"--- %@",self.dataArr);
-//    NSLog(@"<<<< %@",self.addressDic);
     [self payOrderButtons];
     
 }
@@ -58,7 +83,7 @@
 }
 
 
-#pragma mark -- Init method
+#pragma mark - Init method
 - (void)initilizaDataSource {
     _payMoney = 0;
     NSInteger totalCount = 0;
@@ -108,7 +133,7 @@
     
 }
 
-#pragma mark -- Private method
+#pragma mark - Private method
 //当设置navigationBar的背景图片或背景色时，使用该方法都可移除黑线，且不会使translucent属性失效
 -(void)useMethodToFindBlackLineAndHind
 {
@@ -144,7 +169,7 @@
     self.address.text = [NSString stringWithFormat:@"%@%@%@%@", model.provinceName, model.cityName, model.area, model.address];
 }
 
-#pragma mark -- Tap method
+#pragma mark - Tap method
 - (IBAction)topViewTop_action:(UITapGestureRecognizer *)sender {
     
     AddressManageViewController *addressVC = [[AddressManageViewController alloc] init];
@@ -156,7 +181,7 @@
     [self.navigationController pushViewController:addressVC animated:YES];
 }
 
-#pragma mark -- Button method
+#pragma mark - Button method
 - (void)respondsToBaseViewBackItem {
     self.navigationController.navigationBar.hidden =YES;
     [self.navigationController popViewControllerAnimated:YES];
@@ -200,7 +225,7 @@
     };
 }
 
-#pragma mark -- Newworking request
+#pragma mark - Newworking request
 - (void)requestForOrderPay {
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.dataArr[0][@"goodsAndNum"],@"goodsAndNum",moneyStr,@"payMoney",@"112",@"addressId",self.messageText.text,@"messagedds", nil];
@@ -215,7 +240,7 @@
 }
 
 
-#pragma mark -- UITableViewDelegate,UITableViewDataSource
+#pragma mark - UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArr.count + 1;
 }
@@ -260,43 +285,26 @@
     [view addSubview:self.footerPrice];
     [view addSubview:self.countLabel];
     [view addSubview:self.messageText];
-//    [view addSubview:self.placeLabel];
-//    [view addSubview:self.labelCount];
+    [view addSubview:self.placeLabel];
+    [view addSubview:self.labelCount];
 
     self.footerPrice.right = view.right - 10;
-    self.footerPrice.top = view.top + 10;
+    self.footerPrice.top   = view.top + 10;
     
-    self.countLabel.right = self.footerPrice.left;
+    self.countLabel.right   = self.footerPrice.left;
     self.countLabel.centerY = self.footerPrice.centerY;
     
-    self.messageText.top = self.footerPrice.bottom + 10;
-    self.messageText.right = view.right - 10;
-    self.messageText.left = view.left + 10;
-    self.messageText.height = 120;
-    self.messageText.backgroundColor = [UIColor redColor];
-    NSLog(@"messageText %@",self.messageText);
+    self.messageText.frame = CGRectMake(10, self.footerPrice.bottom + 10, SCREEN_WIDTH - 20, 120);
+
+    self.placeLabel.center = self.messageText.center;
     
-//    [self.messageText setBackgroundColor:[UIColor redColor]];
-    
-//    [self.countLabel autoPinEdge:ALEdgeTrailing toEdge:ALEdgeLeading ofView:self.footerPrice];
-//    [self.countLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.footerPrice];
-    
-//    [self.messageText autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.footerPrice withOffset:10];
-//    [self.messageText autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:10];
-//    [self.messageText autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:10];
-//    [self.messageText autoSetDimension:ALDimensionHeight toSize:120];
-    
-//    [self.placeLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.messageText];
-//    [self.placeLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self.messageText];
-//    
-//    [self.labelCount autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.messageText withOffset:-5];
-//    [self.labelCount autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:self.messageText withOffset:-5];
-    
-    
+    self.labelCount.right  = self.messageText.right - 5;
+    self.labelCount.bottom = self.messageText.bottom - 5;
+
     return view;
 }
 
-#pragma mark -- UITextViewDelegate
+#pragma mark - UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     self.placeLabel.hidden = YES;
     return YES;
@@ -320,7 +328,7 @@
     return YES;
 }
 
-#pragma mark -- Getter method
+#pragma mark - Getter method
 - (UILabel *)footerPrice {
     if (!_footerPrice) {
         _footerPrice = [[UILabel alloc] init];
