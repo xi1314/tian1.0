@@ -70,6 +70,7 @@
         totalCount += count;
         if (i == _dataArr.count - 1) {
             self.footerPrice.text = [NSString stringWithFormat:@"¥%.2f",_payMoney];
+            [self.footerPrice sizeToFit];
             self.totalPrice.text = [NSString stringWithFormat:@"¥%.2f",(_payMoney+22.0)];
             self.countLabel.text = [NSString stringWithFormat:@"共计%ld件商品  合计：",totalCount];
             self.payView.priceString = [NSString stringWithFormat:@"%.2f",(_payMoney+22.0)];
@@ -260,9 +261,13 @@
     [view addSubview:self.placeLabel];
     [view addSubview:self.labelCount];
     
-    [self.footerPrice autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:view withOffset:-10];
-    [self.footerPrice autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:10];
+    self.footerPrice.right = view.right - 10;
+    self.footerPrice.top = view.top + 10;
     
+//    [self.footerPrice autoPinEdge:ALEdgeTrailing toEdge:ALEdgeTrailing ofView:view withOffset:-10];
+//    [self.footerPrice autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:10];
+    
+
     [self.countLabel autoPinEdge:ALEdgeTrailing toEdge:ALEdgeLeading ofView:self.footerPrice];
     [self.countLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.footerPrice];
     
@@ -310,8 +315,6 @@
     if (!_footerPrice) {
         _footerPrice = [[UILabel alloc] init];
         _footerPrice.textColor = THEME_COLOR;
-        _footerPrice.text = @"¥20";
-        [_footerPrice sizeToFit];
         _footerPrice.textAlignment = NSTextAlignmentRight;
         _footerPrice.font = [UIFont systemFontOfSize:18];
     }
