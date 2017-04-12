@@ -269,14 +269,8 @@
     self.countLabel.right = self.footerPrice.left;
     self.countLabel.centerY = self.footerPrice.centerY;
     
-    self.messageText.top = self.footerPrice.bottom + 10;
-    self.messageText.right = view.right - 10;
-    self.messageText.left = view.left + 10;
-    self.messageText.height = 120;
-    self.messageText.backgroundColor = [UIColor redColor];
-    NSLog(@"messageText %@",self.messageText);
-    
-//    [self.messageText setBackgroundColor:[UIColor redColor]];
+    self.messageText.frame = CGRectMake(10, self.footerPrice.bottom + 10, view.width - 20, 120);
+
     
 //    [self.countLabel autoPinEdge:ALEdgeTrailing toEdge:ALEdgeLeading ofView:self.footerPrice];
 //    [self.countLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.footerPrice];
