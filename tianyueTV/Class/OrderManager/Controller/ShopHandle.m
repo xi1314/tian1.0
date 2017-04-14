@@ -8,6 +8,7 @@
 
 #import "ShopHandle.h"
 #import "AddressModel.h"
+#import "ShopModel.h"
 
 @implementation ShopHandle
 
@@ -26,10 +27,85 @@
                           @"user_id" : user};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_goods_app paraments:dic finish:^(id responseObject, NSError *error) {
+        
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        ShopModel *shopM = [ShopModel mj_objectWithKeyValues:dic];
+        
+        if (responseObject) {
+            completeBlock(shopM, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+    }];
+}
+
+/**
+ 商品详情介绍 h5
+
+ @param goodID 商品ID
+ @param completeBlock 返回值
+ */
++ (void)requestGoodsDeatilWithGoodID:(NSString *)goodID
+                       completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"gId" : goodID};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_Commoditydetails_app paraments:dic finish:^(id responseObject, NSError *error) {
+        if (responseObject) {
+            
+            if (responseObject) {
+                completeBlock(responseObject, nil);
+            } else {
+                completeBlock(nil, error);
+            }
+        }
+    }];
+}
+
+/**
+ 添加收藏
+
+ @param user 用户ID
+ @param goodID 商品ID
+ @param completeBlock 返回值
+ */
++ (void)requestForCollectionWithUser:(NSString *)user
+                              goodID:(NSString *)goodID
+                       CompleteBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"user_id" : user,
+                          @"goodsId" : goodID};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_Collection_app paraments:dic finish:^(id responseObject, NSError *error) {
+//        NSLog(@"add %@  %@",responseObject,error);
         NSDictionary *dic = (NSDictionary *)responseObject;
         
-        if ([dic[RET] isEqual:SUCCESS]) {
-            completeBlock(responseObject, nil);
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject ,nil);
+        } else {
+            completeBlock(nil, error);
+        }
+    }];
+}
+
+/**
+ 取消收藏
+
+ @param user 用户id
+ @param goodID 商品id
+ @param completeBlock 返回值
+ */
++ (void)requestForCancelCollectionWithUser:(NSString *)user
+                                   goodID:(NSString *)goodID
+                            completeBlcok:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"gid" : goodID,
+                          @"user_id" : user};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_Collection_delete paraments:dic finish:^(id responseObject, NSError *error) {
+
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject ,nil);
         } else {
             completeBlock(nil, error);
         }

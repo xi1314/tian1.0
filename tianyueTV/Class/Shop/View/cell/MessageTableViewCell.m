@@ -18,25 +18,25 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
-//    self.layer.cornerRadius
-//    self.layer.masksToBounds
 }
 
-#pragma mark -- Setter method
-- (void)setCellModel:(MessageModel *)cellModel {
-    _cellModel = cellModel;
-    [self.userHeadImg sd_setImageWithURL:[NSURL URLWithString:_cellModel.headImageStr]];
-    self.messageLabel.text = _cellModel.message;
-    self.standardLabel.text = _cellModel.standard;
-    self.sizeLabel.text = _cellModel.size;
+- (void)configCellWithModel:(MessageModel *)model {
+    [self.userHeadImg setImageURL:[NSURL URLWithString:model.headUrl]];
+    self.messageLabel.text = model.content;
     
-    self.imageArr = _cellModel.imgArr;
+    NSArray *attr = [model.goodsAttr componentsSeparatedByString:@","];
+    NSArray *attr1 = [attr[0] componentsSeparatedByString:@";"];
+    NSArray *attr2 = [attr[1] componentsSeparatedByString:@";"];
+    self.standardLabel.text = [NSString stringWithFormat:@"%@:%@",attr1[0],attr1[1]];
+    self.sizeLabel.text = [NSString stringWithFormat:@"%@:%@",attr2[0],attr2[1]];
+    
+    self.imageArr = [model.goodsImg componentsSeparatedByString:@","];
     for (int i = 0; i < self.imageArr.count; i++) {
         UIImageView *imageView = (UIImageView *)[self viewWithTag:105+i];
         imageView.hidden = NO;
-        [imageView sd_setImageWithURL:[NSURL URLWithString:self.imageArr[i]]];
+        [imageView setImageURL:[NSURL URLWithString:self.imageArr[i]]];
     }
 }
+
 
 @end

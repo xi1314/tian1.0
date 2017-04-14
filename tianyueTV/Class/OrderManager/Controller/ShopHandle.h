@@ -23,6 +23,37 @@
                         completBlock:(HandlerBlock)completeBlock;
 
 /**
+ 商品详情介绍 h5
+ 
+ @param goodID 商品ID
+ @param completeBlock 返回值
+ */
++ (void)requestGoodsDeatilWithGoodID:(NSString *)goodID
+                       completeBlock:(HandlerBlock)completeBlock;
+
+/**
+ 添加收藏
+ 
+ @param user 用户ID
+ @param goodID 商品ID
+ @param completeBlock 返回值
+ */
++ (void)requestForCollectionWithUser:(NSString *)user
+                              goodID:(NSString *)goodID
+                       CompleteBlock:(HandlerBlock)completeBlock;
+
+/**
+ 取消收藏
+ 
+ @param user 用户id
+ @param goodID 商品id
+ @param completeBlock 返回值
+ */
++ (void)requestForCancelCollectionWithUser:(NSString *)user
+                                    goodID:(NSString *)goodID
+                             completeBlcok:(HandlerBlock)completeBlock;
+
+/**
  提交订单
  
  @param user 用户ID

@@ -145,7 +145,6 @@
 		04687AFF1E88BDF0004A5EE3 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A671E88BDF0004A5EE3 /* ShopDetailViewController.m */; };
 		04687B011E88BDF0004A5EE3 /* WaitingOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A6A1E88BDF0004A5EE3 /* WaitingOrderViewController.m */; };
 		04687B021E88BDF0004A5EE3 /* WaitingOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A6B1E88BDF0004A5EE3 /* WaitingOrderViewController.xib */; };
-		04687B031E88BDF0004A5EE3 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A6F1E88BDF0004A5EE3 /* MessageModel.m */; };
 		04687B041E88BDF0004A5EE3 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A731E88BDF0004A5EE3 /* AddressTableViewCell.m */; };
 		04687B051E88BDF0004A5EE3 /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A741E88BDF0004A5EE3 /* AddressTableViewCell.xib */; };
 		04687B061E88BDF0004A5EE3 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A761E88BDF0004A5EE3 /* MessageTableViewCell.m */; };
@@ -175,6 +174,7 @@
 		987842271E8F993D0084BF82 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842261E8F993D0084BF82 /* AddressModel.m */; };
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
 		989B18F01E9B6F38009C3174 /* area.json in Resources */ = {isa = PBXBuildFile; fileRef = 989B18EF1E9B6F38009C3174 /* area.json */; };
+		98A8073B1E9F653500832F43 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A8073A1E9F653500832F43 /* ShopModel.m */; };
 		C61854BB213EA5F6E946D609 /* libPods-tianyueTVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D1542CAE7A70696F02677D /* libPods-tianyueTVTests.a */; };
 		CC36CD4F1E9732B8007E35FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */; };
 		CC36CD511E9732C0007E35FF /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD501E9732C0007E35FF /* CoreFoundation.framework */; };
@@ -490,8 +490,6 @@
 		04687A691E88BDF0004A5EE3 /* WaitingOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitingOrderViewController.h; sourceTree = "<group>"; };
 		04687A6A1E88BDF0004A5EE3 /* WaitingOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitingOrderViewController.m; sourceTree = "<group>"; };
 		04687A6B1E88BDF0004A5EE3 /* WaitingOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaitingOrderViewController.xib; sourceTree = "<group>"; };
-		04687A6E1E88BDF0004A5EE3 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
-		04687A6F1E88BDF0004A5EE3 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
 		04687A721E88BDF0004A5EE3 /* AddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableViewCell.h; sourceTree = "<group>"; };
 		04687A731E88BDF0004A5EE3 /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
 		04687A741E88BDF0004A5EE3 /* AddressTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
@@ -543,6 +541,8 @@
 		987D31D21E77A2C700C3DF34 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		989B18EF1E9B6F38009C3174 /* area.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = area.json; sourceTree = "<group>"; };
+		98A807391E9F653500832F43 /* ShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
+		98A8073A1E9F653500832F43 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
 		B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tianyueTV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CC36CD501E9732C0007E35FF /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -1646,10 +1646,10 @@
 		04687A6D1E88BDF0004A5EE3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				04687A6E1E88BDF0004A5EE3 /* MessageModel.h */,
-				04687A6F1E88BDF0004A5EE3 /* MessageModel.m */,
 				987842251E8F993D0084BF82 /* AddressModel.h */,
 				987842261E8F993D0084BF82 /* AddressModel.m */,
+				98A807391E9F653500832F43 /* ShopModel.h */,
+				98A8073A1E9F653500832F43 /* ShopModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2247,7 +2247,6 @@
 				04687AEE1E88BDF0004A5EE3 /* OrderManagerTableViewCell.m in Sources */,
 				04687AA31E88BDF0004A5EE3 /* NSSafeObject.m in Sources */,
 				04687AAB1E88BDF0004A5EE3 /* HostInfoView.m in Sources */,
-				04687B031E88BDF0004A5EE3 /* MessageModel.m in Sources */,
 				04687ACB1E88BDF0004A5EE3 /* WWGuanliSecondModel.m in Sources */,
 				04687B131E88BDF0004A5EE3 /* TypeView.m in Sources */,
 				04687AE01E88BDF0004A5EE3 /* MineThirdTableViewCell.m in Sources */,
@@ -2294,6 +2293,7 @@
 				04687AF91E88BDF0004A5EE3 /* AddAddressViewController.m in Sources */,
 				04687AB81E88BDF0004A5EE3 /* CustomView.m in Sources */,
 				04687AE71E88BDF0004A5EE3 /* WWMineFiveTableViewCell.m in Sources */,
+				98A8073B1E9F653500832F43 /* ShopModel.m in Sources */,
 				04687A9D1E88BDF0004A5EE3 /* MainTopView.m in Sources */,
 				04687B111E88BDF0004A5EE3 /* ShopDetailView.m in Sources */,
 				046879061E88AB83004A5EE3 /* MBProgressHUD.m in Sources */,

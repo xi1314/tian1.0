@@ -7,6 +7,7 @@
 //
 
 #import "ChooseView.h"
+#import "ShopModel.h"
 
 @implementation ChooseView
 @synthesize sizeView,colorView,countView,stock,stockdic,sizearr,colorarr;
@@ -121,15 +122,15 @@
         NSString *size =[sizearr objectAtIndex:sizeView.seletIndex];
         NSString *color =[colorarr objectAtIndex:colorView.seletIndex];
         
-        for (NSDictionary *dic in self.goodsStock) {
-            NSString *type1 = dic[@"commodity_attribute_1"];
-            NSString *type2 = dic[@"commodity_attribute_2"];
+        for (GoodStockModel *model in self.goodsStock) {
+            NSString *type1 = model.commodity_attribute_1;
+            NSString *type2 = model.commodity_attribute_2;
             if ([type1 containsString:size] && [type2 containsString:color]) {
-                stock = [dic[@"skuStock"] intValue];
-                self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",dic[@"skuStock"]];
-                [self reloadTypeBtn:dic :colorarr :colorView];
-                [self reloadTypeBtn:dic :sizearr :sizeView];
-                self.typeID = [NSString stringWithFormat:@"%@",dic[@"id"]];
+                stock = [model.skuStock intValue];
+                self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",model.skuStock];
+                [self reloadTypeBtn:model :colorarr :colorView];
+                [self reloadTypeBtn:model :sizearr :sizeView];
+                self.typeID = [NSString stringWithFormat:@"%@",model.ID];
             }
         }
         
@@ -146,10 +147,10 @@
         //根据所选颜色 取出该颜色对应所有尺码的库存字典
         [self resumeBtn:colorarr :colorView];
         
-        for (NSDictionary *dic in self.goodsStock) {
-            NSString *string = dic[@"commodity_attribute_1"];
+        for (GoodStockModel *model in self.goodsStock) {
+            NSString *string = model.commodity_attribute_1;
             if ([string containsString:color]) {
-                self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",dic[@"skuStock"]];
+                self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",model.skuStock];
             }
         }
         stock = 100000;
@@ -159,10 +160,10 @@
         NSString *size =[sizearr objectAtIndex:sizeView.seletIndex];
         //根据所选尺码 取出该尺码对应所有颜色的库存字典
         [self resumeBtn:sizearr :sizeView];
-        for (NSDictionary *dic in self.goodsStock) {
-            NSString *color = dic[@"commodity_attribute_1"];
+        for (GoodStockModel *model in self.goodsStock) {
+            NSString *color = model.commodity_attribute_1;
             if ([color containsString:size]) {
-                self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",dic[@"skuStock"]];
+                self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",model.skuStock];
             }
         }
         stock = 100000;
@@ -188,10 +189,10 @@
 }
 
 //根据所选的尺码或者颜色对应库存量 确定哪些按钮不可选
--(void)reloadTypeBtn:(NSDictionary *)dic :(NSArray *)arr :(TypeView *)view
+-(void)reloadTypeBtn:(GoodStockModel *)model :(NSArray *)arr :(TypeView *)view
 {
     for (int i = 0; i<arr.count; i++) {
-        int count = [[dic objectForKey:@"skuStock"] intValue];
+        int count = [model.skuStock intValue];
         UIButton *btn =(UIButton *)[view viewWithTag:100+i];
         btn.selected = NO;
         //库存为零 不可点击

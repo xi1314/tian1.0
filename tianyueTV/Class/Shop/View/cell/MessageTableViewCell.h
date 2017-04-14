@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MessageModel.h"
+//#import "MessageModel.h"
+#import "ShopModel.h"
 
 @interface MessageTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *userHeadImg;     //头像
@@ -15,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *standardLabel;       //规格
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;           //尺寸
 @property (strong, nonatomic) NSArray *imageArr;                   //图片数组
-@property (nonatomic, strong) MessageModel *cellModel;
+//@property (nonatomic, strong) MessageModel *cellModel;
+
+- (void)configCellWithModel:(MessageModel *)model;
 
 @end

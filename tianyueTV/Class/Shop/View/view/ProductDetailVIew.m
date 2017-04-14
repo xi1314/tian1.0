@@ -8,7 +8,7 @@
 
 #import "ProductDetailVIew.h"
 #import "MessageTableViewCell.h"
-#import "MessageModel.h"
+#import "ShopModel.h"
 
 static NSString *cellIndentifer = @"kMessageTableViewCell";
 
@@ -38,7 +38,7 @@ static NSString *cellIndentifer = @"kMessageTableViewCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifer];
     MessageModel *model = self.dataSource[indexPath.row];
-    cell.cellModel = model;
+    [cell configCellWithModel:model];
     return cell;
 }
 

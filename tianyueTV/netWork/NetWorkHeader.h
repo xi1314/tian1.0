@@ -57,6 +57,15 @@
 // 商品详情
 #define api_goods_app @"goods_app"
 
+// 商品详情 h5
+#define api_Commoditydetails_app @"Commoditydetails_app"
+
+// 收藏商品
+#define api_Collection_app @"Collection_app"
+
+// 取消收藏
+#define api_Collection_delete @"Collection_delete"
+
 
 
 
