@@ -184,6 +184,11 @@
 		CC47BC561E9B867E006B1EA2 /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */; };
 		CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */; };
 		CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47BC591E9B869E006B1EA2 /* TianyueTools.m */; };
+		CCFF7C481EA0C52C001712E4 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C441EA0C52C001712E4 /* CommonUtil.m */; };
+		CCFF7C491EA0C52C001712E4 /* NSStack.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C471EA0C52C001712E4 /* NSStack.m */; };
+		CCFF7C521EA0C580001712E4 /* DataXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C4C1EA0C580001712E4 /* DataXMLParser.m */; };
+		CCFF7C531EA0C580001712E4 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */; };
+		CCFF7C541EA0C580001712E4 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */; };
 		EF8A61C61D2F0782479BAC3F /* libPods-tianyueTV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */; };
 		FF0110C31DAB26D6003146A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0110C21DAB26D6003146A7 /* main.m */; };
 		FF0110CC1DAB26D6003146A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF0110CA1DAB26D6003146A7 /* Main.storyboard */; };
@@ -555,6 +560,17 @@
 		CC47BC551E9B867E006B1EA2 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		CC47BC581E9B869E006B1EA2 /* TianyueTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TianyueTools.h; sourceTree = "<group>"; };
 		CC47BC591E9B869E006B1EA2 /* TianyueTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TianyueTools.m; sourceTree = "<group>"; };
+		CCFF7C431EA0C52C001712E4 /* CommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtil.h; sourceTree = "<group>"; };
+		CCFF7C441EA0C52C001712E4 /* CommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtil.m; sourceTree = "<group>"; };
+		CCFF7C461EA0C52C001712E4 /* NSStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStack.h; sourceTree = "<group>"; };
+		CCFF7C471EA0C52C001712E4 /* NSStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStack.m; sourceTree = "<group>"; };
+		CCFF7C4B1EA0C580001712E4 /* DataXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataXMLParser.h; sourceTree = "<group>"; };
+		CCFF7C4C1EA0C580001712E4 /* DataXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataXMLParser.m; sourceTree = "<group>"; };
+		CCFF7C4D1EA0C580001712E4 /* WXApiHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiHeader.h; sourceTree = "<group>"; };
+		CCFF7C4E1EA0C580001712E4 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		CCFF7C501EA0C580001712E4 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
+		CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiRequestHandler.m; sourceTree = "<group>"; };
 		D73901487324F69E14ABE92B /* Pods-tianyueTVTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTVTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTVTests/Pods-tianyueTVTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0110BE1DAB26D6003146A7 /* tianyueTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tianyueTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF0110C21DAB26D6003146A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1795,6 +1811,9 @@
 		CC47BC511E9B867E006B1EA2 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				CCFF7C4A1EA0C580001712E4 /* WXApiManager */,
+				CCFF7C421EA0C52C001712E4 /* CommonUtil */,
+				CCFF7C451EA0C52C001712E4 /* NSStack */,
 				CC47BC521E9B867E006B1EA2 /* JPush */,
 			);
 			path = Vender;
@@ -1808,6 +1827,38 @@
 				CC47BC551E9B867E006B1EA2 /* JPUSHService.h */,
 			);
 			path = JPush;
+			sourceTree = "<group>";
+		};
+		CCFF7C421EA0C52C001712E4 /* CommonUtil */ = {
+			isa = PBXGroup;
+			children = (
+				CCFF7C431EA0C52C001712E4 /* CommonUtil.h */,
+				CCFF7C441EA0C52C001712E4 /* CommonUtil.m */,
+			);
+			path = CommonUtil;
+			sourceTree = "<group>";
+		};
+		CCFF7C451EA0C52C001712E4 /* NSStack */ = {
+			isa = PBXGroup;
+			children = (
+				CCFF7C461EA0C52C001712E4 /* NSStack.h */,
+				CCFF7C471EA0C52C001712E4 /* NSStack.m */,
+			);
+			path = NSStack;
+			sourceTree = "<group>";
+		};
+		CCFF7C4A1EA0C580001712E4 /* WXApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				CCFF7C4B1EA0C580001712E4 /* DataXMLParser.h */,
+				CCFF7C4C1EA0C580001712E4 /* DataXMLParser.m */,
+				CCFF7C4D1EA0C580001712E4 /* WXApiHeader.h */,
+				CCFF7C4E1EA0C580001712E4 /* WXApiManager.h */,
+				CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */,
+				CCFF7C501EA0C580001712E4 /* WXApiRequestHandler.h */,
+				CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */,
+			);
+			path = WXApiManager;
 			sourceTree = "<group>";
 		};
 		FF0110B51DAB26D5003146A7 = {
@@ -2203,7 +2254,9 @@
 				04687AC21E88BDF0004A5EE3 /* WWResultingViewController.m in Sources */,
 				04687ABB1E88BDF0004A5EE3 /* WWSaveView.m in Sources */,
 				04687AB21E88BDF0004A5EE3 /* ForgetPasswordViewController.m in Sources */,
+				CCFF7C491EA0C52C001712E4 /* NSStack.m in Sources */,
 				04687ADE1E88BDF0004A5EE3 /* WWMyViewButton.m in Sources */,
+				CCFF7C541EA0C580001712E4 /* WXApiRequestHandler.m in Sources */,
 				981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */,
 				04687ABE1E88BDF0004A5EE3 /* WWFilishedViewController.m in Sources */,
 				04687AA61E88BDF0004A5EE3 /* ChatTableViewCell.m in Sources */,
@@ -2218,7 +2271,9 @@
 				0468791F1E88B2A1004A5EE3 /* XHSegmentViewController.m in Sources */,
 				04687B141E88BDF0004A5EE3 /* BaseViewController.m in Sources */,
 				04687AD61E88BDF0004A5EE3 /* WWSettingViewController.m in Sources */,
+				CCFF7C531EA0C580001712E4 /* WXApiManager.m in Sources */,
 				04687A9E1E88BDF0004A5EE3 /* FullScreenLivingViewController.m in Sources */,
+				CCFF7C481EA0C52C001712E4 /* CommonUtil.m in Sources */,
 				046879071E88AB83004A5EE3 /* NSMutableArray+ErrorManager.m in Sources */,
 				04687AB51E88BDF0004A5EE3 /* registViewController.m in Sources */,
 				04687A9A1E88BDF0004A5EE3 /* FirstTableViewCell.m in Sources */,
@@ -2288,6 +2343,7 @@
 				046879311E88B71C004A5EE3 /* PresentView.m in Sources */,
 				04687AD01E88BDF0004A5EE3 /* WWAnchorSpaceViewController.m in Sources */,
 				04687AFB1E88BDF0004A5EE3 /* AddressManageViewController.m in Sources */,
+				CCFF7C521EA0C580001712E4 /* DataXMLParser.m in Sources */,
 				04687AB11E88BDF0004A5EE3 /* ChangePasswordViewController.m in Sources */,
 				04687B1C1E8914A3004A5EE3 /* BaseHandler.m in Sources */,
 				04687AF91E88BDF0004A5EE3 /* AddAddressViewController.m in Sources */,

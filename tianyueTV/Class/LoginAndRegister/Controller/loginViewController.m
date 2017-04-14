@@ -10,13 +10,14 @@
 #import "CustomRegistView.h"
 #import "ViewController.h"
 #import "MBProgressHUD+MJ.h"
-@interface loginViewController ()<UITextFieldDelegate>
+
+@interface loginViewController ()
+<UITextFieldDelegate>
+
 @property(nonatomic,strong)CustomRegistView *registView;
 @property(nonatomic,strong)UIButton *registBtn;
-
 @property(nonatomic,strong)UIImageView *warnImageView;
 @property(nonatomic,strong)UILabel *warnLabel;
-
 @property(nonatomic,strong)UIButton *agreementBtn;
 
 @end
@@ -29,21 +30,20 @@
     self.view.backgroundColor=WWColor(240, 240, 240);
     [self customBackBtn];
     [self addLayout];
-    // Do any additional setup after loading the view.
 }
 
 -(void)registRequet
 {
-//    NSString *url =@"http://www.tianyue.tv/mobileSendRegister";
-    // NSString *url =@"http://192.168.0.88:8081/mobileSendRegister";
+    // NSString *url = @"http://www.tianyue.tv/mobileSendRegister";
+    // NSString *url = @"http://192.168.0.88:8081/mobileSendRegister";
     
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]init];
-    paraments[@"code"] =self.code;
-    paraments[@"telephone"] =self.phoneString;
-    paraments[@"nickName"] =self.registView.nameTextField.text;
-    paraments[@"password"] =self.registView.passwordTextField.text;
+    paraments[@"code"] = self.code;
+    paraments[@"telephone"] = self.phoneString;
+    paraments[@"nickName"] = self.registView.nameTextField.text;
+    paraments[@"password"] = self.registView.passwordTextField.text;
     
-    [[NetWorkTool sharedTool]requestMethod:POST URL:@"mobileSendRegister" paraments:paraments finish:^(id responseObject, NSError *error) {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"mobileSendRegister" paraments:paraments finish:^(id responseObject, NSError *error) {
         
         if ([responseObject[@"ret"] isEqualToString:@"repeat2"])
         {
@@ -58,9 +58,9 @@
         }
     }];
 }
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField ==self.registView.passwordTextField)
+    if (textField == self.registView.passwordTextField)
     {
         NSString *text = nil;
         //如果string为空，表示删除
@@ -69,21 +69,21 @@
         }else{
             text = [textField.text substringToIndex:range.location];
         }
-        if (self.registView.nameTextField.text.length >0 && text.length >5 )
+        if (self.registView.nameTextField.text.length > 0 && text.length > 5)
         {
-            self.registBtn.userInteractionEnabled =YES;
-            self.registBtn.backgroundColor =WWColor(211, 5, 26);
+            self.registBtn.userInteractionEnabled = YES;
+            self.registBtn.backgroundColor = WWColor(211, 5, 26);
         }else
         {
-            self.registBtn.userInteractionEnabled =NO;
-            self.registBtn.backgroundColor =WWColor(192, 192, 192);
+            self.registBtn.userInteractionEnabled = NO;
+            self.registBtn.backgroundColor = WWColor(192, 192, 192);
             
         }
         
     }
     return YES;
 }
--(void)eyeImageViewClick:(UIButton *)btn
+- (void)eyeImageViewClick:(UIButton *)btn
 {
     btn.selected =!btn.selected;
     if (btn.selected ==YES)
@@ -94,7 +94,7 @@
         self.registView.passwordTextField.secureTextEntry =YES;
     }
 }
--(UIImageView *)warnImageView
+- (UIImageView *)warnImageView
 {
     if (!_warnImageView)
     {
@@ -105,7 +105,7 @@
     }
     return _warnImageView;
 }
--(UILabel *)warnLabel
+- (UILabel *)warnLabel
 {
     if (!_warnLabel)
     {
@@ -119,7 +119,7 @@
     return _warnLabel;
 }
 
--(CustomRegistView *)registView
+- (CustomRegistView *)registView
 {
     if (!_registView)
     {
@@ -136,7 +136,7 @@
     return _registView;
 }
 
--(UIButton *)registBtn
+- (UIButton *)registBtn
 {
     if (!_registBtn)
     {
@@ -154,7 +154,7 @@
     }
     return _registBtn;
 }
--(void)addLayout
+- (void)addLayout
 {
     [self.warnImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(25)+64];
     [self.warnImageView autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(59)];
@@ -175,7 +175,7 @@
     [self.registBtn autoSetDimension:ALDimensionHeight toSize:kHeightChange(85)];
     
 }
--(void)customBackBtn
+- (void)customBackBtn
 {
     UIButton *backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame =CGRectMake(0, 0, 44, 44);
@@ -186,11 +186,11 @@
     
 }
 
--(void)registBtnClick:(id)sender
+- (void)registBtnClick:(id)sender
 {
     [self registRequet];
 }
--(void)backBtnClick:(id)sender
+- (void)backBtnClick:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -198,14 +198,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

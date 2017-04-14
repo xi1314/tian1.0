@@ -19,8 +19,8 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 
-//微信SDK头文件
-#import "WXApi.h"
+//微信
+#import "WXApiManager.h"
 
 //新浪微博SDK头文件
 #import "WeiboSDK.h"
@@ -58,14 +58,31 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self jPushInit:launchOptions]; //极光推送
-    [self talkingData]; // 分析数据
-    [self firstLoad]; // 是否是第一次使用APP
-    [self shareSDK]; // 分享
-   // [PLPlayerEnv initEnv]; // 初始化播放器
-   // [PLStreamingEnv initEnv]; // 初始化推流端
-    [self checkNetworkStates]; // 网络状态的监听
-    //对键盘的处理
+    // 极光推送
+    [self jPushInit:launchOptions];
+    
+    // 分析数据
+    [self talkingData];
+    
+    // 是否是第一次使用APP
+    [self firstLoad];
+    
+    // 分享
+    [self shareSDK];
+    
+    // 微信支付
+    [WXApi registerApp:WXAPI_APPID];
+    
+    // 初始化播放器
+   // [PLPlayerEnv initEnv];
+    
+    // 初始化推流端
+   // [PLStreamingEnv initEnv];
+    
+    // 网络状态的监听
+    [self checkNetworkStates];
+    
+    // 对键盘的处理
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
     manager.enableAutoToolbar = YES;
     manager.shouldResignOnTouchOutside = YES;
@@ -145,16 +162,16 @@
     _preStatus = currentStates;
 }
 
-//自动登录
+// 自动登录
 - (void)autoLogin
 {
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"cookies"])
     {
         NSLog(@"no cookies");
         self.window.rootViewController = [[ViewController alloc]init];
-    }else
+    }
+    else
     {
-
         HomepageViewController *liveVC = [[HomepageViewController alloc]init];
         liveVC.tabBarItem.image = [UIImage imageNamed:@""];
         UINavigationController *liveNav = [[UINavigationController alloc]initWithRootViewController:liveVC];
@@ -218,8 +235,8 @@
                  
                  //微信已注册
              case SSDKPlatformTypeWechat:
-                 [appInfo SSDKSetupWeChatByAppId:@"wx23f288ae6e7e2339"
-                                       appSecret:@"e0dbe44258b82f5dfbc0d79662c8ac61"];
+                 [appInfo SSDKSetupWeChatByAppId:WXAPI_APPID
+                                       appSecret:WXAPI_APPSECRET];
                  break;
              case SSDKPlatformTypeQQ:
                  [appInfo SSDKSetupQQByAppId:@"1105742552"
@@ -315,6 +332,26 @@
     [JPUSHService handleRemoteNotification:userInfo];
 }
 
+
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+    return [self applicationBackUrlProcess:url];
+}
+
+// 封装对微信或支付宝回调的url进行分类处理
+- (BOOL)applicationBackUrlProcess:(NSURL *)url {
+    BOOL isAppLication = NO;
+    if (url == nil) {
+        return isAppLication;
+    }
+    
+    if ([url.scheme isEqualToString:WXAPI_APPID]) {
+        //微信支付回调
+        isAppLication = [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
+    
+    return isAppLication;
+}
 
 @end
 

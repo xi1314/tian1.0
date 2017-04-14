@@ -13,8 +13,8 @@
 #import "ShopDetailViewController.h"
 #import "LIvingViewController.h"
 #import <ImSDK/ImSDK.h>
-
 #import "AddressManageViewController.h"
+#import "WXApiManager.h"
 
 @interface HomepageViewController ()
 
@@ -38,6 +38,18 @@
         
         @strongify(self);
         
+        /*
+        [[WXApiManager sharedManager] weixinPay:@""
+                                    andTradeNum:@"1d4e1cfa80b04ef7bae802a2fba1661f"
+                                       andPrice:@"1"
+                                       andBlock:^{
+                                           
+                                           
+                                           
+                                       }];
+         */
+        
+        
         LIvingViewController *livingVC = [[LIvingViewController alloc] init];
         
         livingVC.topic = liveM.stream;
@@ -53,6 +65,7 @@
   
         livingVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:livingVC animated:YES];
+        
         
         /*
         AddressManageViewController *addVC = [[AddressManageViewController alloc] init];
