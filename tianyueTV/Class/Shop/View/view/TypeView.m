@@ -10,7 +10,8 @@
 #import "TypeView.h"
 
 @implementation TypeView
--(instancetype)initWithFrame:(CGRect)frame andDatasource:(NSArray *)arr :(NSString *)typename
+
+- (instancetype)initWithFrame:(CGRect)frame andDatasource:(NSArray *)arr :(NSString *)typename
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -63,13 +64,11 @@
     return self;
 }
 
--(void)touchbtn:(UIButton *)btn
+- (void)touchbtn:(UIButton *)btn
 {
-    
     if (btn.selected == NO) {
         
         self.seletIndex = (int)btn.tag-100;
-//        btn.backgroundColor = [UIColor redColor];
         btn.layer.borderColor = THEME_COLOR.CGColor;
     
     }else {
@@ -81,12 +80,6 @@
     [self.delegate btnindex:(int)btn.tag-100];
     
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 
 @end

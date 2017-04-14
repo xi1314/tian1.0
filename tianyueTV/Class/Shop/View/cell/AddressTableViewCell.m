@@ -74,14 +74,14 @@
     }
 }
 
-#pragma mark -- Button method
+#pragma mark - Button method
 - (IBAction)cellButtons_action:(UIButton *)sender {
     if (self.cellBlock) {
         self.cellBlock(sender.tag - 100,self.addressModel);
     }
 }
 
-#pragma mark -- Pravite method
+#pragma mark - Pravite method
 /**
  改变字符串颜色
  

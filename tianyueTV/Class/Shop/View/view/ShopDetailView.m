@@ -8,8 +8,8 @@
 
 #import "ShopDetailView.h"
 
-@interface ShopDetailView ()<UIScrollViewDelegate>
-
+@interface ShopDetailView ()
+<UIScrollViewDelegate>
 
 @end
 
@@ -31,7 +31,7 @@
     self.joinCarButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
 }
 
-#pragma mark -- UIScrollViewDelegate
+#pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.productScrollView.contentOffset.x >= SCREEN_WIDTH ) {
         self.leftButton.selected = NO;
@@ -42,7 +42,7 @@
     }
 }
 
-#pragma mark -- Button method
+#pragma mark - Button method
 - (IBAction)leftButton_action:(UIButton *)sender {
     if (!sender.selected) {
         [self.productScrollView setContentOffset:CGPointMake(0, 0) animated:YES];

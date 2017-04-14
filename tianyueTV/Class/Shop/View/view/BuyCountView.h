@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface BuyCountView : UIView
+
+// label
 @property(nonatomic, retain)UILabel *lb;
+
+// 数量减
 @property(nonatomic, retain)UIButton *bt_reduce;
+
+// 数量
 @property(nonatomic, retain)UILabel *tf_count;
+
+// 数量加
 @property(nonatomic, retain)UIButton *bt_add;
 @end

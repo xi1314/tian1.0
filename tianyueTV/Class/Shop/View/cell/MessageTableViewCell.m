@@ -20,6 +20,11 @@
 
 }
 
+/**
+ 刷新cell
+
+ @param model 地址model
+ */
 - (void)configCellWithModel:(MessageModel *)model {
     [self.userHeadImg setImageURL:[NSURL URLWithString:model.headUrl]];
     self.messageLabel.text = model.content;

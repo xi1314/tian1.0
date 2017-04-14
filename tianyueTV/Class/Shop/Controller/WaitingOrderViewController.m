@@ -10,15 +10,27 @@
 #import "OrderTableViewCell.h"
 #import "PayOrderView.h"
 
-@interface WaitingOrderViewController ()<UITableViewDelegate,UITableViewDataSource> {
+@interface WaitingOrderViewController ()
+<UITableViewDelegate,
+UITableViewDataSource>
+{
     NSArray *_titleArr;
-    CGFloat _payMoney;   //商品价格(不含快递)
+    CGFloat _payMoney;   // 商品价格(不含快递)
 }
+
+// 顶部视图
 @property (weak, nonatomic) IBOutlet UIView *topView;
+
+// 列表
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+// 取消按钮
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (strong, nonatomic) PayOrderView *payView;            //支付窗口
-//---footer view
+
+// 支付窗口
+@property (strong, nonatomic) PayOrderView *payView;
+
+// ---footer view
 @property (strong, nonatomic) UILabel *footerPrice;
 
 @end
@@ -33,7 +45,7 @@
 }
 
 
-#pragma mark -- init method
+#pragma mark - init method
 - (void)initilizeDatasource {
     _titleArr = @[@"订单编号",@"支付交易号",@"创建时间"];
     for (int i = 0; i < _dataArr.count; i++) {
@@ -73,7 +85,7 @@
 }
 
 
-#pragma mark -- UITableViewDelegate,UITableViewDataSource
+#pragma mark - UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return self.dataArr.count + 1;
@@ -98,7 +110,7 @@
         if (indexPath.row == self.dataArr.count) {
             OrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:expressCellIdentifier];
             if (!cell) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderTableViewCell" owner:self options:nil] objectAtIndex:1];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderTableViewCell" owner:nil options:nil] objectAtIndex:1];
             }
             return cell;
         }
@@ -163,37 +175,38 @@
 }
 
 
-#pragma mark -- Button method
-//返回
+#pragma mark - Button method
+// 返回
 - (void)respondsToBaseViewBackItem {
     self.navigationController.navigationBar.hidden = YES;
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
 }
 
-//取消订单
+// 取消订单
 - (IBAction)cancelOrderButton_action:(UIButton *)sender {
     
 }
 
 
-//立即支付
+// 立即支付
 - (IBAction)payOrderButton_action:(UIButton *)sender {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.baseMaskView];
     [self.baseMaskView addSubview:self.payView];
-//    [self maskViewAddTapGesture];
+
     [UIView animateWithDuration:0.3 animations:^{
         self.payView.frame = CGRectMake(0, SCREEN_HEIGHT-365, SCREEN_WIDTH, 365);
     }];
 }
 
-//支付弹窗button
+// 支付弹窗button
 - (void)payOrderButtons {
-    __weak typeof(self)weakSelf = self;
+    @weakify(self);
     self.payView.buttonBlock = ^(NSInteger tag){
+        @strongify(self);
         switch (tag) {
             case 0:{//关闭
-                [weakSelf hiddenBaseMaskView];
+                [self hiddenBaseMaskView];
             } break;
                 
             case 1:{//选择支付方式
@@ -201,7 +214,7 @@
             } break;
                 
             case 2:{//确认支付
-                [weakSelf requestForOrderPay];
+                [self requestForOrderPay];
             } break;
                 
             default:
@@ -218,7 +231,7 @@
     }];
 }
 
-#pragma mark -- Networking request
+#pragma mark - Networking request
 - (void)requestForOrderPay {
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.dataArr[0][@"goodsAndNum"],@"goodsAndNum",moneyStr,@"payMoney",@"112",@"addressId",@"test",@"messagedds", nil];
@@ -230,7 +243,7 @@
 }
 
 
-#pragma mark -- Getter method
+#pragma mark - Getter method
 - (UILabel *)footerPrice {
     if (!_footerPrice) {
         _footerPrice = [[UILabel alloc] init];

@@ -10,6 +10,7 @@
 #import "ShopModel.h"
 
 @implementation ChooseView
+
 @synthesize sizeView,colorView,countView,stock,stockdic,sizearr,colorarr;
 
 + (instancetype)shareInstanceTypeWithBool:(BOOL)isSuspend {
@@ -59,8 +60,8 @@
 }
 
 
-#pragma mark -- Button method
-#pragma mark-数量加减
+#pragma mark - Button method
+#pragma mark - 数量加减
 -(void)add
 {
     int count =[countView.tf_count.text intValue];
@@ -90,7 +91,16 @@
     }
 }
 
-#pragma mark -- Private method
+#pragma mark - Private method
+/**
+ 初始化数据
+
+ @param sizeArr 属性一
+ @param sizeName 属性一名称
+ @param colorArr 属性二
+ @param colorName 属性二名称
+ @param stockDic 库存字典
+ */
 -(void)initTypeViewWithSizeArr:(NSArray *)sizeArr sizeName:(NSString *)sizeName colorArr:(NSArray *)colorArr colorName:(NSString *)colorName stockDic:(NSDictionary *)stockDic
 {
     sizearr = sizeArr;
@@ -113,7 +123,7 @@
     self.mainScrollView.contentSize = CGSizeMake(self.frame.size.width, countView.frame.size.height+countView.frame.origin.y);
 }
 
-#pragma mark-typedelegete
+#pragma mark - type delegete
 -(void)btnindex:(int)tag
 {
     //通过seletIndex是否>=0来判断尺码和颜色是否被选择，－1则是未选择状态
@@ -170,7 +180,7 @@
     }
 }
 
-//恢复按钮的原始状态
+// 恢复按钮的原始状态
 -(void)resumeBtn:(NSArray *)arr :(TypeView *)view
 {
     for (int i = 0; i< arr.count; i++) {
@@ -188,7 +198,7 @@
     }
 }
 
-//根据所选的尺码或者颜色对应库存量 确定哪些按钮不可选
+// 根据所选的尺码或者颜色对应库存量 确定哪些按钮不可选
 -(void)reloadTypeBtn:(GoodStockModel *)model :(NSArray *)arr :(TypeView *)view
 {
     for (int i = 0; i<arr.count; i++) {

@@ -58,12 +58,12 @@
                     </constraints>
                 </view>
                 <button opaque="NO" tag="221" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8A-XP-N5v">
-                    <rect key="frame" x="98" y="64.5" width="247" height="35"/>
+                    <rect key="frame" x="308" y="64.5" width="37" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="Wth-KB-dvC"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="支付宝">
+                    <state key="normal" title="微信">
                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -117,7 +117,6 @@
                 <constraint firstItem="k8A-XP-N5v" firstAttribute="centerY" secondItem="Hkw-a0-Sb4" secondAttribute="centerY" id="88a-Vc-hB6"/>
                 <constraint firstItem="gL0-Ly-79O" firstAttribute="leading" secondItem="Hkw-a0-Sb4" secondAttribute="leading" id="AIb-os-a5b"/>
                 <constraint firstAttribute="trailing" secondItem="FgZ-4F-mQc" secondAttribute="trailing" id="BBg-Iy-LyJ"/>
-                <constraint firstItem="k8A-XP-N5v" firstAttribute="leading" secondItem="Hkw-a0-Sb4" secondAttribute="trailing" constant="8" id="Edh-bX-dcK"/>
                 <constraint firstItem="2kF-10-2BH" firstAttribute="centerY" secondItem="gL0-Ly-79O" secondAttribute="centerY" id="IeG-OW-7Mm"/>
                 <constraint firstAttribute="trailing" secondItem="NzX-Oc-yeY" secondAttribute="trailing" id="Qc2-0K-fpY"/>
                 <constraint firstAttribute="bottom" secondItem="9F5-Pj-Vd9" secondAttribute="bottom" constant="40" id="Rdd-yl-HSQ"/>

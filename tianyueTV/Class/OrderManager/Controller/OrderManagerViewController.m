@@ -84,6 +84,10 @@ UITextFieldDelegate>
     self.navigationController.navigationBar.hidden = NO;
 }
 
+- (void)touchBaseMaskView {
+    [self.view endEditing:YES];
+}
+
 #pragma mark - init method
 - (void)initilizeDatasource {
     [MBProgressHUD showMessage:@"加载中"];
@@ -340,10 +344,6 @@ UITextFieldDelegate>
 
 
 #pragma mark - Private method
-- (void)touchBaseMaskView {
-    [self.view endEditing:YES];
-}
-
 /**
  立即支付
 
@@ -360,8 +360,7 @@ UITextFieldDelegate>
     self.payOrderView.buttonBlock = ^(NSInteger tag) {
         @strongify(self);
         if (tag == 0) { // 关闭
-            self.payOrderView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 365);
-            [self.baseMaskView removeFromSuperview];
+            [self dismissPayViewAnimation];
         }
         if (tag == 1) { // 确认支付
             
@@ -509,6 +508,15 @@ UITextFieldDelegate>
              }
          }];
      }];
+}
+
+// 动态消失支付页面
+- (void)dismissPayViewAnimation {
+    [UIView animateWithDuration:0.3 animations:^{
+        self.payOrderView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 365);
+    } completion:^(BOOL finished) {
+        [self.baseMaskView removeFromSuperview];
+    }];
 }
 
 #pragma mark - 卖家网络请求

@@ -10,5 +10,8 @@
 #import "BaseViewController.h"
 
 @interface WaitingOrderViewController : BaseViewController
+
+// 数据
 @property (nonatomic, strong) NSArray *dataArr;
+
 @end

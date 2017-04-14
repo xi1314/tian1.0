@@ -7,19 +7,37 @@
 //
 
 #import <UIKit/UIKit.h>
+
 typedef void(^ShopButtonBlock)(NSInteger tag);
+
 @interface ShopDetailView : UIView
 
+// 点击时间
 @property (copy, nonatomic) ShopButtonBlock block;
-//@property (weak, nonatomic) IBOutlet UIImageView *headImage;            //产品头像
-@property (weak, nonatomic) IBOutlet UILabel *bannerLabel;              //广告栏label
-@property (weak, nonatomic) IBOutlet UIImageView *topImageView;         //商品展示图
-@property (weak, nonatomic) IBOutlet UIScrollView *productScrollView;   //切换scrollView
-@property (weak, nonatomic) IBOutlet UIButton *leftButton;              //左切换按钮
-@property (weak, nonatomic) IBOutlet UIButton *rightButton;             //右切换按钮
-@property (weak, nonatomic) IBOutlet UIButton *joinCarButton;           //加入购物车
-@property (weak, nonatomic) IBOutlet UIButton *payButton;               //立即购买
-@property (weak, nonatomic) IBOutlet UIButton *shoppingCar;             //购物车
+
+// 广告栏label
+@property (weak, nonatomic) IBOutlet UILabel *bannerLabel;
+
+// 商品展示图
+@property (weak, nonatomic) IBOutlet UIImageView *topImageView;
+
+// 切换scrollView
+@property (weak, nonatomic) IBOutlet UIScrollView *productScrollView;
+
+// 左切换按钮
+@property (weak, nonatomic) IBOutlet UIButton *leftButton;
+
+// 右切换按钮
+@property (weak, nonatomic) IBOutlet UIButton *rightButton;
+
+// 加入购物车
+@property (weak, nonatomic) IBOutlet UIButton *joinCarButton;
+
+// 立即购买
+@property (weak, nonatomic) IBOutlet UIButton *payButton;
+
+// 购物车
+@property (weak, nonatomic) IBOutlet UIButton *shoppingCar;
 
 
 + (instancetype)shareInstanceType;

@@ -10,9 +10,10 @@
 #import "BuyCountView.h"
 
 @implementation BuyCountView
+
 @synthesize bt_add,bt_reduce,tf_count,lb;
 
--(instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         lb = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 70, 30)];
@@ -40,12 +41,5 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

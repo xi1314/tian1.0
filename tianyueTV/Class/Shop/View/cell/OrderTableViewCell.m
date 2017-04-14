@@ -12,18 +12,12 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
 }
 
 - (void)setDataDic:(NSDictionary *)dataDic {
     _dataDic = dataDic;
-//    [self setValuesForKeysWithDictionary:dataDic];
+
     [self.goodImg sd_setImageWithURL:[NSURL URLWithString:_dataDic[@"img"]]];
     self.goodTitle.text = _dataDic[@"title"];
     self.goodSize.text = _dataDic[@"size"];

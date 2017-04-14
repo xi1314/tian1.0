@@ -30,7 +30,7 @@ static NSString *cellIndentifer = @"kMessageTableViewCell";
 }
 
 
-#pragma mark -- UITableViewDelegate,UITableViewDataSource
+#pragma mark - UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
 }
@@ -43,7 +43,7 @@ static NSString *cellIndentifer = @"kMessageTableViewCell";
 }
 
 
-#pragma mark -- Button method
+#pragma mark - Button method
 //商品详情
 - (IBAction)productDetailButton_action:(UIButton *)sender {
     if (sender.selected) {
@@ -82,7 +82,7 @@ static NSString *cellIndentifer = @"kMessageTableViewCell";
 }
 
 
-#pragma mark -- Setter method
+#pragma mark - Setter method
 - (void)setHtmlStr:(NSString *)htmlStr {
     _htmlStr = htmlStr;
     [self.webView loadHTMLString:_htmlStr baseURL:nil];
