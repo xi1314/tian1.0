@@ -18,6 +18,6 @@
 #define WXAPI_APPSECRET @"e0dbe44258b82f5dfbc0d79662c8ac61"
 // 微信支付分配的商户号
 #define WXAPI_PARTNERID @"1445456702"
-// 微信支付api秘钥
+// 微信支付api密钥
 #define WXAPI_APIMIYAO @"45a555bea497440496e5306872eb977d"
 

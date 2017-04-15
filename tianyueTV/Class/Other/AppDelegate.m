@@ -117,6 +117,7 @@
             advertisingIdentifier:nil];
 }
 
+
 // 分析数据
 - (void)talkingData
 {
@@ -125,6 +126,7 @@
     [TalkingData sessionStarted:@"542E9E10184343A0961789A4BBEB0160" withChannelId:@""];
     [TalkingDataSMS init:@"542E9E10184343A0961789A4BBEB0160" withSecretId:@""];
 }
+
 
 // 是否是第一次使用APP
 - (void)firstLoad
@@ -146,6 +148,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
+
 
 // 网络状态的监听
 - (void)checkNetworkStates
@@ -346,7 +349,7 @@
     }
     
     if ([url.scheme isEqualToString:WXAPI_APPID]) {
-        //微信支付回调
+        // 微信支付回调
         isAppLication = [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     
