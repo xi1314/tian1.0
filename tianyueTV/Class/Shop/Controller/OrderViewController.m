@@ -65,6 +65,10 @@ UITextViewDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"向左(5)"] style:UIBarButtonItemStylePlain target:self action:@selector(respondsToBaseViewBackItem)];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
     [self initilizaDataSource];
     [self initilizeUserInterface];
     NSLog(@"--- %@",self.dataArr);

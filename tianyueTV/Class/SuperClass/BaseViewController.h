@@ -18,10 +18,6 @@
  */
 - (void)addbaseMaskViewOnWindow;
 
-/**
- 返回按钮
- */
-- (void)respondsToBaseViewBackItem;
 
 /**
  点击遮罩

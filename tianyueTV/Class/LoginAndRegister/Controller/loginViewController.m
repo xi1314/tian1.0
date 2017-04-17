@@ -32,7 +32,7 @@
     [self addLayout];
 }
 
--(void)registRequet
+- (void)registRequet
 {
     // NSString *url = @"http://www.tianyue.tv/mobileSendRegister";
     // NSString *url = @"http://192.168.0.88:8081/mobileSendRegister";
@@ -58,6 +58,7 @@
         }
     }];
 }
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if (textField == self.registView.passwordTextField)
@@ -83,6 +84,7 @@
     }
     return YES;
 }
+
 - (void)eyeImageViewClick:(UIButton *)btn
 {
     btn.selected =!btn.selected;
@@ -94,6 +96,7 @@
         self.registView.passwordTextField.secureTextEntry =YES;
     }
 }
+
 - (UIImageView *)warnImageView
 {
     if (!_warnImageView)
@@ -105,6 +108,7 @@
     }
     return _warnImageView;
 }
+
 - (UILabel *)warnLabel
 {
     if (!_warnLabel)
@@ -154,6 +158,7 @@
     }
     return _registBtn;
 }
+
 - (void)addLayout
 {
     [self.warnImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(25)+64];
@@ -175,6 +180,7 @@
     [self.registBtn autoSetDimension:ALDimensionHeight toSize:kHeightChange(85)];
     
 }
+
 - (void)customBackBtn
 {
     UIButton *backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
@@ -190,13 +196,19 @@
 {
     [self registRequet];
 }
+
 - (void)backBtnClick:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 @end
+
+
+
+

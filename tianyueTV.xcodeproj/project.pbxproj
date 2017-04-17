@@ -184,6 +184,10 @@
 		CC47BC561E9B867E006B1EA2 /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */; };
 		CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */; };
 		CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47BC591E9B869E006B1EA2 /* TianyueTools.m */; };
+		CCC9F0621EA4BE4D00CA5702 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0611EA4BE4D00CA5702 /* HomeViewController.m */; };
+		CCC9F0651EA4BF5E00CA5702 /* BrandComeInView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0641EA4BF5E00CA5702 /* BrandComeInView.m */; };
+		CCC9F0681EA4BFD400CA5702 /* CarpenteroomView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0671EA4BFD400CA5702 /* CarpenteroomView.m */; };
+		CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */; };
 		CCFF7C481EA0C52C001712E4 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C441EA0C52C001712E4 /* CommonUtil.m */; };
 		CCFF7C491EA0C52C001712E4 /* NSStack.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C471EA0C52C001712E4 /* NSStack.m */; };
 		CCFF7C521EA0C580001712E4 /* DataXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C4C1EA0C580001712E4 /* DataXMLParser.m */; };
@@ -560,6 +564,14 @@
 		CC47BC551E9B867E006B1EA2 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		CC47BC581E9B869E006B1EA2 /* TianyueTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TianyueTools.h; sourceTree = "<group>"; };
 		CC47BC591E9B869E006B1EA2 /* TianyueTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TianyueTools.m; sourceTree = "<group>"; };
+		CCC9F0601EA4BE4D00CA5702 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		CCC9F0611EA4BE4D00CA5702 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		CCC9F0631EA4BF5E00CA5702 /* BrandComeInView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandComeInView.h; sourceTree = "<group>"; };
+		CCC9F0641EA4BF5E00CA5702 /* BrandComeInView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandComeInView.m; sourceTree = "<group>"; };
+		CCC9F0661EA4BFD400CA5702 /* CarpenteroomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarpenteroomView.h; sourceTree = "<group>"; };
+		CCC9F0671EA4BFD400CA5702 /* CarpenteroomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarpenteroomView.m; sourceTree = "<group>"; };
+		CCC9F0691EA4C11B00CA5702 /* HomeTianyueCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTianyueCategoryView.h; sourceTree = "<group>"; };
+		CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTianyueCategoryView.m; sourceTree = "<group>"; };
 		CCFF7C431EA0C52C001712E4 /* CommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtil.h; sourceTree = "<group>"; };
 		CCFF7C441EA0C52C001712E4 /* CommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtil.m; sourceTree = "<group>"; };
 		CCFF7C461EA0C52C001712E4 /* NSStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStack.h; sourceTree = "<group>"; };
@@ -791,6 +803,8 @@
 				046879491E88BDF0004A5EE3 /* HomepageViewController.m */,
 				0468794A1E88BDF0004A5EE3 /* RecommendedViewController.h */,
 				0468794B1E88BDF0004A5EE3 /* RecommendedViewController.m */,
+				CCC9F0601EA4BE4D00CA5702 /* HomeViewController.h */,
+				CCC9F0611EA4BE4D00CA5702 /* HomeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -850,6 +864,12 @@
 			children = (
 				0468795E1E88BDF0004A5EE3 /* MainTopView.h */,
 				0468795F1E88BDF0004A5EE3 /* MainTopView.m */,
+				CCC9F0631EA4BF5E00CA5702 /* BrandComeInView.h */,
+				CCC9F0641EA4BF5E00CA5702 /* BrandComeInView.m */,
+				CCC9F0661EA4BFD400CA5702 /* CarpenteroomView.h */,
+				CCC9F0671EA4BFD400CA5702 /* CarpenteroomView.m */,
+				CCC9F0691EA4C11B00CA5702 /* HomeTianyueCategoryView.h */,
+				CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2249,10 +2269,12 @@
 				04687AC81E88BDF0004A5EE3 /* WWGuanliSecondViewController.m in Sources */,
 				04687AB71E88BDF0004A5EE3 /* CustomRegistView.m in Sources */,
 				04687A991E88BDF0004A5EE3 /* MoreBtn.m in Sources */,
+				CCC9F0651EA4BF5E00CA5702 /* BrandComeInView.m in Sources */,
 				04687AA71E88BDF0004A5EE3 /* GiftCollectionViewCell.m in Sources */,
 				04687AA81E88BDF0004A5EE3 /* BottomView.m in Sources */,
 				04687AC21E88BDF0004A5EE3 /* WWResultingViewController.m in Sources */,
 				04687ABB1E88BDF0004A5EE3 /* WWSaveView.m in Sources */,
+				CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */,
 				04687AB21E88BDF0004A5EE3 /* ForgetPasswordViewController.m in Sources */,
 				CCFF7C491EA0C52C001712E4 /* NSStack.m in Sources */,
 				04687ADE1E88BDF0004A5EE3 /* WWMyViewButton.m in Sources */,
@@ -2320,6 +2342,7 @@
 				04687AA51E88BDF0004A5EE3 /* GiftBtn.m in Sources */,
 				04687AEC1E88BDF0004A5EE3 /* OrderHandle.m in Sources */,
 				04687AE11E88BDF0004A5EE3 /* WWMineThirdView.m in Sources */,
+				CCC9F0681EA4BFD400CA5702 /* CarpenteroomView.m in Sources */,
 				04687AF81E88BDF0004A5EE3 /* SearchViewController.m in Sources */,
 				0468791E1E88B2A1004A5EE3 /* XHSegmentItem.m in Sources */,
 				046878EE1E88AA06004A5EE3 /* NetWorkTool.m in Sources */,
@@ -2333,6 +2356,7 @@
 				987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */,
 				04687A921E88BDF0004A5EE3 /* BannerViewController.m in Sources */,
 				04687AC61E88BDF0004A5EE3 /* WWCustomPressView.m in Sources */,
+				CCC9F0621EA4BE4D00CA5702 /* HomeViewController.m in Sources */,
 				0468792F1E88B71C004A5EE3 /* GiftModel.m in Sources */,
 				04687AFD1E88BDF0004A5EE3 /* OrderViewController.m in Sources */,
 				0468790C1E88AB83004A5EE3 /* ZQFCycleView.m in Sources */,

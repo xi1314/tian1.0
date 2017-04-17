@@ -35,7 +35,8 @@
 #import "TalkingData.h"
 #import "TalkingDataSMS.h"
 
-#import "HomepageViewController.h"
+//#import "HomepageViewController.h"
+#import "HomeViewController.h"
 #import "TabbarViewController.h"
 
 // 极光推送
@@ -175,12 +176,23 @@
     }
     else
     {
+        
+        /*
         HomepageViewController *liveVC = [[HomepageViewController alloc]init];
         liveVC.tabBarItem.image = [UIImage imageNamed:@""];
         UINavigationController *liveNav = [[UINavigationController alloc]initWithRootViewController:liveVC];
         liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
         liveNav.title = @"直播";
+        */
+         
         
+        HomeViewController *liveVC = [[HomeViewController alloc] init];
+        liveVC.tabBarItem.image = [UIImage imageNamed:@""];
+        UINavigationController *liveNav = [[UINavigationController alloc] initWithRootViewController:liveVC];
+        liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
+        liveNav.title = @"直播";
+        
+         
         MineViewController *mineVC = [[MineViewController alloc]init];
         UINavigationController *mineNav = [[UINavigationController alloc]initWithRootViewController:mineVC];
         mineNav.tabBarItem.image = [UIImage imageNamed:@"我的"];

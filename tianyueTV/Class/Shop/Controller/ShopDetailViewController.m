@@ -48,6 +48,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.goodID = @"117";
     _isSuspend = NO;
     _isCar = NO;

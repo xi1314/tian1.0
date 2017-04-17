@@ -20,13 +20,6 @@
     self.navigationController.navigationBar.barTintColor = WWColor(248, 248, 248);
     self.navigationController.navigationBar.tintColor = WWColor(51, 51, 51);
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:WWColor(51, 51, 51),NSFontAttributeName:[UIFont systemFontOfSize:18]};
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"向左(5)"] style:UIBarButtonItemStylePlain target:self action:@selector(respondsToBaseViewBackItem)];
-    self.navigationItem.leftBarButtonItem = backItem;
-}
-
-
-- (void)respondsToBaseViewBackItem {
-    
 }
 
 #pragma mark -- Private method

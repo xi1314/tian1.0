@@ -11,9 +11,9 @@
 #import "LIvingViewController.h"
 #import "LiveModel.h"
 
-@interface SearchResultViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
-
-
+@interface SearchResultViewController ()
+<UICollectionViewDelegate,
+UICollectionViewDataSource>
 
 @end
 
@@ -31,7 +31,8 @@
     [self collcetionView];
     [self.collcetionView reloadData];
 }
--(UICollectionView *)collcetionView
+
+- (UICollectionView *)collcetionView
 {
     if (!_collcetionView)
     {
@@ -50,12 +51,14 @@
     }
     return _collcetionView;
 }
+
 #pragma mark  ----CollectionViewDataSource
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.results.count;
 }
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier =@"cell";
     MainCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -68,8 +71,9 @@
     
     return cell;
 }
+
 #pragma mark  ----CollectionViewDelegate
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     LIvingViewController *livingVC =[[LIvingViewController alloc]init];
     LiveModel *model =self.results[indexPath.row];
@@ -86,7 +90,8 @@
     UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:livingVC];
     [self presentViewController:nav animated:YES completion:nil];
 }
--(void)customBackBtn
+
+- (void)customBackBtn
 {
     UIButton *backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame =CGRectMake(0, 0, 44, 44);
@@ -96,23 +101,19 @@
     self.navigationItem.leftBarButtonItem =backItem;
     
 }
--(void)backBtnClick:(id)sender
+
+- (void)backBtnClick:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
+
+
+

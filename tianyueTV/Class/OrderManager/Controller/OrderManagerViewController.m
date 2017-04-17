@@ -72,6 +72,10 @@ UITextFieldDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"向左(5)"] style:UIBarButtonItemStylePlain target:self action:@selector(respondsToBaseViewBackItem)];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
     _indexPage = 1;
     _nowButton = (UIButton *)[self.view viewWithTag:230];
     [self initilizeDatasource];
@@ -999,3 +1003,7 @@ UITextFieldDelegate>
 }
 
 @end
+
+
+
+

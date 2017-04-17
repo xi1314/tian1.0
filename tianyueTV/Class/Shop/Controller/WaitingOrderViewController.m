@@ -39,6 +39,10 @@ UITableViewDataSource>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"向左(5)"] style:UIBarButtonItemStylePlain target:self action:@selector(respondsToBaseViewBackItem)];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
     [self initilizeDatasource];
     [self initilizeUserInterface];
     [self payOrderButtons];
