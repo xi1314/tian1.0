@@ -338,7 +338,10 @@ UITextFieldDelegate>
                 [self.baseMaskView removeAllSubviews];
                 [self.baseMaskView removeFromSuperview];
             } rightHandle:^(UIButton *button) {
-                
+                @strongify(self);
+                [OrderHandle requestForComfirmRefoundWithUser:USER_ID OrderID:goodsInfoModel.order_id refundAmount:goodsInfoModel.goodsPrice completeBlock:^(id respondsObject, NSError *error) {
+//                    NSLog(@"refound %@",respondsObject);
+                }];
             }];
             [self.baseMaskView addSubview:self.alertView];
         } else if (tag == 2) { // 申请纠纷

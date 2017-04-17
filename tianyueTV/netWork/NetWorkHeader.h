@@ -66,6 +66,6 @@
 // 取消收藏
 #define api_Collection_delete @"Collection_delete"
 
-
-
+// 卖家同意退款
+#define api_confirmRefund @"confirmRefund"
 

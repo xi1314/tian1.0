@@ -141,6 +141,18 @@
 + (void)requestForRefoundWithOrderSn:(NSString *)orderSn
                        completeBlock:(HandlerBlock)completeBlock;
 
+/**
+ 卖家确认退款
+ 
+ @param user 卖家id
+ @param orderID 订单id
+ @param completeBlock 返回值
+ */
++ (void)requestForComfirmRefoundWithUser:(NSString *)user
+                                 OrderID:(NSString *)orderID
+                            refundAmount:(NSString *)refundAmount
+                           completeBlock:(HandlerBlock)completeBlock;
+
 
 @end
 
