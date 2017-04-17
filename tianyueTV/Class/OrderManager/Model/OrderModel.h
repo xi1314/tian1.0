@@ -79,7 +79,7 @@
  */
 @interface GoodsInfoModel : NSObject
 
-// 点单编号
+// 订单编号
 @property (nonatomic, copy) NSString *orderInfoSn;
 
 // 尾款
@@ -149,6 +149,9 @@
 
 // cell高度
 @property (nonatomic, assign) float cellHeight;
+
+// 订单付款编号
+@property (nonatomic, copy) NSString *orderSn;
 
 @end
 

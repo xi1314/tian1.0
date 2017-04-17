@@ -54,6 +54,7 @@
                 }
                 
                 strMsg = @"支付结果：成功！";
+                [MBProgressHUD showSuccess:@"支付成功"];
             }
 //                strMsg = @"支付结果：成功！";
 //                NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
@@ -63,6 +64,7 @@
             default:
 //                strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
                 strMsg = @"支付结果：失败！";
+                [MBProgressHUD showError:@"支付失败"];
                 break;
         }
         

@@ -15,6 +15,7 @@
 #import "OrderHandle.h"
 #import "OrderModel.h"
 #import "PayOrderView.h"
+#import "WXApiManager.h"
 
 @interface OrderManagerViewController ()
 <UITableViewDelegate,
@@ -269,9 +270,9 @@ UITextFieldDelegate>
              // 立即支付
             if (pay == 0) {
                 NSString *price = [NSString stringWithFormat:@"%.2f",[goodsInfoModel.goodsPrice floatValue]*[goodsInfoModel.goodsNum floatValue]];
-                [self showPayOrderViewAnmation:price];
+                [self showPayOrderViewAnmation:price index:index];
             } else {
-                [self showPayOrderViewAnmation:goodsInfoModel.retainage];
+                [self showPayOrderViewAnmation:goodsInfoModel.retainage index:index];
             }
         }
     } else if (order == 1 && shop == 0 && pay == 2) { // 待发货
@@ -349,7 +350,7 @@ UITextFieldDelegate>
 
  @param price 价格
  */
-- (void)showPayOrderViewAnmation:(NSString *)price {
+- (void)showPayOrderViewAnmation:(NSString *)price index:(int)index {
     [self.window addSubview:self.baseMaskView];
     self.payOrderView.priceString = price;
     [self.baseMaskView addSubview:self.payOrderView];
@@ -362,8 +363,20 @@ UITextFieldDelegate>
         if (tag == 0) { // 关闭
             [self dismissPayViewAnimation];
         }
-        if (tag == 1) { // 确认支付
+        if (tag == 2) { // 确认支付
+            OrderSnModel *snModel = self.datasource[index];
+            GoodsInfoModel *goodModle = snModel.goodsList[0];
+            int priceFl = [price floatValue] * 100;
+            NSString *WXPrice = [NSString stringWithFormat:@"%d",priceFl];
+            NSLog(@"orderSn %@, price %@",goodModle.orderSn,WXPrice);
+            [[WXApiManager sharedManager] weixinPay:@"支付测试"
+                                        andTradeNum:goodModle.orderSn
+                                           andPrice:WXPrice
+                                           andBlock:^{
+                                               // 支付成功
+                                               [self dismissPayViewAnimation];
             
+                                           }];
         }
     };
 }
@@ -542,7 +555,7 @@ UITextFieldDelegate>
             OrderModel *orderM = (OrderModel *)respondsObject;
             // 设置角标
             NSArray *badgeArr = @[orderM.waitPayCount,orderM.waitDeliverCount,orderM.waitTakeDeliverCount,orderM.refundCount];
-            NSLog(@"badgeArr %@",badgeArr);
+//            NSLog(@"badgeArr %@",badgeArr);
             for (int i = 0; i < 4; i++) {
                 UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
                 [button removeBadgeValue];
@@ -612,7 +625,7 @@ UITextFieldDelegate>
             }
             // 设置角标
             NSArray *badgeArr = @[oM.waitPayCount,oM.waitDeliverCount,oM.waitTakeDeliverCount,oM.refundCount];
-            NSLog(@"badgeArr %@",badgeArr);
+//            NSLog(@"badgeArr %@",badgeArr);
             for (int i = 0; i < 4; i++) {
                 UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
                 [button removeBadgeValue];
@@ -750,7 +763,7 @@ UITextFieldDelegate>
             }
             // 设置角标
             NSArray *badgeArr = @[orderM.waitPayCount,orderM.waitDeliverCount,orderM.waitTakeDeliverCount,orderM.refundCount];
-            NSLog(@"badgeArr %@",badgeArr);
+//            NSLog(@"badgeArr %@",badgeArr);
             for (int i = 0; i < 4; i++) {
                 UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
                 [button removeBadgeValue];
@@ -818,7 +831,7 @@ UITextFieldDelegate>
             
             // 设置角标
             NSArray *badgeArr = @[oM.waitPayCount,oM.waitDeliverCount,oM.waitTakeDeliverCount,oM.refundCount];
-            NSLog(@"badgeArr %@",badgeArr);
+//            NSLog(@"badgeArr %@",badgeArr);
             for (int i = 0; i < 4; i++) {
                 UIButton *button = (UIButton *)[self.view viewWithTag:231+i];
                 [button removeBadgeValue];
