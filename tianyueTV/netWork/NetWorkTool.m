@@ -11,6 +11,12 @@
 
 @implementation NetWorkTool
 
+
+/**
+ 单例
+ 
+ @return 单例对象
+ */
 + (instancetype)sharedTool
 {
     static NetWorkTool *tool;
@@ -25,6 +31,12 @@
     return tool;
 }
 
+
+/**
+ 网络状态判断
+ 
+ @return 网络状态
+ */
 + (NetworkStates)getNetworkStatus
 {
     NSArray *subviews =[[[[UIApplication sharedApplication]valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
@@ -68,7 +80,15 @@
     return status;
 }
 
-//此处的URL只用传斜杠后面的地址名
+
+/**
+ 请求网络
+ 
+ @param method 请求方式
+ @param url 请求url（未添加域名的地址）
+ @param paraments 请求参数
+ @param finished 请求完成回调
+ */
 - (void)requestMethod:(requestMthod)method URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished
 {
     
@@ -95,7 +115,16 @@
     }
 }
 
-//请求网络
+
+/**
+ 请求网络
+ 
+ @param method 请求方式
+ @param server 域名地址
+ @param url 请求url（未添加域名的地址）
+ @param paraments 请求参数
+ @param finished 请求完成回调
+ */
 - (void)requestMethod:(requestMthod)method serverAddress:(NSString *)server URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished
 {
     
