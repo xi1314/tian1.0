@@ -89,11 +89,11 @@
  
  @param orderSn 订单编号
  @param tomato 1买家取消 2卖家取消
- @param completeVlock 返回值
+ @param completeBlock 返回值
  */
 + (void)requestForDeleteOrderWithOrderSn:(NSString *)orderSn
                                   tomato:(NSString *)tomato
-                           completeBlock:(HandlerBlock)completeVlock;
+                           completeBlock:(HandlerBlock)completeBlock;
 
 
 /**

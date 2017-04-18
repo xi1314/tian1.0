@@ -35,7 +35,7 @@
 #import "TalkingData.h"
 #import "TalkingDataSMS.h"
 
-//#import "HomepageViewController.h"
+#import "HomepageViewController.h"
 #import "HomeViewController.h"
 #import "TabbarViewController.h"
 

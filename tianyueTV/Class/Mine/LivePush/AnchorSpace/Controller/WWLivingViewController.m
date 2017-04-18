@@ -514,6 +514,7 @@
     _txLivePush = [[TXLivePush alloc] initWithConfig: _config];
     //开启硬件编码
     _txLivePush.config.enableHWAcceleration = YES;
+    
     //美颜滤镜
     [_txLivePush setBeautyFilterDepth:7 setWhiteningFilterDepth:3];
     _txLivePush.delegate = self;
@@ -529,7 +530,7 @@
 //开始直播
 -(BOOL)startRtmp{
     //启动推流
-    self.pushUrl = @"rtmp://7526.livepush.myqcloud.com/live/7526_133558?bizid=7526&txSecret=482eff8be5b1b66f529f418856eac624&txTime=58B992FF";
+    self.pushUrl = @"rtmp://7526.livepush.myqcloud.com/live/7526_10339ty?bizid=7526&txSecret=ccf158deaf23276fac89e8cecd9e9b6b&txTime=591DC4FF";
     
     if (self.pushUrl.length == 0) {
         //        [self toastTip:@"无推流地址，请重新登录后重试!"];
