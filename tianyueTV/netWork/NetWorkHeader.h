@@ -8,6 +8,9 @@
 
 //本地服务器地址
 #define SERVERADDRESS  @"http://192.168.0.88:8080/"
+//服务器地址
+#define TIANYUESERVERADDRESS  @"http://www.tianyue.tv/"
+
 
 //我的订单（卖家）
 #define api_orderInfo_app  @"orderInfo_app"
@@ -66,6 +69,8 @@
 // 取消收藏
 #define api_Collection_delete @"Collection_delete"
 
+//我的直播间
+#define api_Broadcast_app @"broadcast_app"
 
 
 

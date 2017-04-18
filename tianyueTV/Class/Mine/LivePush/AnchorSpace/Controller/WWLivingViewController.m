@@ -11,7 +11,7 @@
 #import "BarrageHeader.h"
 #import "WWSettingViewController.h"
 
-
+#import "AnchorSpaceModel.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -21,6 +21,7 @@
 #import "WWChatRoomView.h"
 #import "AppDelegate.h"
 #import "MBProgressHUD+MJ.h"
+#import "AnchorSpaceHandle.h"
 
 //礼物动画
 #import "PresentView.h"
@@ -125,7 +126,9 @@
     
     self.view.backgroundColor = [UIColor lightGrayColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
     [self netWorkRequestGet];
+    
     // 预先设定几组编码质量，之后可以切换
     CGSize videoSize = CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
     //    CGSize videoSize = CGSizeMake(800,480);
@@ -165,29 +168,29 @@
 }
 
 //进入程序
-- (void)onAppWillEnterForeground:(UIApplication *)app{
+- (void)onAppWillEnterForeground:(UIApplication *)app {
     [_txLivePush resumePush];
 }
 
 
-- (void)dealloc{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
 #pragma mark ----TXLivePushListener-----
--(void) onPushEvent:(int)EvtID withParam:(NSDictionary*)param {
+- (void)onPushEvent:(int)EvtID withParam:(NSDictionary*)param {
     
 }
 
--(void) onNetStatus:(NSDictionary*) param {
+- (void)onNetStatus:(NSDictionary*) param {
     
 }
 
 
 
 #pragma mark ----腾讯云聊天相关----
-- (void)setupChatRoom{
+- (void)setupChatRoom {
     _messageImManager = [TIMManager sharedInstance];
     [_messageImManager setMessageListener:self];//设置消息回调
     [_messageImManager setRefreshListener:self];
@@ -197,7 +200,7 @@
     [[TIMManager sharedInstance] setUserStatusListener:self];
 }
 
-- (void)dengluchengg{
+- (void)dengluchengg {
     __weak typeof(self) weakSelf = self;
     [[TIMGroupManager sharedInstance] JoinGroup:self.GroupId msg:nil succ:^{
         NSLog(@"加入成功");
@@ -527,9 +530,11 @@
 
 
 //开始直播
--(BOOL)startRtmp{
+- (BOOL)startRtmp{
     //启动推流
-    self.pushUrl = @"rtmp://7526.livepush.myqcloud.com/live/7526_133558?bizid=7526&txSecret=482eff8be5b1b66f529f418856eac624&txTime=58B992FF";
+//    self.pushUrl = @"rtmp://7526.livepush.myqcloud.com/live/7526_133558?bizid=7526&txSecret=482eff8be5b1b66f529f418856eac624&txTime=58B992FF";
+    
+//    self.pushUrl = @"rtmp://7526.livepush.myqcloud.com/live/7526_10339ty?bizid=7526&txSecret=ccf158deaf23276fac89e8cecd9e9b6b&txTime=591DC4FF";
     
     if (self.pushUrl.length == 0) {
         //        [self toastTip:@"无推流地址，请重新登录后重试!"];
@@ -608,36 +613,43 @@
 
 #pragma mark ----网络请求----
 - (void)netWorkRequestGet{
-    //    NSString *url = @"http://www.tianyue.tv/broadcast_app";
-    //    NSMutableDictionary *param = [[NSMutableDictionary alloc] init];
-    //    param[@"userId"] = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
-    //    [MBProgressHUD showMessage:nil];
-    //    [[NetWorkTool sharedTool] requestMethod:POST URL:url paraments:param finish:^(id responseObject, NSError *error) {
-    //        NSLog(@"%@_______________________________%@",responseObject,error);
-    //        if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-    //            [MBProgressHUD hideHUD];
-    //            NSString *messageString = responseObject[@"broadcast"][0][@"keyWord"];
-    //            if (messageString.length != 0) {
-    //
-    //                NSArray *arr = [messageString componentsSeparatedByString:@"_"];
-    //                self.biaoqiansArrays = [arr mutableCopy];
-    //
-    //            }
-    //            self.titleLabelW.text = responseObject[@"broadcast"][0][@"name"];
-    //            self.roomInafos = responseObject[@"broadcast"][0];
-    //            self.pushUrl = self.roomInafos[@"ql_playAddress"];
-    //            NSLog(@"%@",self.pushUrl);
-    ////            self.onlineNum = self.roomInafos[@"onlineNum"];
-    ////            self.focusNum = self.roomInafos[@"focusNum"];
-    //            self.topicID = self.roomInafos[@"uid"];
-    //
-    //            self.numWatchLabel.text = [NSString stringWithFormat:@"%@",self.roomInafos[@"onlineNum"]];
-    //            self.numGuanzhuLabel.text = [NSString stringWithFormat:@"%@",self.roomInafos[@"focusNum"]];
-    //             [self chatRoom];
-    //        }else{
-    //            [MBProgressHUD showError:@"网路出错"];
-    //        }
-    //    }];
+    
+    NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
+    
+    [MBProgressHUD showMessage:nil];
+    
+    [AnchorSpaceHandle requestForBroadcastAppWithUser:userID completeBlock:^(id respondsObject, NSError *error) {
+        
+        [MBProgressHUD hideHUD];
+        
+        if (respondsObject) {
+            AnchorSpaceModel *model = (AnchorSpaceModel *)respondsObject;
+            if (model.broadcast.count) {
+                BroadCastModel *broadCM = model.broadcast[0];
+                
+                NSString *messageString = broadCM.keyWord;
+                if (messageString.length != 0) {
+                    
+                    NSArray *arr = [messageString componentsSeparatedByString:@"_"];
+                    self.biaoqiansArrays = [arr mutableCopy];
+                    
+                }
+                self.titleLabelW.text = broadCM.name;
+                // self.roomInafos = responseObject[@"broadcast"][0];
+                self.pushUrl = broadCM.ql_playAddress;
+      
+                self.topicID = broadCM.uid;
+                
+                self.numWatchLabel.text = [NSString stringWithFormat:@"%@", broadCM.onlineNum];
+                self.numGuanzhuLabel.text = [NSString stringWithFormat:@"%@", broadCM.focusNum];
+                // [self chatRoom];
+                
+            }
+        }else {
+            [MBProgressHUD showError:@"网路出错"];
+        }
+
+    }];
 }
 
 
@@ -646,8 +658,9 @@
     NSMutableDictionary *param = [[NSMutableDictionary alloc] init];
     param[@"uid"] = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
     param[@"zid"] = @"1";
+
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"mobileLivebutton" paraments:param finish:^(id responseObject, NSError *error) {
-        NSLog(@"responseObject:%@",responseObject);
+        NSLog(@"responseObject_open : %@", responseObject);
     }];
 }
 
@@ -657,7 +670,7 @@
     param[@"uid"] = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
     param[@"zid"] = @"0";
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"mobileLivebutton" paraments:param finish:^(id responseObject, NSError *error) {
-        NSLog(@"responseObject:%@",responseObject);
+        NSLog(@"responseObject_close : %@", responseObject);
     }];
 }
 

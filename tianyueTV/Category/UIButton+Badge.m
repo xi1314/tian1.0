@@ -131,7 +131,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 #pragma mark - getters/setters
--(UILabel*) badge {
+- (UILabel*) badge {
     return objc_getAssociatedObject(self, &UIButton_badgeKey);
 }
 -(void)setBadge:(UILabel *)badgeLabel
@@ -140,11 +140,11 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 // Badge value to be display
--(NSString *)badgeValue {
+- (NSString *)badgeValue {
     return objc_getAssociatedObject(self, &UIButton_badgeValueKey);
 }
 
--(void) setBadgeValue:(NSString *)badgeValue
+- (void) setBadgeValue:(NSString *)badgeValue
 {
     objc_setAssociatedObject(self, &UIButton_badgeValueKey, badgeValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
@@ -167,10 +167,11 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 // Badge background color
--(UIColor *)badgeBGColor {
+- (UIColor *)badgeBGColor {
     return objc_getAssociatedObject(self, &UIButton_badgeBGColorKey);
 }
--(void)setBadgeBGColor:(UIColor *)badgeBGColor
+
+- (void)setBadgeBGColor:(UIColor *)badgeBGColor
 {
     objc_setAssociatedObject(self, &UIButton_badgeBGColorKey, badgeBGColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (self.badge) {
@@ -179,11 +180,11 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 // Badge text color
--(UIColor *)badgeTextColor {
+- (UIColor *)badgeTextColor {
     return objc_getAssociatedObject(self, &UIButton_badgeTextColorKey);
 }
 
--(void)setBadgeTextColor:(UIColor *)badgeTextColor {
+- (void)setBadgeTextColor:(UIColor *)badgeTextColor {
     objc_setAssociatedObject(self, &UIButton_badgeTextColorKey, badgeTextColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (self.badge) {
         [self refreshBadge];
@@ -191,7 +192,7 @@ NSString const *UIButton_badgeValueKey = @"UIButton_badgeValueKey";
 }
 
 // Badge font
--(UIFont *)badgeFont {
+- (UIFont *)badgeFont {
     return objc_getAssociatedObject(self, &UIButton_badgeFontKey);
 }
 

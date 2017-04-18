@@ -73,7 +73,7 @@ UICollectionViewDataSource>
         [self.mainTableView.mj_header endRefreshing];
         [self.mainTableView.mj_footer endRefreshing];
         
-        NSLog(@"---responseObject---%@-----%@----", responseObject, error);
+        NSLog(@"responseObject---%@---%@", responseObject, error);
         NSArray *data = responseObject[@"dataList"];
         self.infoArray = [NSMutableArray array];
         [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -81,7 +81,7 @@ UICollectionViewDataSource>
             LiveModel *model = [[LiveModel alloc] initWithDictionary:obj];
             [self.infoArray addObject:model];
         }];
-        NSLog(@"--dataList--%@----", self.infoArray);
+        NSLog(@"dataList--%@", self.infoArray);
         [self.mainTableView reloadData];
     }];
 }

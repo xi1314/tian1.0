@@ -25,8 +25,16 @@ typedef void(^callBackBlock)(id responseObject ,NSError* error);
 
 @interface NetWorkTool : AFHTTPSessionManager
 
-+(instancetype)sharedTool;
--(void)requestMethod:(requestMthod)method URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished;
++ (instancetype)sharedTool;
 
-+(NetworkStates)getNetworkStatus;
++ (NetworkStates)getNetworkStatus;
+
+// 此处的URL只用传斜杠后面的地址名
+- (void)requestMethod:(requestMthod)method URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished;
+
+// 请求网络
+- (void)requestMethod:(requestMthod)method serverAddress:(NSString *)server URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished;
+
+
+
 @end

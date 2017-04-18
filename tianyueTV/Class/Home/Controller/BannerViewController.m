@@ -21,7 +21,7 @@
     
     [self customBackBtn];
     
-    UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.frame];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.uil]];
     
@@ -54,3 +54,6 @@
 
 
 @end
+
+
+

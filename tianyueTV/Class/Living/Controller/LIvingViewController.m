@@ -123,6 +123,7 @@
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets =NO;
     
+    /*
     //手机
     if ([self.isPushPOM isEqualToString:@"1"])
     {
@@ -131,6 +132,9 @@
     {
         self.flvUrl =self.playAddress;
     }
+    */
+     
+    self.flvUrl = self.ql_push_flow;
     
     [self addLayout];
     
@@ -257,7 +261,10 @@
 //    frame 参数被废弃，画面区域的大小改成了时刻铺满您传入的view
     [self.livePlayer setupVideoWidget:CGRectMake(0, 0, 0, 0) containView:self.livingView insertIndex:0];
 //    self.flvUrl = @"rtmp://live.hkstv.hk.lxdns.com/live/hks";
-//    [self.livePlayer startPlay:self.flvUrl type:PLAY_TYPE_LIVE_RTMP];
+    
+//    self.flvUrl = @"rtmp://7526.liveplay.myqcloud.com/live/7526_10339ty";
+    
+    [self.livePlayer startPlay:self.flvUrl type:PLAY_TYPE_LIVE_RTMP];
 }
 
 //添加进度轮
@@ -382,7 +389,7 @@
     return _grp_conversation;
 }
 
--(livingView *)livingView
+- (livingView *)livingView
 {
     if (!_livingView)
     {
@@ -400,7 +407,7 @@
     return _livingView;
 }
 
--(HostInfoView *)hostInfoView
+- (HostInfoView *)hostInfoView
 {
     if (!_hostInfoView)
     {
@@ -418,7 +425,7 @@
     return _hostInfoView;
 }
 
--(UITableView *)chatTableView
+- (UITableView *)chatTableView
 {
     if (!_chatTableView)
     {

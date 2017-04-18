@@ -193,6 +193,8 @@
 		CCFF7C521EA0C580001712E4 /* DataXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C4C1EA0C580001712E4 /* DataXMLParser.m */; };
 		CCFF7C531EA0C580001712E4 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */; };
 		CCFF7C541EA0C580001712E4 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */; };
+		CCFF7DFE1EA60D4F003C420E /* AnchorSpaceHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7DFD1EA60D4F003C420E /* AnchorSpaceHandle.m */; };
+		CCFF7E011EA61315003C420E /* AnchorSpaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7E001EA61315003C420E /* AnchorSpaceModel.m */; };
 		EF8A61C61D2F0782479BAC3F /* libPods-tianyueTV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */; };
 		FF0110C31DAB26D6003146A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0110C21DAB26D6003146A7 /* main.m */; };
 		FF0110CC1DAB26D6003146A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF0110CA1DAB26D6003146A7 /* Main.storyboard */; };
@@ -583,6 +585,10 @@
 		CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		CCFF7C501EA0C580001712E4 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
 		CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiRequestHandler.m; sourceTree = "<group>"; };
+		CCFF7DFC1EA60D4F003C420E /* AnchorSpaceHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorSpaceHandle.h; sourceTree = "<group>"; };
+		CCFF7DFD1EA60D4F003C420E /* AnchorSpaceHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorSpaceHandle.m; sourceTree = "<group>"; };
+		CCFF7DFF1EA61315003C420E /* AnchorSpaceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorSpaceModel.h; sourceTree = "<group>"; };
+		CCFF7E001EA61315003C420E /* AnchorSpaceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorSpaceModel.m; sourceTree = "<group>"; };
 		D73901487324F69E14ABE92B /* Pods-tianyueTVTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tianyueTVTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tianyueTVTests/Pods-tianyueTVTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0110BE1DAB26D6003146A7 /* tianyueTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tianyueTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF0110C21DAB26D6003146A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1206,8 +1212,9 @@
 		046879E01E88BDF0004A5EE3 /* AnchorSpace */ = {
 			isa = PBXGroup;
 			children = (
+				CCFF7DFB1EA60D31003C420E /* Handler */,
+				CCFF7DF91EA60D03003C420E /* Model */,
 				046879E11E88BDF0004A5EE3 /* Controller */,
-				046879E61E88BDF0004A5EE3 /* Model */,
 				046879E71E88BDF0004A5EE3 /* View */,
 			);
 			path = AnchorSpace;
@@ -1222,13 +1229,6 @@
 				046879E51E88BDF0004A5EE3 /* WWLivingViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		046879E61E88BDF0004A5EE3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		046879E71E88BDF0004A5EE3 /* View */ = {
@@ -1247,8 +1247,8 @@
 		046879EE1E88BDF0004A5EE3 /* LivingSet */ = {
 			isa = PBXGroup;
 			children = (
+				CCFF7DFA1EA60D1C003C420E /* Model */,
 				046879EF1E88BDF0004A5EE3 /* Controller */,
-				046879F41E88BDF0004A5EE3 /* Model */,
 				046879F51E88BDF0004A5EE3 /* View */,
 			);
 			path = LivingSet;
@@ -1263,13 +1263,6 @@
 				046879F31E88BDF0004A5EE3 /* WWSettingViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		046879F41E88BDF0004A5EE3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		046879F51E88BDF0004A5EE3 /* View */ = {
@@ -1881,6 +1874,31 @@
 			path = WXApiManager;
 			sourceTree = "<group>";
 		};
+		CCFF7DF91EA60D03003C420E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CCFF7DFF1EA61315003C420E /* AnchorSpaceModel.h */,
+				CCFF7E001EA61315003C420E /* AnchorSpaceModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CCFF7DFA1EA60D1C003C420E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CCFF7DFB1EA60D31003C420E /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				CCFF7DFC1EA60D4F003C420E /* AnchorSpaceHandle.h */,
+				CCFF7DFD1EA60D4F003C420E /* AnchorSpaceHandle.m */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
 		FF0110B51DAB26D5003146A7 = {
 			isa = PBXGroup;
 			children = (
@@ -2283,6 +2301,7 @@
 				04687ABE1E88BDF0004A5EE3 /* WWFilishedViewController.m in Sources */,
 				04687AA61E88BDF0004A5EE3 /* ChatTableViewCell.m in Sources */,
 				04687AF21E88BDF0004A5EE3 /* DZAlertView.m in Sources */,
+				CCFF7E011EA61315003C420E /* AnchorSpaceModel.m in Sources */,
 				046879081E88AB83004A5EE3 /* NSString+Add.m in Sources */,
 				0468790B1E88AB83004A5EE3 /* WWImageURLCacher.m in Sources */,
 				04687AC71E88BDF0004A5EE3 /* WWRealNameView.m in Sources */,
@@ -2365,6 +2384,7 @@
 				04687ACC1E88BDF0004A5EE3 /* WWLeftImageButton.m in Sources */,
 				04687ACD1E88BDF0004A5EE3 /* WWMineSecondView.m in Sources */,
 				046879311E88B71C004A5EE3 /* PresentView.m in Sources */,
+				CCFF7DFE1EA60D4F003C420E /* AnchorSpaceHandle.m in Sources */,
 				04687AD01E88BDF0004A5EE3 /* WWAnchorSpaceViewController.m in Sources */,
 				04687AFB1E88BDF0004A5EE3 /* AddressManageViewController.m in Sources */,
 				CCFF7C521EA0C580001712E4 /* DataXMLParser.m in Sources */,

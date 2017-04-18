@@ -32,6 +32,7 @@
     leftItem.image = [UIImage imageNamed:@"返回"];
     leftItem.tintColor = [UIColor blackColor];
     self.navigationItem.leftBarButtonItem = leftItem;
+    
     NSArray *arr1 = [NSArray arrayWithObjects:@"非WIFI环境提醒", @"清除缓存",  nil];
     NSArray *arr2 = [[NSArray alloc] init];
     NSArray *arr = [NSArray arrayWithObjects:arr1,arr2, nil];
@@ -147,10 +148,7 @@
         [self btnActionForUserSetting:self];
        
     }
-    
-    
-    
-    
+
 }
 
 #pragma mark ----Actions----
@@ -160,7 +158,8 @@
     UIAlertAction *queding = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        [self.tabBarController.tabBar removeFromSuperview];
         [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"baudit"];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cookies"];//取消自动登录
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cookies"]; // 取消自动登录
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user_id"]; // 删除user_id
 //        [NSUserDefaults standardUserDefaults]objectForKey:@"cookies"]
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"WIFIwarning"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"headUrl"];
