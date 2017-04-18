@@ -65,7 +65,7 @@
  */
 - (void)addBrandComeInView
 {
-    self.view_brand = [[BrandComeInView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.13)];
+    self.view_brand = [[BrandComeInView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.13)];
     _view_brand.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view_brand];
     
@@ -79,12 +79,12 @@
             if (flag) {
                 self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, 21);
             } else {
-                self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.13);
+                self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.13);
             }
-            self.view_carpent.frame = CGRectMake(0, self.view_brand.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.63);
-            self.view_tCategory.frame = CGRectMake(0, self.view_carpent.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.24);
+            self.view_carpent.frame = CGRectMake(0, self.view_brand.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.63);
+            self.view_tCategory.frame = CGRectMake(0, self.view_carpent.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.24);
         }];
-        
+    
     };
 }
 
@@ -94,7 +94,7 @@
  */
 - (void)addCarpenteroomView
 {
-    self.view_carpent = [[CarpenteroomView alloc] initWithFrame:CGRectMake(0, self.view_brand.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.63)];
+    self.view_carpent = [[CarpenteroomView alloc] initWithFrame:CGRectMake(0, self.view_brand.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.63)];
     _view_carpent.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view_carpent];
 }
@@ -105,7 +105,7 @@
  */
 - (void)addHomeTianyueCategoryView
 {
-    self.view_tCategory = [[HomeTianyueCategoryView alloc] initWithFrame:CGRectMake(0, self.view_carpent.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.24)];
+    self.view_tCategory = [[HomeTianyueCategoryView alloc] initWithFrame:CGRectMake(0, self.view_carpent.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.24)];
     _view_tCategory.backgroundColor = WWColor(235, 230, 230);
     [self.view addSubview:_view_tCategory];
 }
@@ -115,9 +115,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
 
 
 @end
