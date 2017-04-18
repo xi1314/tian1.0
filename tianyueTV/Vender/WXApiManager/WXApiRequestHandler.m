@@ -35,7 +35,7 @@
                              @"out_trade_no" : tradeNum,
                              @"total_fee" : price,
                              @"spbill_create_ip" : [CommonUtil getIPAddress:YES],
-                             @"notify_url" : @"http://www.tianyue.tv/wxpayNotify",
+                             @"notify_url" : @"http://old.tianyue.tv/wxpayNotify",
                              @"trade_type" : @"APP"};
     
     NSString *packageSign = [self signRequestParams:params];

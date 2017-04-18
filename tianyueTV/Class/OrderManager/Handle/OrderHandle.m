@@ -113,7 +113,7 @@
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completeBlock(orderModle,nil);
+                    completeBlock(orderModle, nil);
                 });
             });
             
@@ -170,9 +170,9 @@
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_setRetainage_app paraments:dic finish:^(id responseObject, NSError *error) {
         
         if ([responseObject[RET] isEqualToString:SUCCESS]) {
-            completeBlock(responseObject,nil);
+            completeBlock(responseObject, nil);
         } else {
-            completeBlock(nil,error);
+            completeBlock(nil, error);
         }
     }];
 }
@@ -193,9 +193,9 @@
         
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
-            completeBlock(responseObject,nil);
+            completeBlock(responseObject, nil);
         } else {
-            completeBlock(nil,responseObject);
+            completeBlock(nil, responseObject);
         }
     }];
 }
@@ -225,9 +225,9 @@
         
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
-            completeBlock(responseObject,nil);
+            completeBlock(responseObject, nil);
         } else {
-            completeBlock(responseObject,error);
+            completeBlock(responseObject, error);
         }
         
     }];
@@ -239,11 +239,11 @@
 
  @param orderSn 订单编号
  @param tomato 1买家取消 2卖家取消
- @param completeVlock 返回值
+ @param completeBlock 返回值
  */
 + (void)requestForDeleteOrderWithOrderSn:(NSString *)orderSn
                                   tomato:(NSString *)tomato
-                           completeBlock:(HandlerBlock)completeVlock
+                           completeBlock:(HandlerBlock)completeBlock
 {
     NSDictionary *dic = @{@"orderInfoSn" : orderSn,
                           @"tomato" : tomato};
@@ -252,9 +252,9 @@
         
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
-            completeVlock(responseObject,nil);
+            completeBlock(responseObject, nil);
         } else {
-            completeVlock(nil,error);
+            completeBlock(nil, error);
         }
     }];
 }
@@ -280,7 +280,7 @@
         if ([dic[RET] isEqualToString:SUCCESS]) {
             completeBlock(responseObject, nil);
         } else {
-            completeBlock(nil,error);
+            completeBlock(nil, error);
         }
     }];
 }
@@ -305,9 +305,9 @@
         NSLog(@"%@,%@",responseObject,error);
         
         if ([dic[RET] isEqualToString:SUCCESS]) {
-            completeBlock(responseObject,nil);
+            completeBlock(responseObject, nil);
         } else {
-            completeBlock(nil,error);
+            completeBlock(nil, error);
         }
     }];
 }
@@ -362,7 +362,35 @@
     }];
 }
 
+/**
+ 卖家确认退款
+
+ @param user 卖家id
+ @param orderID 订单id
+ @param completeBlock 返回值
+ */
++ (void)requestForComfirmRefoundWithUser:(NSString *)user
+                                 OrderID:(NSString *)orderID
+                            refundAmount:(NSString *)refundAmount
+                           completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"user_id" : user,
+                          @"orderId" : orderID,
+                          @"refundAmount" : refundAmount};
+    NSLog(@"refound %@",dic);
+    [[NetWorkTool sharedTool] requestMethod:GET URL:api_confirmRefund paraments:dic finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        NSLog(@"-------- %@",error);
+        NSLog(@"refound %@",responseObject);
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            completeBlock(responseObject, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+        
+    }];
+}
+
 
 @end
-
 

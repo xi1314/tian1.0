@@ -69,8 +69,13 @@
 // 取消收藏
 #define api_Collection_delete @"Collection_delete"
 
+
 //我的直播间
 #define api_Broadcast_app @"broadcast_app"
 
+
+
+// 卖家同意退款
+#define api_confirmRefund @"confirmRefund"
 
 
