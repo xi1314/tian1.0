@@ -60,9 +60,9 @@
 #pragma mark - Getter method
 - (UIButton *)liveButton {
     if (!_liveButton) {
-        CGFloat width = 46;
+        CGFloat width = SCREEN_WIDTH * 0.12;
         _liveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _liveButton.frame = CGRectMake(SCREEN_WIDTH - (width+20), -width/2+5, width, width);
+        _liveButton.frame = CGRectMake(SCREEN_WIDTH - (width + 20), -width/2+5, width, width);
         _liveButton.backgroundColor = [UIColor greenColor];
         _liveButton.layer.cornerRadius = width/2;
         _liveButton.layer.masksToBounds = YES;

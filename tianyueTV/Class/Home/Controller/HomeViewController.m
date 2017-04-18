@@ -72,15 +72,19 @@
     // 点击下拉按钮
     @weakify(self);
     self.view_brand.block = ^(BOOL flag) {
-        NSLog(@"arrow");
         @strongify(self);
-        if (flag) {
-            self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, 21);
-        } else {
-            self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.13);
-        }
-        self.view_carpent.frame = CGRectMake(0, self.view_brand.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.63);
-        self.view_tCategory.frame = CGRectMake(0, self.view_carpent.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.24);
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            @strongify(self);
+            if (flag) {
+                self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, 21);
+            } else {
+                self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.13);
+            }
+            self.view_carpent.frame = CGRectMake(0, self.view_brand.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.63);
+            self.view_tCategory.frame = CGRectMake(0, self.view_carpent.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - 64 - 49) * 0.24);
+        }];
+        
     };
 }
 

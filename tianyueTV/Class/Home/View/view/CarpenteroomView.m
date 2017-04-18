@@ -70,7 +70,12 @@
     
     // 推荐匠人滚动视图
     CGFloat buttonWidth = self.recommendScrollView.height - 20;
-    CGFloat gapWidth = (SCREEN_WIDTH - buttonWidth*4)/5;
+    // 在iPhone 5屏幕尺寸显示
+    if (SCREEN_WIDTH == 320) {
+        buttonWidth = self.recommendScrollView.height - 8;
+    }
+    
+    CGFloat gapWidth = (SCREEN_WIDTH - buttonWidth * 4)/5;
     self.recommendScrollView.contentSize = CGSizeMake(self.liveData.count*(SCREEN_WIDTH/4), self.recommendScrollView.height);
     
     for (int i = 0; i < self.liveData.count; i++) {
@@ -107,7 +112,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     int page = scrollView.contentOffset.x / scrollView.frame.size.width;
-    NSLog(@"page %d",page);
+
     // 设置页码
     self.livePage.currentPage = page;
     
@@ -119,7 +124,6 @@
     if (page == 4 && self.recommendScrollView.contentOffset.x == 0) {
         [self.recommendScrollView scrollRectToVisible:CGRectMake(SCREEN_WIDTH, 0, self.recommendScrollView.width, self.recommendScrollView.height) animated:YES];
     }
-    NSLog(@"%f",self.recommendScrollView.contentOffset.x);
 }
 
 #pragma mark - Private method
@@ -134,7 +138,6 @@
     sender.layer.borderColor = WWColor(255, 103, 103).CGColor;
     sender.selected = YES;
     _lastButton = sender;
-    NSLog(@"_lastButton %ld",_lastButton.tag);
 }
 
 #pragma mark - Getter method
