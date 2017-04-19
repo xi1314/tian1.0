@@ -7,7 +7,7 @@
 //
 
 #import "WXApiManager.h"
-#import "WXApiRequestHandler.h"
+#import "CommonUtil.h"
 
 @implementation WXApiManager
 
@@ -24,9 +24,19 @@
 - (void)weixinPayTradeNum:(NSString *)tradeNum
          andBlock:(WXApiManagerBlock)block
 {
+    _block = [block copy];
+    // 请求微信预支付订单
+    NSDictionary *dic = @{@"order_id" : tradeNum};
     
-    WXApiRequestHandler *wxRequest = [[WXApiRequestHandler alloc] init];
-    [wxRequest wxPrepareTradeNum:tradeNum];
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"Order_buy_wxPay" paraments:dic finish:^(id responseObject, NSError *error) {
+        
+        NSDictionary *dataDic = responseObject[@"info"];
+        if ([dataDic[@"result_code"] isEqualToString:@"SUCCESS"]) {
+            
+            [self jumpToBizPay:dataDic[@"appid"] partnerid:dataDic[@"mch_id"] prepayid:dataDic[@"prepay_id"]];
+        }
+        
+    }];
 }
 
 #pragma mark - WXApiDelegate
@@ -65,6 +75,70 @@
 //微信请求回调
 - (void)onReq:(BaseReq *)req {
     
+}
+
+#pragma mark - 请求微信支付
+/**
+ 微信支付
+ 
+ @param appid appid
+ @param partnerid 商户号
+ @param prepayid 预支付id
+ */
+- (void)jumpToBizPay:(NSString *)appid
+           partnerid:(NSString *)partnerid
+            prepayid:(NSString *)prepayid
+{
+    NSDictionary *params = @{@"appid" : appid,
+                             @"partnerid" : partnerid,
+                             @"prepayid" : prepayid,
+                             @"package" : @"Sign=WXPay",
+                             @"noncestr" : [CommonUtil md5:[NSString stringWithFormat:@"%d",arc4random()%10000]],
+                             @"timestamp" : [NSString stringWithFormat:@"%d", (unsigned int)[[NSDate date] timeIntervalSince1970]]};
+    
+    NSLog(@"开始微信支付 %@",params);
+    
+    NSString *packageSign = [self signRequestParams:params];
+    
+    //调起微信支付
+    PayReq* req  = [[PayReq alloc] init];
+    req.partnerId = [params objectForKey:@"partnerid"];
+    req.prepayId = [params objectForKey:@"prepayid"];
+    req.nonceStr = [params objectForKey:@"noncestr"];
+    req.timeStamp = (UInt32)[params[@"timestamp"] longLongValue];
+    req.package = [params objectForKey:@"package"];
+    req.sign = packageSign;
+    [WXApi sendReq:req];
+}
+
+#pragma mark - 将参数签名
+/**
+ 数字签名方法
+ 
+ @param params 字典
+ @return xml格式的字符串
+ */
+- (NSString *)signRequestParams:(NSDictionary *)params {
+    NSArray *keys = [params allKeys];
+    NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2 options:NSNumericSearch];
+    }];
+    
+    
+    NSMutableString *package = [NSMutableString string];
+    for (NSString *key in sortedKeys) {
+        [package appendString:key];
+        [package appendString:@"="];
+        [package appendString:[params objectForKey:key]];
+        [package appendString:@"&"];
+    }
+    
+    NSString *appKeyString = [NSString stringWithFormat:@"key=%@", WXAPI_APIMIYAO];
+    [package appendString:appKeyString];
+    
+    NSString *packageSign = [[CommonUtil md5:[package copy]] uppercaseString];
+    
+    return packageSign;
 }
 
 

@@ -177,21 +177,21 @@
     else
     {
         
-        /*
+        
         HomepageViewController *liveVC = [[HomepageViewController alloc]init];
         liveVC.tabBarItem.image = [UIImage imageNamed:@""];
         UINavigationController *liveNav = [[UINavigationController alloc]initWithRootViewController:liveVC];
         liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
         liveNav.title = @"直播";
-        */
-         
         
+         
+        /*
         HomeViewController *liveVC = [[HomeViewController alloc] init];
         liveVC.tabBarItem.image = [UIImage imageNamed:@""];
         UINavigationController *liveNav = [[UINavigationController alloc] initWithRootViewController:liveVC];
         liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
         liveNav.title = @"直播";
-        
+        */
          
         MineViewController *mineVC = [[MineViewController alloc]init];
         UINavigationController *mineNav = [[UINavigationController alloc]initWithRootViewController:mineVC];

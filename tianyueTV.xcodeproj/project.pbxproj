@@ -191,7 +191,6 @@
 		CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */; };
 		CCFF7C481EA0C52C001712E4 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C441EA0C52C001712E4 /* CommonUtil.m */; };
 		CCFF7C531EA0C580001712E4 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */; };
-		CCFF7C541EA0C580001712E4 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */; };
 		CCFF7DFE1EA60D4F003C420E /* AnchorSpaceHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7DFD1EA60D4F003C420E /* AnchorSpaceHandle.m */; };
 		CCFF7E011EA61315003C420E /* AnchorSpaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7E001EA61315003C420E /* AnchorSpaceModel.m */; };
 		EF8A61C61D2F0782479BAC3F /* libPods-tianyueTV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */; };
@@ -580,8 +579,6 @@
 		CCFF7C4D1EA0C580001712E4 /* WXApiHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiHeader.h; sourceTree = "<group>"; };
 		CCFF7C4E1EA0C580001712E4 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
-		CCFF7C501EA0C580001712E4 /* WXApiRequestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiRequestHandler.h; sourceTree = "<group>"; };
-		CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiRequestHandler.m; sourceTree = "<group>"; };
 		CCFF7DFC1EA60D4F003C420E /* AnchorSpaceHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorSpaceHandle.h; sourceTree = "<group>"; };
 		CCFF7DFD1EA60D4F003C420E /* AnchorSpaceHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnchorSpaceHandle.m; sourceTree = "<group>"; };
 		CCFF7DFF1EA61315003C420E /* AnchorSpaceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnchorSpaceModel.h; sourceTree = "<group>"; };
@@ -1855,8 +1852,6 @@
 				CCFF7C4D1EA0C580001712E4 /* WXApiHeader.h */,
 				CCFF7C4E1EA0C580001712E4 /* WXApiManager.h */,
 				CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */,
-				CCFF7C501EA0C580001712E4 /* WXApiRequestHandler.h */,
-				CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */,
 			);
 			path = WXApiManager;
 			sourceTree = "<group>";
@@ -2283,7 +2278,6 @@
 				CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */,
 				04687AB21E88BDF0004A5EE3 /* ForgetPasswordViewController.m in Sources */,
 				04687ADE1E88BDF0004A5EE3 /* WWMyViewButton.m in Sources */,
-				CCFF7C541EA0C580001712E4 /* WXApiRequestHandler.m in Sources */,
 				981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */,
 				04687ABE1E88BDF0004A5EE3 /* WWFilishedViewController.m in Sources */,
 				04687AA61E88BDF0004A5EE3 /* ChatTableViewCell.m in Sources */,
