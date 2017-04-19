@@ -16,6 +16,7 @@ UITableViewDataSource>
 {
     NSArray *_titleArr;
     CGFloat _payMoney;   // 商品价格(不含快递)
+    CGFloat _postage;    // 邮费
 }
 
 // 顶部视图
@@ -58,8 +59,8 @@ UITableViewDataSource>
         CGFloat price = [dic[@"price"] floatValue];
         _payMoney += count * price;
         if (i == _dataArr.count - 1) {
-            self.footerPrice.text = [NSString stringWithFormat:@"¥%.2f",(_payMoney+22.0)];
-            self.payView.priceString = [NSString stringWithFormat:@"¥%.2f",(_payMoney+22.0)];
+            self.footerPrice.text = [NSString stringWithFormat:@"¥%.2f",(_payMoney + _postage)];
+            self.payView.priceString = [NSString stringWithFormat:@"¥%.2f",(_payMoney + _postage)];
         }
     }
 }

@@ -20,6 +20,7 @@ UITableViewDataSource,
 UITextViewDelegate>
 {
     CGFloat _payMoney;    // 订单价格
+    CGFloat _postage;     // 邮费
 }
 
 // 地址view背景
@@ -75,7 +76,6 @@ UITextViewDelegate>
     
     [self initilizaDataSource];
     [self initilizeUserInterface];
-    NSLog(@"--- %@",self.dataArr);
     [self payOrderButtons];
     
 }
@@ -98,20 +98,20 @@ UITextViewDelegate>
         if (i == _dataArr.count - 1) {
             self.footerPrice.text = [NSString stringWithFormat:@"¥%.2f",_payMoney];
             [self.footerPrice sizeToFit];
-            self.totalPrice.text = [NSString stringWithFormat:@"¥%.2f",(_payMoney+22.0)];
+            self.totalPrice.text = [NSString stringWithFormat:@"¥%.2f",(_payMoney + _postage)];
             self.countLabel.text = [NSString stringWithFormat:@"共计%ld件商品  合计：",totalCount];
             [self.countLabel sizeToFit];
             
-            self.payView.priceString = [NSString stringWithFormat:@"%.2f",(_payMoney+22.0)];
+            self.payView.priceString = [NSString stringWithFormat:@"%.2f",(_payMoney + _postage)];
         }
     }
 }
 
 - (void)initilizeUserInterface {
-    //隐藏导航栏底部线条，有可能影响其他界面，需注意
+    // 隐藏导航栏底部线条，有可能影响其他界面，需注意
     [self useMethodToFindBlackLineAndHind];
     
-    //设置topview阴影
+    // 设置topview阴影
     self.topView.layer.shadowOpacity = 0.8f;
     self.topView.layer.shadowColor = WWColor(241, 241, 241).CGColor;
     self.title = @"确认订单";
@@ -122,7 +122,7 @@ UITextViewDelegate>
     CGFloat paintingWidth = SCREEN_WIDTH;
     CGFloat paintingHeight = self.topView.bounds.size.height;
     CGFloat shadowWidth = 8;
-    //添加直线
+    // 添加直线
     [path addLineToPoint:CGPointMake(-5, -3)];
     [path addLineToPoint:CGPointMake(paintingWidth +5, -3)];
     [path addLineToPoint:CGPointMake(paintingWidth +5, paintingHeight+shadowWidth)];
@@ -136,11 +136,11 @@ UITextViewDelegate>
 }
 
 #pragma mark - Private method
-//当设置navigationBar的背景图片或背景色时，使用该方法都可移除黑线，且不会使translucent属性失效
+// 当设置navigationBar的背景图片或背景色时，使用该方法都可移除黑线，且不会使translucent属性失效
 -(void)useMethodToFindBlackLineAndHind
 {
     UIImageView* blackLineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
-    //隐藏黑线（在viewWillAppear时隐藏，在viewWillDisappear时显示）
+    // 隐藏黑线（在viewWillAppear时隐藏，在viewWillDisappear时显示）
     blackLineImageView.hidden = YES;
 }
 
@@ -178,6 +178,7 @@ UITextViewDelegate>
     @weakify(self);
     addressVC.block = ^(AddressInfoModel *model){
         @strongify(self);
+        self.addressModel = model;
         [self configAddressViewWithModel:model];
     };
     [self.navigationController pushViewController:addressVC animated:YES];
@@ -191,7 +192,6 @@ UITextViewDelegate>
 
 //提交订单
 - (IBAction)commitButton_action:(UIButton *)sender {
-    [MBProgressHUD showMessage:nil];
     [self requestForOrderPay];
 }
 
@@ -218,7 +218,7 @@ UITextViewDelegate>
                 [MBProgressHUD showMessage:nil];
                 [[WXApiManager sharedManager] weixinPayTradeNum:self.order_Sn andBlock:^{
                     @strongify(self);
-                    [self.navigationController popViewControllerAnimated:YES];
+//                    [self.navigationController popViewControllerAnimated:YES];
                 }];
             } break;
                 
@@ -231,12 +231,19 @@ UITextViewDelegate>
 #pragma mark - Newworking request
 // 请求订单号
 - (void)requestForOrderPay {
+    if (!self.addressModel) {
+        [MBProgressHUD showError:@"请设置收货地址"];
+        return;
+    }
+    
+    [MBProgressHUD showMessage:nil];
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
     
     @weakify(self);
-    [ShopHandle requestForOrderWithUser:USER_ID count:self.dataArr[0][@"goodsAndNum"] money:moneyStr addressID:@"112" message:self.messageText.text CompleteBlcok:^(id respondsObject, NSError *error) {
+    [ShopHandle requestForOrderWithUser:USER_ID count:self.dataArr[0][@"goodsAndNum"] money:moneyStr addressID:self.addressModel.ID message:self.messageText.text CompleteBlcok:^(id respondsObject, NSError *error) {
         @strongify(self);
-
+        
+        NSLog(@"%@",respondsObject);
         // 订单提交成功
         if (respondsObject) {
             self.order_Sn = respondsObject[@"orderNo"];

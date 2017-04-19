@@ -126,8 +126,9 @@
 #pragma mark - type delegete
 -(void)btnindex:(int)tag
 {
-    //通过seletIndex是否>=0来判断尺码和颜色是否被选择，－1则是未选择状态
-    if (sizeView.seletIndex >=0 && colorView.seletIndex >=0) {
+    // 通过seletIndex是否>=0来判断尺码和颜色是否被选择，－1则是未选择状态
+    if (sizeView.seletIndex >= 0 && colorView.seletIndex >= 0) {
+        
         //属性一和属性二都选择的时候
         NSString *size =[sizearr objectAtIndex:sizeView.seletIndex];
         NSString *color =[colorarr objectAtIndex:colorView.seletIndex];
@@ -166,14 +167,30 @@
         stock = 100000;
 
     } else if (sizeView.seletIndex >= 0 && colorView.seletIndex == -1) {
-        //只选了属性一
-        NSString *size =[sizearr objectAtIndex:sizeView.seletIndex];
-        //根据所选尺码 取出该尺码对应所有颜色的库存字典
-        [self resumeBtn:sizearr :sizeView];
-        for (GoodStockModel *model in self.goodsStock) {
-            NSString *color = model.commodity_attribute_1;
-            if ([color containsString:size]) {
-                self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",model.skuStock];
+        NSString *size = [sizearr objectAtIndex:sizeView.seletIndex];
+        
+        // 只有一种属性
+        if (!colorarr.count) {
+
+            for (GoodStockModel *model in self.goodsStock) {
+                NSString *type1 = model.commodity_attribute_1;
+
+                if ([type1 containsString:size]) {
+                    stock = [model.skuStock intValue];
+                    self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",model.skuStock];
+                    [self reloadTypeBtn:model :sizearr :sizeView];
+                    self.typeID = [NSString stringWithFormat:@"%@",model.ID];
+                }
+            }
+            
+        } else {
+            //根据所选尺码 取出该尺码对应所有颜色的库存字典
+            [self resumeBtn:sizearr :sizeView];
+            for (GoodStockModel *model in self.goodsStock) {
+                NSString *type = model.commodity_attribute_1;
+                if ([type containsString:size]) {
+                    self.stockLabel.text = [NSString stringWithFormat:@"库存：%@",model.skuStock];
+                }
             }
         }
         stock = 100000;

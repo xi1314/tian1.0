@@ -49,7 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.goodID = @"117";
+    self.goodID = @"111";
     _isSuspend = NO;
     _isCar = NO;
     [MBProgressHUD showMessage:@"加载中"];
@@ -69,16 +69,14 @@
     
     [ShopHandle requestForShopDataWithGoodID:self.goodID user:USER_ID completBlock:^(id respondsObject, NSError *error) {
         if (error) {
-            NSLog(@"--- %@",error);
             [MBProgressHUD showError:@"加载失败"];
         }
         if (respondsObject) {
             
             self.shopModel = (ShopModel *)respondsObject;
-            
-            NSLog(@"***  %@",respondsObject);
+        
             [MBProgressHUD hideHUD];
-//            _responseDic = respondsObject;
+
             [self.shopView.topImageView setImageURL:[NSURL URLWithString:self.shopModel.image1]];
             _chooseViewImgUrl = self.shopModel.shopLogo;
             _stockArr = self.shopModel.goodsAttributes;
@@ -91,11 +89,18 @@
             
             self.chooseView.priceLabel.text = _priceStr;
             NSArray *attArr = self.shopModel.A_kind_of_attribute;
-
-            _type1 = attArr[0][@"key"];
-            _sizeArr = attArr[0][@"keyval"];
-            _type2 = attArr[1][@"key"];
-            _colorArr = attArr[1][@"keyval"];
+            
+            for (int i = 0; i < attArr.count; i++) {
+                if (i == 0) {
+                    _type1 = attArr[0][@"key"];
+                    _sizeArr = attArr[0][@"keyval"];
+                }
+                if (i == 1) {
+                    _type2 = attArr[1][@"key"];
+                    _colorArr = attArr[1][@"keyval"];
+                }
+            }
+            
             [self.chooseView initTypeViewWithSizeArr:_sizeArr sizeName:_type1 colorArr:_colorArr colorName:_type2 stockDic:nil];
             if ([self.shopModel.Collection integerValue] == 1) {
                 self.chooseView.likeButton.selected = YES;
@@ -279,16 +284,25 @@
                         NSString *colorStr = [NSString stringWithFormat:@"%@:%@",colorArr[0],colorArr[1]];
                         [_goodInfoDic setObject:colorStr forKey:@"color"];
                         
-                        NSArray *sizeArr = [model.commodity_attribute_2 componentsSeparatedByString:@";"];
-                        NSString *sizeStr = [NSString stringWithFormat:@"%@:%@",sizeArr[0],sizeArr[1]];
-                        [_goodInfoDic setObject:sizeStr forKey:@"size"];
+                        // 判断该商品是否有多个属性
+                        if (model.commodity_attribute_2.length > 0) {
+                            NSArray *sizeArr = [model.commodity_attribute_2 componentsSeparatedByString:@";"];
+                            NSString *sizeStr = [NSString stringWithFormat:@"%@:%@",sizeArr[0],sizeArr[1]];
+                            [_goodInfoDic setObject:sizeStr forKey:@"size"];
+                        }
+                        
+                    
+                        
                         [_goodInfoDic setObject:responseObject[@"goodsAndNum"] forKey:@"goodsAndNum"];
                         
                         OrderViewController *orderVC = [[OrderViewController alloc] init];
                         orderVC.dataArr = @[_goodInfoDic];
-//                        orderVC.addressDic = responseObject[@"address"][0];
-                        orderVC.addressModel = [AddressInfoModel mj_objectWithKeyValues:responseObject[@"address"][0]];
                         
+                        // 获取默认地址
+                        NSArray *addressArr = responseObject[@"address"];
+                        if (addressArr.count) {
+                            orderVC.addressModel = [AddressInfoModel mj_objectWithKeyValues:responseObject[@"address"][0]];
+                        }
                         
                         [self.navigationController pushViewController:orderVC animated:YES];
                     }
