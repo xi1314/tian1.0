@@ -10,11 +10,7 @@
 #import "WXApiObject.h"
 #import "CommonUtil.h"
 
-@interface WXApiRequestHandler : NSObject <NSXMLParserDelegate> {
-    BOOL isGetParpert;  // 是否获得prepare_id
-    BOOL isCheckStatus; // 是否已获取订单状态
-}
-
+@interface WXApiRequestHandler : NSObject
 // 微信返回prepare_id
 @property (nonatomic, copy) NSString *prepareId;
 

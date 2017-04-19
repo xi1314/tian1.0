@@ -24,7 +24,6 @@
 - (void)weixinPayTradeNum:(NSString *)tradeNum
          andBlock:(WXApiManagerBlock)block
 {
-    _block = [block copy];
     
     WXApiRequestHandler *wxRequest = [[WXApiRequestHandler alloc] init];
     [wxRequest wxPrepareTradeNum:tradeNum];
