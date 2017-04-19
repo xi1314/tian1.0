@@ -176,6 +176,7 @@
 		989B18F01E9B6F38009C3174 /* area.json in Resources */ = {isa = PBXBuildFile; fileRef = 989B18EF1E9B6F38009C3174 /* area.json */; };
 		98A8073B1E9F653500832F43 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A8073A1E9F653500832F43 /* ShopModel.m */; };
 		C61854BB213EA5F6E946D609 /* libPods-tianyueTVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D1542CAE7A70696F02677D /* libPods-tianyueTVTests.a */; };
+		CC281D101EA713610069D503 /* HomeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CC281D0F1EA713610069D503 /* HomeHandler.m */; };
 		CC36CD4F1E9732B8007E35FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */; };
 		CC36CD511E9732C0007E35FF /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD501E9732C0007E35FF /* CoreFoundation.framework */; };
 		CC36CD531E9732F5007E35FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD521E9732F5007E35FF /* Foundation.framework */; };
@@ -555,6 +556,8 @@
 		98A807391E9F653500832F43 /* ShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
 		98A8073A1E9F653500832F43 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
 		B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tianyueTV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC281D0E1EA713610069D503 /* HomeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeHandler.h; path = tianyueTV/Class/Mine/LivePush/AnchorSpace/Model/HomeHandler.h; sourceTree = SOURCE_ROOT; };
+		CC281D0F1EA713610069D503 /* HomeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeHandler.m; path = tianyueTV/Class/Mine/LivePush/AnchorSpace/Model/HomeHandler.m; sourceTree = SOURCE_ROOT; };
 		CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CC36CD501E9732C0007E35FF /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		CC36CD521E9732F5007E35FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -818,6 +821,8 @@
 		0468794C1E88BDF0004A5EE3 /* Handle */ = {
 			isa = PBXGroup;
 			children = (
+				CC281D0E1EA713610069D503 /* HomeHandler.h */,
+				CC281D0F1EA713610069D503 /* HomeHandler.m */,
 			);
 			path = Handle;
 			sourceTree = "<group>";
@@ -2278,6 +2283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC281D101EA713610069D503 /* HomeHandler.m in Sources */,
 				046879321E88B71C004A5EE3 /* ShakeLabel.m in Sources */,
 				04687AD81E88BDF0004A5EE3 /* WWSettingView.m in Sources */,
 				04687ADC1E88BDF0004A5EE3 /* WWMineModel.m in Sources */,

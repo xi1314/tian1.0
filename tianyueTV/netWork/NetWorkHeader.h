@@ -6,34 +6,40 @@
 //  Copyright © 2017年 wwwwwwww. All rights reserved.
 //
 
-//本地服务器地址
+// 本地服务器地址
 #define SERVERADDRESS  @"http://192.168.0.88:8080/"
-//服务器地址
+// 服务器地址
 #define TIANYUESERVERADDRESS  @"http://www.tianyue.tv/"
 
 
-//我的订单（卖家）
+
+
+
+// 首页商标请求
+#define api_Brand_trademark  @"Brand_trademark"
+
+// 我的订单（卖家）
 #define api_orderInfo_app  @"orderInfo_app"
 
-//全部订单（买家）
+// 全部订单（买家）
 #define api_personalOrder_app @"personalOrder_app"
 
-//卖家设置尾款
+// 卖家设置尾款
 #define api_setRetainage_app @"setRetainage_app"
 
-//取消订单
+// 取消订单
 #define api_updateOrderStatus_app @"updateOrderStatus_app"
 
-//设置物流信息
+// 设置物流信息
 #define api_sureSendGoods_app @"sureSendGoods_app"
 
-//删除订单
+// 删除订单
 #define api_DedeletOrder_app @"DedeletOrder_app"
 
-//退款申请
+// 退款申请
 #define api_applyRefund_app @"applyRefund_app"
 
-//确认收货
+// 确认收货
 #define api_refundqueren_app @"refundqueren_app"
 
 // 申请纠纷
@@ -69,7 +75,7 @@
 // 取消收藏
 #define api_Collection_delete @"Collection_delete"
 
-//我的直播间
+// 我的直播间
 #define api_Broadcast_app @"broadcast_app"
 
 // 卖家同意退款

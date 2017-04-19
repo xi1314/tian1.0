@@ -22,7 +22,7 @@
 {
     NSDictionary *dic = @{@"userId" : userID};
     
-    [[NetWorkTool sharedTool] requestMethod:POST serverAddress:SERVERADDRESS URL:api_Broadcast_app paraments:dic finish:^(id responseObject, NSError *error) {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_Broadcast_app paraments:dic finish:^(id responseObject, NSError *error) {
         
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
