@@ -24,7 +24,28 @@
 - (void)wxPrepareToPay:(NSString *)bodyString
            andTradeNum:(NSString *)tradeNum
               andPrice:(NSString *)price {
-
+    
+    /*
+    NSDictionary *dic = @{@"order_id" : tradeNum};
+    
+    NSLog(@"dic %@",dic);
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"Order_buy_wxPay" paraments:dic finish:^(id responseObject, NSError *error) {
+        NSLog(@"预支付请求返回： %@,错误 ： %@",responseObject,error);
+        
+        NSDictionary *dataDic = responseObject[@"info"];
+        if ([dataDic[@"result_code"] isEqualToString:@"SUCCESS"]) {
+            
+            NSLog(@"prepay_id %@",dataDic[@"prepay_id"]);
+            
+            [self jumpToBizPay:dataDic[@"prepay_id"]];
+        }
+        
+        
+    }];
+    */
+    
+    
     if (!bodyString || [bodyString isEqualToString:@""]) {
         bodyString = @"自定义内容";
     }
@@ -56,6 +77,8 @@
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
+//        NSLog(@"data --- %@",data);
+        
         DataXMLParser *parse = [[DataXMLParser alloc] initWithData:data];
         parse.xmlID = 1;
         [parse setDelegate:self];
@@ -63,6 +86,7 @@
         
     }];
     [dataTask resume];
+    
 }
 
 #pragma mark - 请求微信支付
@@ -79,6 +103,8 @@
                              @"package" : @"Sign=WXPay",
                              @"noncestr" : [CommonUtil md5:[NSString stringWithFormat:@"%d",arc4random()%10000]],
                              @"timestamp" : [NSString stringWithFormat:@"%d", (unsigned int)[[NSDate date] timeIntervalSince1970]]};
+    
+    NSLog(@"开始微信支付 %@",params);
     
     NSString *packageSign = [self signRequestParams:params];
     
