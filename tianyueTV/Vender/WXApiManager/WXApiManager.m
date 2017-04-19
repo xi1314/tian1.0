@@ -34,11 +34,44 @@
         NSDictionary *dataDic = responseObject[@"info"];
         if ([dataDic[@"result_code"] isEqualToString:@"SUCCESS"]) {
             
-            [self jumpToBizPay:dataDic[@"appid"] partnerid:dataDic[@"mch_id"] prepayid:dataDic[@"prepay_id"]];
+            [WXApiManager jumpToBizPay:dataDic[@"appid"] partnerid:dataDic[@"mch_id"] prepayid:dataDic[@"prepay_id"]];
         }
         
     }];
 }
+
+#pragma mark - 请求微信支付
+/**
+ 微信支付
+ 
+ @param appid appid
+ @param partnerid 商户号
+ @param prepayid 预支付id
+ */
++ (void)jumpToBizPay:(NSString *)appid
+           partnerid:(NSString *)partnerid
+            prepayid:(NSString *)prepayid
+{
+    NSDictionary *params = @{@"appid" : appid,
+                             @"partnerid" : partnerid,
+                             @"prepayid" : prepayid,
+                             @"package" : @"Sign=WXPay",
+                             @"noncestr" : [CommonUtil md5:[NSString stringWithFormat:@"%d",arc4random()%10000]],
+                             @"timestamp" : [NSString stringWithFormat:@"%d", (unsigned int)[[NSDate date] timeIntervalSince1970]]};
+    
+    NSString *packageSign = [WXApiManager signRequestParams:params];
+    
+    //调起微信支付
+    PayReq* req  = [[PayReq alloc] init];
+    req.partnerId = [params objectForKey:@"partnerid"];
+    req.prepayId = [params objectForKey:@"prepayid"];
+    req.nonceStr = [params objectForKey:@"noncestr"];
+    req.timeStamp = (UInt32)[params[@"timestamp"] longLongValue];
+    req.package = [params objectForKey:@"package"];
+    req.sign = packageSign;
+    [WXApi sendReq:req];
+}
+
 
 #pragma mark - WXApiDelegate
 //微信响应回调
@@ -67,10 +100,7 @@
                 [MBProgressHUD showError:@"支付失败"];
                 break;
         }
-        
-        NSLog(@"strMsg  :%@", strMsg);
     }
-
 }
 
 //微信请求回调
@@ -78,39 +108,6 @@
     
 }
 
-#pragma mark - 请求微信支付
-/**
- 微信支付
- 
- @param appid appid
- @param partnerid 商户号
- @param prepayid 预支付id
- */
-- (void)jumpToBizPay:(NSString *)appid
-           partnerid:(NSString *)partnerid
-            prepayid:(NSString *)prepayid
-{
-    NSDictionary *params = @{@"appid" : appid,
-                             @"partnerid" : partnerid,
-                             @"prepayid" : prepayid,
-                             @"package" : @"Sign=WXPay",
-                             @"noncestr" : [CommonUtil md5:[NSString stringWithFormat:@"%d",arc4random()%10000]],
-                             @"timestamp" : [NSString stringWithFormat:@"%d", (unsigned int)[[NSDate date] timeIntervalSince1970]]};
-    
-    NSLog(@"开始微信支付 %@",params);
-    
-    NSString *packageSign = [self signRequestParams:params];
-    
-    //调起微信支付
-    PayReq* req  = [[PayReq alloc] init];
-    req.partnerId = [params objectForKey:@"partnerid"];
-    req.prepayId = [params objectForKey:@"prepayid"];
-    req.nonceStr = [params objectForKey:@"noncestr"];
-    req.timeStamp = (UInt32)[params[@"timestamp"] longLongValue];
-    req.package = [params objectForKey:@"package"];
-    req.sign = packageSign;
-    [WXApi sendReq:req];
-}
 
 #pragma mark - 将参数签名
 /**
@@ -119,7 +116,7 @@
  @param params 字典
  @return xml格式的字符串
  */
-- (NSString *)signRequestParams:(NSDictionary *)params {
++ (NSString *)signRequestParams:(NSDictionary *)params {
     NSArray *keys = [params allKeys];
     NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [obj1 compare:obj2 options:NSNumericSearch];
