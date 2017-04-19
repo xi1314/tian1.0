@@ -229,6 +229,7 @@ UITextViewDelegate>
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
     
     [ShopHandle requestForOrderWithUser:USER_ID count:self.dataArr[0][@"goodsAndNum"] money:moneyStr addressID:@"112" message:self.messageText.text CompleteBlcok:^(id respondsObject, NSError *error) {
+        
         if (respondsObject) {
             [MBProgressHUD showSuccess:@"提交成功"];
         } else {
