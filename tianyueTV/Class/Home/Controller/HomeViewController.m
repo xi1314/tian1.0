@@ -47,8 +47,6 @@
 }
 
 
-
-
 /**
  添加导航栏
  */
@@ -75,7 +73,7 @@
         @strongify(self);
         
         [UIView animateWithDuration:0.2 animations:^{
-            @strongify(self);
+            
             if (flag) {
                 self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, 21);
             } else {

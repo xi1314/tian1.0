@@ -8,6 +8,7 @@
 
 #import "CarpenteroomView.h"
 
+
 @interface CarpenteroomView ()
 <UIScrollViewDelegate>
 
@@ -53,6 +54,7 @@
     UIView *gapView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     gapView.backgroundColor = WWColor(235, 230, 230);
     [self addSubview:gapView];
+    
     [self addSubview:self.headLabel];
     [self addSubview:self.liveScrollView];
     [self addSubview:self.lineView];
@@ -74,14 +76,15 @@
     if (SCREEN_WIDTH == 320) {
         buttonWidth = self.recommendScrollView.height - 8;
     }
-    
-    CGFloat gapWidth = (SCREEN_WIDTH - buttonWidth * 4)/5;
-    self.recommendScrollView.contentSize = CGSizeMake(self.liveData.count*(SCREEN_WIDTH/4), self.recommendScrollView.height);
+
+    CGFloat gapWidth = (SCREEN_WIDTH - 4 * buttonWidth) / 5;
+
+    self.recommendScrollView.contentSize = CGSizeMake(self.liveData.count * (gapWidth + buttonWidth) + gapWidth, self.recommendScrollView.height);
     
     for (int i = 0; i < self.liveData.count; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(gapWidth + (gapWidth + buttonWidth)*i, 5, buttonWidth, buttonWidth);
-        button.layer.cornerRadius = buttonWidth/2;
+        button.frame = CGRectMake((gapWidth + buttonWidth) * i + gapWidth, 5, buttonWidth, buttonWidth);
+        button.layer.cornerRadius = buttonWidth / 2;
         button.backgroundColor = [UIColor whiteColor];
         [button addTarget:self action:@selector(respondsToRecommendButton:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = 100 + i;
@@ -101,15 +104,19 @@
     if (sender.selected) {
         return;
     }
-//    [self swichButtonState:sender];
+    [self swichButtonState:sender];
     
     // 点击时切换匠作间
     NSInteger index = sender.tag - 100;
-    [self.liveScrollView scrollRectToVisible:CGRectMake(SCREEN_WIDTH * index, 0, self.recommendScrollView.width, self.recommendScrollView.height) animated:NO];
+ 
+    // 设置页码
+    self.livePage.currentPage = index;
+    
+    [self.liveScrollView setContentOffset:CGPointMake(SCREEN_WIDTH * index, 0)];
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     int page = scrollView.contentOffset.x / scrollView.frame.size.width;
 
@@ -119,10 +126,19 @@
     // 设置选择按钮
     UIButton *button = [self viewWithTag:100 + page];
     [self swichButtonState:button];
+
+    // 推荐匠人滚动视图宽度
+    CGFloat buttonWidth = self.recommendScrollView.height - 20;
+    // 在iPhone 5屏幕尺寸显示
+    if (SCREEN_WIDTH == 320) {
+        buttonWidth = self.recommendScrollView.height - 8;
+    }
+
+    CGFloat gapWidth = (SCREEN_WIDTH - 4 * buttonWidth) / 5;
     
-    // 自动显示第四个以后的头像
-    if (page == 4 && self.recommendScrollView.contentOffset.x == 0) {
-        [self.recommendScrollView scrollRectToVisible:CGRectMake(SCREEN_WIDTH, 0, self.recommendScrollView.width, self.recommendScrollView.height) animated:YES];
+    // 从第四个头像后开始滑动
+    if (page >= 3) {
+        [self.recommendScrollView setContentOffset:CGPointMake((gapWidth + buttonWidth) * (page - 3), 0) animated:YES];
     }
 }
 
