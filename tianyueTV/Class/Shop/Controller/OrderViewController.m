@@ -12,13 +12,14 @@
 #import "AddressManageViewController.h"
 #import "PayOrderView.h"
 #import "ShopHandle.h"
+#import "WXApiManager.h"
 
 @interface OrderViewController ()
 <UITableViewDelegate,
 UITableViewDataSource,
 UITextViewDelegate>
 {
-    CGFloat _payMoney;
+    CGFloat _payMoney;    // 订单价格
 }
 
 // 地址view背景
@@ -57,6 +58,9 @@ UITextViewDelegate>
 
 // 支付view
 @property (strong, nonatomic) PayOrderView *payView;
+
+// 提交订单获取的订单号
+@property (strong, nonatomic) NSString *order_Sn;
 
 
 @end
@@ -187,13 +191,8 @@ UITextViewDelegate>
 
 //提交订单
 - (IBAction)commitButton_action:(UIButton *)sender {
+    [MBProgressHUD showMessage:nil];
     [self requestForOrderPay];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self.baseMaskView];
-    [self.baseMaskView addSubview:self.payView];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.payView.frame = CGRectMake(0, SCREEN_HEIGHT-365, SCREEN_WIDTH, 365);
-    }];
 }
 
 
@@ -215,7 +214,12 @@ UITextViewDelegate>
             } break;
                 
             case 2:{ // 确认支付
-                [self requestForOrderPay];
+                @weakify(self);
+                [MBProgressHUD showMessage:nil];
+                [[WXApiManager sharedManager] weixinPayTradeNum:self.order_Sn andBlock:^{
+                    @strongify(self);
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
             } break;
                 
             default:
@@ -225,13 +229,24 @@ UITextViewDelegate>
 }
 
 #pragma mark - Newworking request
+// 请求订单号
 - (void)requestForOrderPay {
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
     
+    @weakify(self);
     [ShopHandle requestForOrderWithUser:USER_ID count:self.dataArr[0][@"goodsAndNum"] money:moneyStr addressID:@"112" message:self.messageText.text CompleteBlcok:^(id respondsObject, NSError *error) {
-        
+        @strongify(self);
+
+        // 订单提交成功
         if (respondsObject) {
-            [MBProgressHUD showSuccess:@"提交成功"];
+            self.order_Sn = respondsObject[@"orderNo"];
+            [MBProgressHUD hideHUD];
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            [window addSubview:self.baseMaskView];
+            [self.baseMaskView addSubview:self.payView];
+            [UIView animateWithDuration:0.3 animations:^{
+                self.payView.frame = CGRectMake(0, SCREEN_HEIGHT-365, SCREEN_WIDTH, 365);
+            }];
         } else {
             [MBProgressHUD showError:@"订单提交失败"];
         }
