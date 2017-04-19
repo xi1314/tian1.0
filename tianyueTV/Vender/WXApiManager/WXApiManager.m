@@ -11,7 +11,12 @@
 
 @implementation WXApiManager
 
-#pragma mark - LifeCycle
+
+/**
+ 单例
+ 
+ @return 单例对象
+ */
 + (instancetype)sharedManager {
     static dispatch_once_t onceToken;
     static WXApiManager *instance;
@@ -21,6 +26,14 @@
     return instance;
 }
 
+
+#pragma mark - 微信支付获取prepareId
+/**
+ 微信支付获取prepareId
+ 
+ @param tradeNum 订单号
+ @param block 支付结果回调
+ */
 - (void)weixinPayTradeNum:(NSString *)tradeNum
                  andBlock:(WXApiManagerBlock)block
 {
@@ -34,17 +47,18 @@
         NSDictionary *dataDic = responseObject[@"info"];
         if ([dataDic[@"result_code"] isEqualToString:@"SUCCESS"]) {
             
+            // 请求微信支付
             [WXApiManager jumpToBizPay:dataDic[@"appid"] partnerid:dataDic[@"mch_id"] prepayid:dataDic[@"prepay_id"]];
         }
-        
     }];
 }
 
+
 #pragma mark - 请求微信支付
 /**
- 微信支付
+ 请求微信支付
  
- @param appid appid
+ @param appid 微信appid
  @param partnerid 商户号
  @param prepayid 预支付id
  */
@@ -52,16 +66,24 @@
            partnerid:(NSString *)partnerid
             prepayid:(NSString *)prepayid
 {
+    // 生成noncestr参数
+    NSString *noncestr = [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random()%10000]];
+    
+    // 生成timestamp参数
+    NSString *timestamp = [NSString stringWithFormat:@"%d", (unsigned int)[[NSDate date] timeIntervalSince1970]];
+    
+    // 支付请求参数
     NSDictionary *params = @{@"appid" : appid,
                              @"partnerid" : partnerid,
                              @"prepayid" : prepayid,
                              @"package" : @"Sign=WXPay",
-                             @"noncestr" : [CommonUtil md5:[NSString stringWithFormat:@"%d",arc4random()%10000]],
-                             @"timestamp" : [NSString stringWithFormat:@"%d", (unsigned int)[[NSDate date] timeIntervalSince1970]]};
+                             @"noncestr" : noncestr,
+                             @"timestamp" : timestamp};
     
+    // 对参数进行签名
     NSString *packageSign = [WXApiManager signRequestParams:params];
     
-    //调起微信支付
+    // 调起微信支付
     PayReq* req  = [[PayReq alloc] init];
     req.partnerId = [params objectForKey:@"partnerid"];
     req.prepayId = [params objectForKey:@"prepayid"];
@@ -73,55 +95,18 @@
 }
 
 
-#pragma mark - WXApiDelegate
-//微信响应回调
-- (void)onResp:(BaseResp *)resp {
-    if([resp isKindOfClass:[PayResp class]]){
-    
-        //支付返回结果，实际支付结果需要去微信服务器端查询
-        NSString *strMsg = @"";
- 
-        switch (resp.errCode) {
-            case WXSuccess:
-            {
-                if (_block) {
-                    _block();
-                }
-                
-                strMsg = @"支付结果：成功！";
-                [MBProgressHUD showSuccess:@"支付成功"];
-            }
-            
-                break;
-                
-            default:
-
-                strMsg = @"支付结果：失败！";
-                [MBProgressHUD showError:@"支付失败"];
-                break;
-        }
-    }
-}
-
-//微信请求回调
-- (void)onReq:(BaseReq *)req {
-    
-}
-
-
-#pragma mark - 将参数签名
+#pragma mark - 参数签名方法
 /**
  数字签名方法
  
  @param params 字典
- @return xml格式的字符串
+ @return 签名后的字符串
  */
 + (NSString *)signRequestParams:(NSDictionary *)params {
     NSArray *keys = [params allKeys];
     NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [obj1 compare:obj2 options:NSNumericSearch];
     }];
-    
     
     NSMutableString *package = [NSMutableString string];
     for (NSString *key in sortedKeys) {
@@ -140,4 +125,39 @@
 }
 
 
+#pragma mark - WXApiDelegate
+//微信响应回调
+- (void)onResp:(BaseResp *)resp {
+    if([resp isKindOfClass:[PayResp class]]){
+
+        switch (resp.errCode) {
+            case WXSuccess:
+            {
+                if (_block) {
+                    _block();
+                }
+
+                [MBProgressHUD showSuccess:@"支付成功"];
+            }
+            
+                break;
+                
+            default:
+                
+                [MBProgressHUD showError:@"支付失败"];
+                
+                break;
+        }
+    }
+}
+
+//微信请求回调
+- (void)onReq:(BaseReq *)req {
+    
+}
+
+
 @end
+
+
+
