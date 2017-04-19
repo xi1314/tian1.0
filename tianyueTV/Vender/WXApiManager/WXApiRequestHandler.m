@@ -8,98 +8,47 @@
 
 #import "WXApi.h"
 #import "WXApiRequestHandler.h"
-#import "DataXMLParser.h"
 #import "WXApiHeader.h"
 
 @implementation WXApiRequestHandler
 
-#pragma mark - 调用微信统一订单接口，获取prepareId
+#pragma mark - 获取prepareId
 /**
- 调用微信统一订单接口，获取prepareId
- 
- @param bodyString 商品或支付单简要描述
- @param tradeNum 商户订单号
- @param price 总金额(int 换算为分)
+ 获取prepayid
+
+ @param tradeNum 订单号
  */
-- (void)wxPrepareToPay:(NSString *)bodyString
-           andTradeNum:(NSString *)tradeNum
-              andPrice:(NSString *)price {
-    
-    /*
+- (void)wxPrepareTradeNum:(NSString *)tradeNum
+{
     NSDictionary *dic = @{@"order_id" : tradeNum};
     
-    NSLog(@"dic %@",dic);
-    
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"Order_buy_wxPay" paraments:dic finish:^(id responseObject, NSError *error) {
-        NSLog(@"预支付请求返回： %@,错误 ： %@",responseObject,error);
         
         NSDictionary *dataDic = responseObject[@"info"];
         if ([dataDic[@"result_code"] isEqualToString:@"SUCCESS"]) {
             
-            NSLog(@"prepay_id %@",dataDic[@"prepay_id"]);
-            
-            [self jumpToBizPay:dataDic[@"prepay_id"]];
+            [self jumpToBizPay:dataDic[@"appid"] partnerid:dataDic[@"mch_id"] prepayid:dataDic[@"prepay_id"]];
         }
         
-        
     }];
-    */
-    
-    
-    if (!bodyString || [bodyString isEqualToString:@""]) {
-        bodyString = @"自定义内容";
-    }
-    NSDictionary *params = @{@"appid" : WXAPI_APPID,
-                             @"mch_id" : WXAPI_PARTNERID,
-                             @"nonce_str" : [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]],
-                             @"body" : bodyString,
-                             @"out_trade_no" : tradeNum,
-                             @"total_fee" : price,
-                             @"spbill_create_ip" : [CommonUtil getIPAddress:YES],
-                             @"notify_url" : @"http://old.tianyue.tv/wxpayNotify",
-                             @"trade_type" : @"APP"};
-    
-    NSString *packageSign = [self signRequestParams:params];
-
-    NSMutableDictionary *muParams = [NSMutableDictionary dictionaryWithDictionary:params];
-    [muParams setObject:packageSign forKey:@"sign"];
-
-    NSString *xmlParams = [self xmlStringForDict:muParams];
-    
-    NSString *urlString = @"https://api.mch.weixin.qq.com/pay/unifiedorder";
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[xmlParams dataUsingEncoding:NSUTF8StringEncoding]];
-
-    isGetParpert = NO;
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-//        NSLog(@"data --- %@",data);
-        
-        DataXMLParser *parse = [[DataXMLParser alloc] initWithData:data];
-        parse.xmlID = 1;
-        [parse setDelegate:self];
-        [parse parse];
-        
-    }];
-    [dataTask resume];
-    
+ 
 }
 
 #pragma mark - 请求微信支付
 /**
  微信支付
 
- @param prepareId prepareId
+ @param appid appid
+ @param partnerid 商户号
+ @param prepayid 预支付id
  */
-- (void)jumpToBizPay:(NSString *)prepareId {
-
-    NSDictionary *params = @{@"appid" : WXAPI_APPID,
-                             @"partnerid" : WXAPI_PARTNERID,
-                             @"prepayid" : prepareId,
+- (void)jumpToBizPay:(NSString *)appid
+           partnerid:(NSString *)partnerid
+            prepayid:(NSString *)prepayid
+{
+    NSDictionary *params = @{@"appid" : appid,
+                             @"partnerid" : partnerid,
+                             @"prepayid" : prepayid,
                              @"package" : @"Sign=WXPay",
                              @"noncestr" : [CommonUtil md5:[NSString stringWithFormat:@"%d",arc4random()%10000]],
                              @"timestamp" : [NSString stringWithFormat:@"%d", (unsigned int)[[NSDate date] timeIntervalSince1970]]};
@@ -119,45 +68,6 @@
     [WXApi sendReq:req];
 }
 
-#pragma mark - 查询微信订单
-/**
- 查询微信订单
- 
- @param tradeNum 商户订单号
- */
-- (void)checkWeixinPayTradeNum:(NSString *)tradeNum {
-    NSDictionary *params = @{@"appid" : WXAPI_APPID,
-                             @"mch_id" : WXAPI_PARTNERID,
-                             @"out_trade_no" : tradeNum,
-                             @"nonce_str" : [CommonUtil md5:[NSString stringWithFormat:@"%d", arc4random() % 10000]]};
-    
-    NSString *packageSign = [self signRequestParams:params];
-    
-    NSMutableDictionary *muParams = [NSMutableDictionary dictionaryWithDictionary:params];
-    [muParams setObject:packageSign forKey:@"sign"];
-    
-    NSString *xmlParams = [self xmlStringForDict:muParams];
-    
-    NSString *urlString = @"https://api.mch.weixin.qq.com/pay/orderquery";
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[xmlParams dataUsingEncoding:NSUTF8StringEncoding]];
-
-    isCheckStatus = NO;
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        DataXMLParser *parse = [[DataXMLParser alloc] initWithData:data];
-        parse.xmlID = 2;
-        [parse setDelegate:self];
-        [parse parse];
-        
-    }];
-    [dataTask resume];
- 
-}
 
 #pragma mark - 将参数签名
 /**
@@ -189,126 +99,5 @@
     return packageSign;
 }
 
-#pragma mark - NSXMLParserDelegate
-//遍例xml的节点
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName attributes:(NSDictionary<NSString *, NSString *> *)attributeDict {
-    
-    if ([parser isMemberOfClass:[DataXMLParser class]]) {
-        DataXMLParser *dataX = (DataXMLParser *)parser;
-        if (dataX.xmlID == 1) {
-            //支付
-            @synchronized(self) {
-                if ([elementName isEqualToString:@"prepay_id"]) {
-                    isGetParpert = YES;
-                }
-            }
-        }else if (dataX.xmlID == 2) {
-            //查询订单
-            @synchronized(self) {
-                if ([elementName isEqualToString:@"trade_state"]) {
-                    isCheckStatus = YES;
-                }
-            }
-        }
-    }
-}
-
-//step 3:获取首尾节点间内容
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
-{
-    if ([parser isMemberOfClass:[DataXMLParser class]]) {
-        DataXMLParser *dataX = (DataXMLParser *)parser;
-        if (dataX.xmlID == 1) {
-            //支付
-            @synchronized(self) {
-                if (isGetParpert && !self.prepareId) {
-                    self.prepareId = string;
-                    
-                }
-            }
-            
-        }else if (dataX.xmlID == 2) {
-            //查询订单
-            @synchronized(self) {
-                if (isCheckStatus && !self.tradeStatue) {
-                    self.tradeStatue = string;
-                    
-                }
-            }
-        }
-    }
-}
-
-// 遇到文档结束时触发
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([parser isMemberOfClass:[DataXMLParser class]]) {
-            DataXMLParser *dataX = (DataXMLParser *)parser;
-            if (dataX.xmlID == 1) {
-                //支付
-                isGetParpert = NO;
-                if (self.prepareId) {
-                    [self jumpToBizPay:self.prepareId];
-                }else {
-                    
-//                    [SVProgressHud showStatus:@"支付失败！"];
-                }
-            }else if (dataX.xmlID == 2) {
-                //查询订单
-                isCheckStatus = NO;
-                if (self.tradeStatue && [self.tradeStatue isEqualToString:@"SUCCESS"]) {
-//                    [SVProgressHud showStatus:@"支付成功！"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"WEIXINSUCCESSTOPUSH" object:nil userInfo:nil];
-                }else {
-//                    [SVProgressHud showStatus:@"支付失败！"];
-                    
-                }
-            }
-        }
-    });
-}
-
-#pragma mark - 将字典转换为xml string
-//将字典转换为xml string
-- (NSString *)xmlStringForDict:(NSDictionary *)dict {
-    
-    //    NSMutableString *xmlString = [[NSMutableString alloc] initWithString:@"<?xml version=\"1.0\" encoding=\"utf-8\"?>"];
-    NSMutableString *xmlString = [[NSMutableString alloc] initWithString:@"<xml>"];
-    NSStack *stack = [[NSStack alloc] init];
-    NSArray  *keys = nil;
-    NSString *key  = nil;
-    NSObject *value    = nil;
-    NSObject *subvalue = nil;
-    //NSInteger size = 0;
-    [stack push:dict];
-    while (![stack empty]) {
-        value = [stack top];
-        [stack pop];
-        if (value) {
-            if ([value isKindOfClass:[NSString class]]) {
-                [xmlString appendFormat:@"</%@>", value];
-            }
-            else if([value isKindOfClass:[NSDictionary class]])
-            {
-                keys = [(NSDictionary*)value allKeys];
-                //size = [(NSDictionary*)value count];
-                for (key in keys) {
-                    subvalue = [(NSDictionary*)value objectForKey:key];
-                    if ([subvalue isKindOfClass:[NSDictionary class]]) {
-                        [xmlString appendFormat:@"<%@>", key];
-                        [stack push:key];
-                        [stack push:subvalue];
-                    }
-                    else if([subvalue isKindOfClass:[NSString class]])
-                    {
-                        [xmlString appendFormat:@"<%@>%@</%@>", key, subvalue, key];
-                    }
-                }
-            }
-        }
-    }
-    [xmlString appendString:@"</xml>"];
-    return xmlString;
-}
 
 @end

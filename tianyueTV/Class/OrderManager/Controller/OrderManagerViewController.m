@@ -373,17 +373,12 @@ UITextFieldDelegate>
         if (tag == 2) { // 确认支付
             OrderSnModel *snModel = self.datasource[index];
             GoodsInfoModel *goodModle = snModel.goodsList[0];
-            int priceFl = [price floatValue] * 100;
-            NSString *WXPrice = [NSString stringWithFormat:@"%d",priceFl];
-            NSLog(@"orderSn %@, price %@",goodModle.orderSn,WXPrice);
-            [[WXApiManager sharedManager] weixinPay:@"支付测试"
-                                        andTradeNum:goodModle.orderSn
-                                           andPrice:WXPrice
-                                           andBlock:^{
-                                               // 支付成功
-                                               [self dismissPayViewAnimation];
             
-                                           }];
+            [MBProgressHUD showMessage:nil];
+            [[WXApiManager sharedManager] weixinPayTradeNum:goodModle.orderSn andBlock:^{
+                // 支付成功
+                [self dismissPayViewAnimation];
+            }];
         }
     };
 }

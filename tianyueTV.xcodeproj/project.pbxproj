@@ -190,8 +190,6 @@
 		CCC9F0681EA4BFD400CA5702 /* CarpenteroomView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0671EA4BFD400CA5702 /* CarpenteroomView.m */; };
 		CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */; };
 		CCFF7C481EA0C52C001712E4 /* CommonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C441EA0C52C001712E4 /* CommonUtil.m */; };
-		CCFF7C491EA0C52C001712E4 /* NSStack.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C471EA0C52C001712E4 /* NSStack.m */; };
-		CCFF7C521EA0C580001712E4 /* DataXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C4C1EA0C580001712E4 /* DataXMLParser.m */; };
 		CCFF7C531EA0C580001712E4 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */; };
 		CCFF7C541EA0C580001712E4 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7C511EA0C580001712E4 /* WXApiRequestHandler.m */; };
 		CCFF7DFE1EA60D4F003C420E /* AnchorSpaceHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFF7DFD1EA60D4F003C420E /* AnchorSpaceHandle.m */; };
@@ -579,10 +577,6 @@
 		CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTianyueCategoryView.m; sourceTree = "<group>"; };
 		CCFF7C431EA0C52C001712E4 /* CommonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtil.h; sourceTree = "<group>"; };
 		CCFF7C441EA0C52C001712E4 /* CommonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtil.m; sourceTree = "<group>"; };
-		CCFF7C461EA0C52C001712E4 /* NSStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStack.h; sourceTree = "<group>"; };
-		CCFF7C471EA0C52C001712E4 /* NSStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStack.m; sourceTree = "<group>"; };
-		CCFF7C4B1EA0C580001712E4 /* DataXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataXMLParser.h; sourceTree = "<group>"; };
-		CCFF7C4C1EA0C580001712E4 /* DataXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataXMLParser.m; sourceTree = "<group>"; };
 		CCFF7C4D1EA0C580001712E4 /* WXApiHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiHeader.h; sourceTree = "<group>"; };
 		CCFF7C4E1EA0C580001712E4 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
 		CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
@@ -1831,7 +1825,6 @@
 			children = (
 				CCFF7C4A1EA0C580001712E4 /* WXApiManager */,
 				CCFF7C421EA0C52C001712E4 /* CommonUtil */,
-				CCFF7C451EA0C52C001712E4 /* NSStack */,
 				CC47BC521E9B867E006B1EA2 /* JPush */,
 			);
 			path = Vender;
@@ -1856,20 +1849,9 @@
 			path = CommonUtil;
 			sourceTree = "<group>";
 		};
-		CCFF7C451EA0C52C001712E4 /* NSStack */ = {
-			isa = PBXGroup;
-			children = (
-				CCFF7C461EA0C52C001712E4 /* NSStack.h */,
-				CCFF7C471EA0C52C001712E4 /* NSStack.m */,
-			);
-			path = NSStack;
-			sourceTree = "<group>";
-		};
 		CCFF7C4A1EA0C580001712E4 /* WXApiManager */ = {
 			isa = PBXGroup;
 			children = (
-				CCFF7C4B1EA0C580001712E4 /* DataXMLParser.h */,
-				CCFF7C4C1EA0C580001712E4 /* DataXMLParser.m */,
 				CCFF7C4D1EA0C580001712E4 /* WXApiHeader.h */,
 				CCFF7C4E1EA0C580001712E4 /* WXApiManager.h */,
 				CCFF7C4F1EA0C580001712E4 /* WXApiManager.m */,
@@ -2300,7 +2282,6 @@
 				04687ABB1E88BDF0004A5EE3 /* WWSaveView.m in Sources */,
 				CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */,
 				04687AB21E88BDF0004A5EE3 /* ForgetPasswordViewController.m in Sources */,
-				CCFF7C491EA0C52C001712E4 /* NSStack.m in Sources */,
 				04687ADE1E88BDF0004A5EE3 /* WWMyViewButton.m in Sources */,
 				CCFF7C541EA0C580001712E4 /* WXApiRequestHandler.m in Sources */,
 				981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */,
@@ -2393,7 +2374,6 @@
 				CCFF7DFE1EA60D4F003C420E /* AnchorSpaceHandle.m in Sources */,
 				04687AD01E88BDF0004A5EE3 /* WWAnchorSpaceViewController.m in Sources */,
 				04687AFB1E88BDF0004A5EE3 /* AddressManageViewController.m in Sources */,
-				CCFF7C521EA0C580001712E4 /* DataXMLParser.m in Sources */,
 				04687AB11E88BDF0004A5EE3 /* ChangePasswordViewController.m in Sources */,
 				04687B1C1E8914A3004A5EE3 /* BaseHandler.m in Sources */,
 				04687AF91E88BDF0004A5EE3 /* AddAddressViewController.m in Sources */,

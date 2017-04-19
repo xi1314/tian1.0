@@ -21,20 +21,13 @@
     return instance;
 }
 
-- (void)weixinPay:(NSString *)bodyString
-      andTradeNum:(NSString *)tradeNum
-         andPrice:(NSString *)price
-         andBlock:(WXApiManagerBlock)block {
-    
+- (void)weixinPayTradeNum:(NSString *)tradeNum
+         andBlock:(WXApiManagerBlock)block
+{
     _block = [block copy];
     
     WXApiRequestHandler *wxRequest = [[WXApiRequestHandler alloc] init];
-    [wxRequest wxPrepareToPay:bodyString andTradeNum:tradeNum andPrice:price];
-}
-
-- (void)checkWeixinPay:(NSString *)tradeNum {
-    WXApiRequestHandler *wxRequest = [[WXApiRequestHandler alloc] init];
-    [wxRequest checkWeixinPayTradeNum:tradeNum];
+    [wxRequest wxPrepareTradeNum:tradeNum];
 }
 
 #pragma mark - WXApiDelegate
@@ -44,7 +37,6 @@
     
         //支付返回结果，实际支付结果需要去微信服务器端查询
         NSString *strMsg = @"";
-//        NSString *strTitle = [NSString stringWithFormat:@"支付结果"];
  
         switch (resp.errCode) {
             case WXSuccess:
@@ -56,13 +48,11 @@
                 strMsg = @"支付结果：成功！";
                 [MBProgressHUD showSuccess:@"支付成功"];
             }
-//                strMsg = @"支付结果：成功！";
-//                NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
             
                 break;
                 
             default:
-//                strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
+
                 strMsg = @"支付结果：失败！";
                 [MBProgressHUD showError:@"支付失败"];
                 break;
