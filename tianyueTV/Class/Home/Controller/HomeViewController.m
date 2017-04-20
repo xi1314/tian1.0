@@ -10,6 +10,7 @@
 #import "BrandComeInView.h"
 #import "CarpenteroomView.h"
 #import "HomeTianyueCategoryView.h"
+#import "HomeHandler.h"
 
 @interface HomeViewController ()
 
@@ -113,6 +114,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 
 @end

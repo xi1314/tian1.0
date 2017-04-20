@@ -51,7 +51,7 @@
         [self.scrollView addSubview:brandView];
     }
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(respondsToTimer) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(respondsToTimer) userInfo:nil repeats:YES];
 }
 
 #pragma mark - Button method
@@ -107,7 +107,7 @@
  */
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    _timer.fireDate = [NSDate dateWithTimeIntervalSinceNow:2];
+    _timer.fireDate = [NSDate dateWithTimeIntervalSinceNow:5];
 }
 
 #pragma mark - Getter method
@@ -141,6 +141,10 @@
         [_arrowButton addTarget:self action:@selector(respondsToArrowButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _arrowButton;
+}
+
+- (void)dealloc {
+    [self.timer invalidate];
 }
 
 @end
