@@ -42,11 +42,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title =@"登录";
-    self.view.backgroundColor=WWColor(240, 240, 240);
+    self.title = @"登录";
+    self.view.backgroundColor = WWColor(240, 240, 240);
     
-    UIImageView *imageView =[[UIImageView alloc]initWithFrame:self.view.frame];
-    imageView.image =[UIImage imageNamed:@"loginBack"];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.frame];
+    imageView.image = [UIImage imageNamed:@"loginBack"];
     [self.view addSubview:imageView];
     
     //[self customBackBtn];
@@ -166,8 +166,7 @@
 {
     if (!_logo)
     {
-        _logo =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"1"]];
-        _logo.translatesAutoresizingMaskIntoConstraints =NO;
+        _logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loginLogo"]];
         [self.view addSubview:self.logo];
     }
     return _logo;
@@ -177,7 +176,7 @@
 {
     if (!_phoneImage)
     {
-        _phoneImage =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"手机"]];
+        _phoneImage =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loginTelephone"]];
         _phoneImage .translatesAutoresizingMaskIntoConstraints =NO;
          [self.view addSubview:self.phoneImage];
     }
@@ -188,7 +187,7 @@
 {
     if (!_verticalLine)
     {
-        _verticalLine =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"矩形-969"]];
+        _verticalLine =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loginVerLine"]];
         _verticalLine.translatesAutoresizingMaskIntoConstraints =NO;
         [self.view addSubview:self.verticalLine];
     }
@@ -213,7 +212,7 @@
 {
     if (!_horizontalLine)
     {
-        _horizontalLine =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"矩形-970"]];
+        _horizontalLine =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loginHorLine"]];
         _horizontalLine.translatesAutoresizingMaskIntoConstraints =NO;
         [self.view addSubview:self.horizontalLine];
     }
@@ -224,7 +223,7 @@
 {
     if (!_passwordImage)
     {
-        _passwordImage =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"密码-(1)"]];
+        _passwordImage =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loginPwdImage"]];
         _passwordImage .translatesAutoresizingMaskIntoConstraints =NO;
         [self.view addSubview:self.passwordImage];
     }
@@ -235,7 +234,7 @@
 {
     if (!_verticalLine1)
     {
-        _verticalLine1 =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"矩形-969"]];
+        _verticalLine1 =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loginVerLine"]];
         _verticalLine1.translatesAutoresizingMaskIntoConstraints =NO;
         [self.view addSubview:self.verticalLine1];
     }
@@ -261,7 +260,7 @@
 {
     if (!_horizontalLine1)
     {
-        _horizontalLine1 =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"矩形-970"]];
+        _horizontalLine1 =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loginHorLine"]];
         _horizontalLine1.translatesAutoresizingMaskIntoConstraints =NO;
         [self.view addSubview:self.horizontalLine1];
     }
@@ -381,10 +380,8 @@
 //    [self.registView autoSetDimension:ALDimensionHeight toSize:kHeightChange(260)];
     
     //logo
-    [self.logo autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(222)];
-    [self.logo autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(173)];
-    [self.logo autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
-    [self.logo autoSetDimension:ALDimensionHeight toSize:kHeightChange(120)];
+    self.logo.frame = CGRectMake(0, kHeightChange(222), kHeightChange(120) * 498 / 170, kHeightChange(120));
+    self.logo.center = CGPointMake(kWidth / 2.0, self.logo.center.y);
     
     //登录按钮
     [self.loginBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(405)];

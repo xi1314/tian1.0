@@ -52,8 +52,8 @@
  */
 - (void)customNavigationBar
 {
-    UIImageView *centerImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 7, 80, 30)];
-    [centerImage setImage:[UIImage imageNamed:@"1"]];
+    UIImageView *centerImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 7, 30 * 249 / 77, 30)];
+    [centerImage setImage:[UIImage imageNamed:@"homeNavLogo@3x"]];
     self.navigationItem.titleView = centerImage;
 }
 
