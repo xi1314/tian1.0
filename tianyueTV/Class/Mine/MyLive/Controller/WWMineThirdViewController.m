@@ -21,11 +21,11 @@
     self.title = @"直播间申请";
   
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(backItemClicked3)];
-    leftItem.image = [UIImage imageNamed:@"返回"];
+    leftItem.image = [UIImage imageNamed:@"back_black"];
     leftItem.tintColor = [UIColor blackColor];
     self.navigationItem.leftBarButtonItem = leftItem;
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(rightItemClicked3)];
-//    leftItem.image = [UIImage imageNamed:@"返回"];
+//    leftItem.image = [UIImage imageNamed:@"back_black"];
     rightItem.tintColor = [UIColor blackColor];
     self.navigationItem.rightBarButtonItem = rightItem;
     

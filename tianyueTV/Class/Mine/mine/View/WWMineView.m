@@ -431,7 +431,7 @@
         _rechargeButton.titleLabel.font = [UIFont systemFontOfSize:kWidthChange(20)];
 //        _rechargeButton.titleLabel.textColor = WWColor(214, 71, 76);
         [_rechargeButton setTitleColor:WWColor(214, 71, 76) forState:UIControlStateNormal];
-//        [_rechargeButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+//        [_rechargeButton setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         [_rechargeButton setBackgroundColor:[UIColor whiteColor]];
       
         [_rechargeButton addTarget:self action:@selector(respondsToRechargeButton:) forControlEvents:UIControlEventTouchUpInside];

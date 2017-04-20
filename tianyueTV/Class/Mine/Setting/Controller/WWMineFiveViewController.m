@@ -29,7 +29,7 @@
     self.view.backgroundColor = WWColor(240, 240, 240);
     self.title = @"设置";
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(backItemClicked)];
-    leftItem.image = [UIImage imageNamed:@"返回"];
+    leftItem.image = [UIImage imageNamed:@"back_black"];
     leftItem.tintColor = [UIColor blackColor];
     self.navigationItem.leftBarButtonItem = leftItem;
     
@@ -85,7 +85,7 @@
         _quietButton = [[UIButton alloc] init];
 //        [_quietButton setBackgroundColor:WWColor(193, 52, 50)];
         
-        [_quietButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+        [_quietButton setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         [_quietButton setTitle:@"退出当前账号" forState:UIControlStateNormal];
         [_quietButton addTarget:self action:@selector(respondsGetOut:) forControlEvents:UIControlEventTouchUpInside];
         _quietButton.layer.cornerRadius = kWidthChange(10);

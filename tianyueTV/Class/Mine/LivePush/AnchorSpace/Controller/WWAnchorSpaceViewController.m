@@ -305,7 +305,7 @@
 - (UIButton *)leftButton{
     if (!_leftButton) {
         _leftButton = [[UIButton alloc] init];
-        [_leftButton setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        [_leftButton setBackgroundImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
         [_leftButton addTarget:self action:@selector(respondsToBack:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftButton;
@@ -314,7 +314,7 @@
 - (UIButton *)startLivingButton{
     if (!_startLivingButton) {
         _startLivingButton = [[UIButton alloc] init];
-        [_startLivingButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+        [_startLivingButton setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         [_startLivingButton setTitle:@"开启直播" forState:UIControlStateNormal];
         [_startLivingButton addTarget:self action:@selector(respondsToStartClicked:) forControlEvents:UIControlEventTouchUpInside];
         

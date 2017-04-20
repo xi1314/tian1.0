@@ -2,12 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "im_dingzhi.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "im_dingzhi@2x.png",
       "scale" : "2x"
     },
     {

@@ -1412,7 +1412,7 @@
 - (UIImageView *)numGuanzhuImageView{
     if (!_numGuanzhuImageView) {
         _numGuanzhuImageView = [[UIImageView alloc] init];
-        _numGuanzhuImageView.image = [UIImage imageNamed:@"我的粉丝-(2)"];
+        _numGuanzhuImageView.image = [UIImage imageNamed:@"myFans"];
     }
     return _numGuanzhuImageView;
 }
@@ -1471,7 +1471,7 @@
 - (UIButton *)backButton{
     if (!_backButton) {
         _backButton = [[UIButton alloc] init];
-        [_backButton setImage:[UIImage imageNamed:@"返回_白"] forState:UIControlStateNormal];
+        [_backButton setImage:[UIImage imageNamed:@"back_white"] forState:UIControlStateNormal];
         [_backButton addTarget:self action:@selector(respondsToBackClicked:) forControlEvents:UIControlEventTouchUpInside];
 //        _backButton.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
 //        _backButton.layer.cornerRadius = 0.05*SCREEN_WIDTH;

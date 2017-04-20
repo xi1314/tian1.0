@@ -324,7 +324,7 @@
 - (UIImageView *)warnImgaeView{
     if (!_warnImgaeView) {
         _warnImgaeView = [[UIImageView alloc] init];
-        _warnImgaeView.image = [UIImage imageNamed:@"感叹号"];
+        _warnImgaeView.image = [UIImage imageNamed:@"register_alert"];
         _warnImgaeView.layer.cornerRadius = kWidthChange(15);
         _warnImgaeView.layer.masksToBounds = YES;
     }

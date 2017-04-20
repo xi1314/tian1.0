@@ -22,13 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[UITabBar appearance]setTintColor:[UIColor redColor]];
+    [[UITabBar appearance] setTintColor:[UIColor redColor]];
     
     /*
     HomepageViewController *liveVC = [[HomepageViewController alloc]init];
     liveVC.tabBarItem.image = [UIImage imageNamed:@""];
     UINavigationController *liveNav = [[UINavigationController alloc]initWithRootViewController:liveVC];
-    liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
+    liveNav.tabBarItem.image = [UIImage imageNamed:@"tabbar_living"];
     liveNav.title = @"直播";
     */
     
@@ -36,19 +36,19 @@
      HomeViewController *liveVC = [[HomeViewController alloc] init];
      liveVC.tabBarItem.image = [UIImage imageNamed:@""];
      UINavigationController *liveNav = [[UINavigationController alloc] initWithRootViewController:liveVC];
-     liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
+     liveNav.tabBarItem.image = [UIImage imageNamed:@"tabbar_living"];
      liveNav.title = @"直播";
     
     
     MineViewController *mineVC = [[MineViewController alloc]init];
     UINavigationController *mineNav = [[UINavigationController alloc]initWithRootViewController:mineVC];
-    mineNav.tabBarItem.image = [UIImage imageNamed:@"我的"];
+    mineNav.tabBarItem.image = [UIImage imageNamed:@"tabbar_mine"];
     mineNav.title = @"我的";
     
     
     SearchViewController *findVC = [[SearchViewController alloc]init];
     UINavigationController *findNav = [[UINavigationController alloc]initWithRootViewController:findVC];
-    findNav.tabBarItem.image = [UIImage imageNamed:@"发现-(5)"];
+    findNav.tabBarItem.image = [UIImage imageNamed:@"tabbar_discover"];
     findNav.title = @"发现";
     
     self.viewControllers = @[liveNav,findNav,mineNav];
@@ -90,15 +90,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

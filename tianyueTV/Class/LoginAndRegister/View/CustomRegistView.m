@@ -95,8 +95,8 @@
     if (!_eyeImageView)
     {
         _eyeImageView =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_eyeImageView setImage:[UIImage imageNamed:@"眼睛"] forState:UIControlStateNormal];
-        [_eyeImageView setImage:[UIImage imageNamed:@"眼睛"] forState:UIControlStateSelected];
+        [_eyeImageView setImage:[UIImage imageNamed:@"eye_normal"] forState:UIControlStateNormal];
+        [_eyeImageView setImage:[UIImage imageNamed:@"eye_selected"] forState:UIControlStateSelected];
         _eyeImageView.translatesAutoresizingMaskIntoConstraints =NO;
         [self addSubview:self.eyeImageView];
     }

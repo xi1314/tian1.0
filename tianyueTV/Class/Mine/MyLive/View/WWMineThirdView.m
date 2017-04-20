@@ -230,7 +230,7 @@
 - (UIButton *)rightButton{
     if (!_rightButton) {
         _rightButton = [[UIButton alloc] init];
-        [_rightButton setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        [_rightButton setImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
         [_rightButton addTarget:self action:@selector(respondsToZhankai:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightButton;

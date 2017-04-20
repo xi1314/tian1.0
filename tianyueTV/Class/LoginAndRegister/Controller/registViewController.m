@@ -166,8 +166,8 @@
         _boxButton =[UIButton buttonWithType:UIButtonTypeCustom];
         _boxButton.layer.borderWidth =kWidthChange(1);
         _boxButton.layer.borderColor =[[UIColor blackColor]CGColor];
-        [_boxButton setImage:[UIImage imageNamed:@"勾-(1)"] forState:UIControlStateNormal];
-        [_boxButton setImage:[UIImage imageNamed:@"矩形-6"] forState:UIControlStateSelected];
+        [_boxButton setImage:[UIImage imageNamed:@"register_gou"] forState:UIControlStateNormal];
+        [_boxButton setImage:[UIImage imageNamed:@"register_juxing"] forState:UIControlStateSelected];
         [_boxButton addTarget:self action:@selector(boxButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         _boxButton.translatesAutoresizingMaskIntoConstraints =NO;
         [self.view addSubview:self.boxButton];
@@ -220,7 +220,7 @@
     if (!_warnImageView)
     {
         _warnImageView =[[UIImageView alloc]init];
-        [_warnImageView setImage:[UIImage imageNamed:@"感叹号"]];
+        [_warnImageView setImage:[UIImage imageNamed:@"register_alert"]];
         _warnImageView.translatesAutoresizingMaskIntoConstraints =NO;
         [self.view addSubview:self.warnImageView];
     }
@@ -315,7 +315,7 @@
 {
     UIButton *backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame =CGRectMake(0, 0, 44, 44);
-    [backBtn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+    [backBtn setImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backItem =[[UIBarButtonItem alloc]initWithCustomView:backBtn];
     self.navigationItem.leftBarButtonItem =backItem;

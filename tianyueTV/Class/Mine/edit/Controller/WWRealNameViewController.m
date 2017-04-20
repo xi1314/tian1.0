@@ -24,7 +24,7 @@
     
    
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(backItemClicked)];
-    leftItem.image = [UIImage imageNamed:@"返回"];
+    leftItem.image = [UIImage imageNamed:@"back_black"];
     leftItem.tintColor = [UIColor blackColor];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.view.backgroundColor = [UIColor whiteColor];

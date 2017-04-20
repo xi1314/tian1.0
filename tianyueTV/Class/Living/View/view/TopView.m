@@ -33,7 +33,7 @@
     if (!_backButton)
     {
         _backButton =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_backButton setImage:[UIImage imageNamed:@"返回1"] forState:UIControlStateNormal];
+        [_backButton setImage:[UIImage imageNamed:@"back_white"] forState:UIControlStateNormal];
         _backButton.translatesAutoresizingMaskIntoConstraints =NO;
     }
     return _backButton;
@@ -90,7 +90,7 @@
     if (!_focusImageView)
     {
         _focusImageView =[[UIImageView alloc]init];
-        _focusImageView.image =[UIImage imageNamed:@"我的粉丝-(2)"];
+        _focusImageView.image =[UIImage imageNamed:@"myFans"];
         
         _focusImageView.translatesAutoresizingMaskIntoConstraints =NO;[self addSubview:self.focusImageView];
     }

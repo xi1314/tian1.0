@@ -99,7 +99,7 @@
         _clickedButtom = [[UIButton alloc] initWithFrame:CGRectMake(kWidthChange(30), self.worksCollectionView.contentSize.height + kHeightChange(50), SCREEN_WIDTH - kWidthChange(60), kHeightChange(85))];
         _clickedButtom.layer.cornerRadius = kWidthChange(5);
         _clickedButtom.layer.masksToBounds = YES;
-        [_clickedButtom setImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+        [_clickedButtom setImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         [_clickedButtom addTarget:self action:@selector(respondsToClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _clickedButtom;

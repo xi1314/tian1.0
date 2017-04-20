@@ -45,8 +45,8 @@
     if (!_barrageButton)
     {
         _barrageButton =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_barrageButton setImage:[UIImage imageNamed:@"弹幕开-(1)"] forState:UIControlStateNormal];
-        [_barrageButton setImage:[UIImage imageNamed:@"弹幕关-(1)111"] forState:UIControlStateSelected];
+        [_barrageButton setImage:[UIImage imageNamed:@"barrage_open"] forState:UIControlStateNormal];
+        [_barrageButton setImage:[UIImage imageNamed:@"barrage_close"] forState:UIControlStateSelected];
         _barrageButton.translatesAutoresizingMaskIntoConstraints =NO;
         [self addSubview:self.barrageButton];
     }

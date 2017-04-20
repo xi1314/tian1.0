@@ -97,7 +97,7 @@
 - (UIButton *)backButton{
     if (!_backButton) {
         _backButton = [[UIButton alloc] init];
-        [_backButton setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        [_backButton setBackgroundImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
         [_backButton addTarget:self action:@selector(respondsToOpenLiving:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backButton;
@@ -117,9 +117,9 @@
 -(UIButton *)openLiving{
     if (!_openLiving) {
         _openLiving = [[UIButton alloc] init];
-        [_openLiving setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+        [_openLiving setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         _openLiving.titleLabel.font = [UIFont systemFontOfSize:kWidthChange(34)];
-        [_openLiving setTitle:@"返回" forState:UIControlStateNormal];
+        [_openLiving setTitle:@"back_black" forState:UIControlStateNormal];
         [_openLiving addTarget:self action:@selector(respondsToOpenLiving:) forControlEvents:UIControlEventTouchUpInside];
         
     }

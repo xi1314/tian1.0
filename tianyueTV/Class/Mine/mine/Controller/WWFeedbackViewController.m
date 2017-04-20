@@ -87,7 +87,7 @@
     
         [_quedingButton setTitle:@"确定" forState:UIControlStateNormal];
         _quedingButton.titleLabel.font = [UIFont systemFontOfSize:kWidthChange(38)];
-        [_quedingButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+        [_quedingButton setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         [_quedingButton addTarget:self action:@selector(respondsToqueding:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _quedingButton;

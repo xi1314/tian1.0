@@ -33,7 +33,7 @@
     if (!_backBtn)
     {
         _backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_backBtn setImage:[UIImage imageNamed:@"返回1"] forState:UIControlStateNormal];
+        [_backBtn setImage:[UIImage imageNamed:@"back_white"] forState:UIControlStateNormal];
         _backBtn.translatesAutoresizingMaskIntoConstraints =NO;
         [self addSubview:self.backBtn];
     }
@@ -45,7 +45,7 @@
     if (!_shareBtn)
     {
         _shareBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-        [_shareBtn setImage:[UIImage imageNamed:@"分享(1)"] forState:UIControlStateNormal];
+        [_shareBtn setImage:[UIImage imageNamed:@"shareAlertImg"] forState:UIControlStateNormal];
         _shareBtn.translatesAutoresizingMaskIntoConstraints =NO;[self addSubview:self.shareBtn];
     }
     return _shareBtn;
@@ -55,7 +55,7 @@
     if (!_eye)
     {
         _eye =[[UIImageView alloc]init];
-        _eye.image =[UIImage imageNamed:@"眼睛1"];
+        _eye.image =[UIImage imageNamed:@"eye_normal"];
         _eye.translatesAutoresizingMaskIntoConstraints =NO;
         [self addSubview:self.eye];
     }

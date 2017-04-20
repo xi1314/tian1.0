@@ -82,7 +82,7 @@
 - (UIButton *)backButton{
     if (!_backButton) {
         _backButton = [[UIButton alloc] init];
-        [_backButton setImage:[UIImage imageNamed:@"返回_白"] forState:UIControlStateNormal];
+        [_backButton setImage:[UIImage imageNamed:@"back_white"] forState:UIControlStateNormal];
         [_backButton addTarget:self action:@selector(respondsToBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backButton;

@@ -283,7 +283,7 @@
 - (UIButton *)startLivingButton{
     if (!_startLivingButton) {
         _startLivingButton = [[UIButton alloc] init];
-        [_startLivingButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+        [_startLivingButton setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         [_startLivingButton setTitle:@"开启直播" forState:UIControlStateNormal];
         [_startLivingButton addTarget:self action:@selector(respondsToStartClicked:) forControlEvents:UIControlEventTouchUpInside];
         

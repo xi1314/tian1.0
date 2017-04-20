@@ -293,10 +293,10 @@
 //    {
 //        _leftBtn =[UIButton buttonWithType:UIButtonTypeCustom];
 //        [_leftBtn setTitle:@"自动登录" forState:UIControlStateNormal];
-//        [_leftBtn setImage:[UIImage imageNamed:@"矩形-6"] forState:UIControlStateNormal];
+//        [_leftBtn setImage:[UIImage imageNamed:@"register_juxing"] forState:UIControlStateNormal];
 //        [_leftBtn setImageEdgeInsets:UIEdgeInsetsMake(kHeightChange(3), kWidthChange(3), kHeightChange(3), kWidthChange(3))];
 //        
-//        [_leftBtn setImage:[UIImage imageNamed:@"勾-(1)"] forState:UIControlStateSelected];
+//        [_leftBtn setImage:[UIImage imageNamed:@"register_gou"] forState:UIControlStateSelected];
 //        _leftBtn.titleLabel.font =[UIFont systemFontOfSize:kWidthChange(26)];
 //        [_leftBtn setTitleColor:WWColor(192, 67, 73) forState:UIControlStateNormal];
 //        [_leftBtn addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -357,7 +357,7 @@
 //{
 //    UIButton *backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
 //    backBtn.frame =CGRectMake(0, 0, 44, 44);
-//    [backBtn setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+//    [backBtn setImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
 //    [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 //    UIBarButtonItem *backItem =[[UIBarButtonItem alloc]initWithCustomView:backBtn];
 //    self.navigationItem.leftBarButtonItem =backItem;

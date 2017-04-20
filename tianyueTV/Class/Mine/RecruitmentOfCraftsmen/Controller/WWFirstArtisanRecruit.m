@@ -26,7 +26,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *banckItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStyleDone target:self action:@selector(backHandle)];
+    UIBarButtonItem *banckItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_black"] style:UIBarButtonItemStyleDone target:self action:@selector(backHandle)];
     banckItem.tintColor = [UIColor blackColor];
     self.navigationItem.leftBarButtonItem = banckItem;
     self.title = @"首轮匠人大招募";

@@ -139,8 +139,8 @@
         [_readedButton addTarget:self action:@selector(respondsToReaderButton:) forControlEvents:UIControlEventTouchUpInside];
         _readedButton.layer.cornerRadius = kWidthChange(5);
         _readedButton.layer.masksToBounds = YES;
-//        [_readedButton setImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
-        [_readedButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+//        [_readedButton setImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
+        [_readedButton setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
     }
     return _readedButton;
 }

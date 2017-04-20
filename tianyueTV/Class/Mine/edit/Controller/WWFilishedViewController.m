@@ -23,7 +23,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"申请完成";
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(backItemClicked)];
-    leftItem.image = [UIImage imageNamed:@"返回"];
+    leftItem.image = [UIImage imageNamed:@"back_black"];
     leftItem.tintColor = [UIColor blackColor];
     self.navigationItem.leftBarButtonItem = leftItem;
     [self initializeUserInterface];
@@ -75,7 +75,7 @@
 - (UIButton *)filishedButton{
     if (!_filishedButton) {
         _filishedButton = [[UIButton alloc] init];
-        [_filishedButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+        [_filishedButton setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         [_filishedButton setTitle:@"完成" forState:UIControlStateNormal];
         [_filishedButton addTarget:self action:@selector(respondsToFilishedButton:) forControlEvents:UIControlEventTouchUpInside];
         _filishedButton.titleLabel.textColor = [UIColor whiteColor];

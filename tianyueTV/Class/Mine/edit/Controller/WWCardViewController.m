@@ -57,7 +57,7 @@
     self.title = @"个人身份信息";
     self.view.backgroundColor = [UIColor whiteColor];
 //    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(backItemClicked1)];
-//    leftItem.image = [UIImage imageNamed:@"返回"];
+//    leftItem.image = [UIImage imageNamed:@"back_black"];
 //    leftItem.tintColor = [UIColor blackColor];
 //    self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.hidesBackButton = YES;
@@ -378,7 +378,7 @@
 - (UIButton *)backButton{
     if (!_backButton) {
         _backButton = [[UIButton alloc] init];
-        [_backButton setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        [_backButton setImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
         [_backButton addTarget:self action:@selector(backItemClicked1) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backButton;
@@ -390,7 +390,7 @@
         _nextButton = [[UIButton alloc] init];
         
         
-//        [_nextButton setBackgroundImage:[UIImage imageNamed:@"圆角矩形-3"] forState:UIControlStateNormal];
+//        [_nextButton setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         [_nextButton setBackgroundColor:WWColor(211, 5, 26)];
         _nextButton.layer.cornerRadius = kWidthChange(8);
         _nextButton.layer.masksToBounds = YES;
