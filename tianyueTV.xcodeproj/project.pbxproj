@@ -170,6 +170,7 @@
 		9811F0D41E9890C2000BDD67 /* ShopDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9811F0D31E9890C2000BDD67 /* ShopDetailViewController.xib */; };
 		981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */; };
 		98285E8F929C186BEA3EDD6D /* libPods-tianyueTVUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC026177855CDB192D1BB06 /* libPods-tianyueTVUITests.a */; };
+		986A413A1EA865420066B3F4 /* BrandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A41391EA865420066B3F4 /* BrandView.m */; };
 		987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842231E8F7FB50084BF82 /* ShopHandle.m */; };
 		987842271E8F993D0084BF82 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842261E8F993D0084BF82 /* AddressModel.m */; };
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
@@ -543,6 +544,8 @@
 		9811F0D31E9890C2000BDD67 /* ShopDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailViewController.xib; sourceTree = "<group>"; };
 		981ED63B1E84F31200835219 /* UIButton+BadgeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BadgeValue.h"; sourceTree = "<group>"; };
 		981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BadgeValue.m"; sourceTree = "<group>"; };
+		986A41381EA865420066B3F4 /* BrandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandView.h; sourceTree = "<group>"; };
+		986A41391EA865420066B3F4 /* BrandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandView.m; sourceTree = "<group>"; };
 		987842221E8F7FB50084BF82 /* ShopHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopHandle.h; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.h; sourceTree = SOURCE_ROOT; };
 		987842231E8F7FB50084BF82 /* ShopHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopHandle.m; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.m; sourceTree = SOURCE_ROOT; };
 		987842251E8F993D0084BF82 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
@@ -872,6 +875,8 @@
 				CCC9F0671EA4BFD400CA5702 /* CarpenteroomView.m */,
 				CCC9F0691EA4C11B00CA5702 /* HomeTianyueCategoryView.h */,
 				CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */,
+				986A41381EA865420066B3F4 /* BrandView.h */,
+				986A41391EA865420066B3F4 /* BrandView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2388,6 +2393,7 @@
 				04687A931E88BDF0004A5EE3 /* BuildersViewController.m in Sources */,
 				04687A971E88BDF0004A5EE3 /* LiveModel.m in Sources */,
 				04687A941E88BDF0004A5EE3 /* ContentViewController.m in Sources */,
+				986A413A1EA865420066B3F4 /* BrandView.m in Sources */,
 				FF0110C31DAB26D6003146A7 /* main.m in Sources */,
 				04687AC31E88BDF0004A5EE3 /* WWResultStatusViewController.m in Sources */,
 				04687AE91E88BDF0004A5EE3 /* WWShopsTableViewCell.m in Sources */,

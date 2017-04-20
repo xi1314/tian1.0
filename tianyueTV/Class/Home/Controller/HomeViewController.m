@@ -75,7 +75,7 @@
         [UIView animateWithDuration:0.2 animations:^{
             
             if (flag) {
-                self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, 21);
+                self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, 20);
             } else {
                 self.view_brand.frame = CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.13);
             }
