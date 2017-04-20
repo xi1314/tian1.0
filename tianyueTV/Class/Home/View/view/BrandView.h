@@ -10,4 +10,5 @@
 
 @interface BrandView : UIView
 
+
 @end

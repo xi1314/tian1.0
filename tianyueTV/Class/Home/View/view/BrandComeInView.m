@@ -7,7 +7,6 @@
 //
 
 #import "BrandComeInView.h"
-#import "BrandView.h"
 
 @interface BrandComeInView ()
 <UIScrollViewDelegate>
@@ -44,11 +43,16 @@
     [self addSubview:self.label];
     [self addSubview:self.scrollView];
     [self addSubview:self.arrowButton];
-    
+
+}
+
+- (void)configBrandViewWithArr:(NSArray *)brandArr {
     for (int i = 0; i < 4; i++) {
         BrandView *brandView = [[BrandView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, self.scrollView.height)];
         brandView.backgroundColor = [UIColor purpleColor];
         [self.scrollView addSubview:brandView];
+        
+
     }
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(respondsToTimer) userInfo:nil repeats:YES];
@@ -63,7 +67,7 @@
     }
 }
 
-#pragma mark -- Timer method
+#pragma mark - Timer method
 - (void)respondsToTimer {
     
     int index = self.scrollView.contentOffset.x / SCREEN_WIDTH;

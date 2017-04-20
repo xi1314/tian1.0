@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BrandView.h"
 
 typedef void(^BrandBlock)(BOOL flag);
 
@@ -14,5 +15,13 @@ typedef void(^BrandBlock)(BOOL flag);
 
 // 下拉按钮点击事件
 @property (nonatomic, copy) BrandBlock block;
+
+@property (nonatomic, strong) BrandView *brandOne;
+
+@property (nonatomic, strong) BrandView *brandTow;
+
+@property (nonatomic, strong) BrandView *brandThree;
+
+@property (nonatomic, strong) BrandView *brandFour;
 
 @end
