@@ -78,13 +78,11 @@
     if (scrollView.contentOffset.x >= 3 * SCREEN_WIDTH) {
         // 向右，滑到第四个view时，将scroll view的偏移量重置为第二个view
         self.scrollView.contentOffset = CGPointMake(SCREEN_WIDTH, 0);
-        
+    
     } else if (scrollView.contentOffset.x <= 0){
         // 向左，滑到第一个view时，将scroll view的偏移量重置为第三个view
         self.scrollView.contentOffset = CGPointMake(SCREEN_WIDTH * 2, 0);
         
-    } else{
-        return;
     }
     
 }
@@ -144,7 +142,10 @@
 }
 
 - (void)dealloc {
-    [self.timer invalidate];
+    if ([self.timer isValid]) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 
 @end
