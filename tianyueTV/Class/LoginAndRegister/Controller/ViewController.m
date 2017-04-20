@@ -9,17 +9,12 @@
 #import "ViewController.h"
 #import "registViewController.h"
 #import "ForgetPasswordViewController.h"
-
 #import "MBProgressHUD+MJ.h"
 #import "NetWorkTool.h"
-#import "MineViewController.h"
-//#import "MainViewController.h"
-
-#import "HomepageViewController.h"
-
-
 #import "CustomRegistView.h"
-#import "SearchViewController.h"
+#import "TabbarViewController.h"
+
+
 @interface ViewController ()
 
 //@property(nonatomic,strong)CustomRegistView *registView;
@@ -40,6 +35,7 @@
 @property(nonatomic,strong)UIButton *rightBtn;
 
 @property(nonatomic,strong)UIButton *loginBtn;
+
 @end
 
 @implementation ViewController
@@ -62,7 +58,12 @@
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]init];
     paraments[@"userName"] =self.phoneTextField.text;
     paraments[@"password"] =self.passwordTextField.text;
+    
+    @weakify(self);
     [[NetWorkTool sharedTool]requestMethod:POST URL:@"mobileLogin" paraments:paraments finish:^(id responseObject, NSError *error) {
+        
+        @strongify(self);
+        
         NSLog(@" 登录----%@----%@",responseObject,error);
         if ([responseObject[@"status"] isEqualToString:@"success"])
         {
@@ -85,9 +86,8 @@
         
             
             [[NSUserDefaults standardUserDefaults]synchronize];
-            [self  saveUserAccountInfo];
+            [self saveUserAccountInfo];
             [self getAndSaveCookie];
-            
             
             [self goToMain];
         }else
@@ -134,8 +134,7 @@
 {
     registViewController *vc =[[registViewController alloc]init];
     UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil
-     ];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 -(void)getAndSaveCookie
 {
@@ -143,34 +142,14 @@
     [[NSUserDefaults standardUserDefaults]setObject:cookiesData forKey:@"cookies"];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
-//进入主页
--(void)goToMain
+
+// 进入主页
+- (void)goToMain
 {
-    //MainViewController *liveVC =[[MainViewController alloc]init];
-    HomepageViewController *liveVC =[[HomepageViewController alloc]init];
-
-    liveVC.tabBarItem.image =[UIImage imageNamed:@""];
-    UINavigationController *liveNav =[[UINavigationController alloc]initWithRootViewController:liveVC];
-    liveNav.tabBarItem.image =[UIImage imageNamed:@"直播-拷贝-2"];
-    liveNav.title =@"直播";
-    
-    MineViewController *mineVC =[[MineViewController alloc]init];
-    UINavigationController *mineNav =[[UINavigationController alloc]initWithRootViewController:mineVC];
-    mineNav.tabBarItem.image =[UIImage imageNamed:@"我的"];
-    mineNav.title =@"我的";
-    
-    
-    SearchViewController *findVC =[[SearchViewController alloc]init];
-    UINavigationController *findNav =[[UINavigationController alloc]initWithRootViewController:findVC];
-    findNav.tabBarItem.image =[UIImage imageNamed:@"发现-(5)"];
-    findNav.title =@"发现";
-    
-    UITabBarController *tabBar =[[UITabBarController   alloc]init];
-    [[UITabBar appearance]setTintColor:[UIColor redColor]];
-    tabBar.viewControllers =@[liveNav,findNav,mineNav];
-    [self presentViewController:tabBar animated:YES completion:nil];
-
+    TabbarViewController *tabbar = [[TabbarViewController alloc] init];
+    [self presentViewController:tabbar animated:YES completion:nil];
 }
+
 
 -(void)backBtnClick:(UIButton *)btn
 {

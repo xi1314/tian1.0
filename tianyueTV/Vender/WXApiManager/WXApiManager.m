@@ -97,7 +97,7 @@
 
 #pragma mark - 参数签名方法
 /**
- 数字签名方法
+ 参数签名方法
  
  @param params 字典
  @return 签名后的字符串
@@ -128,7 +128,7 @@
 #pragma mark - WXApiDelegate
 //微信响应回调
 - (void)onResp:(BaseResp *)resp {
-    if([resp isKindOfClass:[PayResp class]]){
+    if ([resp isKindOfClass:[PayResp class]]) {
 
         switch (resp.errCode) {
             case WXSuccess:
