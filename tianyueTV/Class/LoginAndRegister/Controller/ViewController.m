@@ -46,14 +46,14 @@
     self.view.backgroundColor=WWColor(240, 240, 240);
     
     UIImageView *imageView =[[UIImageView alloc]initWithFrame:self.view.frame];
-    imageView.image =[UIImage imageNamed:@"背景-拷贝123456"];
+    imageView.image =[UIImage imageNamed:@"loginBack"];
     [self.view addSubview:imageView];
     
     //[self customBackBtn];
     [self addLayout];
 }
 
--(void)loginRequest
+- (void)loginRequest
 {
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]init];
     paraments[@"userName"] =self.phoneTextField.text;
@@ -67,7 +67,7 @@
         NSLog(@" 登录----%@----%@",responseObject,error);
         if ([responseObject[@"status"] isEqualToString:@"success"])
         {
-            //userSig用于初始化腾讯sdk
+            // userSig用于初始化腾讯sdk
             [USER_Defaults setObject:responseObject[@"user"][@"userSig"] forKey:@"userSig"];
             
             [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"user"][@"id"] forKey:@"user_id"];
@@ -76,7 +76,7 @@
                 [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"user"][@"bCard"] forKey:@"bCard"];
             }
             
-            //判断是否有直播间
+            // 判断是否有直播间
             if (responseObject[@"user"][@"baudit"] != [NSNull null]) {
                 [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"user"][@"baudit"] forKey:@"baudit"];
             }
@@ -96,30 +96,34 @@
         }
     }];
 }
--(void)saveUserAccountInfo
+
+- (void)saveUserAccountInfo
 {
     [[NSUserDefaults standardUserDefaults]setObject:self.phoneTextField.text forKey:@"userName"];
     [[NSUserDefaults standardUserDefaults]setObject:self.passwordTextField.text forKey:@"password"];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
-//注册按钮绑定方法
--(void)registBtnClick
+
+// 注册按钮绑定方法
+- (void)registBtnClick
 {
     registViewController *registVC =[[registViewController alloc]init];
     UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:registVC];
     [self presentViewController:nav animated:YES completion:nil];
 
 }
-//忘记密码
--(void)rightBtnClick:(UIButton *)btn
+
+// 忘记密码
+- (void)rightBtnClick:(UIButton *)btn
 {
     ForgetPasswordViewController *ForgetPasswordVC =[[ForgetPasswordViewController alloc]init];
     UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:ForgetPasswordVC];
     [self presentViewController:nav animated:YES completion:nil];
 
 }
-//登录按钮绑定方法
--(void)loginBtnClcik:(UIButton *)loginButton
+
+// 登录按钮绑定方法
+- (void)loginBtnClcik:(UIButton *)loginButton
 {
     if (self.phoneTextField.text.length ==0||self.passwordTextField.text.length ==0)
     {
@@ -129,14 +133,16 @@
         [self loginRequest];
     }
 }
-//自动登录
--(void)leftBtnClick:(UIButton *)btn
+
+// 自动登录
+- (void)leftBtnClick:(UIButton *)btn
 {
     registViewController *vc =[[registViewController alloc]init];
     UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }
--(void)getAndSaveCookie
+
+- (void)getAndSaveCookie
 {
     NSData *cookiesData =[NSKeyedArchiver archivedDataWithRootObject:[[NSHTTPCookieStorage sharedHTTPCookieStorage]cookies]];
     [[NSUserDefaults standardUserDefaults]setObject:cookiesData forKey:@"cookies"];
@@ -151,12 +157,12 @@
 }
 
 
--(void)backBtnClick:(UIButton *)btn
+- (void)backBtnClick:(UIButton *)btn
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(UIImageView *)logo
+- (UIImageView *)logo
 {
     if (!_logo)
     {
@@ -166,7 +172,8 @@
     }
     return _logo;
 }
--(UIImageView *)phoneImage
+
+- (UIImageView *)phoneImage
 {
     if (!_phoneImage)
     {
@@ -176,7 +183,8 @@
     }
     return _phoneImage;
 }
--(UIImageView *)verticalLine
+
+- (UIImageView *)verticalLine
 {
     if (!_verticalLine)
     {
@@ -186,7 +194,8 @@
     }
     return _verticalLine;
 }
--(ZSCustomTextField *)phoneTextField
+
+- (ZSCustomTextField *)phoneTextField
 {
     if (!_phoneTextField)
     {
@@ -199,7 +208,8 @@
     }
     return _phoneTextField;
 }
--(UIImageView *)horizontalLine
+
+- (UIImageView *)horizontalLine
 {
     if (!_horizontalLine)
     {
@@ -209,7 +219,8 @@
     }
     return _horizontalLine;
 }
--(UIImageView *)passwordImage
+
+- (UIImageView *)passwordImage
 {
     if (!_passwordImage)
     {
@@ -219,7 +230,8 @@
     }
     return _passwordImage;
 }
--(UIImageView *)verticalLine1
+
+- (UIImageView *)verticalLine1
 {
     if (!_verticalLine1)
     {
@@ -229,7 +241,8 @@
     }
     return _verticalLine1;
 }
--(ZSCustomTextField *)passwordTextField
+
+- (ZSCustomTextField *)passwordTextField
 {
     if (!_passwordTextField)
     {
@@ -243,7 +256,8 @@
     }
     return _passwordTextField;
 }
--(UIImageView *)horizontalLine1
+
+- (UIImageView *)horizontalLine1
 {
     if (!_horizontalLine1)
     {
