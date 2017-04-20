@@ -23,6 +23,9 @@
 // 定时器
 @property (nonatomic, strong) NSTimer *timer;
 
+// 分页指示器
+@property (nonatomic, strong) UIPageControl *pageControl;
+
 @end
 
 @implementation BrandComeInView
@@ -43,16 +46,21 @@
     [self addSubview:self.label];
     [self addSubview:self.scrollView];
     [self addSubview:self.arrowButton];
+    [self addSubview:self.pageControl];
 
 }
 
 - (void)configBrandViewWithArr:(NSArray *)brandArr {
     for (int i = 0; i < 4; i++) {
         BrandView *brandView = [[BrandView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, self.scrollView.height)];
-        brandView.backgroundColor = [UIColor purpleColor];
+        brandView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:brandView];
         
-
+        if (i%2) {
+            [brandView setButtonImage:[brandArr subarrayWithRange:NSMakeRange(0, 5)]];
+        } else {
+            [brandView setButtonImage:[brandArr subarrayWithRange:NSMakeRange(5, 5)]];
+        }
     }
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(respondsToTimer) userInfo:nil repeats:YES];
@@ -71,6 +79,8 @@
 - (void)respondsToTimer {
     
     int index = self.scrollView.contentOffset.x / SCREEN_WIDTH;
+    
+    self.pageControl.currentPage = index%2;
     
     [self.scrollView setContentOffset:CGPointMake(SCREEN_WIDTH * (index + 1), 0) animated:YES];
 }
@@ -91,22 +101,15 @@
     
 }
 
-/**
- *  滚动视图开始拖 动：暂停timer
- *
- *  @param scrollView 滚动视图
- */
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     _timer.fireDate = [NSDate distantFuture];
+    int index = scrollView.contentOffset.x / SCREEN_WIDTH;
+    self.pageControl.currentPage = index % 2;
 }
 
-/**
- *  滚动视图停止拖动：启动timer
- *
- *  @param scrollView 滚动视图
- *  @param decelerate bool
- */
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     _timer.fireDate = [NSDate dateWithTimeIntervalSinceNow:5];
@@ -126,10 +129,10 @@
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.label.bottom, SCREEN_WIDTH, self.height - self.label.height)];
-        _scrollView.backgroundColor = [UIColor purpleColor];
         _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH*4, _scrollView.height);
-        _scrollView.pagingEnabled = YES;
         _scrollView.contentOffset = CGPointMake(SCREEN_WIDTH, 0);
+        _scrollView.pagingEnabled = YES;
+        _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.delegate = self;
     }
     return _scrollView;
@@ -143,6 +146,18 @@
         [_arrowButton addTarget:self action:@selector(respondsToArrowButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _arrowButton;
+}
+
+- (UIPageControl *)pageControl {
+    if (!_pageControl) {
+        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
+        _pageControl.centerX = self.centerX;
+        _pageControl.pageIndicatorTintColor = WWColor(234, 234, 234);
+        _pageControl.currentPageIndicatorTintColor = WWColor(76, 76, 76);
+        _pageControl.userInteractionEnabled = NO;
+        _pageControl.numberOfPages = 2;
+    }
+    return _pageControl;
 }
 
 - (void)dealloc {

@@ -53,7 +53,7 @@
     // 请求商标
     [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
         NSLog(@"BrandTrademark %@",respondsObject);
-        
+        [self.view_brand configBrandViewWithArr:respondsObject];
     }];
 }
 

@@ -31,8 +31,17 @@
             button.frame = CGRectMake(gap * 2 + (height + gap) * i, 5, height, height);
         }
         button.layer.cornerRadius = height/2;
+        button.layer.masksToBounds = YES;
         button.backgroundColor = [UIColor whiteColor];
         [self addSubview:button];
+    }
+}
+
+- (void)setButtonImage:(NSArray *)dataArr {
+    for (int i = 0; i < 5; i++) {
+        UIButton *button = (UIButton *)self.subviews[i];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:dataArr[i]]];
+        [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
     }
 }
 

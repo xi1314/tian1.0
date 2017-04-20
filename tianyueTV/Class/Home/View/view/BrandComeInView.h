@@ -16,12 +16,12 @@ typedef void(^BrandBlock)(BOOL flag);
 // 下拉按钮点击事件
 @property (nonatomic, copy) BrandBlock block;
 
-@property (nonatomic, strong) BrandView *brandOne;
 
-@property (nonatomic, strong) BrandView *brandTow;
+/**
+ 刷新品牌图标
 
-@property (nonatomic, strong) BrandView *brandThree;
-
-@property (nonatomic, strong) BrandView *brandFour;
+ @param brandArr 网络请求数据
+ */
+- (void)configBrandViewWithArr:(NSArray *)brandArr;
 
 @end

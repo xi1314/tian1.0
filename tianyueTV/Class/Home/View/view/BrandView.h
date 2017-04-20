@@ -10,5 +10,11 @@
 
 @interface BrandView : UIView
 
+/**
+ 设置按钮图片
+
+ @param dataArr 网络请求数据
+ */
+- (void)setButtonImage:(NSArray *)dataArr;
 
 @end
