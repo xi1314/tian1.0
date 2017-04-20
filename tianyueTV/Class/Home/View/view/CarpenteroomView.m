@@ -38,6 +38,7 @@
 
 @end
 
+
 @implementation CarpenteroomView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -139,6 +140,8 @@
     // 从第四个头像后开始滑动
     if (page >= 3) {
         [self.recommendScrollView setContentOffset:CGPointMake((gapWidth + buttonWidth) * (page - 3), 0) animated:YES];
+    }else {
+        [self.recommendScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     }
 }
 
