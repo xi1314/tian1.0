@@ -10,13 +10,13 @@
 
 @implementation LiveModel
 
--(instancetype)initWithDictionary:(NSDictionary *)dictionary
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
-    if (self =[super init])
+    if (self = [super init])
     {
-        _name =dictionary[@"name"];
-        _image =dictionary[@"image"];
-        _headUrl =dictionary[@"headUrl"];
+        _name = dictionary[@"name"];
+        _image = dictionary[@"image"];
+        _headUrl = dictionary[@"headUrl"];
         _nickName =dictionary[@"nickName"];
         _onlineNum =dictionary[@"onlineNum"];
         _isPushPOM =dictionary[@"isPushPOM"];
@@ -31,9 +31,13 @@
 }
 
 @end
+
+
+
+
 @implementation BannerImageModel
 
--(instancetype)initWithDictionary:(NSDictionary *)dictionary
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     if (self =[super init])
     {
@@ -46,9 +50,13 @@
 }
 
 @end
+
+
+
+
 @implementation TypeModel
 
--(instancetype)initWithDictionary:(NSDictionary *)dictionary
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     if (self =[super init])
     {
@@ -61,3 +69,5 @@
 }
 
 @end
+
+

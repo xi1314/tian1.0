@@ -27,16 +27,12 @@
 //新浪微博SDK需要在项目Build Settings中的Other Linker Flags添加"-ObjC"
 #import "ViewController.h"
 
-#import "MineViewController.h"
-#import "SearchViewController.h"
 //#import "PLMediaStreamingKit.h"
 #import "GuideViewController.h"
 
 #import "TalkingData.h"
 #import "TalkingDataSMS.h"
 
-#import "HomepageViewController.h"
-#import "HomeViewController.h"
 #import "TabbarViewController.h"
 
 // 极光推送
@@ -175,39 +171,9 @@
     }
     else
     {
-        
-        
-        HomepageViewController *liveVC = [[HomepageViewController alloc]init];
-        liveVC.tabBarItem.image = [UIImage imageNamed:@""];
-        UINavigationController *liveNav = [[UINavigationController alloc]initWithRootViewController:liveVC];
-        liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
-        liveNav.title = @"直播";
-        
-         
-        /*
-        HomeViewController *liveVC = [[HomeViewController alloc] init];
-        liveVC.tabBarItem.image = [UIImage imageNamed:@""];
-        UINavigationController *liveNav = [[UINavigationController alloc] initWithRootViewController:liveVC];
-        liveNav.tabBarItem.image = [UIImage imageNamed:@"直播-拷贝-2"];
-        liveNav.title = @"直播";
-        */
-         
-        MineViewController *mineVC = [[MineViewController alloc]init];
-        UINavigationController *mineNav = [[UINavigationController alloc]initWithRootViewController:mineVC];
-        mineNav.tabBarItem.image = [UIImage imageNamed:@"我的"];
-        mineNav.title = @"我的";
-        
-        
-        SearchViewController *findVC = [[SearchViewController alloc]init];
-        UINavigationController *findNav = [[UINavigationController alloc]initWithRootViewController:findVC];
-        findNav.tabBarItem.image = [UIImage imageNamed:@"发现-(5)"];
-        findNav.title = @"发现";
-        
         TabbarViewController *tabbar = [[TabbarViewController alloc] init];        
-        tabbar.viewControllers = @[liveNav,findNav,mineNav];
         self.window.rootViewController = tabbar;
     }
-
 }
 
 // 分享
