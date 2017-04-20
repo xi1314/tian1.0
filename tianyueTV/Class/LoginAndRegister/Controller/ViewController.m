@@ -176,8 +176,8 @@
 {
     if (!_phoneImage)
     {
-        _phoneImage =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loginTelephone"]];
-        _phoneImage .translatesAutoresizingMaskIntoConstraints =NO;
+        _phoneImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loginTelephone"]];
+        _phoneImage.translatesAutoresizingMaskIntoConstraints = NO;
          [self.view addSubview:self.phoneImage];
     }
     return _phoneImage;
