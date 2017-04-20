@@ -33,6 +33,8 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = WWColor(234, 230, 229);
     
+    [self initializeDatasource];
+    
     // 添加导航栏
     [self customNavigationBar];
     
@@ -45,6 +47,13 @@
     // 加载底部类别视图
     [self addHomeTianyueCategoryView];
     
+}
+
+- (void)initializeDatasource {
+    // 请求商标
+    [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
+        NSLog(@"BrandTrademark %@",respondsObject);
+    }];
 }
 
 

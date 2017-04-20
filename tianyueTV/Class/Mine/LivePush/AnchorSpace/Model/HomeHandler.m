@@ -22,7 +22,7 @@
         
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
-            completeBlock(responseObject, nil);
+            completeBlock(responseObject[@"Brandtrademark"], nil);
         } else {
             completeBlock(nil, error);
         }
