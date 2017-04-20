@@ -306,8 +306,8 @@
 //    return _leftBtn;
 //}
 
-//立即注册
--(UIButton *)leftBtn
+// 立即注册
+- (UIButton *)leftBtn
 {
     if (!_leftBtn)
     {
