@@ -7,6 +7,7 @@
 //
 
 #import "HomeHandler.h"
+#import "HomeModel.h"
 
 @implementation HomeHandler
 
@@ -29,6 +30,25 @@
         
     }];
     
+}
+
+
+/**
+ 首页匠作间请求
+
+ @param completeBlock 返回值
+ */
++ (void)requestForLivingRoomWithCompleteBlock:(HandlerBlock)completeBlock {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_mobileAll paraments:nil finish:^(id responseObject, NSError *error) {
+        
+        if (responseObject) {
+            HomeModel *hm = [HomeModel mj_objectWithKeyValues:responseObject];
+            completeBlock(hm.dataList, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+        
+    }];
 }
 
 @end

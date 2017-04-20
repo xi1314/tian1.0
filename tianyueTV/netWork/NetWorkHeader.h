@@ -18,6 +18,9 @@
 // 首页商标请求
 #define api_Brand_trademark  @"Brand_trademark"
 
+// 首页匠作间
+#define api_mobileAll @"mobileAll"
+
 // 我的订单（卖家）
 #define api_orderInfo_app  @"orderInfo_app"
 

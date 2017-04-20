@@ -18,5 +18,11 @@
  */
 + (void)requestForBrandTrademarkWithCompleteBlock:(HandlerBlock)completeBlock;
 
+/**
+ 首页匠作间请求
+ 
+ @param completeBlock 返回值
+ */
++ (void)requestForLivingRoomWithCompleteBlock:(HandlerBlock)completeBlock;
 
 @end

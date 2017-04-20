@@ -7,6 +7,8 @@
 //
 
 #import "CarpenteroomView.h"
+#import "HomeModel.h"
+#import <UIButton+AFNetworking.h>
 
 
 @interface CarpenteroomView ()
@@ -28,7 +30,7 @@
 @property (nonatomic, strong) UIPageControl *livePage;
 
 // 匠作间数组
-@property (nonatomic, strong) NSArray *liveData;
+//@property (nonatomic, strong) NSArray *liveData;
 
 // 分割线
 @property (nonatomic, strong) UIView *lineView;
@@ -45,7 +47,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _liveData = @[@"0", @"0", @"0", @"0", @"0", @"0"];
         [self initializeInterface];
     }
     return self;
@@ -63,32 +64,45 @@
     [self addSubview:self.recommendScrollView];
     [self addSubview:self.livePage];
     
-    // 匠作间滚动视图
+}
+
+- (void)configCarpenterRoomWithData:(NSArray *)data {
+    self.liveScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*data.count, _liveScrollView.height);
+    self.livePage.numberOfPages = data.count;
     CGFloat liveWidth = SCREEN_WIDTH - 18*2;
-    for (int i = 0; i < self.liveData.count; i++) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(18 + (18*2 + liveWidth)*i, 0, liveWidth, self.liveScrollView.height - 26)];
-        imageView.backgroundColor = [UIColor blueColor];
-        [self.liveScrollView addSubview:imageView];
-    }
-    
-    // 推荐匠人滚动视图
     CGFloat buttonWidth = self.recommendScrollView.height - 20;
     // 在iPhone 5屏幕尺寸显示
     if (SCREEN_WIDTH == 320) {
         buttonWidth = self.recommendScrollView.height - 8;
     }
-
     CGFloat gapWidth = (SCREEN_WIDTH - 4 * buttonWidth) / 5;
-
-    self.recommendScrollView.contentSize = CGSizeMake(self.liveData.count * (gapWidth + buttonWidth) + gapWidth, self.recommendScrollView.height);
     
-    for (int i = 0; i < self.liveData.count; i++) {
+    self.recommendScrollView.contentSize = CGSizeMake(data.count * (gapWidth + buttonWidth) + gapWidth, self.recommendScrollView.height);
+    
+    for (int i = 0; i < data.count; i++) {
+        HomeLiveModel *model = (HomeLiveModel *)data[i];
+        // 匠作间滚动视图
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(18 + (18*2 + liveWidth)*i, 0, liveWidth, self.liveScrollView.height - 26)];
+        imageView.backgroundColor = [UIColor blueColor];
+        
+        [imageView setImageURL:[NSURL URLWithString:model.img_cover]];
+        [self.liveScrollView addSubview:imageView];
+        // 播放图标
+        UIImageView *playImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, liveWidth/5, liveWidth/5)];
+        playImage.center = CGPointMake(imageView.width/2, imageView.height/2);
+        playImage.image = [UIImage imageNamed:@"home_play"];
+        [imageView addSubview:playImage];
+        
+         // 推荐匠人滚动视图
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake((gapWidth + buttonWidth) * i + gapWidth, 5, buttonWidth, buttonWidth);
         button.layer.cornerRadius = buttonWidth / 2;
+        button.layer.masksToBounds = YES;
         button.backgroundColor = [UIColor whiteColor];
         [button addTarget:self action:@selector(respondsToRecommendButton:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = 100 + i;
+        
+        [button setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:model.headUrl]];
         [self.recommendScrollView addSubview:button];
         // 默认选中第一个按钮
         if (i == 0) {
@@ -174,7 +188,6 @@
     if (!_liveScrollView) {
         _liveScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.headLabel.bottom + 6, SCREEN_WIDTH, self.height*0.62)];
         _liveScrollView.pagingEnabled = YES;
-        _liveScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*self.liveData.count, _liveScrollView.height);
         _liveScrollView.showsHorizontalScrollIndicator = NO;
         _liveScrollView.delegate = self;
     }
@@ -203,7 +216,7 @@
     if (!_recommendScrollView) {
         _recommendScrollView = [[UIScrollView alloc] init];
         _recommendScrollView.frame = CGRectMake(0, self.recommendLabel.bottom + 6, SCREEN_WIDTH, self.height - self.recommendLabel.bottom - 6);
-        _recommendScrollView.backgroundColor = [UIColor yellowColor];
+//        _recommendScrollView.backgroundColor = [UIColor yellowColor];
         _recommendScrollView.showsHorizontalScrollIndicator = NO;
     }
     return _recommendScrollView;
@@ -212,7 +225,6 @@
 - (UIPageControl *)livePage {
     if (!_livePage) {
         _livePage = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.liveScrollView.bottom - 16, SCREEN_WIDTH, 10)];
-        _livePage.numberOfPages = self.liveData.count;
         _livePage.currentPage = 0;
         // 设置非选中页的圆点颜色
         _livePage.pageIndicatorTintColor = WWColor(234, 234, 234);

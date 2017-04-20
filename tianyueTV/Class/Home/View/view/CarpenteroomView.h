@@ -10,4 +10,11 @@
 
 @interface CarpenteroomView : UIView
 
+/**
+ 刷新匠作间
+
+ @param data model数组
+ */
+- (void)configCarpenterRoomWithData:(NSArray *)data;
+
 @end

@@ -32,7 +32,7 @@
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = WWColor(234, 230, 229);
-    
+    // 网络请求
     [self initializeDatasource];
     
     // 添加导航栏
@@ -52,8 +52,17 @@
 - (void)initializeDatasource {
     // 请求商标
     [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
-        NSLog(@"BrandTrademark %@",respondsObject);
-        [self.view_brand configBrandViewWithArr:respondsObject];
+        if (respondsObject) {
+            [self.view_brand configBrandViewWithArr:respondsObject];
+        }
+    }];
+    
+    // 请求匠作间
+    [HomeHandler requestForLivingRoomWithCompleteBlock:^(id respondsObject, NSError *error) {
+        NSLog(@"shouye living %@, %@",respondsObject,error);
+        if (respondsObject) {
+            [self.view_carpent configCarpenterRoomWithData:respondsObject];
+        }
     }];
 }
 

@@ -171,6 +171,7 @@
 		981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */; };
 		98285E8F929C186BEA3EDD6D /* libPods-tianyueTVUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC026177855CDB192D1BB06 /* libPods-tianyueTVUITests.a */; };
 		986A413A1EA865420066B3F4 /* BrandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A41391EA865420066B3F4 /* BrandView.m */; };
+		986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A413C1EA8B0E10066B3F4 /* HomeModel.m */; };
 		987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842231E8F7FB50084BF82 /* ShopHandle.m */; };
 		987842271E8F993D0084BF82 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842261E8F993D0084BF82 /* AddressModel.m */; };
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
@@ -546,6 +547,8 @@
 		981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BadgeValue.m"; sourceTree = "<group>"; };
 		986A41381EA865420066B3F4 /* BrandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandView.h; sourceTree = "<group>"; };
 		986A41391EA865420066B3F4 /* BrandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandView.m; sourceTree = "<group>"; };
+		986A413B1EA8B0E10066B3F4 /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
+		986A413C1EA8B0E10066B3F4 /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
 		987842221E8F7FB50084BF82 /* ShopHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopHandle.h; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.h; sourceTree = SOURCE_ROOT; };
 		987842231E8F7FB50084BF82 /* ShopHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopHandle.m; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.m; sourceTree = SOURCE_ROOT; };
 		987842251E8F993D0084BF82 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
@@ -826,6 +829,8 @@
 			children = (
 				0468794E1E88BDF0004A5EE3 /* LiveModel.h */,
 				0468794F1E88BDF0004A5EE3 /* LiveModel.m */,
+				986A413B1EA8B0E10066B3F4 /* HomeModel.h */,
+				986A413C1EA8B0E10066B3F4 /* HomeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2405,6 +2410,7 @@
 				04687AAA1E88BDF0004A5EE3 /* GiftView.m in Sources */,
 				04687ACA1E88BDF0004A5EE3 /* WWPesonalShowViewController.m in Sources */,
 				04687AA01E88BDF0004A5EE3 /* LiveStreamingViewController.m in Sources */,
+				986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */,
 				04687B041E88BDF0004A5EE3 /* AddressTableViewCell.m in Sources */,
 				04687B0B1E88BDF0004A5EE3 /* ChooseView.m in Sources */,
 				04687ACE1E88BDF0004A5EE3 /* WWPcollectionViewCell.m in Sources */,
