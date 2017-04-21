@@ -217,7 +217,7 @@ UITextViewDelegate>
                 @weakify(self);
                 [MBProgressHUD showMessage:nil];
                 [[WXApiManager sharedManager] weixinPayTradeNum:self.order_Sn andBlock:^{
-                    @strongify(self);
+//                    @strongify(self);
 //                    [self.navigationController popViewControllerAnimated:YES];
                 }];
             } break;

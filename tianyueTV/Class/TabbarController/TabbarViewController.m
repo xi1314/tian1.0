@@ -22,7 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+    [[UITabBar appearance] setTintColor:WWColor(211, 5, 26)];
+    [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
     
     /*
     HomepageViewController *liveVC = [[HomepageViewController alloc]init];

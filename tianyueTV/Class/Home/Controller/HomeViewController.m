@@ -32,6 +32,9 @@
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = WWColor(234, 230, 229);
+    
+    // 隐藏导航栏黑线
+    [self useMethodToFindBlackLineAndHind];
     // 网络请求
     [self initializeDatasource];
     
@@ -59,11 +62,37 @@
     
     // 请求匠作间
     [HomeHandler requestForLivingRoomWithCompleteBlock:^(id respondsObject, NSError *error) {
-        NSLog(@"shouye living %@, %@",respondsObject,error);
         if (respondsObject) {
             [self.view_carpent configCarpenterRoomWithData:respondsObject];
         }
     }];
+}
+
+
+/**
+ 当设置navigationBar的背景图片或背景色时，使用该方法都可移除黑线，且不会使translucent属性失效
+ */
+- (void)useMethodToFindBlackLineAndHind
+{
+    UIImageView* blackLineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    // 隐藏黑线（在viewWillAppear时隐藏，在viewWillDisappear时显示）
+    blackLineImageView.hidden = YES;
+}
+
+
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view
+{
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0)
+    {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
 }
 
 

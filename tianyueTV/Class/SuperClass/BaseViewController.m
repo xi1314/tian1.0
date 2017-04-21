@@ -16,9 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //设置导航栏
-    self.navigationController.navigationBar.barTintColor = WWColor(248, 248, 248);
+    // 设置导航栏背景色
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    // item 颜色
     self.navigationController.navigationBar.tintColor = WWColor(51, 51, 51);
+    // title字体
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:WWColor(51, 51, 51),NSFontAttributeName:[UIFont systemFontOfSize:18]};
 }
 
