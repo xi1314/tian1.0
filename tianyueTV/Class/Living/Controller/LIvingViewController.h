@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface LIvingViewController : UIViewController
+@interface LIvingViewController : BaseViewController
 
 @property(nonatomic,copy)NSString *isPushPOM;
 @property(nonatomic,copy)NSString *uesr_id;

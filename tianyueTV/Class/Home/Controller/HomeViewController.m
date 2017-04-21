@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"天越源作";
+    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = WWColor(234, 230, 229);
     
@@ -52,6 +53,7 @@
     [self initializeDatasource];
     
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

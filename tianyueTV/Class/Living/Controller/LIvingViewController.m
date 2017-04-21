@@ -111,6 +111,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.groupID = @"@TGS#3MZOSFMED";
     [self joinChatRoom];
     
@@ -119,7 +120,7 @@
     _reconnectCount =0;
     _index=0;
     //隐藏导航条
-    self.navigationController.navigationBar.hidden =YES;
+    self.navigationController.navigationBar.hidden = YES;
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets =NO;
     
