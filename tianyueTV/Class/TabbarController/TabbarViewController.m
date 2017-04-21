@@ -37,15 +37,15 @@
     
     HomeViewController *liveVC = [[HomeViewController alloc] init];
     UINavigationController *liveNav = [[UINavigationController alloc] initWithRootViewController:liveVC];
-    liveNav.tabBarItem.image = [[UIImage imageNamed:@"TAB_index"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    liveNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_index-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    liveNav.tabBarItem.image = [[UIImage imageNamed:@"tab_index"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    liveNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_index_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     liveNav.title = @"直播";
     
     
     MineViewController *mineVC = [[MineViewController alloc]init];
     UINavigationController *mineNav = [[UINavigationController alloc]initWithRootViewController:mineVC];
-    mineNav.tabBarItem.image = [[UIImage imageNamed:@"tab_personal information-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    mineNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"TAB_personal information"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    mineNav.tabBarItem.image = [[UIImage imageNamed:@"tab_personal information"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    mineNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_personal information_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
     mineNav.title = @"我的";
     
