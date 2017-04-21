@@ -30,7 +30,7 @@
 @property (nonatomic, strong) UIPageControl *livePage;
 
 // 匠作间数组
-//@property (nonatomic, strong) NSArray *liveData;
+@property (nonatomic, strong) NSArray *liveData;
 
 // 分割线
 @property (nonatomic, strong) UIView *lineView;
@@ -67,6 +67,7 @@
 }
 
 - (void)configCarpenterRoomWithData:(NSArray *)data {
+    self.liveData = data;
     self.liveScrollView.contentSize = CGSizeMake(SCREEN_WIDTH*data.count, _liveScrollView.height);
     self.livePage.numberOfPages = data.count;
     CGFloat liveWidth = SCREEN_WIDTH - 18*2;
@@ -83,9 +84,14 @@
         HomeLiveModel *model = (HomeLiveModel *)data[i];
         // 匠作间滚动视图
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(18 + (18*2 + liveWidth)*i, 0, liveWidth, self.liveScrollView.height - 26)];
-        
+        imageView.userInteractionEnabled = YES;
         [imageView setImageURL:[NSURL URLWithString:model.img_cover]];
+        imageView.tag = 100 + i;
         [self.liveScrollView addSubview:imageView];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToLiveRoom:)];
+        [imageView addGestureRecognizer:tap];
+        
         // 播放图标
         UIImageView *playImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, liveWidth/5, liveWidth/5)];
         playImage.center = CGPointMake(imageView.width/2, imageView.height/2);
@@ -110,6 +116,17 @@
             button.selected = YES;
             _lastButton = button;
         }
+    }
+}
+
+
+#pragma mark - Tap method
+- (void)respondsToLiveRoom:(UITapGestureRecognizer *)sender {
+    NSInteger tag = sender.view.tag - 100;
+    NSLog(@"liveData %@; tag %ld",self.liveData,tag);
+    if (self.liveBlock) {
+        HomeLiveModel *LM = (HomeLiveModel *)self.liveData[tag];
+        self.liveBlock(LM);
     }
 }
 

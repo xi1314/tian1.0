@@ -11,6 +11,7 @@
 #import "CarpenteroomView.h"
 #import "HomeTianyueCategoryView.h"
 #import "HomeHandler.h"
+#import "LIvingViewController.h"
 
 @interface HomeViewController ()
 
@@ -29,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"天越源作";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = WWColor(234, 230, 229);
     
@@ -39,7 +40,7 @@
     [self initializeDatasource];
     
     // 添加导航栏
-    [self customNavigationBar];
+//    [self customNavigationBar];
     
     // 加载品牌入驻视图
     [self addBrandComeInView];
@@ -50,6 +51,11 @@
     // 加载底部类别视图
     [self addHomeTianyueCategoryView];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+     self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)initializeDatasource {
@@ -158,6 +164,26 @@
     self.view_carpent = [[CarpenteroomView alloc] initWithFrame:CGRectMake(0, self.view_brand.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.63)];
     _view_carpent.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view_carpent];
+    
+    @weakify(self);
+    self.view_carpent.liveBlock = ^(HomeLiveModel *liveM) {
+        @strongify(self);
+        
+        LIvingViewController *livingVC = [[LIvingViewController alloc] init];
+        livingVC.topic = liveM.stream;
+        livingVC.isPushPOM = liveM.isPushPOM;
+        livingVC.ql_push_flow = liveM.ql_push_flow;
+        livingVC.playAddress = liveM.playAddress;
+        livingVC.uesr_id = liveM.user_id;
+        livingVC.ID = liveM.ID;
+        livingVC.onlineNum = liveM.onlineNum;
+        livingVC.name = liveM.name;
+        livingVC.nickName = liveM.nickName;
+        livingVC.headUrl = liveM.headUrl;
+        
+        livingVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:livingVC animated:YES];
+    };
 }
 
 

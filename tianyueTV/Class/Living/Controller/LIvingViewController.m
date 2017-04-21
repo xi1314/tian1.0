@@ -183,7 +183,6 @@
     //别的控制器恢复IQKeyboard的使用
     [IQKeyboardManager sharedManager].enable =YES;
     
-    
     //  [self.player resume];
     //  [self.player stop];
 }

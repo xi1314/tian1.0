@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeModel.h"
+
+typedef void(^CarpenterBlock)(HomeLiveModel *model);
 
 @interface CarpenteroomView : UIView
+
+// 点击直播间
+@property (nonatomic, copy) CarpenterBlock liveBlock;
 
 /**
  刷新匠作间

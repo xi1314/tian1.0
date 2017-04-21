@@ -32,13 +32,14 @@
     CGFloat height = self.frame.size.height - 20;
     
     NSArray *labelArr = @[@"天越甄选", @"匠人头条"];
-    NSArray *imageName = @[model.Selection, model.information];
+    NSArray *imageName = @[@"home_tianyueSelect", @"home_hotNews"];
     
     for (int i = 0; i < 2; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10*(i+1) + width*i, 10, width, height)];
         imageView.layer.cornerRadius = 3;
         imageView.layer.masksToBounds = YES;
-        [imageView setImageURL:[NSURL URLWithString:imageName[i]]];
+//        [imageView setImageURL:[NSURL URLWithString:imageName[i]]];
+        imageView.image = [UIImage imageNamed:imageName[i]];
         [self addSubview:imageView];
         
         
