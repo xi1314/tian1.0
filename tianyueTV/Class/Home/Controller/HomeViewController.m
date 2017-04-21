@@ -36,9 +36,6 @@
     
     // 隐藏导航栏黑线
     [self useMethodToFindBlackLineAndHind];
-    // 网络请求
-    [self initializeDatasource];
-    
     // 添加导航栏
 //    [self customNavigationBar];
     
@@ -50,6 +47,9 @@
     
     // 加载底部类别视图
     [self addHomeTianyueCategoryView];
+    
+    // 网络请求
+    [self initializeDatasource];
     
 }
 

@@ -10,6 +10,8 @@
 #import "HomeModel.h"
 #import <UIButton+AFNetworking.h>
 
+#define Button_Tag 100
+#define ImageView_Tag 200
 
 @interface CarpenteroomView ()
 <UIScrollViewDelegate>
@@ -86,7 +88,7 @@
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(18 + (18*2 + liveWidth)*i, 0, liveWidth, self.liveScrollView.height - 26)];
         imageView.userInteractionEnabled = YES;
         [imageView setImageURL:[NSURL URLWithString:model.img_cover]];
-        imageView.tag = 100 + i;
+        imageView.tag = ImageView_Tag + i;
         [self.liveScrollView addSubview:imageView];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToLiveRoom:)];
@@ -105,7 +107,7 @@
         button.layer.masksToBounds = YES;
         button.backgroundColor = [UIColor whiteColor];
         [button addTarget:self action:@selector(respondsToRecommendButton:) forControlEvents:UIControlEventTouchUpInside];
-        button.tag = 100 + i;
+        button.tag = Button_Tag + i;
         
         [button setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:model.headUrl]];
         [self.recommendScrollView addSubview:button];
@@ -122,7 +124,7 @@
 
 #pragma mark - Tap method
 - (void)respondsToLiveRoom:(UITapGestureRecognizer *)sender {
-    NSInteger tag = sender.view.tag - 100;
+    NSInteger tag = sender.view.tag - ImageView_Tag;
     NSLog(@"liveData %@; tag %ld",self.liveData,tag);
     if (self.liveBlock) {
         HomeLiveModel *LM = (HomeLiveModel *)self.liveData[tag];
@@ -138,7 +140,7 @@
     [self swichButtonState:sender];
     
     // 点击时切换匠作间
-    NSInteger index = sender.tag - 100;
+    NSInteger index = sender.tag - Button_Tag;
  
     // 设置页码
     self.livePage.currentPage = index;
