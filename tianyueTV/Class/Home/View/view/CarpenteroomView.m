@@ -125,7 +125,7 @@
 #pragma mark - Tap method
 - (void)respondsToLiveRoom:(UITapGestureRecognizer *)sender {
     NSInteger tag = sender.view.tag - ImageView_Tag;
-    NSLog(@"liveData %@; tag %ld",self.liveData,tag);
+    
     if (self.liveBlock) {
         HomeLiveModel *LM = (HomeLiveModel *)self.liveData[tag];
         self.liveBlock(LM);
