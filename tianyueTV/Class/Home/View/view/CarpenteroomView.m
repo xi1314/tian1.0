@@ -83,7 +83,6 @@
         HomeLiveModel *model = (HomeLiveModel *)data[i];
         // 匠作间滚动视图
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(18 + (18*2 + liveWidth)*i, 0, liveWidth, self.liveScrollView.height - 26)];
-        imageView.backgroundColor = [UIColor blueColor];
         
         [imageView setImageURL:[NSURL URLWithString:model.img_cover]];
         [self.liveScrollView addSubview:imageView];
@@ -216,7 +215,6 @@
     if (!_recommendScrollView) {
         _recommendScrollView = [[UIScrollView alloc] init];
         _recommendScrollView.frame = CGRectMake(0, self.recommendLabel.bottom + 6, SCREEN_WIDTH, self.height - self.recommendLabel.bottom - 6);
-//        _recommendScrollView.backgroundColor = [UIColor yellowColor];
         _recommendScrollView.showsHorizontalScrollIndicator = NO;
     }
     return _recommendScrollView;

@@ -51,4 +51,23 @@
     }];
 }
 
+/**
+ 天越甄选
+
+ @param completeBlock 返回值
+ */
++ (void)requestForTianyueCategoryWithCompleteBlock:(HandlerBlock)completeBlock {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_ChangechartApp paraments:nil finish:^(id responseObject, NSError *error) {
+        NSLog(@"---- %@",responseObject);
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            HomeSelectModel *SM = [HomeSelectModel mj_objectWithKeyValues:dic];
+            completeBlock(SM, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+        
+    }];
+}
+
 @end

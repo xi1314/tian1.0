@@ -21,6 +21,9 @@
 // 首页匠作间
 #define api_mobileAll @"mobileAll"
 
+// 天越甄选
+#define api_ChangechartApp @"ChangechartApp"
+
 // 我的订单（卖家）
 #define api_orderInfo_app  @"orderInfo_app"
 

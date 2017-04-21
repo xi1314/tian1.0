@@ -18,11 +18,20 @@
  */
 + (void)requestForBrandTrademarkWithCompleteBlock:(HandlerBlock)completeBlock;
 
+
 /**
  首页匠作间请求
  
  @param completeBlock 返回值
  */
 + (void)requestForLivingRoomWithCompleteBlock:(HandlerBlock)completeBlock;
+
+
+/**
+ 天越甄选
+ 
+ @param completeBlock 返回值
+ */
++ (void)requestForTianyueCategoryWithCompleteBlock:(HandlerBlock)completeBlock;
 
 @end

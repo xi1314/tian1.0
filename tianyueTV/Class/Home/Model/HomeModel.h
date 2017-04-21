@@ -16,6 +16,9 @@
 @end
 
 
+/**
+ 直播间信息
+ */
 @interface HomeLiveModel : NSObject
 
 // 房间号
@@ -53,5 +56,19 @@
 
 // 封面图片
 @property (nonatomic, copy) NSString *img_cover;
+
+@end
+
+
+/**
+ 天越甄选
+ */
+@interface HomeSelectModel : NSObject
+
+// 天越甄选
+@property (nonatomic, copy) NSString *Selection;
+
+// 匠人头条
+@property (nonatomic, copy) NSString *information;
 
 @end

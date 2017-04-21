@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeModel.h"
 
 @interface HomeTianyueCategoryView : UIView
+
+/**
+ 设置图片
+
+ @param model 数据model
+ */
+- (void)configeCategoryViewWithModel:(HomeSelectModel *)model;
 
 @end

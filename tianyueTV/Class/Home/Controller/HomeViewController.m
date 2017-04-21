@@ -53,8 +53,11 @@
 }
 
 - (void)initializeDatasource {
+    [MBProgressHUD showMessage:nil];
+    @weakify(self);
     // 请求商标
     [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
         if (respondsObject) {
             [self.view_brand configBrandViewWithArr:respondsObject];
         }
@@ -62,8 +65,19 @@
     
     // 请求匠作间
     [HomeHandler requestForLivingRoomWithCompleteBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
         if (respondsObject) {
             [self.view_carpent configCarpenterRoomWithData:respondsObject];
+            [MBProgressHUD hideHUD];
+        }
+    }];
+    
+    // 天越甄选 匠人头条
+    [HomeHandler requestForTianyueCategoryWithCompleteBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        if (respondsObject) {
+            HomeSelectModel *SM = (HomeSelectModel *)respondsObject;
+            [self.view_tCategory configeCategoryViewWithModel:SM];
         }
     }];
 }
