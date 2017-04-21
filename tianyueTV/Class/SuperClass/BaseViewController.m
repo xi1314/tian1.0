@@ -16,9 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // 设置导航栏背景色
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    // 设置导航栏背景图片
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_whiteback"] forBarMetrics:UIBarMetricsDefault];
     // item 颜色
     self.navigationController.navigationBar.tintColor = WWColor(51, 51, 51);
     // title字体
