@@ -47,10 +47,6 @@
 @property (nonatomic,strong) UIButton *wanchengButton;/* 完成按钮 */
 
 
-
-
-
-
 @end
 
 
@@ -66,10 +62,6 @@
     }
     return self;
 }
-
-
-
-
 
 
 

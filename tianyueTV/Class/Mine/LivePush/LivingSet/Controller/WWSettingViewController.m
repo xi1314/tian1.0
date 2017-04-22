@@ -7,23 +7,28 @@
 //
 
 #import "WWSettingViewController.h"
-//#import "WWSettingView.h"
 #import "WWBiaoqianViewController.h"
 #import "WWAnchorSpaceViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "WWLivingViewController.h"
-@interface WWSettingViewController () <biaoqanDelegate>
+@interface WWSettingViewController ()
+<biaoqanDelegate>
+
 {
     BOOL _isFirst;
 }
-@property (nonatomic,strong) UIBarButtonItem *cancelButton;//取消按钮
-@property (nonatomic,strong) UIBarButtonItem *saveButton;//保存按钮
 
-@property (nonatomic,strong) NSMutableArray *biaoqianArrays;//标签信息
-@property (nonatomic,strong) UIButton *startLivingButton;//开启直播
+// 取消按钮
+@property (nonatomic,strong) UIBarButtonItem *cancelButton;
 
+// 保存按钮
+@property (nonatomic,strong) UIBarButtonItem *saveButton;
 
+// 标签信息
+@property (nonatomic,strong) NSMutableArray *biaoqianArrays;
 
+// 开启直播
+@property (nonatomic,strong) UIButton *startLivingButton;
 
 
 @end

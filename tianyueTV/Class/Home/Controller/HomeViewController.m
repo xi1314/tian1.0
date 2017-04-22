@@ -61,7 +61,7 @@
 }
 
 - (void)initializeDatasource {
-    [MBProgressHUD showMessage:nil];
+//    [MBProgressHUD showMessage:nil];
     @weakify(self);
     // 请求商标
     [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
@@ -76,7 +76,7 @@
         @strongify(self);
         if (respondsObject) {
             [self.view_carpent configCarpenterRoomWithData:respondsObject];
-            [MBProgressHUD hideHUD];
+//            [MBProgressHUD hideHUD];
         }
     }];
     

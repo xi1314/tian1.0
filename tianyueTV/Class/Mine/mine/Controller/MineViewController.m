@@ -38,12 +38,22 @@
 #import "OrderManagerViewController.h"
 
 
+@interface MineViewController ()
+<UINavigationControllerDelegate,
+UIImagePickerControllerDelegate,
+WWCameraCutViewDelegate>
 
-@interface MineViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,WWCameraCutViewDelegate>
-@property (nonatomic,weak) UIImageView *imageView;
-@property (nonatomic,strong) WWMineView *mine;
-@property (nonatomic,strong) UIImagePickerController *pick;
-@property (nonatomic,strong) WWCameraCutViewController *imageCrop;
+@property (nonatomic, strong) UIImageView *imageView;
+
+
+@property (nonatomic, strong) WWMineView *mine;
+
+
+@property (nonatomic, strong) UIImagePickerController *pick;
+
+
+@property (nonatomic, strong) WWCameraCutViewController *imageCrop;
+
 
 @property (nonatomic,strong) UIImage *choiceImage;
 
@@ -113,15 +123,6 @@
 }
 
 
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    WWFirstArtisanRecruit *FirstArtisanRecruitvc = [[WWFirstArtisanRecruit alloc] init];
-//    self.navigationController.navigationBarHidden = NO;
-//    self.tabBarController.tabBar.hidden = YES;
-//    [self.navigationController pushViewController:FirstArtisanRecruitvc animated:YES];
-//}
-
-
-
 - (void)realName{
     
     WWRealNameViewController *realnameVC = [[WWRealNameViewController alloc] init];
@@ -180,12 +181,6 @@
     NSLog(@"头像选择");
 }
 
-//- (UIImageView *)imageView{
-//    if (!_imageView) {
-//        _imageView = [[UIImageView alloc] init];
-//    }
-//    return _imageView;
-//}
 
 #pragma mark -----WWCameraCutViewDelegate----
 - (void)cropImage:(UIImage*)cropImage forOriginalImage:(UIImage*)originalImage
@@ -266,10 +261,12 @@
         // 直播间
 //        WWAnchorSpaceViewController *anchorSpace = [[WWAnchorSpaceViewController alloc] init];
 //        [self.navigationController pushViewController:anchorSpace animated:YES];
-        //直播画面
+        //直播画面        
         WWLivingViewController *living = [[WWLivingViewController alloc] init];
         [self.navigationController pushViewController:living animated:YES];
     }else{
+        
+        
         //        WWResultDefailtViewController *success = [[WWResultDefailtViewController alloc] init];
         //        [self.navigationController pushViewController:success animated:YES];
         NSString *bcard = (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey:@"bCard"];
@@ -568,5 +565,6 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 
 @end
