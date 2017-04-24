@@ -12,6 +12,7 @@
 #import "HomeTianyueCategoryView.h"
 #import "HomeHandler.h"
 #import "LIvingViewController.h"
+#import "WWLivingViewController.h"
 
 @interface HomeViewController ()
 
@@ -197,6 +198,13 @@
     self.view_tCategory = [[HomeTianyueCategoryView alloc] initWithFrame:CGRectMake(0, self.view_carpent.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.24)];
     _view_tCategory.backgroundColor = WWColor(235, 230, 230);
     [self.view addSubview:_view_tCategory];
+    
+    @weakify(self);
+    _view_tCategory.buttonBlock = ^{
+        @strongify(self);
+        WWLivingViewController *liveVC = [[WWLivingViewController alloc] init];
+        [self.navigationController pushViewController:liveVC animated:YES];
+    };
 }
 
 

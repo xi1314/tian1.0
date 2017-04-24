@@ -100,7 +100,6 @@
     _roomName.font = [UIFont systemFontOfSize:17];
     _roomName.textColor = [UIColor whiteColor];
     _roomName.textAlignment = NSTextAlignmentCenter;
-//    _roomName.center = CGPointMake(_topBgView.width/2, _topBgView.height/2 + 10);
     [_topBgView addSubview:_roomName];
     
     // 聊天视图
@@ -173,7 +172,7 @@
     [_swichScreen setImage:[UIImage imageNamed:@"横转竖"] forState:UIControlStateNormal];
     [_swichScreen addTarget:self action:@selector(respondsToButton_action:) forControlEvents:UIControlEventTouchUpInside];
     _swichScreen.tag = Button_Tag + 5;
-    [self addSubview:_swichScreen];
+//    [self addSubview:_swichScreen];
     
     // 分享
     _shareButton = [UIButton buttonWithType:UIButtonTypeCustom];

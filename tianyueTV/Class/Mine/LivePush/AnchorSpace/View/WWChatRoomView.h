@@ -10,7 +10,14 @@
 
 
 @interface WWChatRoomView : UIView
+
+// 消息数组
 @property (nonatomic,strong) NSMutableArray *messageArray;
-@property (nonatomic,strong) UITableView *chatRoomTableView;//聊天界面
+
+// 聊天界面
+@property (nonatomic,strong) UITableView *chatRoomTableView;
+
+
 @property (nonatomic,strong) UIScrollView *chatRoomView;
+
 @end

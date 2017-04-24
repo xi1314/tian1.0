@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WWSettingView.h"
+#import "BaseViewController.h"
 
 
 @protocol roomNameDelegate <NSObject>
@@ -16,12 +17,20 @@
 
 @end
 
-@interface WWSettingViewController : UIViewController
+@interface WWSettingViewController : BaseViewController
+
 
 @property (nonatomic,assign) BOOL isHiddenLivingButton;
-@property (nonatomic,strong) NSDictionary *roomInfos;//房间信息
+
+// 房间信息
+@property (nonatomic,strong) NSDictionary *roomInfos;
+
+
 @property (nonatomic,strong) WWSettingView *settingView;
-@property (nonatomic,strong) NSString *Namelevel;//一级标题
+
+// 一级标题
+@property (nonatomic,strong) NSString *Namelevel;
+
 
 @property (nonatomic, weak) id <roomNameDelegate> delegate;
 

@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "HomeModel.h"
 
+typedef void(^CategoryBlock)(void);
+
 @interface HomeTianyueCategoryView : UIView
+
+// Button点击block
+@property (nonatomic, copy) CategoryBlock buttonBlock;
 
 /**
  设置图片

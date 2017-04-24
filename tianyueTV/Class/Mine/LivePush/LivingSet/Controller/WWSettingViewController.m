@@ -11,6 +11,7 @@
 #import "WWAnchorSpaceViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "WWLivingViewController.h"
+
 @interface WWSettingViewController ()
 <biaoqanDelegate>
 
@@ -19,10 +20,10 @@
 }
 
 // 取消按钮
-@property (nonatomic,strong) UIBarButtonItem *cancelButton;
+//@property (nonatomic,strong) UIBarButtonItem *cancelButton;
 
 // 保存按钮
-@property (nonatomic,strong) UIBarButtonItem *saveButton;
+//@property (nonatomic,strong) UIBarButtonItem *saveButton;
 
 // 标签信息
 @property (nonatomic,strong) NSMutableArray *biaoqianArrays;
@@ -38,28 +39,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    //去掉横线
-    [self.navigationController.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    
-    //修改字体颜色及大小
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont systemFontOfSize:17]};
-    
-    
+
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"baudit"] != nil) {
         NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"baudit"]);
         //如果有直播间进行网络请求
         [self netWorkRequestGet];
     }
     
-    
 
     self.title = @"直播间设置";
     _settingView = [[WWSettingView alloc] initWithFrame:self.view.frame];
       [self.view addSubview:_settingView];
 //    _settingView.settingVc = self;
+    
     __weak typeof(self) ww = self;
     _settingView.SettingHandler = ^(){
         [ww SettingHandler];
@@ -68,6 +60,7 @@
     _settingView.NamelevelHandler = ^(NSString *Namelevel){
         [ww NamelevelHandler:Namelevel];
     };
+    
     NSString *messageString = self.roomInfos[@"keyWord"];
     if (messageString.length != 0) {
 
@@ -76,20 +69,21 @@
         self.settingView.biaoqianArray = self.biaoqianArrays;
     }
        NSLog(@"________________________%@",self.biaoqianArrays);
-  
-    self.navigationItem.leftBarButtonItem = self.cancelButton;
+
     
-    UIBarButtonItem *saveButton1 = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:@selector(respondsToSave)];
-    [saveButton1 setTintColor:WWColor(88, 86, 87)];
-    self.navigationItem.rightBarButtonItem = saveButton1;
+    UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(respondsToSave)];
+    self.navigationItem.rightBarButtonItem = saveItem;
+    
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(respondsToCancel)];
+    self.navigationItem.leftBarButtonItem = cancelItem;
+    
     [self.view addSubview:self.startLivingButton];
     [self.startLivingButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:kWidthChange(50)];
     [self.startLivingButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:kWidthChange(50)];
     [self.startLivingButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:200];
     [self.startLivingButton autoSetDimension:ALDimensionHeight toSize:kHeightChange(85)];
     self.startLivingButton.hidden = self.isHiddenLivingButton;
-    
-    
+
 }
 
 - (void)SettingHandler{
@@ -282,9 +276,7 @@
 
 
 
-#pragma mark ---懒加载----
-
-
+#pragma mark - 懒加载
 - (UIButton *)startLivingButton{
     if (!_startLivingButton) {
         _startLivingButton = [[UIButton alloc] init];
@@ -296,31 +288,7 @@
     return _startLivingButton;
 }
 
-//- (WWSettingView *)settingView{
-//    if (!_settingView) {
-//        _settingView = [[WWSettingView alloc] initWithFrame:self.view.frame];
-//        
-//    }
-//    return _settingView;
-//}
-
-- (UIBarButtonItem *)saveButton{
-    if (!_saveButton) {
-        _saveButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:@selector(respondsToSave)];
-        [_saveButton setTintColor:WWColor(88, 86, 87)];
-        
-    }
-    return _saveButton;
-}
-- (UIBarButtonItem *)cancelButton{
-    if (!_cancelButton) {
-        _cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(respondsToCancel)];
-        [_cancelButton setTintColor:WWColor(88, 86, 87)];
-    }
-    return _cancelButton;
-}
-
-#pragma mark ----网络请求----
+#pragma mark - 网络请求
 - (void)NetWork{
    
     NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"WWFirst"]);

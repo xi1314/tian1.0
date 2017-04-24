@@ -45,13 +45,25 @@
 @end
 
 @class WWLivingViewController;
-@interface WWChatRoomView()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+
+@interface WWChatRoomView()
+<UIScrollViewDelegate,
+UITableViewDataSource,
+UITableViewDelegate>
+
+// 互动按钮
+@property (nonatomic,strong) UIButton *hudongButton;
+
+// 礼物按钮
+@property (nonatomic,strong) UIButton *liwuButton;
+
+// 显示或隐藏
+@property (nonatomic,strong) UIButton *showOrHiddenButton;
+
+// 底部不隐藏的选项
+@property (nonatomic,strong) UIView *bottomView;
 
 
-@property (nonatomic,strong) UIButton *hudongButton;//互动按钮
-@property (nonatomic,strong) UIButton *liwuButton;//礼物按钮
-@property (nonatomic,strong) UIButton *showOrHiddenButton;//显示或隐藏
-@property (nonatomic,strong) UIView *bottomView;//底部不隐藏的选项
 @property (nonatomic,strong) UIView *lineView;
 
 @end
@@ -71,18 +83,11 @@
 
 
 
-#pragma mark ----Actions----
-
+#pragma mark - Actions
 //点击显示或者隐藏
 - (void)respondsToShowOrHiddenButton:(UIButton *)sender{
     sender.selected = !sender.selected;
     self.chatRoomView.hidden = sender.selected;
-//    if (sender.selected == YES) {
-//        self.chatRoomView.hidden = YES;
-//        
-//    }else{
-//        self.chatRoomView.hidden = NO;
-//    }
     
 }
 
@@ -176,14 +181,11 @@
     //
     //底部背景图
     [self addSubview:self.bottomView];
-    /*
-    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).with.offset(0);
-        make.left.equalTo(self.mas_left).with.offset(0);
-        make.right.equalTo(self.mas_right).with.offset(0);
-        make.height.mas_equalTo(kHeightChange(72));
-    }];
-     */
+    [self.bottomView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
+    [self.bottomView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
+    [self.bottomView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+    [self.bottomView autoSetDimension:ALDimensionHeight toSize:kHeightChange(70)];
+    
     
     [self addSubview:self.hudongButton];
     [self.hudongButton autoPinEdgeToSuperviewEdge:ALEdgeLeft];
@@ -204,16 +206,8 @@
     [self.lineView autoSetDimension:ALDimensionHeight toSize:kHeightChange(2)];
     
     [self addSubview:self.showOrHiddenButton];
-    /*
-    [self.showOrHiddenButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).with.offset(kWidthChange(-50));
-        make.bottom.equalTo(self.mas_bottom).with.offset(kHeightChange(-25));
-        make.width.mas_equalTo(kWidthChange(60));
-        make.height.mas_equalTo(kHeightChange(30));
-        
-    }];
-     */
-//    [self.showOrHiddenButton sizeToFit];
+    [self.showOrHiddenButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:20];
+    [self.showOrHiddenButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.liwuButton withOffset:0];
     
 //    [self addObserver:self forKeyPath:@"messageArray" options:NSKeyValueObservingOptionOld context:nil];
 }
@@ -233,16 +227,14 @@
 //    
 //}
 
-#pragma mark ----Getters-----
-
+#pragma mark - Getters
 //底部不隐藏按钮
-- (UIView *)bottomView{
+- (UIView *)bottomView {
     if (!_bottomView) {
         _bottomView = [[UIView alloc] init];
         _bottomView.frame = CGRectMake(0, SCREEN_HEIGHT - 72, SCREEN_WIDTH, 72);
         
         _bottomView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
-//        _bottomView.backgroundColor = [UIColor yellowColor];
     }
     return _bottomView;
 }
@@ -251,12 +243,10 @@
 - (UIButton *)showOrHiddenButton{
     if (!_showOrHiddenButton) {
         _showOrHiddenButton = [[UIButton alloc] init];
-        _showOrHiddenButton.frame = CGRectMake(SCREEN_WIDTH - kWidthChange(60) - kWidthChange(50), SCREEN_HEIGHT - kHeightChange(30) - kHeightChange(25), kWidthChange(60), kHeightChange(30));
-        
+        _showOrHiddenButton.size = CGSizeMake(24, 13);
         [_showOrHiddenButton setBackgroundImage:[UIImage imageNamed:@"收起"] forState:UIControlStateNormal];
         [_showOrHiddenButton setBackgroundImage:[UIImage imageNamed:@"显示"] forState:UIControlStateSelected];
         [_showOrHiddenButton addTarget:self action:@selector(respondsToShowOrHiddenButton:) forControlEvents:UIControlEventTouchUpInside];
-      
     }
     return _showOrHiddenButton;
 }
@@ -330,7 +320,7 @@
 - (UIScrollView *)chatRoomView{
     if (!_chatRoomView) {
         _chatRoomView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH *0.5, kHeightChange(100))];
-        _chatRoomView.contentSize = CGSizeMake(self.frame.size.width *2, kHeightChange(430));
+        _chatRoomView.contentSize = CGSizeMake(self.frame.size.width * 2, kHeightChange(430));
         _chatRoomView.pagingEnabled = YES;
         _chatRoomView.showsHorizontalScrollIndicator = YES;
         _chatRoomView.showsVerticalScrollIndicator = YES;

@@ -263,9 +263,10 @@ WWCameraCutViewDelegate>
 //        [self.navigationController pushViewController:anchorSpace animated:YES];
         //直播画面        
         WWLivingViewController *living = [[WWLivingViewController alloc] init];
+//        [self presentViewController:living animated:YES completion:nil];
         [self.navigationController pushViewController:living animated:YES];
-    }else{
         
+    }else{
         
         //        WWResultDefailtViewController *success = [[WWResultDefailtViewController alloc] init];
         //        [self.navigationController pushViewController:success animated:YES];
@@ -553,7 +554,6 @@ WWCameraCutViewDelegate>
     curTime = [NSString stringWithFormat:@"%@/%.0f", curTime, [curDate timeIntervalSince1970]];
     return curTime;
 }
-
 
 
 /*

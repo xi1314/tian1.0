@@ -379,7 +379,7 @@
 - (void)addPureLayOut{
     //背景
     [self addSubview:self.nameBgView];
-    [self.nameBgView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:64];
+    [self.nameBgView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
     [self.nameBgView autoPinEdgeToSuperviewEdge:ALEdgeRight];
     [self.nameBgView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
     [self.nameBgView autoSetDimension:ALDimensionHeight toSize:kHeightChange(98)];

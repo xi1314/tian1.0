@@ -32,6 +32,7 @@
 #import <TXRTMPSDK/TXLivePush.h>
 #import "MyLivingView.h"
 
+
 @class AppDelegate;
 
 @interface WWLivingViewController ()
@@ -173,8 +174,7 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
         @strongify(self);
         switch (tag) {
             case 0: { // 返回
-                [self stopRtmp];
-                [self.navigationController popViewControllerAnimated:YES];
+                [self respondsToBackClicked:button];
             } break;
                 
             case 1: { // 设置
@@ -723,9 +723,20 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
 #pragma mark - 横竖屏切换
 //横竖屏切换点击
 - (void)respondsToSGDButton:(UIButton *)sender{
+    /*
+    NSNumber *resetOrientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+    
+    [[UIDevice currentDevice] setValue:resetOrientationTarget forKey:@"orientation"];
+    
+    
+    
+    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    
+    [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+    
     
     sender.selected = !sender.selected;
-    
+    */
     
     if (sender.selected) {
 //        AppDelegate * delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -782,10 +793,6 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
 }
 
 
-- (void)removeallviews {
-    
-}
-
 // 返回按钮
 - (void)respondsToBackClicked:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -805,14 +812,14 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
        });
    }];
     
-    //当不再需要DMS对象时，务必要断开连接
+    // 当不再需要DMS对象时，务必要断开连接
     [_client disconnectWithCompletionHandler:^(NSUInteger code) {
         NSLog(@"disconnected");
     }];
      
-    //结束推流
+    // 结束推流
     [self stopRtmp];
-    //退出直播房间
+    // 退出直播房间
     [self closeLive];
 }
 
@@ -992,24 +999,41 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
 
 
 #pragma mark - SuperClass method
+/*
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     // do something before rotation
-    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-        //        屏幕从竖屏变为横屏时执行
+    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+//        屏幕从竖屏变为横屏时执行
+        _config.homeOrientation = HOME_ORIENTATION_LEFT;
         NSLog(@"横屏了");
         
-    }else{
+    } else if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        _config.homeOrientation = HOME_ORIENTATION_RIGHT;
+        
+    } else {
         //        屏幕从横屏变为竖屏时执行
-        NSLog(@"竖屏了");
+        _config.homeOrientation = HOME_ORIENTATION_DOWN;
     }
+    [_txLivePush setConfig:_config];
 }
 
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    // do something after rotation
-    
+    [self.livingView removeAllSubviews];
+    if (fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || fromInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        //        屏幕从竖屏变为横屏时执行
+        NSLog(@"竖屏");
+        //        NSLog(@"SCREEN_WIDTH %f SCREEN_HEIGHT %f",[UIScreen mainScreen].bounds.size.width, SCREEN_HEIGHT);
+        [self.livingView initilizeSubviews];
+        
+        
+        
+    }else{
+        //        屏幕从横屏变为竖屏时执行
+        [self.livingView initilizeSubviews];
+    }
 }
 
 
@@ -1018,9 +1042,12 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
     return YES;
 }
 
+
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskAllButUpsideDown;
 }
+*/
+
 
 @end

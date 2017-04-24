@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface WWMineFiveViewController : UIViewController
+@interface WWMineFiveViewController : BaseViewController
 
 @end

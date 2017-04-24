@@ -12,12 +12,20 @@
 #import "ViewController.h"
 #import <ImSDK/ImSDK.h>
 
-@interface WWMineFiveViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface WWMineFiveViewController ()
+<UITableViewDataSource,
+UITableViewDelegate>
+
 {
     WWMineFiveModel *model;
 }
+
 - (void)initializeUserInterface;
+
+
 @property (nonatomic,strong) UITableView *tableViewSet;
+
+
 @property (nonatomic,strong) UIButton *quietButton;
 
 @end
@@ -28,35 +36,19 @@
     [super viewDidLoad];
     self.view.backgroundColor = WWColor(240, 240, 240);
     self.title = @"设置";
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(backItemClicked)];
-    leftItem.image = [UIImage imageNamed:@"back_black"];
-    leftItem.tintColor = [UIColor blackColor];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    
+
     NSArray *arr1 = [NSArray arrayWithObjects:@"非WIFI环境提醒", @"清除缓存",  nil];
     NSArray *arr2 = [[NSArray alloc] init];
     NSArray *arr = [NSArray arrayWithObjects:arr1,arr2, nil];
     model = [[WWMineFiveModel alloc] initWithArr:arr];
     [self initializeUserInterface];
-    
-   
-}
-
-//- (void)viewWillAppear:(BOOL)animated{
-//    self.navigationController.navigationBarHidden = NO;
-//    self.tabBarController.tabBar.hidden = YES;
-//}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
-//    self.tabBarController.tabBar.hidden = NO;
 }
 
 
-#pragma mark ----添加约束----
+#pragma mark - 添加约束
 - (void)initializeUserInterface{
     [self.view addSubview:self.tableViewSet];
-    [self.tableViewSet autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:44];
+    [self.tableViewSet autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
     [self.tableViewSet autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
     [self.tableViewSet autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
     [self.tableViewSet autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:0];
@@ -68,7 +60,7 @@
     [self.quietButton autoSetDimension:ALDimensionHeight toSize:kHeightChange(80)];
 }
 
-#pragma mark -----懒加载----
+#pragma mark - 懒加载
 - (UITableView *)tableViewSet{
     if (!_tableViewSet) {
         _tableViewSet = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
@@ -94,7 +86,7 @@
     return _quietButton;
 }
 
-#pragma mark ----UITableViewDataSource && UITableViewDelegate----
+#pragma mark - UITableViewDataSource && UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 10;//section头部高度

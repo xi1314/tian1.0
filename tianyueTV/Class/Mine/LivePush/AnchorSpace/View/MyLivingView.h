@@ -40,5 +40,7 @@ typedef void(^MyLivingBlock)(NSInteger tag, UIButton *button);
  */
 - (void)configViewWithModel:(BroadCastModel *)model;
 
+- (void)initilizeSubviews;
+
 
 @end

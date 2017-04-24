@@ -58,6 +58,12 @@
     [self bringSubviewToFront:self.liveButton];
 }
 
+- (void)respondsToButton:(UIButton *)sender {
+    if (self.buttonBlock) {
+        self.buttonBlock();
+    }
+}
+
 #pragma mark - Getter method
 - (UIButton *)liveButton {
     if (!_liveButton) {
@@ -67,6 +73,7 @@
         [_liveButton setImage:[UIImage imageNamed:@"live button"] forState:UIControlStateNormal];
         _liveButton.layer.cornerRadius = width/2;
         _liveButton.layer.masksToBounds = YES;
+        [_liveButton addTarget:self action:@selector(respondsToButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _liveButton;
 }
