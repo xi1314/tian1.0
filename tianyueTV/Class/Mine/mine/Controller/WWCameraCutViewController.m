@@ -211,8 +211,7 @@
         [self.actionWindow removeFromSuperview];
         [self.actionWindow resignKeyWindow];
         self.actionWindow = nil;
-        
-        
+
     }];
 }
 
