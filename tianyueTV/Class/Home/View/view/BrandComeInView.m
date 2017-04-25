@@ -119,9 +119,10 @@
 - (UILabel *)label {
     if (!_label) {
         _label = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 60, 30)];
+        _label.textColor = WWColor(81, 81, 81);
+        _label.font = [UIFont fontWithName:@"PingFangTC-Semibold" size:14];
         _label.text = @"品牌入驻";
         [_label sizeToFit];
-        [_label setFont:[UIFont systemFontOfSize:14]];
     }
     return _label;
 }

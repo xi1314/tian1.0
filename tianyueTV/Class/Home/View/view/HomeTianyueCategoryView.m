@@ -38,10 +38,13 @@
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10*(i+1) + width*i, 10, width, height)];
         imageView.layer.cornerRadius = 3;
         imageView.layer.masksToBounds = YES;
-//        [imageView setImageURL:[NSURL URLWithString:imageName[i]]];
         imageView.image = [UIImage imageNamed:imageName[i]];
+        imageView.userInteractionEnabled = YES;
+        imageView.tag = 201 + i;
         [self addSubview:imageView];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToImageTap:)];
+        [imageView addGestureRecognizer:tap];
         
         UILabel *label = [[UILabel alloc] init];
         label.text = labelArr[i];
@@ -60,7 +63,14 @@
 
 - (void)respondsToButton:(UIButton *)sender {
     if (self.buttonBlock) {
-        self.buttonBlock();
+        self.buttonBlock(sender.tag - 200);
+    }
+}
+
+- (void)respondsToImageTap:(UITapGestureRecognizer *)tap {
+    NSInteger tag = tap.view.tag - 200;
+    if (self.buttonBlock) {
+        self.buttonBlock(tag);
     }
 }
 
@@ -73,6 +83,7 @@
         [_liveButton setImage:[UIImage imageNamed:@"live button"] forState:UIControlStateNormal];
         _liveButton.layer.cornerRadius = width/2;
         _liveButton.layer.masksToBounds = YES;
+        _liveButton.tag = 200;
         [_liveButton addTarget:self action:@selector(respondsToButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _liveButton;

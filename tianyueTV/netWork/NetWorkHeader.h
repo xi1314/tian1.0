@@ -11,18 +11,19 @@
 // 服务器地址
 #define TIANYUESERVERADDRESS  @"http://www.tianyue.tv/"
 
-
-
-
-
 // 首页商标请求
 #define api_Brand_trademark  @"Brand_trademark"
 
 // 首页匠作间
 #define api_mobileAll @"mobileAll"
 
-// 天越甄选
+// 天越甄选(图片)
 #define api_ChangechartApp @"ChangechartApp"
+
+// 匠人头条
+#define api_New_list_app @"New_list_app"
+
+
 
 // 我的订单（卖家）
 #define api_orderInfo_app  @"orderInfo_app"

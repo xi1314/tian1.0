@@ -8,6 +8,7 @@
 
 #import "HomeHandler.h"
 #import "HomeModel.h"
+#import "HeadlineModel.h"
 
 @implementation HomeHandler
 
@@ -52,7 +53,7 @@
 }
 
 /**
- 天越甄选
+ 天越甄选(图片)
 
  @param completeBlock 返回值
  */
@@ -67,6 +68,24 @@
             completeBlock(nil, error);
         }
         
+    }];
+}
+
+/**
+ 匠人头条
+
+ @param completeBlock 返回值
+ */
++ (void)requestForHeadlineWithCompleteBlock:(HandlerBlock)completeBlock {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_New_list_app paraments:nil finish:^(id responseObject, NSError *error) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        NSLog(@"%@",responseObject);
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            HeadlineModel *hm = [HeadlineModel mj_objectWithKeyValues:responseObject];
+            completeBlock(hm, nil);
+        } else {
+            completeBlock(nil, error);
+        }
     }];
 }
 

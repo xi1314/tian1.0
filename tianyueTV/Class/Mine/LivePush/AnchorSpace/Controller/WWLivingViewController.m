@@ -135,14 +135,12 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = YES;
-    self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
     self.navigationController.navigationBarHidden = NO;
-    self.tabBarController.tabBar.hidden = NO;
 }
 
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HomeModel.h"
 
-typedef void(^CategoryBlock)(void);
+typedef void(^CategoryBlock)(NSInteger tag);
 
 @interface HomeTianyueCategoryView : UIView
 

@@ -195,8 +195,9 @@
 - (UILabel *)headLabel {
     if (!_headLabel) {
         _headLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 16, 30, 30)];
+        _headLabel.textColor = WWColor(81, 81, 81);
+        _headLabel.font = [UIFont fontWithName:@"PingFangTC-Semibold" size:14];
         _headLabel.text = @"匠作间";
-        _headLabel.font = [UIFont systemFontOfSize:14];
         [_headLabel sizeToFit];
     }
     return _headLabel;
@@ -223,8 +224,9 @@
 - (UILabel *)recommendLabel {
     if (!_recommendLabel) {
         _recommendLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, self.lineView.bottom + 6, 30, 30)];
+        _recommendLabel.textColor = WWColor(81, 81, 81);
+        _recommendLabel.font = [UIFont fontWithName:@"PingFangTC-Semibold" size:14];
         _recommendLabel.text = @"推荐匠作间";
-        _recommendLabel.font = [UIFont systemFontOfSize:14];
         [_recommendLabel sizeToFit];
     }
     return _recommendLabel;

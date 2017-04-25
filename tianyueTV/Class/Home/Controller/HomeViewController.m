@@ -13,6 +13,7 @@
 #import "HomeHandler.h"
 #import "LIvingViewController.h"
 #import "WWLivingViewController.h"
+#import "HeadlineViewController.h"
 
 @interface HomeViewController ()
 
@@ -62,13 +63,14 @@
 }
 
 - (void)initializeDatasource {
-//    [MBProgressHUD showMessage:nil];
+    [MBProgressHUD showMessage:nil];
     @weakify(self);
     // 请求商标
     [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
         if (respondsObject) {
             [self.view_brand configBrandViewWithArr:respondsObject];
+            [MBProgressHUD hideHUD];
         }
     }];
     
@@ -77,7 +79,6 @@
         @strongify(self);
         if (respondsObject) {
             [self.view_carpent configCarpenterRoomWithData:respondsObject];
-//            [MBProgressHUD hideHUD];
         }
     }];
     
@@ -200,10 +201,30 @@
     [self.view addSubview:_view_tCategory];
     
     @weakify(self);
-    _view_tCategory.buttonBlock = ^{
+    _view_tCategory.buttonBlock = ^(NSInteger tag){
         @strongify(self);
-        WWLivingViewController *liveVC = [[WWLivingViewController alloc] init];
-        [self.navigationController pushViewController:liveVC animated:YES];
+        
+        switch (tag) {
+            case 0: { // 直播
+                WWLivingViewController *liveVC = [[WWLivingViewController alloc] init];
+                liveVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:liveVC animated:YES];
+            } break;
+                
+            case 1: { // 天越甄选
+                
+            } break;
+                
+            case 2: { // 匠人头条
+                HeadlineViewController *headVC = [[HeadlineViewController alloc] init];
+                headVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:headVC animated:YES];
+            } break;
+                
+            default:
+                break;
+        }
+        
     };
 }
 

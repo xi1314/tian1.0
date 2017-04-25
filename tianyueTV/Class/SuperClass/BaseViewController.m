@@ -19,9 +19,10 @@
     // 设置导航栏背景图片
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_whiteback"] forBarMetrics:UIBarMetricsDefault];
     // item 颜色
-    self.navigationController.navigationBar.tintColor = WWColor(51, 51, 51);
+    self.navigationController.navigationBar.tintColor = WWColor(40, 40, 40);
     // title字体
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:WWColor(51, 51, 51),NSFontAttributeName:[UIFont systemFontOfSize:18]};
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:WWColor(40, 40, 40),NSFontAttributeName:[UIFont fontWithName:@"PingFangTC-Semibold" size:18]};
+
 }
 
 #pragma mark -- Private method

@@ -34,4 +34,12 @@
  */
 + (void)requestForTianyueCategoryWithCompleteBlock:(HandlerBlock)completeBlock;
 
+
+/**
+ 匠人头条
+ 
+ @param completeBlock 返回值
+ */
++ (void)requestForHeadlineWithCompleteBlock:(HandlerBlock)completeBlock;
+
 @end
