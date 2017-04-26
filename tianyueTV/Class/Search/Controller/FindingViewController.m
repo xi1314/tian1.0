@@ -8,7 +8,6 @@
 
 #import "FindingViewController.h"
 #import "HeadlineTableViewCell.h"
-#import "HeadlineModel.h"
 #import "FindHandle.h"
 
 @interface FindingViewController ()
@@ -34,7 +33,11 @@ UITableViewDataSource>
 #pragma mark - Init method
 - (void)initilizeDatasource {
     [FindHandle requestForAllLivingRoomWithCompleteBlock:^(id respondsObject, NSError *error) {
-        
+        if (respondsObject) {
+            FindModel *fm = (FindModel *)respondsObject;
+            self.dataSource = fm.dataList;
+            [self.tableView reloadData];
+        }
     }];
     
 //    [HomeHandler requestForHeadlineWithCompleteBlock:^(id respondsObject, NSError *error) {
@@ -85,8 +88,8 @@ UITableViewDataSource>
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"HeadlineTableViewCell" owner:nil options:nil] objectAtIndex:1];
     }
-    HeadNewsModel *newM = (HeadNewsModel *)_dataSource[indexPath.row];
-    [cell configFindCellWithModel:newM];
+    FindLiveModel *findModel = (FindLiveModel *)_dataSource[indexPath.row];
+    [cell configFindCellWithModel:findModel];
     
     return cell;
 }

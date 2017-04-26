@@ -10,7 +10,6 @@
 #import "HomepageViewController.h"
 #import "HomeViewController.h"
 #import "MineViewController.h"
-#import "SearchViewController.h"
 #import "JPUSHService.h"
 #import "FindingViewController.h"
 

@@ -134,8 +134,6 @@
 		04687AF31E88BDF0004A5EE3 /* DZAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A4A1E88BDF0004A5EE3 /* DZAlertView.xib */; };
 		04687AF51E88BDF0004A5EE3 /* FinalPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A4D1E88BDF0004A5EE3 /* FinalPaymentView.xib */; };
 		04687AF61E88BDF0004A5EE3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A501E88BDF0004A5EE3 /* AppDelegate.m */; };
-		04687AF71E88BDF0004A5EE3 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A541E88BDF0004A5EE3 /* SearchResultViewController.m */; };
-		04687AF81E88BDF0004A5EE3 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A561E88BDF0004A5EE3 /* SearchViewController.m */; };
 		04687AF91E88BDF0004A5EE3 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A5E1E88BDF0004A5EE3 /* AddAddressViewController.m */; };
 		04687AFA1E88BDF0004A5EE3 /* AddAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04687A5F1E88BDF0004A5EE3 /* AddAddressViewController.xib */; };
 		04687AFB1E88BDF0004A5EE3 /* AddressManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04687A611E88BDF0004A5EE3 /* AddressManageViewController.m */; };
@@ -178,6 +176,7 @@
 		986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A413C1EA8B0E10066B3F4 /* HomeModel.m */; };
 		9875DD601EB03799004C6A76 /* FindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9875DD5F1EB03799004C6A76 /* FindingViewController.m */; };
 		9875DD631EB0742F004C6A76 /* FindHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9875DD621EB0742F004C6A76 /* FindHandle.m */; };
+		9875DD661EB07ACD004C6A76 /* FindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9875DD651EB07ACD004C6A76 /* FindModel.m */; };
 		987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842231E8F7FB50084BF82 /* ShopHandle.m */; };
 		987842271E8F993D0084BF82 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842261E8F993D0084BF82 /* AddressModel.m */; };
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
@@ -491,10 +490,6 @@
 		04687A4D1E88BDF0004A5EE3 /* FinalPaymentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FinalPaymentView.xib; sourceTree = "<group>"; };
 		04687A4F1E88BDF0004A5EE3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04687A501E88BDF0004A5EE3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		04687A531E88BDF0004A5EE3 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
-		04687A541E88BDF0004A5EE3 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
-		04687A551E88BDF0004A5EE3 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		04687A561E88BDF0004A5EE3 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		04687A5D1E88BDF0004A5EE3 /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
 		04687A5E1E88BDF0004A5EE3 /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
 		04687A5F1E88BDF0004A5EE3 /* AddAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddAddressViewController.xib; sourceTree = "<group>"; };
@@ -568,6 +563,8 @@
 		9875DD5F1EB03799004C6A76 /* FindingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindingViewController.m; sourceTree = "<group>"; };
 		9875DD611EB0742F004C6A76 /* FindHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindHandle.h; path = tianyueTV/Class/Search/Controller/FindHandle.h; sourceTree = SOURCE_ROOT; };
 		9875DD621EB0742F004C6A76 /* FindHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FindHandle.m; path = tianyueTV/Class/Search/Controller/FindHandle.m; sourceTree = SOURCE_ROOT; };
+		9875DD641EB07ACD004C6A76 /* FindModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindModel.h; path = tianyueTV/Class/Search/Controller/FindModel.h; sourceTree = SOURCE_ROOT; };
+		9875DD651EB07ACD004C6A76 /* FindModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FindModel.m; path = tianyueTV/Class/Search/Controller/FindModel.m; sourceTree = SOURCE_ROOT; };
 		987842221E8F7FB50084BF82 /* ShopHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopHandle.h; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.h; sourceTree = SOURCE_ROOT; };
 		987842231E8F7FB50084BF82 /* ShopHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopHandle.m; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.m; sourceTree = SOURCE_ROOT; };
 		987842251E8F993D0084BF82 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
@@ -1631,10 +1628,6 @@
 		04687A521E88BDF0004A5EE3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				04687A531E88BDF0004A5EE3 /* SearchResultViewController.h */,
-				04687A541E88BDF0004A5EE3 /* SearchResultViewController.m */,
-				04687A551E88BDF0004A5EE3 /* SearchViewController.h */,
-				04687A561E88BDF0004A5EE3 /* SearchViewController.m */,
 				9875DD5E1EB03799004C6A76 /* FindingViewController.h */,
 				9875DD5F1EB03799004C6A76 /* FindingViewController.m */,
 			);
@@ -1653,6 +1646,8 @@
 		04687A581E88BDF0004A5EE3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9875DD641EB07ACD004C6A76 /* FindModel.h */,
+				9875DD651EB07ACD004C6A76 /* FindModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2347,6 +2342,7 @@
 				04687ABE1E88BDF0004A5EE3 /* WWFilishedViewController.m in Sources */,
 				04687AA61E88BDF0004A5EE3 /* ChatTableViewCell.m in Sources */,
 				04687AF21E88BDF0004A5EE3 /* DZAlertView.m in Sources */,
+				9875DD661EB07ACD004C6A76 /* FindModel.m in Sources */,
 				CCFF7E011EA61315003C420E /* AnchorSpaceModel.m in Sources */,
 				046879081E88AB83004A5EE3 /* NSString+Add.m in Sources */,
 				0468790B1E88AB83004A5EE3 /* WWImageURLCacher.m in Sources */,
@@ -2382,7 +2378,6 @@
 				046878EF1E88AA06004A5EE3 /* Reachability.m in Sources */,
 				04687ACF1E88BDF0004A5EE3 /* WWPersonalWorksButton.m in Sources */,
 				04687AAD1E88BDF0004A5EE3 /* SettingView.m in Sources */,
-				04687AF71E88BDF0004A5EE3 /* SearchResultViewController.m in Sources */,
 				04687AC41E88BDF0004A5EE3 /* WWBianjiTableViewCell.m in Sources */,
 				04687ABA1E88BDF0004A5EE3 /* WWMineFourViewController.m in Sources */,
 				981FAF421EAEF03B00C63EAF /* HeadlineViewController.m in Sources */,
@@ -2410,7 +2405,6 @@
 				04687AEC1E88BDF0004A5EE3 /* OrderHandle.m in Sources */,
 				04687AE11E88BDF0004A5EE3 /* WWMineThirdView.m in Sources */,
 				CCC9F0681EA4BFD400CA5702 /* CarpenteroomView.m in Sources */,
-				04687AF81E88BDF0004A5EE3 /* SearchViewController.m in Sources */,
 				0468791E1E88B2A1004A5EE3 /* XHSegmentItem.m in Sources */,
 				046878EE1E88AA06004A5EE3 /* NetWorkTool.m in Sources */,
 				04687AE81E88BDF0004A5EE3 /* WWShopsViewController.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "BaseHandler.h"
+#import "FindModel.h"
 
 @interface FindHandle : BaseHandler
 

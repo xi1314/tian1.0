@@ -86,12 +86,12 @@
 
  @param model 数据模型
  */
-- (void)configFindCellWithModel:(HeadNewsModel *)model {
-    [self.findImageView setImageWithURL:[NSURL URLWithString:model.faceImage]];
-    self.findTitle.text = model.title;
-    self.findAuthor.text = [NSString stringWithFormat:@"主播：%@",model.author];
-    self.findFavour.text = model.praiseNum;
-    self.findDate.text = [self intervalSinceNow:model.time_new];
+- (void)configFindCellWithModel:(FindLiveModel *)model {
+    [self.findImageView setImageWithURL:[NSURL URLWithString:model.image]];
+    self.findTitle.text = model.name;
+    self.findAuthor.text = [NSString stringWithFormat:@"主播：%@",model.nickName];
+    self.findFavour.text = model.focusNum;
+    self.findDate.text = model.directseeding_time;
 }
 
 /**

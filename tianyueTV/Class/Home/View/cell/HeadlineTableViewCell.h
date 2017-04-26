@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HeadlineModel.h"
+#import "FindModel.h"
 
 static NSString *headlineCellIndentifer = @"kHeadlineCellIndentifer";
 static NSString *findinfCellIndentifer = @"kFindinfCellIndentifer";
@@ -26,6 +27,6 @@ static NSString *findinfCellIndentifer = @"kFindinfCellIndentifer";
  
  @param model 数据模型
  */
-- (void)configFindCellWithModel:(HeadNewsModel *)model;
+- (void)configFindCellWithModel:(FindLiveModel *)model;
 
 @end

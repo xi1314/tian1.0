@@ -17,10 +17,13 @@
  */
 + (void)requestForAllLivingRoomWithCompleteBlock:(HandlerBlock)completeBlock {
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_mobileAllBroadcastLiving1 paraments:nil finish:^(id responseObject, NSError *error) {
-        NSLog(@"%@",responseObject);
+//        NSLog(@"find %@",responseObject);
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
-            
+            FindModel *fm = [FindModel mj_objectWithKeyValues:responseObject];
+            completeBlock(fm, nil);
+        } else {
+            completeBlock(nil, error);
         }
     }];
 }
