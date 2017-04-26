@@ -48,6 +48,15 @@
     _textField.tintColor = WWColor(144, 144, 144);
     [self.view addSubview:_textField];
     
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 5, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"nav_search"];
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 32)];
+//    leftView.backgroundColor = [UIColor redColor];
+    [leftView addSubview:imageView];
+    
+    _textField.leftView = leftView;
+    _textField.leftViewMode = UITextFieldViewModeAlways;
+    
     
 }
 
