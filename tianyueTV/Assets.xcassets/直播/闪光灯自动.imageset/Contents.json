@@ -2,12 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "闪光灯自动.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "闪光灯自动@2x.png",
       "scale" : "2x"
     },
     {

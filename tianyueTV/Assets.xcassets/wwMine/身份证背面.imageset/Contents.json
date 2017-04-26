@@ -2,12 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "身份证背面.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "身份证背面@2x.png",
       "scale" : "2x"
     },
     {

@@ -2,12 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "实时匠人直播-.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "实时匠人直播-@2x.png",
       "scale" : "2x"
     },
     {

@@ -82,6 +82,7 @@ UITextFieldDelegate>
     [self initilizeUserInterface];
     [self requestForPayButton];
     self.orderCell = [[[NSBundle mainBundle] loadNibNamed:@"OrderManagerTableViewCell" owner:nil options:nil] objectAtIndex:0];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

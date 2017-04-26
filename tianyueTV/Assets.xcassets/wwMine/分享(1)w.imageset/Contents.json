@@ -2,12 +2,10 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "分享.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "分享@2x.png",
       "scale" : "2x"
     },
     {
