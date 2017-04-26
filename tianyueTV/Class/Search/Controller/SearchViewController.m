@@ -11,6 +11,7 @@
 #import "SearchResultViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "LiveModel.h"
+
 @interface SearchViewController ()<UISearchBarDelegate>
 {
     UISearchBar *_searchBar;

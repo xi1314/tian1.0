@@ -8,6 +8,7 @@
 
 #import "HeadlineTableViewCell.h"
 
+
 @interface HeadlineTableViewCell ()
 
 // 封面
@@ -27,6 +28,7 @@
 
 // 点赞
 @property (weak, nonatomic) IBOutlet UIButton *favourButton;
+
 
 @end
 
