@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aaV-Zq-tTh">
-                    <rect key="frame" x="0.0" y="76" width="375" height="128"/>
+                    <rect key="frame" x="0.0" y="12" width="375" height="128"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="未设置收货地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQD-qf-QFT">
                             <rect key="frame" x="10" y="13" width="128.5" height="21.5"/>
@@ -146,7 +146,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="115" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="r8V-mk-uzs">
-                    <rect key="frame" x="0.0" y="214" width="375" height="400"/>
+                    <rect key="frame" x="0.0" y="150" width="375" height="464"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="2aA-BL-Cgp"/>
@@ -171,7 +171,7 @@
                 <constraint firstAttribute="bottom" secondItem="Xwf-XI-zw3" secondAttribute="bottom" constant="10" id="l8Y-cp-h74"/>
                 <constraint firstItem="r8V-mk-uzs" firstAttribute="top" secondItem="aaV-Zq-tTh" secondAttribute="bottom" constant="10" id="lRl-tE-oN9"/>
                 <constraint firstAttribute="trailing" secondItem="80S-C3-kLz" secondAttribute="trailing" id="uGV-hX-RQg"/>
-                <constraint firstItem="aaV-Zq-tTh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="vYF-vx-qzU"/>
+                <constraint firstItem="aaV-Zq-tTh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="12" id="vYF-vx-qzU"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="34.5" y="71.5"/>

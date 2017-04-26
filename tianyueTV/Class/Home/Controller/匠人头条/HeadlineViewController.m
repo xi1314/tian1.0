@@ -46,17 +46,17 @@ UITableViewDataSource>
 
 - (void)initilizeInterface {
     self.title = @"匠人头条";
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = WWColor(240, 235, 235);
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back"] style:UIBarButtonItemStylePlain target:self action:@selector(respondsToNavBack:)];
     self.navigationItem.leftBarButtonItem = backItem;
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - NavigationBarHeight) style:UITableViewStylePlain];
+    _tableView.backgroundColor = [UIColor clearColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [_tableView registerNib:[UINib nibWithNibName:@"HeadlineTableViewCell" bundle:nil] forCellReuseIdentifier:headlineCellIndentifer];
     [self.view addSubview:_tableView];
 }
 
@@ -72,7 +72,11 @@ UITableViewDataSource>
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HeadlineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headlineCellIndentifer forIndexPath:indexPath];
+    HeadlineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headlineCellIndentifer];
+    
+    if (!cell) {
+        cell = [[NSBundle mainBundle] loadNibNamed:@"HeadlineTableViewCell" owner:nil options:nil].firstObject;
+    }
     
     HeadNewsModel *newM = (HeadNewsModel *)_dataSource[indexPath.row];
     [cell configCellWithModel:newM];

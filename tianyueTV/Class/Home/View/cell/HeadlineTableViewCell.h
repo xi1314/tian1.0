@@ -10,14 +10,22 @@
 #import "HeadlineModel.h"
 
 static NSString *headlineCellIndentifer = @"kHeadlineCellIndentifer";
+static NSString *findinfCellIndentifer = @"kFindinfCellIndentifer";
 
 @interface HeadlineTableViewCell : UITableViewCell
 
 /**
- 刷新cell
+ 刷新头条cell
  
  @param model 数据模型
  */
 - (void)configCellWithModel:(HeadNewsModel *)model;
+
+/**
+ 刷新发现cell
+ 
+ @param model 数据模型
+ */
+- (void)configFindCellWithModel:(HeadNewsModel *)model;
 
 @end

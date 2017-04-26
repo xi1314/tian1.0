@@ -177,6 +177,7 @@
 		986A413A1EA865420066B3F4 /* BrandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A41391EA865420066B3F4 /* BrandView.m */; };
 		986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A413C1EA8B0E10066B3F4 /* HomeModel.m */; };
 		9875DD601EB03799004C6A76 /* FindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9875DD5F1EB03799004C6A76 /* FindingViewController.m */; };
+		9875DD631EB0742F004C6A76 /* FindHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9875DD621EB0742F004C6A76 /* FindHandle.m */; };
 		987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842231E8F7FB50084BF82 /* ShopHandle.m */; };
 		987842271E8F993D0084BF82 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842261E8F993D0084BF82 /* AddressModel.m */; };
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
@@ -565,6 +566,8 @@
 		986A413C1EA8B0E10066B3F4 /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
 		9875DD5E1EB03799004C6A76 /* FindingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindingViewController.h; sourceTree = "<group>"; };
 		9875DD5F1EB03799004C6A76 /* FindingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindingViewController.m; sourceTree = "<group>"; };
+		9875DD611EB0742F004C6A76 /* FindHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindHandle.h; path = tianyueTV/Class/Search/Controller/FindHandle.h; sourceTree = SOURCE_ROOT; };
+		9875DD621EB0742F004C6A76 /* FindHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FindHandle.m; path = tianyueTV/Class/Search/Controller/FindHandle.m; sourceTree = SOURCE_ROOT; };
 		987842221E8F7FB50084BF82 /* ShopHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopHandle.h; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.h; sourceTree = SOURCE_ROOT; };
 		987842231E8F7FB50084BF82 /* ShopHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopHandle.m; path = tianyueTV/Class/OrderManager/Controller/ShopHandle.m; sourceTree = SOURCE_ROOT; };
 		987842251E8F993D0084BF82 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
@@ -1641,6 +1644,8 @@
 		04687A571E88BDF0004A5EE3 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				9875DD611EB0742F004C6A76 /* FindHandle.h */,
+				9875DD621EB0742F004C6A76 /* FindHandle.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -2384,6 +2389,7 @@
 				04687AE31E88BDF0004A5EE3 /* PersonalWorksCell.m in Sources */,
 				04687AEE1E88BDF0004A5EE3 /* OrderManagerTableViewCell.m in Sources */,
 				04687AA31E88BDF0004A5EE3 /* NSSafeObject.m in Sources */,
+				9875DD631EB0742F004C6A76 /* FindHandle.m in Sources */,
 				04687AAB1E88BDF0004A5EE3 /* HostInfoView.m in Sources */,
 				04687ACB1E88BDF0004A5EE3 /* WWGuanliSecondModel.m in Sources */,
 				04687B131E88BDF0004A5EE3 /* TypeView.m in Sources */,

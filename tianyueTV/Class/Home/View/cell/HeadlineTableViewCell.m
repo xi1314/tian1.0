@@ -11,6 +11,7 @@
 
 @interface HeadlineTableViewCell ()
 
+// -- headCell
 // 封面
 @property (weak, nonatomic) IBOutlet UIImageView *newsImageView;
 
@@ -29,6 +30,24 @@
 // 点赞
 @property (weak, nonatomic) IBOutlet UIButton *favourButton;
 
+// -- findCell
+// 封面
+@property (weak, nonatomic) IBOutlet UIImageView *findImageView;
+
+// 标题
+@property (weak, nonatomic) IBOutlet UILabel *findTitle;
+
+// 作者
+@property (weak, nonatomic) IBOutlet UILabel *findAuthor;
+
+// 时间
+@property (weak, nonatomic) IBOutlet UILabel *findDate;
+
+// 点赞
+@property (weak, nonatomic) IBOutlet UILabel *findFavour;
+
+// 点赞按钮
+@property (weak, nonatomic) IBOutlet UIButton *findFavourButton;
 
 @end
 
@@ -48,7 +67,7 @@
 
 
 /**
- 刷新cell
+ 刷新头条cell
 
  @param model 数据模型
  */
@@ -59,6 +78,20 @@
     self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",model.author];
     self.favourLabel.text = model.praiseNum;
     self.dateLabel.text = [self intervalSinceNow:model.time_new];
+}
+
+
+/**
+ 刷新发现cell
+
+ @param model 数据模型
+ */
+- (void)configFindCellWithModel:(HeadNewsModel *)model {
+    [self.findImageView setImageURL:[NSURL URLWithString:model.faceImage]];
+    self.findTitle.text = model.title;
+    self.findAuthor.text = [NSString stringWithFormat:@"主播：%@",model.author];
+    self.findFavour.text = model.praiseNum;
+    self.findDate.text = [self intervalSinceNow:model.time_new];
 }
 
 /**
