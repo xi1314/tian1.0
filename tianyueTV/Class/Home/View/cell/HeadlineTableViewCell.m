@@ -87,7 +87,7 @@
  @param model 数据模型
  */
 - (void)configFindCellWithModel:(HeadNewsModel *)model {
-    [self.findImageView setImageURL:[NSURL URLWithString:model.faceImage]];
+    [self.findImageView setImageWithURL:[NSURL URLWithString:model.faceImage]];
     self.findTitle.text = model.title;
     self.findAuthor.text = [NSString stringWithFormat:@"主播：%@",model.author];
     self.findFavour.text = model.praiseNum;
