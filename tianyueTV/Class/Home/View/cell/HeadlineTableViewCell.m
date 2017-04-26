@@ -51,7 +51,8 @@
  @param model 数据模型
  */
 - (void)configCellWithModel:(HeadNewsModel *)model {
-    [self.newsImageView setImageURL:[NSURL URLWithString:model.faceImage]];
+
+    [self.newsImageView setImageWithURL:[NSURL URLWithString:model.faceImage]];
     self.titleLabel.text = model.title;
     self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",model.author];
     self.favourLabel.text = model.praiseNum;

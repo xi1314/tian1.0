@@ -26,7 +26,8 @@
  @param model 地址model
  */
 - (void)configCellWithModel:(MessageModel *)model {
-    [self.userHeadImg setImageURL:[NSURL URLWithString:model.headUrl]];
+ 
+    [self.userHeadImg setImageWithURL:[NSURL URLWithString:model.headUrl]];
     self.messageLabel.text = model.content;
     
     NSArray *attr = [model.goodsAttr componentsSeparatedByString:@","];
@@ -39,7 +40,7 @@
     for (int i = 0; i < self.imageArr.count; i++) {
         UIImageView *imageView = (UIImageView *)[self viewWithTag:105+i];
         imageView.hidden = NO;
-        [imageView setImageURL:[NSURL URLWithString:self.imageArr[i]]];
+        [imageView setImageWithURL:[NSURL URLWithString:self.imageArr[i]]];
     }
 }
 

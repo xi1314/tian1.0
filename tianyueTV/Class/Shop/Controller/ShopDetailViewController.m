@@ -77,12 +77,12 @@
         
             [MBProgressHUD hideHUD];
 
-            [self.shopView.topImageView setImageURL:[NSURL URLWithString:self.shopModel.image1]];
+            [self.shopView.topImageView setImageWithURL:[NSURL URLWithString:self.shopModel.image1]];
             _chooseViewImgUrl = self.shopModel.shopLogo;
             _stockArr = self.shopModel.goodsAttributes;
             self.chooseView.goodsStock = _stockArr;
-            
-            [self.chooseView.productImgView setImageWithURL:[NSURL URLWithString:_chooseViewImgUrl] placeholder:[UIImage imageNamed:@"touxiang"]];
+
+            [self.chooseView.productImgView setImageWithURL:[NSURL URLWithString:_chooseViewImgUrl] placeholderImage:[UIImage imageNamed:@"touxiang"]];
             
             self.chooseView.titleLabel.text = self.shopModel.goodsName;
             _priceStr = [NSString stringWithFormat:@"¥%@(元)",self.shopModel.goodsPrice];
@@ -229,7 +229,8 @@
 // 动画加载chooseview
 - (void)loadChooseViewAnimation {
     [self addbaseMaskViewOnWindow];
-    [self.otherChooseView.productImgView setImageWithURL:[NSURL URLWithString:_chooseViewImgUrl] placeholder:[UIImage imageNamed:@"touxiang"]];
+ 
+    [self.otherChooseView.productImgView setImageWithURL:[NSURL URLWithString:_chooseViewImgUrl] placeholderImage:[UIImage imageNamed:@"touxiang"]];
     self.otherChooseView.bigPriceLabel.text = _priceStr;
     [self.otherChooseView initTypeViewWithSizeArr:_sizeArr sizeName:_type1 colorArr:_colorArr colorName:_type2 stockDic:nil];
     self.otherChooseView.goodsStock = _stockArr;

@@ -189,6 +189,7 @@
 		CC36CD531E9732F5007E35FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD521E9732F5007E35FF /* Foundation.framework */; };
 		CC36CD551E9732FA007E35FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD541E9732FA007E35FF /* UIKit.framework */; };
 		CC36CD571E973334007E35FF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD561E973334007E35FF /* UserNotifications.framework */; };
+		CC3B06EA1EB072C6003EB203 /* UIView+DHSAddtion.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3B06E91EB072C6003EB203 /* UIView+DHSAddtion.m */; };
 		CC47BC561E9B867E006B1EA2 /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */; };
 		CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */; };
 		CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47BC591E9B869E006B1EA2 /* TianyueTools.m */; };
@@ -581,6 +582,8 @@
 		CC36CD541E9732FA007E35FF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CC36CD561E973334007E35FF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		CC36CD581E97344B007E35FF /* tianyueTV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tianyueTV.entitlements; sourceTree = "<group>"; };
+		CC3B06E81EB072C6003EB203 /* UIView+DHSAddtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DHSAddtion.h"; sourceTree = "<group>"; };
+		CC3B06E91EB072C6003EB203 /* UIView+DHSAddtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DHSAddtion.m"; sourceTree = "<group>"; };
 		CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.2.a"; sourceTree = "<group>"; };
 		CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.3.a"; sourceTree = "<group>"; };
 		CC47BC551E9B867E006B1EA2 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
@@ -1860,6 +1863,8 @@
 		CC47BC501E9B867E006B1EA2 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				CC3B06E81EB072C6003EB203 /* UIView+DHSAddtion.h */,
+				CC3B06E91EB072C6003EB203 /* UIView+DHSAddtion.m */,
 				CC47BC581E9B869E006B1EA2 /* TianyueTools.h */,
 				CC47BC591E9B869E006B1EA2 /* TianyueTools.m */,
 			);
@@ -2446,6 +2451,7 @@
 				FF0110C31DAB26D6003146A7 /* main.m in Sources */,
 				04687AC31E88BDF0004A5EE3 /* WWResultStatusViewController.m in Sources */,
 				04687AE91E88BDF0004A5EE3 /* WWShopsTableViewCell.m in Sources */,
+				CC3B06EA1EB072C6003EB203 /* UIView+DHSAddtion.m in Sources */,
 				04687AA41E88BDF0004A5EE3 /* CustomPlayerButton.m in Sources */,
 				04687AF61E88BDF0004A5EE3 /* AppDelegate.m in Sources */,
 				04687AE51E88BDF0004A5EE3 /* WWMineFiveViewController.m in Sources */,

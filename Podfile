@@ -23,8 +23,6 @@ pod 'BarrageRenderer', '~> 1.9.0'
 pod 'UPYUN', '~> 1.0.0'
 
 pod 'MJExtension'
-pod 'YYKit'
-
 
 end
   target 'tianyueTVTests' do

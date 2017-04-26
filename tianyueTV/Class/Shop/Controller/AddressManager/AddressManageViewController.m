@@ -216,7 +216,8 @@ UITableViewDataSource>
             } else {
                 [_dataSource removeObjectAtIndex:row];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-                [self.tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationFade];
+
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
                 [self updateCellWhileDeleteWithRow:row];
             }
         } else {
@@ -243,16 +244,19 @@ UITableViewDataSource>
             AddressInfoModel *lastM = _dataSource[0];
             lastM.isDefault = @"0";
             [_dataSource replaceObjectAtIndex:0 withObject:lastM];
-            [self.tableView reloadRowAtIndexPath:firstIndex withRowAnimation:UITableViewRowAnimationNone];
+
+            [self.tableView reloadRowsAtIndexPaths:@[firstIndex] withRowAnimation:UITableViewRowAnimationNone];
             
             infoModle.isDefault = @"1";
             infoModle.index = 0;
             [_dataSource insertObject:infoModle atIndex:0];
-            [self.tableView insertRowAtIndexPath:firstIndex withRowAnimation:UITableViewRowAnimationFade];
+
+            [self.tableView insertRowsAtIndexPaths:@[firstIndex] withRowAnimation:UITableViewRowAnimationFade];
             
             [_dataSource removeObjectAtIndex:row + 1];
             NSIndexPath *deleIndex = [NSIndexPath indexPathForRow:row + 1 inSection:0];
-            [self.tableView deleteRowAtIndexPath:deleIndex withRowAnimation:UITableViewRowAnimationFade];
+
+            [self.tableView deleteRowsAtIndexPaths:@[deleIndex] withRowAnimation:UITableViewRowAnimationFade];
             
         } else {
             [MBProgressHUD showError:@"设置失败"];

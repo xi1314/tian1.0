@@ -87,7 +87,8 @@
         // 匠作间滚动视图
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(18 + (18*2 + liveWidth)*i, 0, liveWidth, self.liveScrollView.height - 26)];
         imageView.userInteractionEnabled = YES;
-        [imageView setImageURL:[NSURL URLWithString:model.img_cover]];
+
+        [imageView setImageWithURL:[NSURL URLWithString:model.img_cover]];
         imageView.tag = ImageView_Tag + i;
         [self.liveScrollView addSubview:imageView];
         
