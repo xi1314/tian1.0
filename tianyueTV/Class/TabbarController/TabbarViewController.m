@@ -12,6 +12,7 @@
 #import "MineViewController.h"
 #import "SearchViewController.h"
 #import "JPUSHService.h"
+#import "FindingViewController.h"
 
 @interface TabbarViewController ()
 
@@ -49,14 +50,21 @@
 
     mineNav.title = @"我的";
     
-    
+    /*
     SearchViewController *findVC = [[SearchViewController alloc]init];
     UINavigationController *findNav = [[UINavigationController alloc]initWithRootViewController:findVC];
     findNav.tabBarItem.image = [[UIImage imageNamed:@"tab_found"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     findNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_found_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     findNav.title = @"发现";
+    */
     
-    self.viewControllers = @[liveNav,findNav,mineNav];
+    FindingViewController * findingVC = [[FindingViewController alloc] init];
+    UINavigationController *findingNav = [[UINavigationController alloc] initWithRootViewController:findingVC];
+    findingNav.tabBarItem.image = [[UIImage imageNamed:@"tab_found"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    findingNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_found_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    findingNav.title = @"发现";
+    
+    self.viewControllers = @[liveNav,findingNav,mineNav];
     
     
     // 设置推送标签
