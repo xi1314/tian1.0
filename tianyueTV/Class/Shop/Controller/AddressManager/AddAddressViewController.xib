@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8f-Gk-oLN">
-                    <rect key="frame" x="0.0" y="69" width="375" height="48"/>
+                    <rect key="frame" x="0.0" y="5" width="375" height="48"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收货人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wv-BP-uIa">
                             <rect key="frame" x="15" y="15" width="46" height="18"/>
@@ -49,7 +49,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UkB-0U-BFr">
-                    <rect key="frame" x="0.0" y="118" width="375" height="48"/>
+                    <rect key="frame" x="0.0" y="54" width="375" height="48"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系电话" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jkh-xf-3qb">
                             <rect key="frame" x="15" y="15" width="62" height="18"/>
@@ -78,7 +78,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I4d-7H-sjQ">
-                    <rect key="frame" x="0.0" y="167" width="375" height="48"/>
+                    <rect key="frame" x="0.0" y="103" width="375" height="48"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所在地区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgp-iY-bR5">
                             <rect key="frame" x="15" y="15" width="62" height="18"/>
@@ -116,7 +116,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oz0-OS-edb">
-                    <rect key="frame" x="0.0" y="216" width="375" height="48"/>
+                    <rect key="frame" x="0.0" y="152" width="375" height="48"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮编" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpr-EB-OHy">
                             <rect key="frame" x="15" y="15" width="31" height="18"/>
@@ -143,7 +143,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Bg-59-xnO">
-                    <rect key="frame" x="0.0" y="265" width="375" height="90"/>
+                    <rect key="frame" x="0.0" y="201" width="375" height="90"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jiP-CK-7wI">
                             <rect key="frame" x="8" y="8" width="359" height="74"/>
@@ -171,7 +171,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNF-9R-NLk">
-                    <rect key="frame" x="0.0" y="370" width="375" height="48"/>
+                    <rect key="frame" x="0.0" y="306" width="375" height="48"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="BXK-Qw-kgi"/>
@@ -203,7 +203,7 @@
                 <constraint firstItem="QG3-gv-R2J" firstAttribute="height" secondItem="c4l-jm-uaE" secondAttribute="height" id="g2L-EG-ESt"/>
                 <constraint firstItem="4Bg-59-xnO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="h4N-Aj-jGI"/>
                 <constraint firstAttribute="trailing" secondItem="I4d-7H-sjQ" secondAttribute="trailing" id="hkA-Ta-Yjh"/>
-                <constraint firstItem="u8f-Gk-oLN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="69" id="krw-yr-kkh"/>
+                <constraint firstItem="u8f-Gk-oLN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="5" id="krw-yr-kkh"/>
                 <constraint firstItem="4Bg-59-xnO" firstAttribute="top" secondItem="oz0-OS-edb" secondAttribute="bottom" constant="1" id="mfl-ej-kZX"/>
                 <constraint firstItem="u8f-Gk-oLN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qFH-mz-IYK"/>
                 <constraint firstAttribute="trailing" secondItem="UkB-0U-BFr" secondAttribute="trailing" id="tv7-p9-3N8"/>

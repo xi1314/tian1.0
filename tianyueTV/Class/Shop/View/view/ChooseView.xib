@@ -35,13 +35,13 @@
                         <action selector="button_action:" destination="iN0-l3-epB" eventType="touchUpInside" id="8ZV-2q-89V"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="213" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sl4-ZU-CZr">
+                <button hidden="YES" opaque="NO" tag="213" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sl4-ZU-CZr">
                     <rect key="frame" x="301" y="47" width="22" height="23"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="22" id="02p-dg-xRv"/>
                         <constraint firstAttribute="height" constant="23" id="bMe-QK-5EQ"/>
                     </constraints>
-                    <state key="normal" image="分享"/>
+                    <state key="normal" image="shareAlertImg"/>
                     <connections>
                         <action selector="button_action:" destination="iN0-l3-epB" eventType="touchUpInside" id="WLo-41-1xf"/>
                     </connections>
@@ -153,7 +153,7 @@
     </objects>
     <resources>
         <image name="bt_close" width="30" height="30"/>
-        <image name="分享" width="33" height="34"/>
+        <image name="shareAlertImg" width="16" height="16"/>
         <image name="喜欢" width="33" height="29"/>
         <image name="爱心红" width="26" height="26"/>
     </resources>

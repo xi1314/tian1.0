@@ -237,6 +237,9 @@ UITableViewDataSource>
 }
 
 #pragma mark - Networking request
+/**
+ 支付订单
+ */
 - (void)requestForOrderPay {
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.dataArr[0][@"goodsAndNum"],@"goodsAndNum",moneyStr,@"payMoney",@"112",@"addressId",@"test",@"messagedds", nil];

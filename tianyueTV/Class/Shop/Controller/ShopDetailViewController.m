@@ -40,6 +40,7 @@
 // 弹出的商品详情页
 @property (nonatomic, strong) ChooseView *otherChooseView;
 
+// 商品模型
 @property (nonatomic, strong) ShopModel *shopModel;
 
 @end
@@ -59,9 +60,6 @@
     [self loadShopViewButtonMethod];
 }
 
-- (void)touchBaseMaskView {
-    [self dismissChooseView];
-}
 
 #pragma mark -- initil method
 - (void)initializeDatasource {
@@ -271,11 +269,17 @@
             // 网络请求参数
             dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.goodID,@"gid",self.chooseView.goodCount,@"storeNum",self.chooseView.typeID,@"gTypeInfo", nil];
         }
-        NSLog(@"dic %@",dic);
+
+        @weakify(self);
         [[NetWorkTool sharedTool] requestMethod:POST URL:@"buyAtOnce_app" paraments:dic finish:^(id responseObject, NSError *error) {
+            @strongify(self);
             [MBProgressHUD hideHUD];
 
             if ([responseObject[@"ret"] isEqualToString:@"success"]) {
+                if (_isSuspend) {
+                    [self dismissChooseView];
+                }
+                
                 // 加入购物车成功
                 [_goodInfoDic setObject:_chooseViewImgUrl forKey:@"img"];
                 for (GoodStockModel *model in _stockArr) {

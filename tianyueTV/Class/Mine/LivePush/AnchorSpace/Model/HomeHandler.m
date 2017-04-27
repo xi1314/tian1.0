@@ -42,7 +42,7 @@
  */
 + (void)requestForLivingRoomWithCompleteBlock:(HandlerBlock)completeBlock {
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_mobileAll paraments:nil finish:^(id responseObject, NSError *error) {
-        
+
         if (responseObject) {
             HomeModel *hm = [HomeModel mj_objectWithKeyValues:responseObject];
             completeBlock(hm.dataList, nil);

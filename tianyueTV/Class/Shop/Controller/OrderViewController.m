@@ -243,7 +243,7 @@ UITextViewDelegate>
     [ShopHandle requestForOrderWithUser:USER_ID count:self.dataArr[0][@"goodsAndNum"] money:moneyStr addressID:self.addressModel.ID message:self.messageText.text CompleteBlcok:^(id respondsObject, NSError *error) {
         @strongify(self);
         
-        NSLog(@"%@",respondsObject);
+        NSLog(@" %@",respondsObject);
         // 订单提交成功
         if (respondsObject) {
             self.order_Sn = respondsObject[@"orderNo"];

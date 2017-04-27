@@ -740,11 +740,11 @@
         [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
             [MBProgressHUD showSuccess:@"加入成功"];
         } fail:^(int code, NSString *msg) {
-            NSLog(@"加入失败%d---%@",code,msg);
+//            NSLog(@"加入失败%d---%@",code,msg);
 //            [MBProgressHUD showError:msg];
         }];
     } else {
-        [MBProgressHUD showError:@"sdk登录失败"];
+//        [MBProgressHUD showError:@"sdk登录失败"];
     }
 }
 

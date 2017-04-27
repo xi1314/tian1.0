@@ -136,7 +136,8 @@
                           @"messagedds" : message};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_toPay_app paraments:dic finish:^(id responseObject, NSError *error) {
-
+        
+        NSLog(@"提交订单 %@ error %@",responseObject, error);
         NSDictionary *dic = (NSDictionary *)responseObject;
         
         if ([dic[RET] isEqualToString:SUCCESS]) {

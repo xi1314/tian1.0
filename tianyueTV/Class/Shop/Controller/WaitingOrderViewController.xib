@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cts-9h-ApG">
-                    <rect key="frame" x="0.0" y="76" width="375" height="90"/>
+                    <rect key="frame" x="0.0" y="10" width="375" height="90"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待买家付款" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1G-zs-IOJ">
                             <rect key="frame" x="10" y="13" width="110.5" height="21"/>
@@ -100,7 +100,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="fNl-Hk-XC4">
-                    <rect key="frame" x="0.0" y="176" width="375" height="438"/>
+                    <rect key="frame" x="0.0" y="110" width="375" height="504"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ohR-ix-KMV"/>
@@ -115,7 +115,7 @@
                 <constraint firstAttribute="bottom" secondItem="XrD-Hl-Cbq" secondAttribute="bottom" constant="10" id="MBH-MR-Sdw"/>
                 <constraint firstAttribute="trailing" secondItem="ABj-nh-Mq3" secondAttribute="trailing" id="O3j-XW-yZP"/>
                 <constraint firstItem="ABj-nh-Mq3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PKW-pl-zhV"/>
-                <constraint firstItem="Cts-9h-ApG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="76" id="QIz-7x-yyu"/>
+                <constraint firstItem="Cts-9h-ApG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="QIz-7x-yyu"/>
                 <constraint firstItem="XrD-Hl-Cbq" firstAttribute="leading" secondItem="cyi-pT-bNL" secondAttribute="trailing" constant="60" id="VHa-uM-vjU"/>
                 <constraint firstItem="fNl-Hk-XC4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Vt2-9Z-Euu"/>
                 <constraint firstItem="Cts-9h-ApG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WQB-Cy-734"/>

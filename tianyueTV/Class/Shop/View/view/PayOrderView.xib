@@ -102,7 +102,7 @@
                         <action selector="orderButtons_action:" destination="qW3-dK-eJA" eventType="touchUpInside" id="pVx-Lp-CNV"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="差" translatesAutoresizingMaskIntoConstraints="NO" id="tRr-Qm-35j">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bt_close-1" translatesAutoresizingMaskIntoConstraints="NO" id="tRr-Qm-35j">
                     <rect key="frame" x="16" y="19" width="14" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="tRr-Qm-35j" secondAttribute="height" multiplier="1:1" id="KoR-dt-PVe"/>
@@ -147,7 +147,7 @@
         </view>
     </objects>
     <resources>
+        <image name="bt_close-1" width="16" height="16"/>
         <image name="右箭头" width="11" height="18"/>
-        <image name="差" width="20" height="20"/>
     </resources>
 </document>

@@ -27,6 +27,11 @@
 // 底部类别视图
 @property (nonatomic, strong) HomeTianyueCategoryView *view_tCategory;
 
+// 登录腾讯需要的参数
+@property (nonatomic, strong) NSString *userIdentifiler;
+@property (nonatomic, strong) NSString *userSig;
+@property (nonatomic, strong) NSMutableArray *typeNameArray;
+
 @end
 
 @implementation HomeViewController
@@ -230,6 +235,39 @@
         }
         
     };
+}
+
+//在首页初始化腾讯SDk，并登录
+//登录腾讯sdk
+- (void)loginIMSDk {
+    //    self.userSig = [USER_Defaults objectForKey:@"userSig"];
+    self.userSig = @"eJxtz11PgzAUgOH-0luNaUu7MZNdwAIGbcPGdHO7aZpRluPkY1CRZfG-iwTjjbfvc05OzhU9i-WdripIlbbKqVN0jwjDGFPGOUe3g5uugtoonVlT-3gvtB8ZtTV1A2XRA8WEE*pg-IeQmsJCBsOiNY0dewPHPshgtYh8AZ5OQvEalJ86cbQ*zVi7ifAuXuRhst*SNRydaVfE55kHnt-FUbGH90Dszn4oJbw88di9LHP5lsh2a7LlzQQ-iGbzuJrPf4*lJzX8*N9zFnIzdHcyJZS5bOz6cCg-CqvspRocM0bQ1zeeuVlk";
+    //    self.userIdentifiler = [NSString stringWithFormat:@"ty%@",USER_NAME];
+    self.userIdentifiler = @"test";
+    
+    TIMLoginParam * login_param = [[TIMLoginParam alloc ] init];
+    // accountType 和 sdkAppId 通讯云管理平台分配
+    // identifier为用户名，userSig 为用户登录凭证
+    // appidAt3rd 在私有帐号情况下，填写与sdkAppId 一样
+    login_param.accountType = @"10441";
+    login_param.identifier = self.userIdentifiler;
+    login_param.userSig = self.userSig;
+    login_param.appidAt3rd = @"1400024555";
+    login_param.sdkAppId = 1400024555;
+    
+    TIMManager *manager = [TIMManager sharedInstance];
+    [manager initSdk:[@"1400024555" intValue] accountType:@"10441"];
+    
+//    NSLog(@"----------userSig   %@", login_param.userSig);
+    [manager login:login_param succ:^(){
+        NSLog(@"Login Succ");
+        [USER_Defaults setBool:YES forKey:@"IM_Login"];
+        [USER_Defaults synchronize];
+    } fail:^(int code, NSString * err) {
+        NSLog(@"Login Failed: %d->%@", code, err);
+        [USER_Defaults setBool:NO forKey:@"IM_Login"];
+        [USER_Defaults synchronize];
+    }];
 }
 
 
