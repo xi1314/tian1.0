@@ -9,6 +9,7 @@
 #import "HomeHandler.h"
 #import "HomeModel.h"
 #import "HeadlineModel.h"
+#import "SelectionModel.h"
 
 @implementation HomeHandler
 
@@ -88,5 +89,24 @@
         }
     }];
 }
+
+/**
+ 天越甄选
+
+ @param completeBlock 返回值
+ */
++ (void)requestForSelectionWithCompleteBlock:(HandlerBlock)completeBlock {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_HotYougoods paraments:nil finish:^(id responseObject, NSError *error) {
+        
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            SelectionModel *SM = [SelectionModel mj_objectWithKeyValues:dic];
+            completeBlock(SM, nil);
+        } else {
+            completeBlock(nil, error);
+        }
+    }];
+}
+
 
 @end

@@ -188,6 +188,7 @@
 		98FFCCBB1EB1998E004743B0 /* SelectionTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCBA1EB1998E004743B0 /* SelectionTopView.m */; };
 		98FFCCBE1EB1C059004743B0 /* CycleCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCBD1EB1C059004743B0 /* CycleCarouselView.m */; };
 		98FFCCC11EB1C5C5004743B0 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCC01EB1C5C5004743B0 /* CardView.m */; };
+		98FFCCC41EB1CD7A004743B0 /* SelectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCC31EB1CD7A004743B0 /* SelectionModel.m */; };
 		C61854BB213EA5F6E946D609 /* libPods-tianyueTVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D1542CAE7A70696F02677D /* libPods-tianyueTVTests.a */; };
 		CC281D101EA713610069D503 /* HomeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CC281D0F1EA713610069D503 /* HomeHandler.m */; };
 		CC36CD4F1E9732B8007E35FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */; };
@@ -591,6 +592,8 @@
 		98FFCCBD1EB1C059004743B0 /* CycleCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleCarouselView.m; sourceTree = "<group>"; };
 		98FFCCBF1EB1C5C5004743B0 /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
 		98FFCCC01EB1C5C5004743B0 /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
+		98FFCCC21EB1CD7A004743B0 /* SelectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionModel.h; sourceTree = "<group>"; };
+		98FFCCC31EB1CD7A004743B0 /* SelectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionModel.m; sourceTree = "<group>"; };
 		B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tianyueTV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC281D0E1EA713610069D503 /* HomeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeHandler.h; path = tianyueTV/Class/Mine/LivePush/AnchorSpace/Model/HomeHandler.h; sourceTree = SOURCE_ROOT; };
 		CC281D0F1EA713610069D503 /* HomeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeHandler.m; path = tianyueTV/Class/Mine/LivePush/AnchorSpace/Model/HomeHandler.m; sourceTree = SOURCE_ROOT; };
@@ -870,6 +873,8 @@
 				986A413C1EA8B0E10066B3F4 /* HomeModel.m */,
 				981FAF481EAF00B000C63EAF /* HeadlineModel.h */,
 				981FAF491EAF00B000C63EAF /* HeadlineModel.m */,
+				98FFCCC21EB1CD7A004743B0 /* SelectionModel.h */,
+				98FFCCC31EB1CD7A004743B0 /* SelectionModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2405,6 +2410,7 @@
 				04687ACF1E88BDF0004A5EE3 /* WWPersonalWorksButton.m in Sources */,
 				04687AAD1E88BDF0004A5EE3 /* SettingView.m in Sources */,
 				04687AC41E88BDF0004A5EE3 /* WWBianjiTableViewCell.m in Sources */,
+				98FFCCC41EB1CD7A004743B0 /* SelectionModel.m in Sources */,
 				04687ABA1E88BDF0004A5EE3 /* WWMineFourViewController.m in Sources */,
 				981FAF421EAEF03B00C63EAF /* HeadlineViewController.m in Sources */,
 				04687AE31E88BDF0004A5EE3 /* PersonalWorksCell.m in Sources */,

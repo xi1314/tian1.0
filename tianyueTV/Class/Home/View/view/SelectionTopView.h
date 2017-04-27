@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SelectionModel.h"
 
 @interface SelectionTopView : UIView
 
-
+/**
+ 数据填充
+ 
+ @param model 数据模型
+ */
+- (void)configSelectionViewWithModel:(CustomGoodModel *)model;
 
 @end

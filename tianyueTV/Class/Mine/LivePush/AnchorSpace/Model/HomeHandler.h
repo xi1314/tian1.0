@@ -28,7 +28,7 @@
 
 
 /**
- 天越甄选
+ 天越甄选(图片)
  
  @param completeBlock 返回值
  */
@@ -41,5 +41,13 @@
  @param completeBlock 返回值
  */
 + (void)requestForHeadlineWithCompleteBlock:(HandlerBlock)completeBlock;
+
+
+/**
+ 天越甄选
+ 
+ @param completeBlock 返回值
+ */
++ (void)requestForSelectionWithCompleteBlock:(HandlerBlock)completeBlock;
 
 @end

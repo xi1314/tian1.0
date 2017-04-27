@@ -7,12 +7,8 @@
 //
 
 #import "CardView.h"
-#import "CycleCarouselView.h"
 
 @interface CardView ()
-
-// 图片轮播
-@property (nonatomic, strong) CycleCarouselView *cycleView;
 
 // 标题
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -38,12 +34,11 @@
 - (void)initilizeSubViews {
     self.backgroundColor = [UIColor whiteColor];
     // 封面
-    _cycleView = [[CycleCarouselView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) / 3 * 2)];
-    _cycleView.backgroundColor = [UIColor redColor];
+    _cycleView = [[CycleCarouselView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) / 3 * 2 + 30)];
     [self addSubview:_cycleView];
     
     // 名称
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_cycleView.frame) + 26, self.frame.size.width, 23)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_cycleView.frame) , self.frame.size.width, 23)];
     _titleLabel.text = @"巴洛克风格复古钱包";
     _titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold];
     _titleLabel.textColor = WWColor(51, 51, 51);
@@ -58,6 +53,31 @@
     _priceLabel.font = [UIFont systemFontOfSize:13];
     [self addSubview:_priceLabel];
     
+}
+
+
+/**
+ 轮播图数组
+
+ @param dataArr 图片数组
+ */
+- (void)configCycleImageArr:(NSArray *)dataArr {
+    NSMutableArray *imageArr = [NSMutableArray array];
+    for (SelectionGoodModel *SM in dataArr) {
+        [imageArr addObject:SM.appImg];
+    }
+    
+    [_cycleView cycleImages:imageArr];
+}
+
+/**
+ 填充数据
+
+ @param model 数据模型
+ */
+- (void)configCardViewWithModel:(SelectionGoodModel *)model {
+    self.titleLabel.text = model.name;
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.shopPrice];
 }
 
 @end

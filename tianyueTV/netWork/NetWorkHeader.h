@@ -23,6 +23,9 @@
 // 匠人头条
 #define api_New_list_app @"New_list_app"
 
+// 天越甄选
+#define api_HotYougoods @"HotYougoods"
+
 // 所有直播间（发现）
 #define api_mobileAllBroadcastLiving1 @"mobileAllBroadcastLiving1"
 

@@ -19,6 +19,7 @@
 // pageControl
 @property (nonatomic, strong) UIPageControl  *pageCtrl;
 
+
 @end
 
 @implementation CycleCarouselView
@@ -28,7 +29,7 @@
     if (self) {
 
         // 底部滑动视图
-        self.baseScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        self.baseScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 30)];
         self.baseScroll.backgroundColor = [UIColor clearColor];
         self.baseScroll.pagingEnabled = YES;
         self.baseScroll.delegate = self;
@@ -37,8 +38,8 @@
         
         // pageControl
         self.pageCtrl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, frame.size.height - 30, frame.size.width, 30)];
-        self.pageCtrl.currentPageIndicatorTintColor = [UIColor redColor];
-        self.pageCtrl.pageIndicatorTintColor = [UIColor lightGrayColor];
+        self.pageCtrl.currentPageIndicatorTintColor = WWColor(255, 79, 68);
+        self.pageCtrl.pageIndicatorTintColor = WWColor(236, 236, 236);
         [self addSubview:self.pageCtrl];
 
     }
@@ -83,7 +84,7 @@
         img.userInteractionEnabled = YES;
 
         NSURL *url = [NSURL URLWithString:self.imgArray[i]];
-//        [img sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"goods_ad_placeholder"]];
+        [img sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"goods_ad_placeholder"]];
     
         [self.baseScroll addSubview:img];
         
@@ -118,18 +119,31 @@
         
         [scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.baseScroll.frame) * (imgCount - 2), 0) animated:NO];
         [self.pageCtrl setCurrentPage:self.pageCtrl.numberOfPages - 1];
+        
+        if (self.block) {
+            self.block((int)self.pageCtrl.numberOfPages - 1);
+        }
 
-    }else if (imgIndex == imgCount - 1) {
+    } else if (imgIndex == imgCount - 1) {
         
         [scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.baseScroll.frame) * 1, 0) animated:NO];
         [self.pageCtrl setCurrentPage:0];
+        
+        if (self.block) {
+            self.block(0);
+        }
 
-    }else {
+    } else {
         
         [self.pageCtrl setCurrentPage:imgIndex-1];
+        
+        if (self.block) {
+            self.block(imgIndex-1);
+        }
 
     }
 }
+
 
 @end
 

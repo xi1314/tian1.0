@@ -39,7 +39,6 @@
 - (void)initilizeSubViews {
     // 封面
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) / 3 * 2)];
-    _imageView.backgroundColor = [UIColor redColor];
     [self addSubview:_imageView];
     
     // 名称
@@ -58,6 +57,17 @@
     _priceLabel.font = [UIFont systemFontOfSize:10];
     [self addSubview:_priceLabel];
     
+}
+
+/**
+ 数据填充
+
+ @param model 数据模型
+ */
+- (void)configSelectionViewWithModel:(CustomGoodModel *)model {
+    [self.imageView setImageWithURL:[NSURL URLWithString:model.appImg]];
+    self.titleLabel.text = model.name;
+    self.priceLabel.text = [NSString stringWithFormat:@"¥%@",model.shopPrice];
 }
 
 
