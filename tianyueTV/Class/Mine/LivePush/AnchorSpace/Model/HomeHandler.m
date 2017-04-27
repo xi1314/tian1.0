@@ -21,7 +21,7 @@
 + (void)requestForBrandTrademarkWithCompleteBlock:(HandlerBlock)completeBlock
 {
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_Brand_trademark paraments:nil finish:^(id responseObject, NSError *error) {
-        
+
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[RET] isEqualToString:SUCCESS]) {
             completeBlock(responseObject[@"Brandtrademark"], nil);

@@ -22,6 +22,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.layer.masksToBounds = NO;
+//        [self configeCategoryViewWithModel:nil];
     }
     return self;
 }

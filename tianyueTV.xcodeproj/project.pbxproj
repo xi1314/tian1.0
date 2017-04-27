@@ -184,6 +184,10 @@
 		989B18F01E9B6F38009C3174 /* area.json in Resources */ = {isa = PBXBuildFile; fileRef = 989B18EF1E9B6F38009C3174 /* area.json */; };
 		98A8073B1E9F653500832F43 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A8073A1E9F653500832F43 /* ShopModel.m */; };
 		98AEA55D1EAB056900F2CB4C /* MyLivingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AEA55C1EAB056900F2CB4C /* MyLivingView.m */; };
+		98FFCCB81EB193E9004743B0 /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCB71EB193E9004743B0 /* SelectionViewController.m */; };
+		98FFCCBB1EB1998E004743B0 /* SelectionTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCBA1EB1998E004743B0 /* SelectionTopView.m */; };
+		98FFCCBE1EB1C059004743B0 /* CycleCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCBD1EB1C059004743B0 /* CycleCarouselView.m */; };
+		98FFCCC11EB1C5C5004743B0 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCC01EB1C5C5004743B0 /* CardView.m */; };
 		C61854BB213EA5F6E946D609 /* libPods-tianyueTVTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D1542CAE7A70696F02677D /* libPods-tianyueTVTests.a */; };
 		CC281D101EA713610069D503 /* HomeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CC281D0F1EA713610069D503 /* HomeHandler.m */; };
 		CC36CD4F1E9732B8007E35FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */; };
@@ -579,6 +583,14 @@
 		98A8073A1E9F653500832F43 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
 		98AEA55B1EAB056900F2CB4C /* MyLivingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLivingView.h; sourceTree = "<group>"; };
 		98AEA55C1EAB056900F2CB4C /* MyLivingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLivingView.m; sourceTree = "<group>"; };
+		98FFCCB61EB193E9004743B0 /* SelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionViewController.h; sourceTree = "<group>"; };
+		98FFCCB71EB193E9004743B0 /* SelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionViewController.m; sourceTree = "<group>"; };
+		98FFCCB91EB1998E004743B0 /* SelectionTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionTopView.h; sourceTree = "<group>"; };
+		98FFCCBA1EB1998E004743B0 /* SelectionTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionTopView.m; sourceTree = "<group>"; };
+		98FFCCBC1EB1C059004743B0 /* CycleCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleCarouselView.h; sourceTree = "<group>"; };
+		98FFCCBD1EB1C059004743B0 /* CycleCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleCarouselView.m; sourceTree = "<group>"; };
+		98FFCCBF1EB1C5C5004743B0 /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
+		98FFCCC01EB1C5C5004743B0 /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
 		B2DB74BCAF8DE5B7531B23C9 /* libPods-tianyueTV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tianyueTV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC281D0E1EA713610069D503 /* HomeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeHandler.h; path = tianyueTV/Class/Mine/LivePush/AnchorSpace/Model/HomeHandler.h; sourceTree = SOURCE_ROOT; };
 		CC281D0F1EA713610069D503 /* HomeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeHandler.m; path = tianyueTV/Class/Mine/LivePush/AnchorSpace/Model/HomeHandler.m; sourceTree = SOURCE_ROOT; };
@@ -912,6 +924,12 @@
 				CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */,
 				986A41381EA865420066B3F4 /* BrandView.h */,
 				986A41391EA865420066B3F4 /* BrandView.m */,
+				98FFCCB91EB1998E004743B0 /* SelectionTopView.h */,
+				98FFCCBA1EB1998E004743B0 /* SelectionTopView.m */,
+				98FFCCBC1EB1C059004743B0 /* CycleCarouselView.h */,
+				98FFCCBD1EB1C059004743B0 /* CycleCarouselView.m */,
+				98FFCCBF1EB1C5C5004743B0 /* CardView.h */,
+				98FFCCC01EB1C5C5004743B0 /* CardView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1846,6 +1864,8 @@
 		981FAF3E1EAEEFA100C63EAF /* 天越甄选 */ = {
 			isa = PBXGroup;
 			children = (
+				98FFCCB61EB193E9004743B0 /* SelectionViewController.h */,
+				98FFCCB71EB193E9004743B0 /* SelectionViewController.m */,
 			);
 			path = "天越甄选";
 			sourceTree = "<group>";
@@ -2326,6 +2346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC281D101EA713610069D503 /* HomeHandler.m in Sources */,
+				98FFCCB81EB193E9004743B0 /* SelectionViewController.m in Sources */,
 				046879321E88B71C004A5EE3 /* ShakeLabel.m in Sources */,
 				04687AD81E88BDF0004A5EE3 /* WWSettingView.m in Sources */,
 				04687ADC1E88BDF0004A5EE3 /* WWMineModel.m in Sources */,
@@ -2387,6 +2408,7 @@
 				04687ABA1E88BDF0004A5EE3 /* WWMineFourViewController.m in Sources */,
 				981FAF421EAEF03B00C63EAF /* HeadlineViewController.m in Sources */,
 				04687AE31E88BDF0004A5EE3 /* PersonalWorksCell.m in Sources */,
+				98FFCCBB1EB1998E004743B0 /* SelectionTopView.m in Sources */,
 				04687AEE1E88BDF0004A5EE3 /* OrderManagerTableViewCell.m in Sources */,
 				04687AA31E88BDF0004A5EE3 /* NSSafeObject.m in Sources */,
 				9875DD631EB0742F004C6A76 /* FindHandle.m in Sources */,
@@ -2462,6 +2484,7 @@
 				986A413A1EA865420066B3F4 /* BrandView.m in Sources */,
 				FF0110C31DAB26D6003146A7 /* main.m in Sources */,
 				04687AC31E88BDF0004A5EE3 /* WWResultStatusViewController.m in Sources */,
+				98FFCCC11EB1C5C5004743B0 /* CardView.m in Sources */,
 				04687AE91E88BDF0004A5EE3 /* WWShopsTableViewCell.m in Sources */,
 				CC3B06EA1EB072C6003EB203 /* UIView+DHSAddtion.m in Sources */,
 				04687AA41E88BDF0004A5EE3 /* CustomPlayerButton.m in Sources */,
@@ -2474,6 +2497,7 @@
 				04687AA01E88BDF0004A5EE3 /* LiveStreamingViewController.m in Sources */,
 				986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */,
 				04687B041E88BDF0004A5EE3 /* AddressTableViewCell.m in Sources */,
+				98FFCCBE1EB1C059004743B0 /* CycleCarouselView.m in Sources */,
 				04687B0B1E88BDF0004A5EE3 /* ChooseView.m in Sources */,
 				04687ACE1E88BDF0004A5EE3 /* WWPcollectionViewCell.m in Sources */,
 				0468791D1E88B2A1004A5EE3 /* XHSegmentControl.m in Sources */,

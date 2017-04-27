@@ -14,6 +14,7 @@
 #import "LIvingViewController.h"
 #import "WWLivingViewController.h"
 #import "HeadlineViewController.h"
+#import "SelectionViewController.h"
 
 @interface HomeViewController ()
 
@@ -212,7 +213,10 @@
             } break;
                 
             case 1: { // 天越甄选
-                
+                SelectionViewController *selectVC = [[SelectionViewController alloc] init];
+                selectVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:selectVC animated:YES
+                 ];
             } break;
                 
             case 2: { // 匠人头条
