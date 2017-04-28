@@ -13,15 +13,18 @@
 #import "PayOrderView.h"
 #import "ShopHandle.h"
 #import "WXApiManager.h"
+#import "PayResultViewController.h"
 
 @interface OrderViewController ()
 <UITableViewDelegate,
 UITableViewDataSource,
 UITextViewDelegate>
 {
-    CGFloat _payMoney;    // 订单价格
+//    CGFloat _payMoney;    // 订单价格
     CGFloat _postage;     // 邮费
 }
+// 订单价格
+@property (assign, nonatomic) CGFloat payMoney;
 
 // 地址view背景
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -171,6 +174,14 @@ UITextViewDelegate>
     self.address.text = [NSString stringWithFormat:@"%@%@%@%@", model.provinceName, model.cityName, model.area, model.address];
 }
 
+/**
+ 移除支付view
+ */
+- (void)dismissPayVeiw {
+    [self.baseMaskView removeAllSubviews];
+    [self.baseMaskView removeFromSuperview];
+}
+
 #pragma mark - Tap method
 - (IBAction)topViewTop_action:(UITapGestureRecognizer *)sender {
     
@@ -216,9 +227,19 @@ UITextViewDelegate>
             case 2:{ // 确认支付
                 @weakify(self);
                 [MBProgressHUD showMessage:nil];
-                [[WXApiManager sharedManager] weixinPayTradeNum:self.order_Sn andBlock:^{
-//                    @strongify(self);
-//                    [self.navigationController popViewControllerAnimated:YES];
+                [[WXApiManager sharedManager] weixinPayTradeNum:self.order_Sn andBlock:^(BOOL success){
+                    @strongify(self);
+                    [MBProgressHUD hideHUD];
+                    [self dismissPayVeiw];
+                    
+                    PayResultViewController *resultVC = [[PayResultViewController alloc] init];
+                    if (success) {
+                        resultVC.success = YES;
+                        resultVC.price = [NSString stringWithFormat:@"%.2f",self.payMoney];
+                    } else {
+                        resultVC.success = NO;
+                    }
+                    [self.navigationController pushViewController:resultVC animated:YES];
                 }];
             } break;
                 

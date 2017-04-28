@@ -9,6 +9,7 @@
 #import "WaitingOrderViewController.h"
 #import "OrderTableViewCell.h"
 #import "PayOrderView.h"
+#import "PayResultViewController.h"
 
 @interface WaitingOrderViewController ()
 <UITableViewDelegate,
@@ -243,8 +244,16 @@ UITableViewDataSource>
 - (void)requestForOrderPay {
     NSString *moneyStr = [NSString stringWithFormat:@"%.2f",_payMoney];
     NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:USER_ID,@"userId",self.dataArr[0][@"goodsAndNum"],@"goodsAndNum",moneyStr,@"payMoney",@"112",@"addressId",@"test",@"messagedds", nil];
-    NSLog(@"%@",dic);
+    
+    @weakify(self);
     [[NetWorkTool sharedTool] requestMethod:GET URL:@"toPay_app" paraments:dic finish:^(id responseObject, NSError *error) {
+        @strongify(self);
+        
+        PayResultViewController *resultVC = [[PayResultViewController alloc] init];
+        if (responseObject) {
+            
+        }
+        
         NSLog(@"%@",error);
         NSLog(@"%@",responseObject);
     }];

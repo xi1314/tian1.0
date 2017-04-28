@@ -21,8 +21,9 @@
     // item 颜色
     self.navigationController.navigationBar.tintColor = WWColor(40, 40, 40);
     // title字体
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:WWColor(40, 40, 40),NSFontAttributeName:[UIFont fontWithName:@"PingFangTC-Semibold" size:18]};
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:WWColor(40, 40, 40),NSFontAttributeName:[UIFont systemFontOfSize:18 weight:UIFontWeightSemibold]};
 
+//    [UIFont fontWithName:@"PingFangTC-Semibold" size:18]
 }
 
 #pragma mark -- Private method

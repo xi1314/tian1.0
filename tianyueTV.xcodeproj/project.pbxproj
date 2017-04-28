@@ -166,6 +166,9 @@
 		980822A91E0D05A8007D9A11 /* cityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822A81E0D05A8007D9A11 /* cityData.plist */; };
 		980822AB1E0D05B7007D9A11 /* typeData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 980822AA1E0D05B7007D9A11 /* typeData.plist */; };
 		9811F0D41E9890C2000BDD67 /* ShopDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9811F0D31E9890C2000BDD67 /* ShopDetailViewController.xib */; };
+		9815EE121EB2E84400F2B3F7 /* PayResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9815EE101EB2E84400F2B3F7 /* PayResultViewController.m */; };
+		9815EE131EB2E84400F2B3F7 /* PayResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9815EE111EB2E84400F2B3F7 /* PayResultViewController.xib */; };
+		9815EE161EB31F6E00F2B3F7 /* MyOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9815EE151EB31F6E00F2B3F7 /* MyOrderView.m */; };
 		981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */; };
 		981FAF421EAEF03B00C63EAF /* HeadlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 981FAF411EAEF03B00C63EAF /* HeadlineViewController.m */; };
 		981FAF461EAEF6A400C63EAF /* HeadlineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 981FAF441EAEF6A400C63EAF /* HeadlineTableViewCell.m */; };
@@ -552,6 +555,11 @@
 		980822A81E0D05A8007D9A11 /* cityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = cityData.plist; sourceTree = "<group>"; };
 		980822AA1E0D05B7007D9A11 /* typeData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = typeData.plist; sourceTree = "<group>"; };
 		9811F0D31E9890C2000BDD67 /* ShopDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopDetailViewController.xib; sourceTree = "<group>"; };
+		9815EE0F1EB2E84400F2B3F7 /* PayResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayResultViewController.h; sourceTree = "<group>"; };
+		9815EE101EB2E84400F2B3F7 /* PayResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayResultViewController.m; sourceTree = "<group>"; };
+		9815EE111EB2E84400F2B3F7 /* PayResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayResultViewController.xib; sourceTree = "<group>"; };
+		9815EE141EB31F6E00F2B3F7 /* MyOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderView.h; sourceTree = "<group>"; };
+		9815EE151EB31F6E00F2B3F7 /* MyOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderView.m; sourceTree = "<group>"; };
 		981ED63B1E84F31200835219 /* UIButton+BadgeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BadgeValue.h"; sourceTree = "<group>"; };
 		981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BadgeValue.m"; sourceTree = "<group>"; };
 		981FAF401EAEF03B00C63EAF /* HeadlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadlineViewController.h; sourceTree = "<group>"; };
@@ -1376,6 +1384,8 @@
 				04687A071E88BDF0004A5EE3 /* WWMineView.m */,
 				04687A081E88BDF0004A5EE3 /* WWMyViewButton.h */,
 				04687A091E88BDF0004A5EE3 /* WWMyViewButton.m */,
+				9815EE141EB31F6E00F2B3F7 /* MyOrderView.h */,
+				9815EE151EB31F6E00F2B3F7 /* MyOrderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1711,6 +1721,9 @@
 				04687A691E88BDF0004A5EE3 /* WaitingOrderViewController.h */,
 				04687A6A1E88BDF0004A5EE3 /* WaitingOrderViewController.m */,
 				04687A6B1E88BDF0004A5EE3 /* WaitingOrderViewController.xib */,
+				9815EE0F1EB2E84400F2B3F7 /* PayResultViewController.h */,
+				9815EE101EB2E84400F2B3F7 /* PayResultViewController.m */,
+				9815EE111EB2E84400F2B3F7 /* PayResultViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2171,6 +2184,7 @@
 				04687B071E88BDF0004A5EE3 /* MessageTableViewCell.xib in Resources */,
 				04687B091E88BDF0004A5EE3 /* OrderTableViewCell.xib in Resources */,
 				04687AFA1E88BDF0004A5EE3 /* AddAddressViewController.xib in Resources */,
+				9815EE131EB2E84400F2B3F7 /* PayResultViewController.xib in Resources */,
 				FF0110CE1DAB26D6003146A7 /* Assets.xcassets in Resources */,
 				04687AFE1E88BDF0004A5EE3 /* OrderViewController.xib in Resources */,
 				04687B0C1E88BDF0004A5EE3 /* ChooseView.xib in Resources */,
@@ -2411,6 +2425,7 @@
 				04687AAD1E88BDF0004A5EE3 /* SettingView.m in Sources */,
 				04687AC41E88BDF0004A5EE3 /* WWBianjiTableViewCell.m in Sources */,
 				98FFCCC41EB1CD7A004743B0 /* SelectionModel.m in Sources */,
+				9815EE161EB31F6E00F2B3F7 /* MyOrderView.m in Sources */,
 				04687ABA1E88BDF0004A5EE3 /* WWMineFourViewController.m in Sources */,
 				981FAF421EAEF03B00C63EAF /* HeadlineViewController.m in Sources */,
 				04687AE31E88BDF0004A5EE3 /* PersonalWorksCell.m in Sources */,
@@ -2499,6 +2514,7 @@
 				04687ADA1E88BDF0004A5EE3 /* WWCameraCutViewController.m in Sources */,
 				0468790A1E88AB83004A5EE3 /* WWHyperlinksButton.m in Sources */,
 				04687AAA1E88BDF0004A5EE3 /* GiftView.m in Sources */,
+				9815EE121EB2E84400F2B3F7 /* PayResultViewController.m in Sources */,
 				04687ACA1E88BDF0004A5EE3 /* WWPesonalShowViewController.m in Sources */,
 				04687AA01E88BDF0004A5EE3 /* LiveStreamingViewController.m in Sources */,
 				986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */,

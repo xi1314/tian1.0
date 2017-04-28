@@ -92,7 +92,7 @@
 - (void)requestMethod:(requestMthod)method URL:(NSString *)url paraments:(id)paraments finish:(callBackBlock)finished
 {
     
-    NSString *resultURL = [TIANYUESERVERADDRESS stringByAppendingString:url];
+    NSString *resultURL = [SERVERADDRESS stringByAppendingString:url];
     
     if (method == GET)
     {

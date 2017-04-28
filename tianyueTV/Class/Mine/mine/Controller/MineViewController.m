@@ -28,14 +28,12 @@
 
 #import "UpYun.h"
 
-
-//#import "UIImageView+WebCache.h"
 #import "WWImageURLCacher.h"
-
 #import "WWFirstArtisanRecruit.h"
 #import "WWFeedbackViewController.h"
-
 #import "OrderManagerViewController.h"
+
+#import "MyOrderView.h"
 
 
 @interface MineViewController ()
@@ -57,6 +55,11 @@ WWCameraCutViewDelegate>
 
 @property (nonatomic,strong) UIImage *choiceImage;
 
+// 订单二级视图
+@property (nonatomic, strong) MyOrderView *myOrderView;
+
+// 返回上一级
+@property (nonatomic, strong) UIButton *backButton;
 
 @end
 
@@ -93,6 +96,12 @@ WWCameraCutViewDelegate>
         [ws FiveButtonClicked];
     };
     
+    // 订单
+    self.mine.OrderClickHander = ^() {
+        [ws.view addSubview:ws.myOrderView];
+        [ws.view addSubview:ws.backButton];
+    };
+    
     //暂时取消
     self.mine.bianjiButtonHandler = ^(){
         [ws bianjiButtonClicker];
@@ -123,13 +132,13 @@ WWCameraCutViewDelegate>
 }
 
 
-- (void)realName{
+- (void)realName {
     
     WWRealNameViewController *realnameVC = [[WWRealNameViewController alloc] init];
     [self.navigationController pushViewController:realnameVC animated:YES];
 }
 
-- (WWMineView *)mine{
+- (WWMineView *)mine {
     if (!_mine) {
         _mine = [[WWMineView alloc] initWithFrame:self.view.frame];
     }
@@ -181,8 +190,14 @@ WWCameraCutViewDelegate>
     NSLog(@"头像选择");
 }
 
+#pragma mark - button method
+- (void)respondsToBackButton:(UIButton *)sender {
+    [self.myOrderView removeFromSuperview];
+    [self.backButton removeFromSuperview];
+}
 
-#pragma mark -----WWCameraCutViewDelegate----
+
+#pragma mark - WWCameraCutViewDelegate
 - (void)cropImage:(UIImage*)cropImage forOriginalImage:(UIImage*)originalImage
 {
     self.imageView.image = cropImage;
@@ -198,7 +213,7 @@ WWCameraCutViewDelegate>
 }
 
 
-#pragma mark ----UINavigationControllerDelegate& & UIImagePickerControllerDelegate----
+#pragma mark - UINavigationControllerDelegate& & UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
 //    WWCameraCutViewController *imageCrop = [[WWCameraCutViewController alloc] init];
@@ -263,7 +278,7 @@ WWCameraCutViewDelegate>
 //        [self.navigationController pushViewController:anchorSpace animated:YES];
         //直播画面        
         WWLivingViewController *living = [[WWLivingViewController alloc] init];
-//        [self presentViewController:living animated:YES completion:nil];
+        living.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:living animated:YES];
         
     }else{
@@ -325,20 +340,12 @@ WWCameraCutViewDelegate>
 
 //关注
 - (void)SecondButtonClicked{
-    // 模拟卖家入口
-    OrderManagerViewController *orderVC = [[OrderManagerViewController alloc] init];
-    orderVC.hidesBottomBarWhenPushed = YES;
-    orderVC.isSeller = YES;
-    [self.navigationController pushViewController:orderVC animated:YES];
+    
 }
 
 //个人作品及视频
 - (void)firstButtonClicked{
-    // 模拟买家入口
-    OrderManagerViewController *orderVC = [[OrderManagerViewController alloc] init];
-    orderVC.hidesBottomBarWhenPushed = YES;
-    orderVC.isSeller = NO;
-    [self.navigationController pushViewController:orderVC animated:YES];
+    
 }
 
 
@@ -556,15 +563,42 @@ WWCameraCutViewDelegate>
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (MyOrderView *)myOrderView {
+    CGFloat height = kHeightChange(485) + 20;
+    if (!_myOrderView) {
+        _myOrderView = [[MyOrderView alloc] initWithFrame:CGRectMake(0,height, SCREEN_WIDTH, SCREEN_HEIGHT - height - NavigationBarHeight)];
+        _myOrderView.backgroundColor = WWColor(242, 242, 242);
+        
+        @weakify(self);
+        _myOrderView.block = ^(NSInteger tag){
+            @strongify(self);
+            
+            OrderManagerViewController *orderVC = [[OrderManagerViewController alloc] init];
+            orderVC.hidesBottomBarWhenPushed = YES;
+            if (tag == 0) {
+                // 模拟买家入口
+                orderVC.isSeller = NO;
+                
+            } else {
+                // 模拟卖家入口
+                orderVC.isSeller = YES;
+            }
+            [self.navigationController pushViewController:orderVC animated:YES];
+        };
+    }
+    return _myOrderView;
 }
-*/
+
+
+- (UIButton *)backButton {
+    if (!_backButton) {
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _backButton.frame = CGRectMake(10, 20, 30, 30);
+        [_backButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+        [_backButton addTarget:self action:@selector(respondsToBackButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backButton;
+}
 
 
 @end

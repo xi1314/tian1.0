@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PayResultViewController">
+            <connections>
+                <outlet property="button" destination="CzQ-82-Hh3" id="G9H-Y0-vJl"/>
+                <outlet property="imageView" destination="0g5-Bl-zDq" id="kRH-iV-3fR"/>
+                <outlet property="payWayLabel" destination="5na-SU-BEW" id="bIR-gP-axt"/>
+                <outlet property="priceLabel" destination="2s8-rv-3zj" id="uqH-ZB-PoB"/>
+                <outlet property="stateLabel" destination="NuQ-NY-Axw" id="VoI-Zj-cEM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="order_payFail" translatesAutoresizingMaskIntoConstraints="NO" id="0g5-Bl-zDq">
+                    <rect key="frame" x="149" y="60" width="77" height="77"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="77" id="JIQ-gT-m9Y"/>
+                        <constraint firstAttribute="width" secondItem="0g5-Bl-zDq" secondAttribute="height" multiplier="1:1" id="QuP-n2-K3f"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="抱歉支付失败！" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuQ-NY-Axw">
+                    <rect key="frame" x="109" y="165" width="156.5" height="26.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" red="0.96078431369999995" green="0.12549019610000001" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CzQ-82-Hh3">
+                    <rect key="frame" x="25" y="588" width="325" height="33"/>
+                    <color key="backgroundColor" red="0.82745098039215681" green="0.019607843137254902" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="33" id="CMh-Z5-vFU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <state key="normal" title="返回">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="button_action:" destination="-1" eventType="touchUpInside" id="Q7x-T3-S1x"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="付款金额：288.00元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2s8-rv-3zj">
+                    <rect key="frame" x="117" y="196.5" width="141" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付方式：微信" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5na-SU-BEW">
+                    <rect key="frame" x="134" y="217.5" width="107.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="NuQ-NY-Axw" firstAttribute="top" secondItem="0g5-Bl-zDq" secondAttribute="bottom" constant="28" id="Buw-yy-KLW"/>
+                <constraint firstItem="5na-SU-BEW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="C5m-lo-SwV"/>
+                <constraint firstItem="5na-SU-BEW" firstAttribute="top" secondItem="2s8-rv-3zj" secondAttribute="bottom" constant="3" id="P6m-NA-ZZb"/>
+                <constraint firstItem="0g5-Bl-zDq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="T0a-d8-14s"/>
+                <constraint firstAttribute="trailing" secondItem="CzQ-82-Hh3" secondAttribute="trailing" constant="25" id="Xz9-cz-dsK"/>
+                <constraint firstAttribute="bottom" secondItem="CzQ-82-Hh3" secondAttribute="bottom" constant="46" id="aR6-Wz-SfE"/>
+                <constraint firstItem="0g5-Bl-zDq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aWF-VG-qXH"/>
+                <constraint firstItem="CzQ-82-Hh3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="25" id="fi1-Ma-cLz"/>
+                <constraint firstItem="2s8-rv-3zj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jaK-JD-RQi"/>
+                <constraint firstItem="NuQ-NY-Axw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nOA-XZ-y2w"/>
+                <constraint firstItem="2s8-rv-3zj" firstAttribute="top" secondItem="NuQ-NY-Axw" secondAttribute="bottom" constant="5" id="oRs-Fe-ooj"/>
+            </constraints>
+            <point key="canvasLocation" x="25.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="order_payFail" width="16" height="16"/>
+    </resources>
+</document>

@@ -43,6 +43,9 @@
 @property (nonatomic,strong) WWMyViewButton *zhanghaoanquan;//账号安全
 @property (nonatomic,strong) WWMyViewButton *settingButton;//设置按钮
 
+// 订饭按钮
+@property (nonatomic, strong) WWMyViewButton *orderButton;
+
 
 @property (nonatomic,strong) UIButton *firstButton;//个人作品及视频
 @property (nonatomic,strong) UILabel *firstlongLbael;
@@ -57,6 +60,8 @@
 //@property (nonatomic,strong) UIButton *fiveButton;//设置
 @property (nonatomic,strong) UILabel *fivelongLabel;
 @property (nonatomic,strong) UIButton *messageButton;//信息
+
+
 
 
 
@@ -241,76 +246,17 @@
     [self.settingButton autoAlignAxisToSuperviewAxis:ALAxisVertical];
     [self.settingButton autoSetDimensionsToSize:CGSizeMake(kWidthChange(225), kHeightChange(234))];
     
-    //设置
+    
     [self.bigHeadView addSubview:self.messageButton];
     [self.messageButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:kHeightChange(20)];
     [self.messageButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(0)+ 20];
     
-//    //信息
-//    [self.bigHeadView addSubview:self.messageButton];
-//    [self.messageButton autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:kHeightChange(20)];
-//    [self.messageButton autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(20)+ 20];
+    [self.bottomView addSubview:self.orderButton];
+    [self.orderButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.settingButton withOffset:kHeightChange(14)];
+    [self.orderButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.zhuBoRenzheng withOffset:kHeightChange(14)];
+    [self.orderButton autoSetDimensionsToSize:CGSizeMake(kWidthChange(225), kHeightChange(234))];
     
-    
-//    // 个人作品及视频
-//    [self addSubview:self.firstButton];
-//    [self.firstButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.bigHeadView withOffset:kHeightChange(69)];
-//    [self.firstButton autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.lineV withOffset:kWidthChange(-92)];
-//    [self.firstButton autoSetDimensionsToSize:CGSizeMake(kWidthChange(72), kWidthChange(72))];
-//    
-//    [self addSubview:self.firstlongLbael];
-//    [self.firstlongLbael autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.firstButton withOffset:kHeightChange(35)];
-//    [self.firstlongLbael autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
-//    [self.firstlongLbael autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.lineV withOffset:0];
-//    
-//    [self addSubview:self.firstshortLabel];
-//    [self.firstshortLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.firstlongLbael withOffset:kHeightChange(5)];
-//    [self.firstshortLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
-//    [self.firstshortLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.lineV withOffset:0];
-//    
-//    //关注的主播
-//    [self addSubview:self.secondButton];
-//    [self.secondButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.bigHeadView withOffset:kHeightChange(69)];
-//    [self.secondButton autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.line withOffset:kWidthChange(-92)];
-//    [self.secondButton autoSetDimensionsToSize:CGSizeMake(kWidthChange(72), kWidthChange(72))];
-//    
-//    [self addSubview:self.secondlongLabel];
-//    [self.secondlongLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.secondButton withOffset:kHeightChange(35)];
-//     [self.secondlongLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.lineV withOffset:0];
-//    [self.secondlongLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.line withOffset:0];
-//    
-//    //我的直播
-//    [self addSubview:self.thirdButton];
-//    [self.thirdButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.bigHeadView withOffset:kHeightChange(69)];
-//    [self.thirdButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:kWidthChange(92)];
-//    [self.thirdButton autoSetDimensionsToSize:CGSizeMake(kWidthChange(72), kWidthChange(72))];
-//    
-//    [self addSubview:self.thirdlongLabel];
-//    [self.thirdlongLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.thirdButton withOffset:kHeightChange(35)];
-//    [self.thirdlongLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
-//    [self.thirdlongLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.line withOffset:0];
-//    //越币充值
-//    [self addSubview:self.forthButton];
-//    [self.forthButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.lineH withOffset:kHeightChange(69)];
-//    [self.forthButton autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.lineV withOffset:kWidthChange(-92)];
-//    [self.forthButton autoSetDimensionsToSize:CGSizeMake(kWidthChange(72), kWidthChange(72))];
-//    
-//    [self addSubview:self.forthlongLabel];
-//    [self.forthlongLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.forthButton withOffset:kHeightChange(35)];
-//    [self.forthlongLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
-//    [self.forthlongLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.lineV withOffset:0];
-//
-//    
-//    //设置
-//    [self addSubview:self.fiveButton];
-//    [self.fiveButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.lineH withOffset:kHeightChange(69)];
-//    [self.fiveButton autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.line withOffset:kWidthChange(-92)];
-//    [self.fiveButton autoSetDimensionsToSize:CGSizeMake(kWidthChange(72), kWidthChange(72))];
-//    
-//    [self addSubview:self.fivelongLabel];
-//    [self.fivelongLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.fiveButton withOffset:kHeightChange(35)];
-//    [self.fivelongLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.lineV withOffset:0];
-//    [self.fivelongLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeLeft ofView:self.line withOffset:0];
+
 }
 
 #pragma mark ----懒加载----
@@ -335,8 +281,6 @@
 - (WWMyViewButton *)settingButton{
     if (!_settingButton) {
         _settingButton = [[WWMyViewButton alloc] init];
-        //        _zhanghaoanquan.bacimagesize = CGSizeMake(kWidthChange(62), kHeightChange(54));
-        
         _settingButton.backImageView.image = [UIImage imageNamed:@"设置-2"];
         _settingButton.titlew.text = @"设置";
         _settingButton.layer.borderWidth = 1.0;
@@ -345,6 +289,18 @@
     }
     return _settingButton;
 
+}
+
+- (WWMyViewButton *)orderButton {
+    if (!_orderButton) {
+        _orderButton = [[WWMyViewButton alloc] init];
+        _orderButton.backImageView.image = [UIImage imageNamed:@""];
+        _orderButton.titlew.text = @"我的订单";
+        _orderButton.layer.borderWidth = 1.0;
+        _orderButton.layer.borderColor = WWColor(212, 212, 212).CGColor;
+        [_orderButton addTarget:self action:@selector(respondsToSixButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _orderButton;
 }
 
 - (WWMyViewButton *)zhanghaoanquan{
@@ -665,9 +621,7 @@
         _headImages                     = [[UIImageView alloc] init];
         _headImages.layer.cornerRadius  = kWidthChange(87);
         _headImages.layer.masksToBounds = YES;
-//        _headImages.image               = [UIImage imageNamed:@"897"];
         _headImages.layer.borderColor   = [UIColor whiteColor].CGColor;
-        //        _headImages.layer.backgroundColor
         _headImages.layer.borderWidth   = 2.0f;
         _headImages.userInteractionEnabled = YES;
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureClicked)];
@@ -702,11 +656,10 @@
     return _lineH;
 }
 // 下面背景
-- (UIView *)bottomView{
+- (UIView *)bottomView {
     if (!_bottomView) {
         _bottomView                 = [[UIView alloc] initWithFrame:CGRectMake(0,0.351 *SCREEN_HEIGHT, self.frame.size.width, 1)];
         _bottomView.backgroundColor = WWColor(242, 242, 242);
-        //        _bottomView.layer.borderWidth = 1.0f;
     }
     return _bottomView;
 }
@@ -728,7 +681,7 @@
     return _bigHeadView;
 }
 
-#pragma mark ----点击事件----
+#pragma mark - 点击事件
 //信息按钮
 - (void)respondsToMessageButton:(UIButton *)sender{
     NSLog(@"点击了信息按钮");
@@ -760,14 +713,20 @@
     if (self.FiveButtonHandler) {
         self.FiveButtonHandler();
     }
-    NSLog(@"设置");
 }
+
+// 订单
+- (void)respondsToSixButton:(UIButton *)sender {
+    if (self.OrderClickHander) {
+        self.OrderClickHander();
+    }
+}
+
 
 - (void)respondsToForthButton:(UIButton *)sender{
     if (self.FourButtonHandler) {
         self.FourButtonHandler();
     }
-    NSLog(@"越币充值");
 }
 
 - (void)respondsToThirdButton:(UIButton *)sender{

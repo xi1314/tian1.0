@@ -28,7 +28,6 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
-//#import <PLPlayerKit/PLPlayerKit.h>
 
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -102,7 +101,6 @@
 //群组ID
 @property(nonatomic, copy) NSString *groupID;
 @property (nonatomic, strong) NSString *userIdentifiler;
-//@property (nonatomic, strong) NSString *accountType;
 @property (nonatomic, strong) NSString *userSig;
 
 @end
@@ -733,18 +731,18 @@
 
 }
 
-#pragma mark ------聊天室
+#pragma mark - 聊天室
 //加入群聊聊天室
 - (void)joinChatRoom {
     if ([USER_Defaults boolForKey:@"IM_Login"]) {
         [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
             [MBProgressHUD showSuccess:@"加入成功"];
         } fail:^(int code, NSString *msg) {
-//            NSLog(@"加入失败%d---%@",code,msg);
+            NSLog(@"加入失败%d---%@",code,msg);
 //            [MBProgressHUD showError:msg];
         }];
     } else {
-//        [MBProgressHUD showError:@"sdk登录失败"];
+        [MBProgressHUD showError:@"sdk登录失败"];
     }
 }
 

@@ -376,7 +376,7 @@ UITextFieldDelegate>
             GoodsInfoModel *goodModle = snModel.goodsList[0];
             
             [MBProgressHUD showMessage:nil];
-            [[WXApiManager sharedManager] weixinPayTradeNum:goodModle.orderSn andBlock:^{
+            [[WXApiManager sharedManager] weixinPayTradeNum:goodModle.orderSn andBlock:^(BOOL success){
                 // 支付成功
                 [self dismissPayViewAnimation];
             }];

@@ -14,7 +14,7 @@
 /**
  block 微信支付结果回调
  */
-typedef void(^WXApiManagerBlock)(void);
+typedef void(^WXApiManagerBlock)(BOOL success);
 
 @interface WXApiManager : NSObject <WXApiDelegate> {
     // 微信支付结果回调

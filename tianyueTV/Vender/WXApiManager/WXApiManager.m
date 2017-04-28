@@ -134,17 +134,21 @@
             case WXSuccess:
             {
                 if (_block) {
-                    _block();
+                    _block(YES);
                 }
 
-                [MBProgressHUD showSuccess:@"支付成功"];
+//                [MBProgressHUD showSuccess:@"支付成功"];
             }
             
                 break;
                 
             default:
                 
-                [MBProgressHUD showError:@"支付失败"];
+                if (_block) {
+                    _block(NO);
+                }
+                
+//                [MBProgressHUD showError:@"支付失败"];
                 
                 break;
         }

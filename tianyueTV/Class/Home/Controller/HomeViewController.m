@@ -29,8 +29,9 @@
 
 // 登录腾讯需要的参数
 @property (nonatomic, strong) NSString *userIdentifiler;
+
 @property (nonatomic, strong) NSString *userSig;
-@property (nonatomic, strong) NSMutableArray *typeNameArray;
+
 
 @end
 
@@ -45,8 +46,6 @@
     
     // 隐藏导航栏黑线
     [self useMethodToFindBlackLineAndHind];
-    // 添加导航栏
-//    [self customNavigationBar];
     
     // 加载品牌入驻视图
     [self addBrandComeInView];
@@ -59,6 +58,9 @@
     
     // 网络请求
     [self initializeDatasource];
+    
+    // 登录腾讯sdk
+    [self loginIMSDk];
     
 }
 

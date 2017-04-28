@@ -18,6 +18,11 @@
 @property (nonatomic,copy) void (^gestureClickedHandler)();
 @property (nonatomic,copy) void (^zhuborenzhengHandler)();
 @property (nonatomic,copy) void (^messageClickedHander)();//消息按钮
+
+// 我的订单
+@property (nonatomic, copy) void (^OrderClickHander)();
+
+
 @property (nonatomic,strong) UIImageView *bigHeadView;
 @property (nonatomic,strong) UIImageView *headImages;
 @property (nonatomic,strong) UILabel *moneyLabel;//越币
