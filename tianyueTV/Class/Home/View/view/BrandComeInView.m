@@ -51,6 +51,9 @@
 }
 
 - (void)configBrandViewWithArr:(NSArray *)brandArr {
+    if (!brandArr.count) {
+        return;
+    }
     for (int i = 0; i < 4; i++) {
         BrandView *brandView = [[BrandView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, self.scrollView.height)];
         brandView.backgroundColor = [UIColor whiteColor];

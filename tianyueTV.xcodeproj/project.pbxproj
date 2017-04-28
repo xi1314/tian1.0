@@ -169,6 +169,10 @@
 		9815EE121EB2E84400F2B3F7 /* PayResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9815EE101EB2E84400F2B3F7 /* PayResultViewController.m */; };
 		9815EE131EB2E84400F2B3F7 /* PayResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9815EE111EB2E84400F2B3F7 /* PayResultViewController.xib */; };
 		9815EE161EB31F6E00F2B3F7 /* MyOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9815EE151EB31F6E00F2B3F7 /* MyOrderView.m */; };
+		9815EE1A1EB33EB400F2B3F7 /* GoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9815EE181EB33EB400F2B3F7 /* GoodsTableViewCell.m */; };
+		9815EE1B1EB33EB400F2B3F7 /* GoodsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9815EE191EB33EB400F2B3F7 /* GoodsTableViewCell.xib */; };
+		9815EE1E1EB3492600F2B3F7 /* GoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9815EE1D1EB3492600F2B3F7 /* GoodsModel.m */; };
+		9815EE211EB34A0600F2B3F7 /* LivingHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9815EE201EB34A0600F2B3F7 /* LivingHandler.m */; };
 		981ED63D1E84F31300835219 /* UIButton+BadgeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */; };
 		981FAF421EAEF03B00C63EAF /* HeadlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 981FAF411EAEF03B00C63EAF /* HeadlineViewController.m */; };
 		981FAF461EAEF6A400C63EAF /* HeadlineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 981FAF441EAEF6A400C63EAF /* HeadlineTableViewCell.m */; };
@@ -560,6 +564,13 @@
 		9815EE111EB2E84400F2B3F7 /* PayResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayResultViewController.xib; sourceTree = "<group>"; };
 		9815EE141EB31F6E00F2B3F7 /* MyOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOrderView.h; sourceTree = "<group>"; };
 		9815EE151EB31F6E00F2B3F7 /* MyOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyOrderView.m; sourceTree = "<group>"; };
+		9815EE171EB33EB400F2B3F7 /* GoodsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsTableViewCell.h; sourceTree = "<group>"; };
+		9815EE181EB33EB400F2B3F7 /* GoodsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsTableViewCell.m; sourceTree = "<group>"; };
+		9815EE191EB33EB400F2B3F7 /* GoodsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsTableViewCell.xib; sourceTree = "<group>"; };
+		9815EE1C1EB3492600F2B3F7 /* GoodsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsModel.h; sourceTree = "<group>"; };
+		9815EE1D1EB3492600F2B3F7 /* GoodsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsModel.m; sourceTree = "<group>"; };
+		9815EE1F1EB34A0600F2B3F7 /* LivingHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LivingHandler.h; path = tianyueTV/Class/Living/Model/LivingHandler.h; sourceTree = SOURCE_ROOT; };
+		9815EE201EB34A0600F2B3F7 /* LivingHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LivingHandler.m; path = tianyueTV/Class/Living/Model/LivingHandler.m; sourceTree = SOURCE_ROOT; };
 		981ED63B1E84F31200835219 /* UIButton+BadgeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+BadgeValue.h"; sourceTree = "<group>"; };
 		981ED63C1E84F31300835219 /* UIButton+BadgeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+BadgeValue.m"; sourceTree = "<group>"; };
 		981FAF401EAEF03B00C63EAF /* HeadlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadlineViewController.h; sourceTree = "<group>"; };
@@ -975,6 +986,8 @@
 		046879691E88BDF0004A5EE3 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				9815EE1F1EB34A0600F2B3F7 /* LivingHandler.h */,
+				9815EE201EB34A0600F2B3F7 /* LivingHandler.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -985,6 +998,8 @@
 				0468796B1E88BDF0004A5EE3 /* chat */,
 				0468796F1E88BDF0004A5EE3 /* NSSafeObject.h */,
 				046879701E88BDF0004A5EE3 /* NSSafeObject.m */,
+				9815EE1C1EB3492600F2B3F7 /* GoodsModel.h */,
+				9815EE1D1EB3492600F2B3F7 /* GoodsModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1027,6 +1042,9 @@
 				046879791E88BDF0004A5EE3 /* ChatTableViewCell.m */,
 				0468797A1E88BDF0004A5EE3 /* GiftCollectionViewCell.h */,
 				0468797B1E88BDF0004A5EE3 /* GiftCollectionViewCell.m */,
+				9815EE171EB33EB400F2B3F7 /* GoodsTableViewCell.h */,
+				9815EE181EB33EB400F2B3F7 /* GoodsTableViewCell.m */,
+				9815EE191EB33EB400F2B3F7 /* GoodsTableViewCell.xib */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2201,6 +2219,7 @@
 				04687AEB1E88BDF0004A5EE3 /* OrderManagerViewController.xib in Resources */,
 				04687B101E88BDF0004A5EE3 /* ProductDetailVIew.xib in Resources */,
 				980822AB1E0D05B7007D9A11 /* typeData.plist in Resources */,
+				9815EE1B1EB33EB400F2B3F7 /* GoodsTableViewCell.xib in Resources */,
 				FF0110CC1DAB26D6003146A7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2394,6 +2413,7 @@
 				04687AC71E88BDF0004A5EE3 /* WWRealNameView.m in Sources */,
 				04687AC91E88BDF0004A5EE3 /* WWMineSecondViewController.m in Sources */,
 				987842241E8F7FB50084BF82 /* ShopHandle.m in Sources */,
+				9815EE1E1EB3492600F2B3F7 /* GoodsModel.m in Sources */,
 				04687AEA1E88BDF0004A5EE3 /* OrderManagerViewController.m in Sources */,
 				04687AE61E88BDF0004A5EE3 /* WWMineFiveModel.m in Sources */,
 				0468791F1E88B2A1004A5EE3 /* XHSegmentViewController.m in Sources */,
@@ -2505,6 +2525,7 @@
 				986A413A1EA865420066B3F4 /* BrandView.m in Sources */,
 				FF0110C31DAB26D6003146A7 /* main.m in Sources */,
 				04687AC31E88BDF0004A5EE3 /* WWResultStatusViewController.m in Sources */,
+				9815EE211EB34A0600F2B3F7 /* LivingHandler.m in Sources */,
 				98FFCCC11EB1C5C5004743B0 /* CardView.m in Sources */,
 				04687AE91E88BDF0004A5EE3 /* WWShopsTableViewCell.m in Sources */,
 				CC3B06EA1EB072C6003EB203 /* UIView+DHSAddtion.m in Sources */,
@@ -2520,6 +2541,7 @@
 				986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */,
 				04687B041E88BDF0004A5EE3 /* AddressTableViewCell.m in Sources */,
 				98FFCCBE1EB1C059004743B0 /* CycleCarouselView.m in Sources */,
+				9815EE1A1EB33EB400F2B3F7 /* GoodsTableViewCell.m in Sources */,
 				04687B0B1E88BDF0004A5EE3 /* ChooseView.m in Sources */,
 				04687ACE1E88BDF0004A5EE3 /* WWPcollectionViewCell.m in Sources */,
 				0468791D1E88B2A1004A5EE3 /* XHSegmentControl.m in Sources */,

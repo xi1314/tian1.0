@@ -9,6 +9,12 @@
 #import "HostInfoView.h"
 #import "UIImage+CustomImage.h"
 
+@interface HostInfoView () {
+    UIButton *_lastButton; // 记录前一个选中的按钮
+}
+
+@end
+
 @implementation HostInfoView
 
 /*
@@ -18,7 +24,7 @@
     // Drawing code
 }
 */
--(instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     if (self =[super initWithFrame:frame])
     {
@@ -26,6 +32,7 @@
     }
     return self;
 }
+
 -(UIImageView *)headImageView
 {
     if (!_headImageView)
@@ -40,6 +47,7 @@
     }
     return _headImageView;
 }
+
 -(UILabel*)nameLabel
 {
     if (!_nameLabel)
@@ -53,7 +61,8 @@
     }
     return _nameLabel;
 }
--(UILabel *)fans
+
+- (UILabel *)fans
 {
     if (!_fans)
     {
@@ -66,7 +75,8 @@
     }
     return _fans;
 }
--(UILabel *)fansCount
+
+- (UILabel *)fansCount
 {
     if (!_fansCount)
     {
@@ -77,7 +87,8 @@
     }
     return _fansCount;
 }
--(UIImageView *)focusImageView
+
+- (UIImageView *)focusImageView
 {
     if (!_focusImageView)
     {
@@ -87,7 +98,8 @@
     }
     return _focusImageView;
 }
--(UIButton *)focusBtn
+
+- (UIButton *)focusBtn
 {
     if (!_focusBtn)
     {
@@ -101,7 +113,8 @@
     }
     return _focusBtn;
 }
--(UIImageView *)line
+
+- (UIImageView *)line
 {
     if (!_line)
     {
@@ -111,7 +124,8 @@
     }
     return _line;
 }
--(UIButton *)interactiveBtn
+
+- (UIButton *)interactiveBtn
 {
     if (!_interactiveBtn)
     {
@@ -120,29 +134,50 @@
         [_interactiveBtn setTitleColor:WWColor(106, 108, 108) forState:UIControlStateNormal];
         [_interactiveBtn setTitleColor:WWColor(193, 52, 50) forState:UIControlStateSelected];
         _interactiveBtn.selected =YES;
-        _interactiveBtn.tag =55;
+        _interactiveBtn.tag = 55;
         _interactiveBtn.titleLabel.font =[UIFont systemFontOfSize:kWidthChange(28)];
         _interactiveBtn.translatesAutoresizingMaskIntoConstraints =NO;[self addSubview:self.interactiveBtn];
+        [_interactiveBtn addTarget:self action:@selector(button_action:) forControlEvents:UIControlEventTouchUpInside];
+        _lastButton = _interactiveBtn;
     }
     return _interactiveBtn;
 }
--(UIButton *)listBtn
+
+- (UIButton *)listBtn
 {
     if (!_listBtn)
     {
         _listBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_listBtn setTitle:@"商铺" forState:UIControlStateNormal];
+        [_listBtn setTitle:@"匠人推荐" forState:UIControlStateNormal];
         [_listBtn setTitleColor:WWColor(106, 108, 108) forState:UIControlStateNormal];
         [_listBtn setTitleColor:WWColor(193, 52, 50) forState:UIControlStateSelected];
         _listBtn.selected =NO;
-        _listBtn.tag =56;
+        _listBtn.tag = 56;
         _listBtn.titleLabel.font =[UIFont systemFontOfSize:kWidthChange(28)];
         _listBtn.translatesAutoresizingMaskIntoConstraints =NO;
+        [_listBtn addTarget:self action:@selector(button_action:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.listBtn];
     }
     return _listBtn;
 }
--(UIImageView *)redLine
+
+- (UIButton *)madeButton {
+    if (!_madeButton) {
+        _madeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_madeButton setTitle:@"我要定制" forState:UIControlStateNormal];
+        [_madeButton setTitleColor:WWColor(106, 108, 108) forState:UIControlStateNormal];
+        [_madeButton setTitleColor:WWColor(193, 52, 50) forState:UIControlStateSelected];
+        _madeButton.selected = NO;
+        _madeButton.tag = 57;
+        _madeButton.titleLabel.font = [UIFont systemFontOfSize:kWidthChange(28)];
+        _madeButton.translatesAutoresizingMaskIntoConstraints =NO;
+        [_madeButton addTarget:self action:@selector(button_action:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:self.madeButton];
+    }
+    return _madeButton;
+}
+
+- (UIImageView *)redLine
 {
     if (!_redLine)
     {
@@ -153,7 +188,7 @@
     return _redLine;
 }
 
--(void)addLayout
+- (void)addLayout
 {
     [self.headImageView autoSetDimensionsToSize:CGSizeMake(kWidthChange(80), kHeightChange(80))];
     [self.headImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(10)];
@@ -182,19 +217,49 @@
     [self.line autoSetDimension:ALDimensionHeight toSize:kHeightChange(1)];
     [self.line autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(100)];
     
+    // 互动
     [self.interactiveBtn autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [self.interactiveBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(1)];
     [self.interactiveBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.line];
-    [self.interactiveBtn autoSetDimension:ALDimensionWidth toSize:kWidth/2];
+    [self.interactiveBtn autoSetDimension:ALDimensionWidth toSize:kWidth/3];
     
-    [self.listBtn autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
+    // 匠人推荐
+    [self.listBtn autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.interactiveBtn];
     [self.listBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(1)];
     [self.listBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.line];
-    [self.listBtn autoSetDimension:ALDimensionWidth toSize:kWidth/2];
+    [self.listBtn autoSetDimension:ALDimensionWidth toSize:kWidth/3];
+    
+    // 我要定制
+    [self.madeButton autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.listBtn];
+    [self.madeButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(1)];
+    [self.madeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.line];
+    [self.madeButton autoSetDimension:ALDimensionWidth toSize:kWidth/3];
+    
     
     [self.redLine autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     [self.redLine autoPinEdgeToSuperviewEdge:ALEdgeLeading];
-    [self.redLine autoSetDimensionsToSize:CGSizeMake(kWidth/2, kHeightChange(2))];
+    [self.redLine autoSetDimensionsToSize:CGSizeMake(kWidth/3, kHeightChange(2))];
+}
+
+
+
+#pragma mark - Button method
+- (void)button_action:(UIButton *)sender {
+    if (sender.selected) {
+        return;
+    }
+    sender.selected = YES;
+    _lastButton.selected = NO;
+    _lastButton = sender;
+    
+    NSInteger tag = sender.tag - 55;
+    if (self.block) {
+        self.block(tag);
+    }
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        self.redLine.transform = CGAffineTransformMakeTranslation(kWidth/3 * tag, 0);
+    }];
 }
 
 @end

@@ -48,6 +48,9 @@
 
 #import "ShopDetailViewController.h"
 #import "FullScreenLivingViewController.h"
+#import "LivingHandler.h"
+#import "GoodsModel.h"
+#import "GoodsTableViewCell.h"
 
 
 @class AppDelegate;
@@ -102,6 +105,9 @@
 @property(nonatomic, copy) NSString *groupID;
 @property (nonatomic, strong) NSString *userIdentifiler;
 @property (nonatomic, strong) NSString *userSig;
+
+// 商品数组
+@property (nonatomic, strong) NSArray *goodsDataArr;
 
 @end
 
@@ -410,15 +416,32 @@
     if (!_hostInfoView)
     {
         _hostInfoView =[[HostInfoView alloc]init];
-        [_hostInfoView.interactiveBtn addTarget:self action:@selector(interactiveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_hostInfoView.listBtn addTarget:self action:@selector(listBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+//        [_hostInfoView.interactiveBtn addTarget:self action:@selector(interactiveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+//        [_hostInfoView.listBtn addTarget:self action:@selector(listBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         [_hostInfoView.focusBtn addTarget:self action:@selector(focusBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         _hostInfoView.backgroundColor =[UIColor whiteColor];
         _hostInfoView.nameLabel.text =[NSString stringWithFormat:@"%@",self.nickName];
         [_hostInfoView.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.headUrl]]];
         [self isFocusRequest];
 
-        _hostInfoView.translatesAutoresizingMaskIntoConstraints =NO;    [self.view addSubview:self.hostInfoView];
+        _hostInfoView.translatesAutoresizingMaskIntoConstraints =NO;
+        [self.view addSubview:self.hostInfoView];
+        
+        @weakify(self);
+        _hostInfoView.block = ^(NSInteger tag) {
+            @strongify(self);
+            if (tag == 0) { // 互动
+                [self interactiveBtnClick];
+            } else if (tag == 1) { // 匠人推荐
+                [self listBtnClick];
+            } else { // 定制
+                
+            }
+        };
     }
     return _hostInfoView;
 }
@@ -441,7 +464,7 @@
     return _chatTableView;
 }
 
--(NSMutableArray *)messagesArray
+- (NSMutableArray *)messagesArray
 {
     if (!_messagesArray)
     {
@@ -451,18 +474,24 @@
     return _messagesArray;
 }
 
--(UITableView *)listTableView
+- (UITableView *)listTableView
 {
     if (!_listTableView)
     {
         _listTableView =[[UITableView alloc]init];
         _listTableView.hidden =YES;
         _listTableView.rowHeight =kHeightChange(120);
-        _listTableView.translatesAutoresizingMaskIntoConstraints =NO;[self.view addSubview:self.listTableView];
+        _listTableView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:self.listTableView];
+        _listTableView.delegate = self;
+        _listTableView.dataSource = self;
+        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _listTableView.showsVerticalScrollIndicator = NO;
     }
     return _listTableView;
 }
--(TextFieldView *)textFieldView
+
+- (TextFieldView *)textFieldView
 {
     if (!_textFieldView)
     {
@@ -571,41 +600,16 @@
 
 #pragma mark ------竖屏下按钮的触发事件
 //互动
--(void)interactiveBtnClick:(id)sender
+-(void)interactiveBtnClick
 {
-    self.listTableView.hidden =YES;
-    UIButton *interactiveBtn =(UIButton *)sender;
-    interactiveBtn.selected =!interactiveBtn.selected;
-    if (interactiveBtn.selected ==YES)
-    {
-        self.hostInfoView.listBtn.selected =NO;
-        self.hostInfoView.listBtn.userInteractionEnabled=YES;
-        [UIView animateWithDuration:0.5f animations:^{
-            
-            self.hostInfoView.redLine.frame =CGRectMake(0, self.hostInfoView.redLine.frame.origin.y, self.hostInfoView.redLine.frame.size.width, self.hostInfoView.redLine.frame.size.height);
-        }];
-        interactiveBtn.userInteractionEnabled =NO;
-    }
+    self.listTableView.hidden = YES;
 }
 
 //商城
--(void)listBtnClick:(id)sender
+-(void)listBtnClick
 {
-    self.listTableView.hidden=YES;
-    UIButton *listBtn =(UIButton *)sender;
-    listBtn.selected=!listBtn.selected;
-    if (listBtn.selected ==YES)
-    {
-        self.hostInfoView.interactiveBtn.selected=NO;
-        self.hostInfoView.interactiveBtn.userInteractionEnabled=YES;
-        [UIView animateWithDuration:0.5f animations:^{
-            
-            self.hostInfoView.redLine.frame =CGRectMake(kWidth/2, self.hostInfoView.redLine.frame.origin.y, self.hostInfoView.redLine.frame.size.width, self.hostInfoView.redLine.frame.size.height);
-        }];
-        listBtn.userInteractionEnabled=NO;
-    }
-    ShopDetailViewController *shopVC = [[ShopDetailViewController alloc] init];
-    [self.navigationController pushViewController:shopVC animated:YES];
+    self.listTableView.hidden = NO;
+    [self requestGoodDataSource];
 }
 
 
@@ -852,15 +856,30 @@
 
 
 
-#pragma mark -- TableView Delegate
+#pragma mark - TableView Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView == self.listTableView) {
+        return self.goodsDataArr.count;
+    }
     return self.messagesArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView == self.listTableView) {
+        GoodsTableViewCell *cell = [self.listTableView dequeueReusableCellWithIdentifier:goodCellIndentifer];
+        
+        if (!cell) {
+            cell = [[NSBundle mainBundle] loadNibNamed:@"GoodsTableViewCell" owner:nil options:nil].firstObject;
+        }
+        GoodsDetailModel *detailM = (GoodsDetailModel *)self.goodsDataArr[indexPath.row];
+        [cell configCellWithModel:detailM];
+        
+        return cell;
+    }
+    
     static NSString *cellID =@"chatCell";
     ChatTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell)
@@ -878,7 +897,23 @@
     return cell;
 }
 
-#pragma mark ------全屏
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.listTableView) {
+        return 100;
+    }
+    return 44;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == self.listTableView) {
+        ShopDetailViewController *shopVC = [[ShopDetailViewController alloc] init];
+        GoodsDetailModel *GM = (GoodsDetailModel *)self.goodsDataArr[indexPath.row];
+        shopVC.goodID = GM.ID;
+        [self.navigationController pushViewController:shopVC animated:YES];
+    }
+}
+
+#pragma mark - 全屏
 -(void)fullBtnClcik:(id)sender
 {
     // 停止播放
@@ -1366,7 +1401,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark  private
+#pragma mark - private
+- (void)requestGoodDataSource {
+    @weakify(self);
+    [LivingHandler requestForLivingRoomGoodWithUser:self.uesr_id CompleteBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        
+        if (respondsObject) {
+            self.goodsDataArr = respondsObject;
+            [self.listTableView reloadData];
+        }
+    }];
+}
+
+
 -(CGRect)rectWithText:(NSString *)text
 {
     NSMutableParagraphStyle *para = [NSMutableParagraphStyle new];

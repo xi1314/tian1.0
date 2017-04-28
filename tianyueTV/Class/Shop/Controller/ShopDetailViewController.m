@@ -50,7 +50,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.goodID = @"111";
     _isSuspend = NO;
     _isCar = NO;
     [MBProgressHUD showMessage:@"加载中"];

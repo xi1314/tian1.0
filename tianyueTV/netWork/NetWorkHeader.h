@@ -29,6 +29,8 @@
 // 所有直播间（发现）
 #define api_mobileAllBroadcastLiving1 @"mobileAllBroadcastLiving1"
 
+// 直播间商品
+#define api_showShop_app @"showShop_app"
 
 
 // 我的订单（卖家）

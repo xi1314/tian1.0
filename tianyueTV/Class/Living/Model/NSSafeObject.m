@@ -26,6 +26,7 @@
     }
     return self;
 }
+
 -(instancetype)initWithObject:(id)object withSelector:(SEL)selector
 {
     if (self =[super init])
@@ -35,6 +36,7 @@
     }
     return self;
 }
+
 - (void)excute
 {
     if (_object && _sel && [_object respondsToSelector:_sel])
