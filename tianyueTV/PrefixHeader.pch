@@ -99,3 +99,11 @@
 
 
 
+// 企业测试账号
+#define JPUSHKEY @"4d0abde3b29d7f54700456c7"
+// 个人账号
+//#define JPUSHKEY @"f3c1cb42c33239e276ba95fe"
+
+
+
+

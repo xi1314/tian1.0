@@ -94,8 +94,6 @@
  */
 - (void)jPushInit:(NSDictionary *)launchOptions
 {
-    //极光push  appkey   f3c1cb42c33239e276ba95fe
-    
     JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
     entity.types = JPAuthorizationOptionAlert | JPAuthorizationOptionBadge | JPAuthorizationOptionSound;
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
@@ -107,7 +105,7 @@
     
     //0 (默认值)表示采用的是开发证书，1 表示采用生产证书发布应用。
     [JPUSHService setupWithOption:launchOptions
-                           appKey:@"f3c1cb42c33239e276ba95fe"
+                           appKey:JPUSHKEY
                           channel:@"App Store"
                  apsForProduction:0
             advertisingIdentifier:nil];
