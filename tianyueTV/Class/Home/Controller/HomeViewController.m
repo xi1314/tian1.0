@@ -39,6 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"天越源作";
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -46,16 +47,7 @@
     
     // 隐藏导航栏黑线
     [self useMethodToFindBlackLineAndHind];
-    
-    // 加载品牌入驻视图
-    [self addBrandComeInView];
-    
-    // 加载匠作间视图
-    [self addCarpenteroomView];
-    
-    // 加载底部类别视图
-    [self addHomeTianyueCategoryView];
-    
+
     // 网络请求
     [self initializeDatasource];
     
@@ -71,29 +63,46 @@
 }
 
 - (void)initializeDatasource {
-//    [MBProgressHUD showMessage:nil];
+    MBProgressHUD *hud = [MBProgressHUD showMessage:nil];
+    
     @weakify(self);
-    // 请求商标
-    [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
-        @strongify(self);
-        if (respondsObject) {
-            [self.view_brand configBrandViewWithArr:respondsObject];
-//            [MBProgressHUD hideHUD];
-        }
-    }];
     
     // 请求匠作间
     [HomeHandler requestForLivingRoomWithCompleteBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
+        
+        [hud hide:YES afterDelay:0.1];
+        
         if (respondsObject) {
+            
+            // 加载匠作间视图
+            [self addCarpenteroomView];
+            
             [self.view_carpent configCarpenterRoomWithData:respondsObject];
         }
     }];
+    
+    // 请求商标
+    [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        if (respondsObject) {
+            
+            // 加载品牌入驻视图
+            [self addBrandComeInView];
+            
+            [self.view_brand configBrandViewWithArr:respondsObject];
+        }
+    }];
+
     
     // 天越甄选 匠人头条
     [HomeHandler requestForTianyueCategoryWithCompleteBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
         if (respondsObject) {
+            
+            // 加载底部类别视图
+            [self addHomeTianyueCategoryView];
+            
             HomeSelectModel *SM = (HomeSelectModel *)respondsObject;
             [self.view_tCategory configeCategoryViewWithModel:SM];
         }
@@ -173,7 +182,7 @@
  */
 - (void)addCarpenteroomView
 {
-    self.view_carpent = [[CarpenteroomView alloc] initWithFrame:CGRectMake(0, self.view_brand.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.63)];
+    self.view_carpent = [[CarpenteroomView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.13, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.63)];
     _view_carpent.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view_carpent];
     
@@ -204,7 +213,7 @@
  */
 - (void)addHomeTianyueCategoryView
 {
-    self.view_tCategory = [[HomeTianyueCategoryView alloc] initWithFrame:CGRectMake(0, self.view_carpent.bottom, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.24)];
+    self.view_tCategory = [[HomeTianyueCategoryView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.76, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.24)];
     _view_tCategory.backgroundColor = WWColor(235, 230, 230);
     [self.view addSubview:_view_tCategory];
     
