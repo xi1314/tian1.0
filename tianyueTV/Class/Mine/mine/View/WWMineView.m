@@ -294,7 +294,7 @@
 - (WWMyViewButton *)orderButton {
     if (!_orderButton) {
         _orderButton = [[WWMyViewButton alloc] init];
-        _orderButton.backImageView.image = [UIImage imageNamed:@""];
+        _orderButton.backImageView.image = [UIImage imageNamed:@"mine_order"];
         _orderButton.titlew.text = @"我的订单";
         _orderButton.layer.borderWidth = 1.0;
         _orderButton.layer.borderColor = WWColor(212, 212, 212).CGColor;

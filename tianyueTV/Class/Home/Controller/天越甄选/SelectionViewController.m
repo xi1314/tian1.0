@@ -68,6 +68,9 @@
  卡片视图
  */
 - (void)addCardViewToSuperview {
+    if (self.cardDataSource.count < 5) {
+        return;
+    }
     _cardView = [[CardView alloc] initWithFrame:CGRectMake(18, 35, SCREEN_WIDTH - 36, SCREEN_HEIGHT * 0.54 - 64)];
     [self.view addSubview:_cardView];
     
@@ -79,9 +82,13 @@
 
 
 /**
- 小滚动视图
+ 小滚动视图                  
  */
 - (void)addBottomScrollViewToSuperview {
+    if (self.bottomDataSource.count < 5) {
+        return;
+    }
+    
     _bottomScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_cardView.frame) + 32, SCREEN_WIDTH, 147)];
     _bottomScrollView.backgroundColor = [UIColor whiteColor];
     _bottomScrollView.contentSize = CGSizeMake(72 + (130 + 16) * 5, _bottomScrollView.height);

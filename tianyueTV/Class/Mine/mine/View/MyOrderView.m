@@ -35,7 +35,7 @@
     NSArray *titleArr = @[@"买家订单", @"卖家订单"];
     for (int i = 0; i < 2; i ++) {
         WWMyViewButton *button = [[WWMyViewButton alloc] init];
-        button.backImageView.image = [UIImage imageNamed:@""];
+        button.backImageView.image = [UIImage imageNamed:@"mine_order"];
         button.titlew.text = titleArr[i];
         button.layer.borderWidth = 1.0;
         button.layer.borderColor = WWColor(212, 212, 212).CGColor;
