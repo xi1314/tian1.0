@@ -20,7 +20,6 @@ pod 'ShareSDK3/ShareSDKPlatforms/WeChat'
 pod 'ShareSDK3/ShareSDKUI'
 pod 'MJRefresh'
 pod 'BarrageRenderer', '~> 1.9.0'
-pod 'UPYUN', '~> 1.0.0'
 
 pod 'MJExtension'
 

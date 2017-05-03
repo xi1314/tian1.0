@@ -106,10 +106,6 @@
         UIImage * image = self.addIDimageView.image;
         UIImage *image2 = self.addSecondImageView.image;
        
-
-    
-        
-      
     __block UpYun *uy = [[UpYun alloc] init];
 //        uy.uploadMethod = UPMutUPload;
         NSMutableArray *arr = [[NSMutableArray alloc] init];
@@ -133,8 +129,11 @@
                     [self.customPressView removeFromSuperview];
                         [[NetWorkTool sharedTool] requestMethod:POST URL:@"identifyAjaxapp" paraments:params finish:^(id responseObject, NSError *error) {
                             NSLog(@"实名认证%@_________-----%@",responseObject,error);
+                            
+                            [MBProgressHUD hideHUD];
+                            
                             if ([responseObject[@"ret"] isEqualToString:@"alreadyError"]) {
-                                [MBProgressHUD hideHUD];
+                                
             //                    [MBProgressHUD showSuccess:@"已提交"];
                                 self.nextButton.userInteractionEnabled = YES;
                                 self.nextButton.backgroundColor = WWColor(211, 5, 26);
@@ -176,7 +175,7 @@
     
 }
 
-- (NSString * )getSaveKeyWith:(NSString *)suffix {
+- (NSString *)getSaveKeyWith:(NSString *)suffix {
     /**
      *	@brief	方式1 由开发者生成saveKey
      */
