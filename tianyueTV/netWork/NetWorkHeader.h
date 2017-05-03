@@ -30,6 +30,12 @@
 // 所有直播间（发现）
 #define api_mobileAllBroadcastLiving1 @"mobileAllBroadcastLiving1"
 
+// 热词
+#define api_ApphotWordslist @"ApphotWordslist"
+
+// 搜索直播间
+#define api_Querycorrespondence @"Querycorrespondence"
+
 // 直播间商品
 #define api_showShop_app @"showShop_app"
 

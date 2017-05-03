@@ -15,7 +15,10 @@
 
  @param completeBlock 返回值
  */
-+ (void)requestForAllLivingRoomWithCompleteBlock:(HandlerBlock)completeBlock {
++ (void)requestForAllLivingRoomWithCompleteBlock:(HandlerBlock)completeBlock
+{
+    
+    
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_mobileAllBroadcastLiving1 paraments:nil finish:^(id responseObject, NSError *error) {
         
         NSDictionary *dic = (NSDictionary *)responseObject;
@@ -25,6 +28,45 @@
         } else {
             completeBlock(nil, error);
         }
+    }];
+}
+
+
+/**
+ 热词搜索
+
+ @param completeBlock 返回值
+ */
++ (void)requestForHotWordWithCompleteBlock:(HandlerBlock)completeBlock {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_ApphotWordslist paraments:nil finish:^(id responseObject, NSError *error) {
+    
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        
+        if (responseObject) {
+            
+            NSString *string = dic[@"Textarea_rc"];
+            NSArray *arr = [string componentsSeparatedByString:@","];
+            completeBlock(arr, nil);
+        } else {
+            
+            completeBlock(nil, error);
+        }
+    }];
+}
+
+/**
+ 搜索直播间
+
+ @param word 关键词
+ @param completeBlock 返回值
+ */
++ (void)requestForLivingRoomWithWord:(NSString *)word
+                       completeBlock:(HandlerBlock)completeBlock
+{
+    NSDictionary *dic = @{@"name" : word};
+    
+    [[NetWorkTool sharedTool] requestMethod:POST URL:api_Querycorrespondence paraments:dic finish:^(id responseObject, NSError *error) {
+        NSLog(@"%@",responseObject);
     }];
 }
 

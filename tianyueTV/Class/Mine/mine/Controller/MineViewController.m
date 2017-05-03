@@ -401,7 +401,7 @@ WWCameraCutViewDelegate>
             }
             
 
-            
+
             
             //        NSLog(@"%@-----------%@",responseObject,error);
             self.mine.moneyLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"score"]];

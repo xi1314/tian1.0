@@ -7,6 +7,8 @@
 //
 
 #import "SearchViewController.h"
+#import "FindHandle.h"
+#import "HomeModel.h"
 
 // 热门按钮tag
 static NSInteger HotButtonTag = 200;
@@ -15,6 +17,7 @@ static NSInteger HotButtonTag = 200;
 static NSInteger HistoryButtonTag = 300;
 
 @interface SearchViewController ()
+<UITextFieldDelegate>
 
 // 取消
 @property (nonatomic, strong) UIButton *cancelButton;
@@ -36,14 +39,20 @@ static NSInteger HistoryButtonTag = 300;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _hotDataSource = @[@"", @"", @"", @"", @"", @""];
-    _historyDataSource =@[@"", @"", @""];
-    [self initilizeInterface];
+    _historyDataSource = [[NSUserDefaults standardUserDefaults] objectForKey:@"historyWords"];
+    [self initilizeDataSource];
+    
 }
 
 #pragma mark - Init method
 - (void)initilizeDataSource {
-    
+    [FindHandle requestForHotWordWithCompleteBlock:^(id respondsObject, NSError *error) {
+        
+        if (respondsObject) {
+            _hotDataSource = respondsObject;
+            [self initilizeInterface];
+        }
+    }];
 }
 
 - (void)initilizeInterface {
@@ -69,6 +78,8 @@ static NSInteger HistoryButtonTag = 300;
     _textField.font = [UIFont systemFontOfSize:11];
     _textField.textColor = [UIColor darkGrayColor];
     _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _textField.returnKeyType = UIReturnKeySearch;
+    _textField.delegate = self;
     [self.view addSubview:_textField];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 5, 20, 20)];
@@ -97,7 +108,7 @@ static NSInteger HistoryButtonTag = 300;
         button.layer.cornerRadius = 2;
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:11];
-        [button setTitle:@"热点词语" forState:UIControlStateNormal];
+        [button setTitle:_hotDataSource[i] forState:UIControlStateNormal];
         button.tag = HotButtonTag + i;
         [self.view addSubview:button];
     }
@@ -123,7 +134,7 @@ static NSInteger HistoryButtonTag = 300;
         button.layer.cornerRadius = 2;
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:11];
-        [button setTitle:@"历史词语" forState:UIControlStateNormal];
+        [button setTitle:_historyDataSource[i] forState:UIControlStateNormal];
         button.tag = HistoryButtonTag + i;
         [self.view addSubview:button];
     }
@@ -135,11 +146,35 @@ static NSInteger HistoryButtonTag = 300;
     [self.view endEditing:YES];
 }
 
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self requestWithWord:textField.text];
+    // 开始搜索时，缓存搜索词汇
+    NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"historyWords"];
+    NSMutableArray *historyArr = [NSMutableArray arrayWithArray:arr];
+    
+    if (![historyArr containsObject:textField.text]) {
+        [historyArr insertObject:textField.text atIndex:0];
+        [[NSUserDefaults standardUserDefaults] setObject:historyArr forKey:@"historyWords"];
+    }
+    [self.view endEditing:YES];
+    
+    return YES;
+}
+
 #pragma mark - Button method
 - (void)respondsToCancelButton:(UIButton *)sender {
     if (self.cancelBlock) {
         self.cancelBlock();
     }
+}
+
+
+#pragma mark - Pravite method
+- (void)requestWithWord:(NSString *)word {
+    [FindHandle requestForLivingRoomWithWord:word completeBlock:^(id respondsObject, NSError *error) {
+        
+    }];
 }
 
 @end

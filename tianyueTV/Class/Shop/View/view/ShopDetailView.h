@@ -12,7 +12,7 @@ typedef void(^ShopButtonBlock)(NSInteger tag);
 
 @interface ShopDetailView : UIView
 
-// 点击时间
+// 点击事件
 @property (copy, nonatomic) ShopButtonBlock block;
 
 // 广告栏label

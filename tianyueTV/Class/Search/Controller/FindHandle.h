@@ -18,4 +18,20 @@
  */
 + (void)requestForAllLivingRoomWithCompleteBlock:(HandlerBlock)completeBlock;
 
+/**
+ 热词搜索
+ 
+ @param completeBlock 返回值
+ */
++ (void)requestForHotWordWithCompleteBlock:(HandlerBlock)completeBlock;
+
+/**
+ 搜索直播间
+ 
+ @param word 关键词
+ @param completeBlock 返回值
+ */
++ (void)requestForLivingRoomWithWord:(NSString *)word
+                       completeBlock:(HandlerBlock)completeBlock;
+
 @end
