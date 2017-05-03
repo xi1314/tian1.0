@@ -2265,7 +2265,7 @@
 				TargetAttributes = {
 					FF0110BD1DAB26D6003146A7 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = N7TM7PU479;
+						DevelopmentTeam = 3472FPLT8A;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -2836,7 +2836,7 @@
 				CODE_SIGN_ENTITLEMENTS = tianyueTV/tianyueTV.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing Zhishu Network Technology Co., Ltd. (3472FPLT8A)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = N7TM7PU479;
+				DEVELOPMENT_TEAM = 3472FPLT8A;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2846,7 +2846,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/tianyueTV/PrefixHeader.pch";
 				INFOPLIST_FILE = tianyueTV/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2938,10 +2938,10 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chen.tv;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhangwen.tv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "59e3edde-1ce0-43c9-97b2-12a02e5bf331";
-				PROVISIONING_PROFILE_SPECIFIER = enterpriseTest_deve;
+				PROVISIONING_PROFILE = "8576aa31-492c-4e09-8bf8-a88007170edc";
+				PROVISIONING_PROFILE_SPECIFIER = tianyueTV_develop;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2959,7 +2959,7 @@
 				CODE_SIGN_ENTITLEMENTS = tianyueTV/tianyueTV.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing Zhishu Network Technology Co., Ltd. (3472FPLT8A)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = N7TM7PU479;
+				DEVELOPMENT_TEAM = 3472FPLT8A;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2969,7 +2969,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/tianyueTV/PrefixHeader.pch";
 				INFOPLIST_FILE = tianyueTV/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3061,10 +3061,10 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.chen.tv;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhangwen.tv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47536218-6ffd-4f76-a997-9e0ae10608e0";
-				PROVISIONING_PROFILE_SPECIFIER = enterprise_distribution;
+				PROVISIONING_PROFILE = "b6c29e39-421a-4e40-85a3-00e5c811051f";
+				PROVISIONING_PROFILE_SPECIFIER = tianyueTV_distribution;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";

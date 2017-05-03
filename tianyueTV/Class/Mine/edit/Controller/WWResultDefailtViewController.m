@@ -124,7 +124,6 @@
 
 
 
-
 //
 - (UILabel *)label{
     if (!_label) {
