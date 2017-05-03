@@ -17,6 +17,15 @@
 @end
 
 
+@implementation SearchModel
+
++ (NSDictionary *)mj_objectClassInArray {
+    return @{@"BroadCastUser" : @"FindLiveModel"};
+}
+
+@end
+
+
 @implementation FindLiveModel
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {

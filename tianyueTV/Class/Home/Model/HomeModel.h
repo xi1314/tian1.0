@@ -16,14 +16,6 @@
 @end
 
 
-@interface SearchModel : NSObject
-
-// 直播间数组
-@property (nonatomic, strong) NSArray *BroadCastUser;
-
-@end
-
-
 /**
  直播间信息
  */

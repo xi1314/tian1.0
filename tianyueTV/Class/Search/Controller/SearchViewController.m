@@ -8,7 +8,6 @@
 
 #import "SearchViewController.h"
 #import "FindHandle.h"
-#import "HomeModel.h"
 
 // 热门按钮tag
 static NSInteger HotButtonTag = 200;
@@ -99,18 +98,22 @@ static NSInteger HistoryButtonTag = 300;
     [self.view addSubview:hotLabel];
     
     // 热门按钮
-    CGFloat buttonWidth = 70;
-    CGFloat buttonHeight = 20;
+    CGFloat buttonWidth = 80;
+    CGFloat buttonHeight = 25;
     for (int i = 0; i < _hotDataSource.count; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(18 + (buttonWidth + 8) * (i % 4), CGRectGetMaxY(hotLabel.frame) + 10 + (buttonHeight + 10) * (i / 4), buttonWidth, buttonHeight);
-        button.backgroundColor = [UIColor orangeColor];
-        button.layer.cornerRadius = 2;
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:11];
-        [button setTitle:_hotDataSource[i] forState:UIControlStateNormal];
-        button.tag = HotButtonTag + i;
-        [self.view addSubview:button];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18 + (buttonWidth + 8) * (i % 4), CGRectGetMaxY(hotLabel.frame) + 10 + (buttonHeight + 10) * (i / 4), buttonWidth, buttonHeight)];
+        label.backgroundColor = [UIColor orangeColor];
+        label.layer.cornerRadius = 2;
+        label.layer.masksToBounds = YES;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = _hotDataSource[i];
+        label.font = [UIFont systemFontOfSize:11];
+        label.userInteractionEnabled = YES;
+        label.textColor = [UIColor whiteColor];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToLabelTap:)];
+        [label addGestureRecognizer:tap];
+        [self.view addSubview:label];
     }
     
     // 分割线
@@ -128,15 +131,19 @@ static NSInteger HistoryButtonTag = 300;
     [self.view addSubview:historyLabel];
     
     for (int i = 0; i < _historyDataSource.count; i++) {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(18 + (buttonWidth + 8) * (i % 4), CGRectGetMaxY(historyLabel.frame) + 10 + (buttonHeight + 10) * (i / 4), buttonWidth, buttonHeight);
-        button.backgroundColor = [UIColor orangeColor];
-        button.layer.cornerRadius = 2;
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:11];
-        [button setTitle:_historyDataSource[i] forState:UIControlStateNormal];
-        button.tag = HistoryButtonTag + i;
-        [self.view addSubview:button];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18 + (buttonWidth + 8) * (i % 4), CGRectGetMaxY(historyLabel.frame) + 10 + (buttonHeight + 10) * (i / 4), buttonWidth, buttonHeight)];
+        label.backgroundColor = [UIColor orangeColor];
+        label.layer.cornerRadius = 2;
+        label.layer.masksToBounds = YES;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = _historyDataSource[i];
+        label.font = [UIFont systemFontOfSize:11];
+        label.userInteractionEnabled = YES;
+        label.textColor = [UIColor whiteColor];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToLabelTap:)];
+        [label addGestureRecognizer:tap];
+        [self.view addSubview:label];
     }
     
 }
@@ -169,11 +176,26 @@ static NSInteger HistoryButtonTag = 300;
     }
 }
 
+- (void)respondsToButton_action:(UIButton *)sender {
+    [self requestWithWord:sender.titleLabel.text];
+}
+
+
+#pragma mark - Tap method
+- (void)respondsToLabelTap:(UITapGestureRecognizer *)sender {
+    UILabel *label = (UILabel *)sender.view;
+    [self requestWithWord:label.text];
+}
+
 
 #pragma mark - Pravite method
 - (void)requestWithWord:(NSString *)word {
     [FindHandle requestForLivingRoomWithWord:word completeBlock:^(id respondsObject, NSError *error) {
+        NSArray *arr = respondsObject;
         
+        if (self.searchBlock) {
+            self.searchBlock(arr);
+        }
     }];
 }
 

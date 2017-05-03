@@ -44,14 +44,6 @@ UITableViewDataSource>
 }
 
 - (void)initilizeInterface {
-    // 设置导航栏背景图片
-    /*
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_red"] forBarMetrics:UIBarMetricsDefault];
-    // item 颜色
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    // title字体
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"PingFangTC-Semibold" size:18]};
-    */
     
     UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_search"] style:UIBarButtonItemStylePlain target:self action:@selector(respondsToSearchItem:)];
     self.navigationItem.rightBarButtonItem = searchItem;
@@ -80,6 +72,16 @@ UITableViewDataSource>
     
     __block SearchViewController *weakSearch = searchVC;
     searchVC.cancelBlock = ^{
+        [weakSearch removeFromParentViewController];
+        [weakSearch.view removeFromSuperview];
+        self.tabBarController.tabBar.hidden = NO;
+    };
+    
+    @weakify(self);
+    searchVC.searchBlock = ^(NSArray *dataArr) {
+        @strongify(self);
+        self.dataSource = dataArr;
+        [self.tableView reloadData];
         [weakSearch removeFromParentViewController];
         [weakSearch.view removeFromSuperview];
         self.tabBarController.tabBar.hidden = NO;

@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+// 取消按钮block
 typedef void(^SearchBlock)(void);
+// 搜索结果
+typedef void(^SearchResultBlock)(NSArray *dataArr);
 
 @interface SearchViewController : UIViewController
 
 @property (nonatomic, copy) SearchBlock cancelBlock;
+
+@property (nonatomic, copy) SearchResultBlock searchBlock;
 
 @end

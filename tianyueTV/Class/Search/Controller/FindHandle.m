@@ -7,6 +7,7 @@
 //
 
 #import "FindHandle.h"
+#import "FindModel.h"
 
 @implementation FindHandle
 
@@ -66,7 +67,15 @@
     NSDictionary *dic = @{@"name" : word};
     
     [[NetWorkTool sharedTool] requestMethod:POST URL:api_Querycorrespondence paraments:dic finish:^(id responseObject, NSError *error) {
-        NSLog(@"%@",responseObject);
+        
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        
+        if ([dic[RET] isEqualToString:SUCCESS]) {
+            SearchModel *SM = [SearchModel mj_objectWithKeyValues:dic];
+            completeBlock(SM.BroadCastUser, nil);
+        } else {
+            completeBlock(nil, error);
+        }
     }];
 }
 
