@@ -78,7 +78,7 @@
 #pragma mark - Getter method
 - (UIButton *)liveButton {
     if (!_liveButton) {
-        CGFloat width = SCREEN_WIDTH * 0.12;
+        CGFloat width = SCREEN_WIDTH * 0.14;
         _liveButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _liveButton.frame = CGRectMake(SCREEN_WIDTH - (width + 20), -width/2+5, width, width);
         [_liveButton setImage:[UIImage imageNamed:@"live button"] forState:UIControlStateNormal];

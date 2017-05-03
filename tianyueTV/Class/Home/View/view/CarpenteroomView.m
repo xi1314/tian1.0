@@ -206,7 +206,7 @@
 
 - (UIScrollView *)liveScrollView {
     if (!_liveScrollView) {
-        _liveScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.headLabel.bottom + 6, SCREEN_WIDTH, self.height*0.62)];
+        _liveScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.headLabel.bottom + 6, SCREEN_WIDTH, self.height*0.58)];
         _liveScrollView.pagingEnabled = YES;
         _liveScrollView.showsHorizontalScrollIndicator = NO;
         _liveScrollView.delegate = self;

@@ -210,7 +210,7 @@ static int netI = 0; // 已请求完成的网络标识
  */
 - (void)addCarpenteroomView
 {
-    self.view_carpent = [[CarpenteroomView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.13, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.63)];
+    self.view_carpent = [[CarpenteroomView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.13, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.64)];
     _view_carpent.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view_carpent];
     
@@ -241,7 +241,7 @@ static int netI = 0; // 已请求完成的网络标识
  */
 - (void)addHomeTianyueCategoryView
 {
-    self.view_tCategory = [[HomeTianyueCategoryView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.76, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.24)];
+    self.view_tCategory = [[HomeTianyueCategoryView alloc] initWithFrame:CGRectMake(0, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.77, SCREEN_WIDTH, (SCREEN_HEIGHT - NavigationBarHeight - TabbarHeight) * 0.23)];
     _view_tCategory.backgroundColor = WWColor(235, 230, 230);
     [self.view addSubview:_view_tCategory];
     
