@@ -118,7 +118,7 @@
     
     [self.nameTextField autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(34)];
     [self.nameTextField autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.line withOffset:-kHeightChange(32)];
-    [self.nameTextField autoSetDimension:ALDimensionWidth toSize:kWidth];
+    [self.nameTextField autoSetDimension:ALDimensionWidth toSize:SCREEN_WIDTH];
     
     
     [self.passwordLabel autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(34)];

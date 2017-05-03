@@ -191,7 +191,7 @@
     if (btn.selected ==YES)
     {
         self.giftView.hidden =NO;
-        self.giftView.frame =CGRectMake(kWidth -kWidthChange(400), kHeight-fWidthChange(260)-fHeightChange(100), kWidthChange(400), kHeightChange(260));
+        self.giftView.frame =CGRectMake(SCREEN_WIDTH -kWidthChange(400), SCREEN_HEIGHT-fWidthChange(260)-fHeightChange(100), kWidthChange(400), kHeightChange(260));
     }else
     {
         self.giftView.hidden =YES;

@@ -221,24 +221,24 @@
     [self.interactiveBtn autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [self.interactiveBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(1)];
     [self.interactiveBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.line];
-    [self.interactiveBtn autoSetDimension:ALDimensionWidth toSize:kWidth/3];
+    [self.interactiveBtn autoSetDimension:ALDimensionWidth toSize:SCREEN_WIDTH/3];
     
     // 匠人推荐
     [self.listBtn autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.interactiveBtn];
     [self.listBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(1)];
     [self.listBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.line];
-    [self.listBtn autoSetDimension:ALDimensionWidth toSize:kWidth/3];
+    [self.listBtn autoSetDimension:ALDimensionWidth toSize:SCREEN_WIDTH/3];
     
     // 我要定制
     [self.madeButton autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.listBtn];
     [self.madeButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(1)];
     [self.madeButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.line];
-    [self.madeButton autoSetDimension:ALDimensionWidth toSize:kWidth/3];
+    [self.madeButton autoSetDimension:ALDimensionWidth toSize:SCREEN_WIDTH/3];
     
     
     [self.redLine autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     [self.redLine autoPinEdgeToSuperviewEdge:ALEdgeLeading];
-    [self.redLine autoSetDimensionsToSize:CGSizeMake(kWidth/3, kHeightChange(2))];
+    [self.redLine autoSetDimensionsToSize:CGSizeMake(SCREEN_WIDTH/3, kHeightChange(2))];
 }
 
 
@@ -258,7 +258,7 @@
     }
     
     [UIView animateWithDuration:0.2 animations:^{
-        self.redLine.transform = CGAffineTransformMakeTranslation(kWidth/3 * tag, 0);
+        self.redLine.transform = CGAffineTransformMakeTranslation(SCREEN_WIDTH/3 * tag, 0);
     }];
 }
 

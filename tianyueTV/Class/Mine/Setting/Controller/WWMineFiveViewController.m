@@ -34,9 +34,9 @@ UITableViewDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = WWColor(240, 240, 240);
     self.title = @"设置";
-
+    self.view.backgroundColor = WWColor(240, 240, 240);
+    
     NSArray *arr1 = [NSArray arrayWithObjects:@"非WIFI环境提醒", @"清除缓存",  nil];
     NSArray *arr2 = [[NSArray alloc] init];
     NSArray *arr = [NSArray arrayWithObjects:arr1,arr2, nil];

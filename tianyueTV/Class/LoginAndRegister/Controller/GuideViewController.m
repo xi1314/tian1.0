@@ -34,7 +34,7 @@
     [self pageControl];
     for (int i=0; i<3; i++)
     {
-        UIImageView *imageView =[[UIImageView alloc]initWithFrame:CGRectMake(kWidth*i, 0, kWidth, kHeight)];
+        UIImageView *imageView =[[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH*i, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         imageView.image =[UIImage imageNamed:_images[i]];
         imageView.userInteractionEnabled =YES;
         if (i==2)
@@ -65,7 +65,7 @@
         _scrollerView.showsVerticalScrollIndicator=NO;
         _scrollerView.showsHorizontalScrollIndicator =NO;
         _scrollerView.pagingEnabled =YES;
-        _scrollerView.contentSize =CGSizeMake(kWidth*3, kHeight);
+        _scrollerView.contentSize =CGSizeMake(SCREEN_WIDTH*3, SCREEN_HEIGHT);
         _scrollerView.delegate =self;
         [self.view addSubview:self.scrollerView];
     }
@@ -75,7 +75,7 @@
 {
     if (!_pageControl)
     {
-        _pageControl =[[UIPageControl alloc] initWithFrame:CGRectMake(0, kHeightChange(1152), kWidth, kHeightChange(48))];
+        _pageControl =[[UIPageControl alloc] initWithFrame:CGRectMake(0, kHeightChange(1152), SCREEN_WIDTH, kHeightChange(48))];
         _pageControl.currentPageIndicatorTintColor =[UIColor redColor];
         _pageControl.pageIndicatorTintColor =[UIColor lightGrayColor];
         _pageControl.numberOfPages = _images.count;

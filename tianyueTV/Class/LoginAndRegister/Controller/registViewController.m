@@ -289,7 +289,7 @@
     [self.boxButton autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(78)];
     [self.boxButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.CustomView withOffset:kHeightChange(25)];
     
-    [self.agreementLabel autoSetDimensionsToSize:CGSizeMake(kWidth, kHeightChange(30))];
+    [self.agreementLabel autoSetDimensionsToSize:CGSizeMake(SCREEN_WIDTH, kHeightChange(30))];
     [@[self.boxButton,self.agreementLabel]autoAlignViewsToAxis:ALAxisHorizontal];
     [self.agreementLabel autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.boxButton ];
     [self.agreementLabel autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kWidthChange(78)];
@@ -307,7 +307,7 @@
     
     [self.warnLabel autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.warnImageView withOffset:kWidthChange(5)];
     [self.warnLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(25)+64];
-    [self.warnLabel autoSetDimensionsToSize:CGSizeMake(kWidth, kHeightChange(30))];
+    [self.warnLabel autoSetDimensionsToSize:CGSizeMake(SCREEN_WIDTH, kHeightChange(30))];
     
     
 }

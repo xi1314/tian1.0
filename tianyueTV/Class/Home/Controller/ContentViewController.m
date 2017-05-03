@@ -37,7 +37,7 @@ UICollectionViewDataSource>
         flowLayout.sectionInset =UIEdgeInsetsMake(kHeightChange(25), kWidthChange(20), kHeightChange(25), kWidthChange(20));
         flowLayout.scrollDirection =UICollectionViewScrollDirectionVertical;
         
-        _collectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, kHeightChange(10), kWidth, kHeight-kHeightChange(74)-64) collectionViewLayout:flowLayout];
+        _collectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, kHeightChange(10), SCREEN_WIDTH, SCREEN_HEIGHT-kHeightChange(74)-64) collectionViewLayout:flowLayout];
         _collectionView.delegate =self;
         _collectionView.dataSource =self;
                 

@@ -126,7 +126,7 @@
         flowLayout.scrollDirection =UICollectionViewScrollDirectionHorizontal;
         flowLayout.minimumLineSpacing =kWidthChange(71);
         flowLayout.sectionInset =UIEdgeInsetsMake(kHeightChange(10), kWidthChange(52), kHeightChange(10), kWidthChange(52));
-        _giftCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, kHeightChange(70), kWidth, kHeightChange(190)) collectionViewLayout:flowLayout];
+        _giftCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, kHeightChange(70), SCREEN_WIDTH, kHeightChange(190)) collectionViewLayout:flowLayout];
         _giftCollectionView.backgroundColor =[UIColor whiteColor];
         [_giftCollectionView registerClass:[GiftCollectionViewCell class] forCellWithReuseIdentifier:@"GiftCollectionViewCell"];
         [self addSubview:self.giftCollectionView];

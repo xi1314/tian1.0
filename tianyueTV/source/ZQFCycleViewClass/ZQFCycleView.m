@@ -64,7 +64,7 @@
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
     
     //设置一个BackView
-    self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
+    self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     _backView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self addSubview:_backView];
     [_backView addGestureRecognizer:self.tapGestureRecognizer];
@@ -92,24 +92,24 @@
     
     if ([_delegate respondsToSelector:@selector(cycleView:didDisplayTitleLabel:index:)]) {
         //设置背景小view
-        _smallImageView =[[UIImageView alloc]initWithFrame:CGRectMake(0, kHeightChange(222), kWidth, kHeightChange(48))];
+        _smallImageView =[[UIImageView alloc]initWithFrame:CGRectMake(0, kHeightChange(222), SCREEN_WIDTH, kHeightChange(48))];
         _smallImageView.image =[UIImage createImageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
         [self.backView addSubview:_smallImageView];
 
         //设置TitleLabel
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0.75*kWidth, kHeightChange(48))];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0.75*SCREEN_WIDTH, kHeightChange(48))];
         _titleLabel.font =[UIFont systemFontOfSize:kWidthChange(24)];
         _titleLabel.textColor =[UIColor whiteColor];
         [self.smallImageView addSubview:_titleLabel];
         
         //设置pageControl
-        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0.75*kWidth, 0, 0.25*kWidth, kHeightChange(48))];
+        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0.75*SCREEN_WIDTH, 0, 0.25*SCREEN_WIDTH, kHeightChange(48))];
         _pageControl.userInteractionEnabled = NO;
         [self.smallImageView addSubview:_pageControl];
     } else {
         _totalCount = [_delegate countOfCycleView:self];
         //设置pageControl
-        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, kHeightChange(1152), kWidth, kHeightChange(48))];
+        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, kHeightChange(1152), SCREEN_WIDTH, kHeightChange(48))];
         _pageControl.currentPageIndicatorTintColor =[UIColor redColor];
         _pageControl.pageIndicatorTintColor =[UIColor lightGrayColor];
         _pageControl.numberOfPages = _totalCount;
@@ -151,10 +151,10 @@
     self.imageV3.frame = CGRectMake(self.frame.size.width * 2, 0, self.frame.size.width, self.frame.size.height);
     
     if ([_delegate respondsToSelector:@selector(cycleView:didDisplayTitleLabel:index:)]) {
-        self.titleLabel.frame = CGRectMake(0, 0, 0.75*kWidth, kHeightChange(48));
-        self.pageControl.frame = CGRectMake(0.75*kWidth, 0, 0.25*kWidth, kHeightChange(48));
+        self.titleLabel.frame = CGRectMake(0, 0, 0.75*SCREEN_WIDTH, kHeightChange(48));
+        self.pageControl.frame = CGRectMake(0.75*SCREEN_WIDTH, 0, 0.25*SCREEN_WIDTH, kHeightChange(48));
     } else {
-        self.pageControl.frame = CGRectMake(0, kHeightChange(1152), kWidth, kHeightChange(48));
+        self.pageControl.frame = CGRectMake(0, kHeightChange(1152), SCREEN_WIDTH, kHeightChange(48));
     }
     
 }

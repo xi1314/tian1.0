@@ -189,13 +189,13 @@ UITableViewDelegate>
     
     [self addSubview:self.hudongButton];
     [self.hudongButton autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-    [self.hudongButton autoSetDimension:ALDimensionWidth toSize:kWidth *0.5];
+    [self.hudongButton autoSetDimension:ALDimensionWidth toSize:SCREEN_WIDTH *0.5];
     [self.hudongButton autoSetDimension:ALDimensionHeight toSize:kHeightChange(70)];
     [self.hudongButton autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     
     [self addSubview:self.liwuButton];
     [self.liwuButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:kWidthChange(130)];
-    [self.liwuButton autoSetDimension:ALDimensionWidth toSize:kWidth *0.3];
+    [self.liwuButton autoSetDimension:ALDimensionWidth toSize:SCREEN_WIDTH *0.3];
     [self.liwuButton autoSetDimension:ALDimensionHeight toSize:kHeightChange(70)];
     [self.liwuButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(0)];
     

@@ -78,15 +78,19 @@
 #define kHeightChange(A) (A * [UIScreen mainScreen].bounds.size.height / 1334)
 #define kWidthChange(A) (A * [UIScreen mainScreen].bounds.size.width / 750)
 
-#define kWidth [UIScreen mainScreen].bounds.size.width
-#define kHeight [UIScreen mainScreen].bounds.size.height
-
-
 #define fHeightChange(A) (A * [UIScreen mainScreen].bounds.size.height / 750)
 #define fWidthChange(A) (A * [UIScreen mainScreen].bounds.size.width / 1334)
 
+
+// 获取设备宽度
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+// 获取设备高度
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+// 获取相对高度（基于5.5寸屏幕）
+#define kDeviceHChange(A) (A * SCREEN_HEIGHT / 736)
+// 获取相对宽度（基于5.5寸屏幕）
+#define kDeviceWChange(A) (A * SCREEN_WIDTH / 414)
 
 #define WWColor(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define THEME_COLOR WWColor(193, 52, 50)

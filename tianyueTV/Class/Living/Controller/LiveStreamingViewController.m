@@ -203,7 +203,7 @@
     }
     _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
-    _activityIndicatorView.center = CGPointMake(kWidth/2, kHeightChange(450/2));
+    _activityIndicatorView.center = CGPointMake(SCREEN_WIDTH/2, kHeightChange(450/2));
     
     [self.view addSubview:_activityIndicatorView];
     [_activityIndicatorView stopAnimating];

@@ -128,7 +128,7 @@
     
     [self.phoneTextField autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(34)];
     [self.phoneTextField autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.line withOffset:-kHeightChange(32)];
-    [self.phoneTextField autoSetDimension:ALDimensionWidth toSize:kWidth];
+    [self.phoneTextField autoSetDimension:ALDimensionWidth toSize:SCREEN_WIDTH];
     
     [self.validationLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.line withOffset:kHeightChange(34)];
     [self.validationLabel autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(34)];

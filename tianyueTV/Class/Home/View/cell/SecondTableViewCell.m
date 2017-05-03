@@ -66,7 +66,7 @@
         flowLayout.minimumLineSpacing =kWidthChange(15);
         flowLayout.minimumInteritemSpacing =kWidthChange(30);
         flowLayout.sectionInset =UIEdgeInsetsMake(kHeightChange(25), kWidthChange(20), kHeightChange(25), kWidthChange(20));
-        _SecondCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, kHeightChange(80), kWidth, kHeightChange(504)) collectionViewLayout:flowLayout];
+        _SecondCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, kHeightChange(80), SCREEN_WIDTH, kHeightChange(504)) collectionViewLayout:flowLayout];
         _SecondCollectionView.backgroundColor =[UIColor  whiteColor];
         [_SecondCollectionView registerClass:[MainCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
         [self addSubview:self.SecondCollectionView];

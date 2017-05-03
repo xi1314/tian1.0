@@ -12,6 +12,7 @@
 #import "MineViewController.h"
 #import "JPUSHService.h"
 #import "FindingViewController.h"
+#import "MyViewController.h"
 
 @interface TabbarViewController ()
 
@@ -22,6 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.view.backgroundColor = WWColor(243, 243, 243);
+    
     [[UITabBar appearance] setTintColor:WWColor(255, 65, 77)];
     [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
@@ -42,11 +45,24 @@
     liveNav.title = @"直播";
     
     
+    FindingViewController * findingVC = [[FindingViewController alloc] init];
+    UINavigationController *findingNav = [[UINavigationController alloc] initWithRootViewController:findingVC];
+    findingNav.tabBarItem.image = [[UIImage imageNamed:@"tab_found"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    findingNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_found_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    findingNav.title = @"发现";
+    
+    /*
     MineViewController *mineVC = [[MineViewController alloc]init];
     UINavigationController *mineNav = [[UINavigationController alloc]initWithRootViewController:mineVC];
     mineNav.tabBarItem.image = [[UIImage imageNamed:@"tab_personal information"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     mineNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_personal information_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-
+    mineNav.title = @"我的";
+     */
+    
+    MyViewController *mineVC = [[MyViewController alloc] init];
+    UINavigationController *mineNav = [[UINavigationController alloc] initWithRootViewController:mineVC];
+    mineNav.tabBarItem.image = [[UIImage imageNamed:@"tab_personal information"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    mineNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_personal information_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     mineNav.title = @"我的";
     
     /*
@@ -56,13 +72,7 @@
     findNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_found_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     findNav.title = @"发现";
     */
-    
-    FindingViewController * findingVC = [[FindingViewController alloc] init];
-    UINavigationController *findingNav = [[UINavigationController alloc] initWithRootViewController:findingVC];
-    findingNav.tabBarItem.image = [[UIImage imageNamed:@"tab_found"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    findingNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"tab_found_chosen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    findingNav.title = @"发现";
-    
+
     self.viewControllers = @[liveNav,findingNav,mineNav];
     
     

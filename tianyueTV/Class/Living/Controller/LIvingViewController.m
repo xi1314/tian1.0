@@ -278,7 +278,7 @@
     }
     _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     
-    _activityIndicatorView.center = CGPointMake(kWidth/2, kHeightChange(450/2));
+    _activityIndicatorView.center = CGPointMake(SCREEN_WIDTH/2, kHeightChange(450/2));
 
     [self.view addSubview:_activityIndicatorView];
     [_activityIndicatorView stopAnimating];
@@ -649,7 +649,7 @@
 {
     if (_isFullScreen == NO)
     {
-        _activityIndicatorView.center = CGPointMake(kWidth/2, kHeightChange(450/2));
+        _activityIndicatorView.center = CGPointMake(SCREEN_WIDTH/2, kHeightChange(450/2));
         btn.selected =!btn.selected;
         
         if (btn.selected ==YES)
@@ -1127,7 +1127,7 @@
 //点击返回竖屏需要显示的控件
 -(void)Portrait
 {
-    _activityIndicatorView.center =CGPointMake(kWidth/2, kHeightChange(450/2));
+    _activityIndicatorView.center =CGPointMake(SCREEN_WIDTH/2, kHeightChange(450/2));
     self.livingView.hidden =NO;
     self.hostInfoView.hidden =NO;
     self.textFieldView.hidden =NO;
@@ -1204,7 +1204,7 @@
     if (btn.selected == YES)
     {
         self.giftView.hidden = NO;
-        self.giftView.frame = CGRectMake(kWidth -kWidthChange(400), kHeight-fWidthChange(260)-fHeightChange(100), kWidthChange(400), kHeightChange(260));
+        self.giftView.frame = CGRectMake(SCREEN_WIDTH -kWidthChange(400), SCREEN_HEIGHT-fWidthChange(260)-fHeightChange(100), kWidthChange(400), kHeightChange(260));
     }else
     {
         self.giftView.hidden = YES;
@@ -1420,7 +1420,7 @@
     NSMutableParagraphStyle *para = [NSMutableParagraphStyle new];
     para.lineBreakMode = NSLineBreakByWordWrapping;
     
-    return [text boundingRectWithSize:CGSizeMake(kWidth, kHeight) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kWidthChange(30)],NSParagraphStyleAttributeName:para} context:nil];
+    return [text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kWidthChange(30)],NSParagraphStyleAttributeName:para} context:nil];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

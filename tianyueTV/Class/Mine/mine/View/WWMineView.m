@@ -281,7 +281,7 @@
 - (WWMyViewButton *)settingButton{
     if (!_settingButton) {
         _settingButton = [[WWMyViewButton alloc] init];
-        _settingButton.backImageView.image = [UIImage imageNamed:@"设置-2"];
+        _settingButton.backImageView.image = [UIImage imageNamed:@"my_setting"];
         _settingButton.titlew.text = @"设置";
         _settingButton.layer.borderWidth = 1.0;
         _settingButton.layer.borderColor = WWColor(212, 212, 212).CGColor;
@@ -294,7 +294,7 @@
 - (WWMyViewButton *)orderButton {
     if (!_orderButton) {
         _orderButton = [[WWMyViewButton alloc] init];
-        _orderButton.backImageView.image = [UIImage imageNamed:@"mine_order"];
+        _orderButton.backImageView.image = [UIImage imageNamed:@"my_order"];
         _orderButton.titlew.text = @"我的订单";
         _orderButton.layer.borderWidth = 1.0;
         _orderButton.layer.borderColor = WWColor(212, 212, 212).CGColor;
@@ -308,7 +308,7 @@
         _zhanghaoanquan = [[WWMyViewButton alloc] init];
 //        _zhanghaoanquan.bacimagesize = CGSizeMake(kWidthChange(62), kHeightChange(54));
     
-        _zhanghaoanquan.backImageView.image = [UIImage imageNamed:@"专业安全"];
+        _zhanghaoanquan.backImageView.image = [UIImage imageNamed:@"my_accountSecurity"];
         _zhanghaoanquan.titlew.text = @"账号安全";
         _zhanghaoanquan.layer.borderWidth = 1.0;
         _zhanghaoanquan.layer.borderColor = WWColor(212, 212, 212).CGColor;
@@ -320,7 +320,7 @@
     if (!_zhuBoRenzheng) {
         _zhuBoRenzheng = [[WWMyViewButton alloc] init];
 //        _zhuBoRenzheng.bacimagesize = CGSizeMake(kWidthChange(62), kHeightChange(54));
-        _zhuBoRenzheng.backImageView.image = [UIImage imageNamed:@"直播_1"];
+        _zhuBoRenzheng.backImageView.image = [UIImage imageNamed:@"my_startLive"];
         _zhuBoRenzheng.titlew.text = @"主播认证";
         _zhuBoRenzheng.layer.borderWidth = 1.0;
         _zhuBoRenzheng.layer.borderColor = WWColor(212, 212, 212).CGColor;
@@ -332,7 +332,7 @@
     if (!_playHistory) {
         _playHistory = [[WWMyViewButton alloc] init];
 //        _playHistory.bacimagesize = CGSizeMake(kWidthChange(62), kHeightChange(54));
-        _playHistory.backImageView.image = [UIImage imageNamed:@"历史"];
+        _playHistory.backImageView.image = [UIImage imageNamed:@"my_playHistory"];
         _playHistory.titlew.text = @"播放历史";
         _playHistory.layer.borderWidth = 1.0;
         _playHistory.layer.borderColor = WWColor(212, 212, 212).CGColor;
@@ -344,7 +344,7 @@
     if (!_myGuanZhu) {
         _myGuanZhu = [[WWMyViewButton alloc] init];
 //        _myGuanZhu.bacimagesize = CGSizeMake(kWidthChange(62), kHeightChange(54));
-        _myGuanZhu.backImageView.image = [UIImage imageNamed:@"矩形-1-拷贝-2"];
+        _myGuanZhu.backImageView.image = [UIImage imageNamed:@"my_wodedingyue"];
         _myGuanZhu.titlew.text = @"我的关注";
         _myGuanZhu.layer.borderWidth = 1.0;
         _myGuanZhu.layer.borderColor = WWColor(212, 212, 212).CGColor;

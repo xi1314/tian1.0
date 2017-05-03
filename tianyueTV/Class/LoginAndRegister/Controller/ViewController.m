@@ -42,6 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"登录";
     self.view.backgroundColor = WWColor(240, 240, 240);
     
@@ -381,7 +382,7 @@
     
     //logo
     self.logo.frame = CGRectMake(0, kHeightChange(222), kHeightChange(120) * 498 / 170, kHeightChange(120));
-    self.logo.center = CGPointMake(kWidth / 2.0, self.logo.center.y);
+    self.logo.center = CGPointMake(SCREEN_WIDTH / 2.0, self.logo.center.y);
     
     //登录按钮
     [self.loginBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(405)];

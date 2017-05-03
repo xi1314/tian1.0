@@ -49,7 +49,7 @@
 - (UIImageView *)backImageView{
     if (!_backImageView) {
         _backImageView = [[UIImageView alloc] init];
-        _backImageView.image = [UIImage imageNamed:@"矩形-1-拷贝-2"];
+        _backImageView.image = [UIImage imageNamed:@"my_wodedingyue"];
         [_backImageView sizeToFit];
     }
     return _backImageView;

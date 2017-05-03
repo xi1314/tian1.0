@@ -225,7 +225,7 @@
     
     [self.warnLabel autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.warnImageView withOffset:kWidthChange(5)];
     [self.warnLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(25)+64];
-    [self.warnLabel autoSetDimensionsToSize:CGSizeMake(kWidth, kHeightChange(30))];
+    [self.warnLabel autoSetDimensionsToSize:CGSizeMake(SCREEN_WIDTH, kHeightChange(30))];
     
 }
 -(void)customBackBtn

@@ -105,12 +105,12 @@ UICollectionViewDataSource>
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.selected = YES;
         
-        _cycleView =[[ZQFCycleView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeightChange(270)) delegate:self];
+        _cycleView =[[ZQFCycleView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kHeightChange(270)) delegate:self];
         [_cycleView startPlayWithTimeInterval:5];
         [cell addSubview:_cycleView];
         
         UIImageView *grayLine = [[UIImageView alloc] initWithImage:[UIImage createImageWithColor:WWColor(228, 228, 228)]];
-        grayLine.frame = CGRectMake(0, kHeightChange(270), kWidth, kHeightChange(10)) ;
+        grayLine.frame = CGRectMake(0, kHeightChange(270), SCREEN_WIDTH, kHeightChange(10)) ;
         [cell addSubview:grayLine];
         
         return cell;
@@ -201,7 +201,7 @@ UICollectionViewDataSource>
 {
     if (!_mainTableView)
     {
-        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight-64-kHeightChange(64))];
+        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-kHeightChange(64))];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.backgroundColor = [UIColor whiteColor];
