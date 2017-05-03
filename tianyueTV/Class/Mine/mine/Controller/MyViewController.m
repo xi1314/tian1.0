@@ -82,9 +82,10 @@
     imgV_head.image = [UIImage imageNamed:@"my_headBack"];
     [self.view_head addSubview:imgV_head];
     
-    UIImageView *imgV_user = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - (imgV_head.height - 130))/2.0f, 60, imgV_head.height - 130, imgV_head.height - 130)];
-    imgV_user.layer.cornerRadius = (imgV_head.height - 130)/2.0f;
+    UIImageView *imgV_user = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - (imgV_head.height - 140))/2.0f, 65, imgV_head.height - 140, imgV_head.height - 140)];
+    imgV_user.layer.cornerRadius = (imgV_head.height - 140)/2.0f;
     imgV_user.layer.masksToBounds = YES;
+    imgV_user.image = [UIImage imageNamed:@"my_defaultHead"];
     [self.view_head addSubview:imgV_user];
     
     UIImageView *imgV_userStatus = [[UIImageView alloc] initWithFrame:CGRectMake(imgV_user.left + imgV_user.width - 30, imgV_user.top + imgV_user.height - 30, 30, 30)];
@@ -92,7 +93,7 @@
     imgV_userStatus.image = [UIImage imageNamed:@"主播"];
     [self.view_head addSubview:imgV_userStatus];
     
-    UILabel *lab_user = [[UILabel alloc] initWithFrame:CGRectMake(0, imgV_user.bottom, self.view_head.width, 36)];
+    UILabel *lab_user = [[UILabel alloc] initWithFrame:CGRectMake(0, imgV_user.bottom, self.view_head.width, 60)];
     lab_user.backgroundColor = [UIColor clearColor];
     lab_user.font = [UIFont boldSystemFontOfSize:19.f];
     lab_user.textColor = [UIColor whiteColor];

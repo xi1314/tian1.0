@@ -34,7 +34,7 @@
         
         self.lab_title = [[UILabel alloc] initWithFrame:CGRectMake(0, self.imgV_title.bottom + topSpace, frame.size.width, 20)];
         _lab_title.backgroundColor = [UIColor clearColor];
-        _lab_title.font = [UIFont systemFontOfSize:15.0];
+        _lab_title.font = [UIFont systemFontOfSize:14.0];
         _lab_title.textColor = WWColor(89, 89, 89);
         _lab_title.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_lab_title];
