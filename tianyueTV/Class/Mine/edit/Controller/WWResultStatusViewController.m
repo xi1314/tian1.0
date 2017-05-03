@@ -402,7 +402,7 @@
         _openLiving = [[UIButton alloc] init];
         [_openLiving setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         _openLiving.titleLabel.font = [UIFont systemFontOfSize:kWidthChange(34)];
-        [_openLiving setTitle:@"下一步" forState:UIControlStateNormal];
+        [_openLiving setTitle:@"马上开启直播之旅" forState:UIControlStateNormal];
         [_openLiving addTarget:self action:@selector(respondsToOpenLiving:) forControlEvents:UIControlEventTouchUpInside];
         
     }

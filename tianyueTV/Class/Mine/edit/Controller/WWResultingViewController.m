@@ -119,7 +119,7 @@
         _openLiving = [[UIButton alloc] init];
         [_openLiving setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];
         _openLiving.titleLabel.font = [UIFont systemFontOfSize:kWidthChange(34)];
-        [_openLiving setTitle:@"back_black" forState:UIControlStateNormal];
+        [_openLiving setTitle:@"返回" forState:UIControlStateNormal];
         [_openLiving addTarget:self action:@selector(respondsToOpenLiving:) forControlEvents:UIControlEventTouchUpInside];
         
     }

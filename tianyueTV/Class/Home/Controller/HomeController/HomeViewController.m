@@ -16,6 +16,12 @@
 #import "HeadlineViewController.h"
 #import "SelectionViewController.h"
 
+
+
+static int netI = 0; // 已请求完成的网络标识
+
+
+
 @interface HomeViewController ()
 
 // 品牌入驻视图
@@ -32,6 +38,17 @@
 
 @property (nonatomic, strong) NSString *userSig;
 
+// 遮挡视图
+@property (nonatomic, strong) MBProgressHUD *hud;
+
+// 品牌入驻数据
+@property (nonatomic, strong) NSArray *brandArray;
+
+// 品牌入驻数据
+@property (nonatomic, strong) NSArray *liveArray;
+
+// 品牌入驻数据
+@property (nonatomic, strong) HomeSelectModel *homeSelM;
 
 @end
 
@@ -63,52 +80,63 @@
 }
 
 - (void)initializeDatasource {
-    MBProgressHUD *hud = [MBProgressHUD showMessage:nil];
+    self.hud = [MBProgressHUD showMessage:nil];
     
     @weakify(self);
-    
-    // 请求匠作间
-    [HomeHandler requestForLivingRoomWithCompleteBlock:^(id respondsObject, NSError *error) {
-        @strongify(self);
-        
-        [hud hide:YES afterDelay:0.1];
-        
-        if (respondsObject) {
-            
-            // 加载匠作间视图
-            [self addCarpenteroomView];
-            
-            [self.view_carpent configCarpenterRoomWithData:respondsObject];
-        }
-    }];
     
     // 请求商标
     [HomeHandler requestForBrandTrademarkWithCompleteBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
         if (respondsObject) {
             
-            // 加载品牌入驻视图
-            [self addBrandComeInView];
+            self.brandArray = (NSArray *)respondsObject;
+            netI++;
+            [self initControllers];
+        }
+    }];
+    
+    // 请求匠作间
+    [HomeHandler requestForLivingRoomWithCompleteBlock:^(id respondsObject, NSError *error) {
+        @strongify(self);
+        if (respondsObject) {
             
-            [self.view_brand configBrandViewWithArr:respondsObject];
+            self.liveArray = (NSArray *)respondsObject;
+            netI++;
+            [self initControllers];
         }
     }];
 
-    
     // 天越甄选 匠人头条
     [HomeHandler requestForTianyueCategoryWithCompleteBlock:^(id respondsObject, NSError *error) {
         @strongify(self);
         if (respondsObject) {
             
-            // 加载底部类别视图
-            [self addHomeTianyueCategoryView];
-            
-            HomeSelectModel *SM = (HomeSelectModel *)respondsObject;
-            [self.view_tCategory configeCategoryViewWithModel:SM];
+            self.homeSelM = (HomeSelectModel *)respondsObject;
+            netI++;
+            [self initControllers];
         }
     }];
 }
 
+- (void)initControllers
+{
+    if (netI == 3) {
+        [self.hud hide:YES afterDelay:0.1];
+        
+        // 加载品牌入驻视图
+        [self addBrandComeInView];
+        [self.view_brand configBrandViewWithArr:self.brandArray];
+        
+        // 加载匠作间视图
+        [self addCarpenteroomView];
+        [self.view_carpent configCarpenterRoomWithData:self.liveArray];
+        
+        // 加载底部类别视图
+        [self addHomeTianyueCategoryView];
+        [self.view_tCategory configeCategoryViewWithModel:self.homeSelM];
+    }
+    
+}
 
 /**
  当设置navigationBar的背景图片或背景色时，使用该方法都可移除黑线，且不会使translucent属性失效
