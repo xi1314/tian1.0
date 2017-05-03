@@ -199,15 +199,15 @@
 -(void)handleTag:(UITapGestureRecognizer *)tap
 {
     NSLog(@"---------协议-------");
-    AgreementViewController *vc =[[AgreementViewController alloc]init];
-    UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:vc];
+    AgreementViewController *vc =[[AgreementViewController alloc] init];
+    UINavigationController *nav =[[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:nav animated:YES completion:nil];
 }
 -(void)nextBtnClick:(UIButton *)sender
 {
-    loginViewController *loginVC =[[loginViewController alloc]init];
-    UINavigationController *loginNav =[[UINavigationController alloc]initWithRootViewController:loginVC];
+    loginViewController *loginVC =[[loginViewController alloc] init];
+    UINavigationController *loginNav =[[UINavigationController alloc] initWithRootViewController:loginVC];
     
     loginVC.phoneString =self.CustomView.phoneTextField.text;
     loginVC.code =self.CustomView.validationTextField.text;

@@ -199,6 +199,9 @@
 		CC2E465C1EB9AF57004D615C /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2E465B1EB9AF57004D615C /* MyViewController.m */; };
 		CC2E465F1EB9BBE6004D615C /* MyCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2E465E1EB9BBE6004D615C /* MyCategoryView.m */; };
 		CC2E46621EB9C23E004D615C /* MyItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2E46611EB9C23E004D615C /* MyItemView.m */; };
+		CC2E466B1EB9E954004D615C /* CacheDataToLocate.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2E46651EB9E954004D615C /* CacheDataToLocate.m */; };
+		CC2E466C1EB9E954004D615C /* FastCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2E46681EB9E954004D615C /* FastCoder.m */; };
+		CC2E466D1EB9E954004D615C /* NSObject+CacheData.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2E466A1EB9E954004D615C /* NSObject+CacheData.m */; };
 		CC36CD4F1E9732B8007E35FF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */; };
 		CC36CD511E9732C0007E35FF /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD501E9732C0007E35FF /* CoreFoundation.framework */; };
 		CC36CD531E9732F5007E35FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD521E9732F5007E35FF /* Foundation.framework */; };
@@ -633,6 +636,12 @@
 		CC2E465E1EB9BBE6004D615C /* MyCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCategoryView.m; sourceTree = "<group>"; };
 		CC2E46601EB9C23E004D615C /* MyItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyItemView.h; sourceTree = "<group>"; };
 		CC2E46611EB9C23E004D615C /* MyItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyItemView.m; sourceTree = "<group>"; };
+		CC2E46641EB9E954004D615C /* CacheDataToLocate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheDataToLocate.h; sourceTree = "<group>"; };
+		CC2E46651EB9E954004D615C /* CacheDataToLocate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheDataToLocate.m; sourceTree = "<group>"; };
+		CC2E46671EB9E954004D615C /* FastCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastCoder.h; sourceTree = "<group>"; };
+		CC2E46681EB9E954004D615C /* FastCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastCoder.m; sourceTree = "<group>"; };
+		CC2E46691EB9E954004D615C /* NSObject+CacheData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CacheData.h"; sourceTree = "<group>"; };
+		CC2E466A1EB9E954004D615C /* NSObject+CacheData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CacheData.m"; sourceTree = "<group>"; };
 		CC36CD4E1E9732B8007E35FF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CC36CD501E9732C0007E35FF /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		CC36CD521E9732F5007E35FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1957,6 +1966,27 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		CC2E46631EB9E954004D615C /* CacheDataToLocate */ = {
+			isa = PBXGroup;
+			children = (
+				CC2E46641EB9E954004D615C /* CacheDataToLocate.h */,
+				CC2E46651EB9E954004D615C /* CacheDataToLocate.m */,
+				CC2E46661EB9E954004D615C /* FastCoder */,
+				CC2E46691EB9E954004D615C /* NSObject+CacheData.h */,
+				CC2E466A1EB9E954004D615C /* NSObject+CacheData.m */,
+			);
+			path = CacheDataToLocate;
+			sourceTree = "<group>";
+		};
+		CC2E46661EB9E954004D615C /* FastCoder */ = {
+			isa = PBXGroup;
+			children = (
+				CC2E46671EB9E954004D615C /* FastCoder.h */,
+				CC2E46681EB9E954004D615C /* FastCoder.m */,
+			);
+			path = FastCoder;
+			sourceTree = "<group>";
+		};
 		CC47BC501E9B867E006B1EA2 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -1971,6 +2001,7 @@
 		CC47BC511E9B867E006B1EA2 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				CC2E46631EB9E954004D615C /* CacheDataToLocate */,
 				CCFF610B1EB8905E009C5618 /* UpYunSDK */,
 				CCFF7C4A1EA0C580001712E4 /* WXApiManager */,
 				CCFF7C421EA0C52C001712E4 /* CommonUtil */,
@@ -2518,6 +2549,7 @@
 			files = (
 				CC281D101EA713610069D503 /* HomeHandler.m in Sources */,
 				046879321E88B71C004A5EE3 /* ShakeLabel.m in Sources */,
+				CC2E466D1EB9E954004D615C /* NSObject+CacheData.m in Sources */,
 				04687AD81E88BDF0004A5EE3 /* WWSettingView.m in Sources */,
 				04687ADC1E88BDF0004A5EE3 /* WWMineModel.m in Sources */,
 				0468792E1E88B71C004A5EE3 /* AnimOperationManager.m in Sources */,
@@ -2573,6 +2605,7 @@
 				CCFF61351EB8905E009C5618 /* UPMutUploaderManager.m in Sources */,
 				04687AA11E88BDF0004A5EE3 /* LIvingViewController.m in Sources */,
 				04687AF01E88BDF0004A5EE3 /* DeliveryView.m in Sources */,
+				CC2E466C1EB9E954004D615C /* FastCoder.m in Sources */,
 				04687ABD1E88BDF0004A5EE3 /* WWCardViewController.m in Sources */,
 				04687ADB1E88BDF0004A5EE3 /* WWFeedbackViewController.m in Sources */,
 				CC2E465F1EB9BBE6004D615C /* MyCategoryView.m in Sources */,
@@ -2600,6 +2633,7 @@
 				04687AB61E88BDF0004A5EE3 /* ViewController.m in Sources */,
 				04832EF41E8E36F70080A06C /* FinalPaymentView.m in Sources */,
 				04687AE21E88BDF0004A5EE3 /* WWMineFirstViewController.m in Sources */,
+				CC2E466B1EB9E954004D615C /* CacheDataToLocate.m in Sources */,
 				04687AB41E88BDF0004A5EE3 /* loginViewController.m in Sources */,
 				9875DD6C1EB08F55004C6A76 /* SearchViewController.m in Sources */,
 				04687A981E88BDF0004A5EE3 /* BasicButton.m in Sources */,
