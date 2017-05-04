@@ -95,7 +95,7 @@
     
     UILabel *lab_user = [[UILabel alloc] initWithFrame:CGRectMake(0, imgV_user.bottom, self.view_head.width, 60)];
     lab_user.backgroundColor = [UIColor clearColor];
-    lab_user.font = [UIFont boldSystemFontOfSize:19.f];
+    lab_user.font = [UIFont boldSystemFontOfSize:18.f];
     lab_user.textColor = [UIColor whiteColor];
     lab_user.textAlignment = NSTextAlignmentCenter;
     lab_user.text = @"天越网455";
