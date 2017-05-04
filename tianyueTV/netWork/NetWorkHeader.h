@@ -7,8 +7,8 @@
 //
 
 // 本地服务器地址
-#define SERVERADDRESS  @"http://192.168.0.88:8080/"
-//#define SERVERADDRESS  @"http://www.tianyue.tv/"
+//#define SERVERADDRESS  @"http://192.168.0.88:8080/"
+#define SERVERADDRESS  @"http://www.tianyue.tv/"
 // 服务器地址
 #define TIANYUESERVERADDRESS  @"http://www.tianyue.tv/"
 
