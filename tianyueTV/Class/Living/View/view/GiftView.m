@@ -9,22 +9,25 @@
 #import "GiftView.h"
 #import "UIImage+CustomImage.h"
 #import "GiftCollectionViewCell.h"
+
 @interface  GiftView()
 
 @end
+
 @implementation GiftView
 
--(instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    if (self =[super initWithFrame:frame])
+    if (self = [super initWithFrame:frame])
     {
-        self.backgroundColor =[UIColor whiteColor];
+        self.backgroundColor = [UIColor whiteColor];
         [self addLayout];
         [self giftCollectionView];
     }
     return self;
 }
--(UILabel *)wealthLabel
+
+- (UILabel *)wealthLabel
 {
     if (!_wealthLabel)
     {
@@ -36,7 +39,8 @@
     }
     return _wealthLabel;
 }
--(UILabel *)moneyLabel
+
+- (UILabel *)moneyLabel
 {
     if (!_moneyLabel)
     {
@@ -48,7 +52,8 @@
     }
     return _moneyLabel;
 }
--(UILabel *)typeLabel
+
+- (UILabel *)typeLabel
 {
     if (!_typeLabel)
     {
@@ -60,7 +65,8 @@
     }
     return _typeLabel;
 }
--(UIButton *)topupBtn
+
+- (UIButton *)topupBtn
 {
     if (!_topupBtn)
     {
@@ -73,7 +79,8 @@
     }
     return _topupBtn;
 }
--(UILabel *)coinsLabel
+
+- (UILabel *)coinsLabel
 {
     if (!_coinsLabel)
     {
@@ -85,7 +92,8 @@
     }
     return _coinsLabel;
 }
--(UILabel *)typeLabel1
+
+- (UILabel *)typeLabel1
 {
     if (!_typeLabel1)
     {
@@ -97,7 +105,8 @@
     }
     return _typeLabel1;
 }
--(UIImageView *)line
+
+- (UIImageView *)line
 {
     if (!_line)
     {
@@ -107,7 +116,8 @@
     }
     return _line;
 }
--(UIImageView *)longLine
+
+- (UIImageView *)longLine
 {
     if (!_longLine)
     {
@@ -117,23 +127,25 @@
     }
     return _longLine;
 }
--(UICollectionView *)giftCollectionView
+
+- (UICollectionView *)giftCollectionView
 {
     if (!_giftCollectionView)
     {
         UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc]init];
-        flowLayout.itemSize =CGSizeMake(kWidthChange(110), kHeightChange(170));
+        flowLayout.itemSize = CGSizeMake(kWidthChange(110), kHeightChange(170));
         flowLayout.scrollDirection =UICollectionViewScrollDirectionHorizontal;
         flowLayout.minimumLineSpacing =kWidthChange(71);
         flowLayout.sectionInset =UIEdgeInsetsMake(kHeightChange(10), kWidthChange(52), kHeightChange(10), kWidthChange(52));
         _giftCollectionView =[[UICollectionView alloc]initWithFrame:CGRectMake(0, kHeightChange(70), SCREEN_WIDTH, kHeightChange(190)) collectionViewLayout:flowLayout];
-        _giftCollectionView.backgroundColor =[UIColor whiteColor];
+        _giftCollectionView.backgroundColor = [UIColor whiteColor];
         [_giftCollectionView registerClass:[GiftCollectionViewCell class] forCellWithReuseIdentifier:@"GiftCollectionViewCell"];
         [self addSubview:self.giftCollectionView];
     }
     return _giftCollectionView;
 }
--(GiftBtn *)giftBtn1
+
+- (GiftBtn *)giftBtn1
 {
     if (!_giftBtn1)
     {
@@ -143,7 +155,8 @@
     }
     return _giftBtn1;
 }
--(GiftBtn *)giftBtn3
+
+- (GiftBtn *)giftBtn3
 {
     if (!_giftBtn3)
     {
@@ -153,7 +166,8 @@
     }
     return _giftBtn3;
 }
--(GiftBtn *)giftBtn2
+
+- (GiftBtn *)giftBtn2
 {
     if (!_giftBtn2)
     {
@@ -163,7 +177,8 @@
     }
     return _giftBtn2;
 }
--(GiftBtn *)giftBtn4
+
+- (GiftBtn *)giftBtn4
 {
     if (!_giftBtn4)
     {
@@ -173,7 +188,8 @@
     }
     return _giftBtn4;
 }
--(GiftBtn *)giftBtn5
+
+- (GiftBtn *)giftBtn5
 {
     if (!_giftBtn5)
     {
@@ -183,7 +199,8 @@
     }
     return _giftBtn5;
 }
--(GiftBtn *)giftBtn6
+
+- (GiftBtn *)giftBtn6
 {
     if (!_giftBtn6)
     {
@@ -194,7 +211,7 @@
     return _giftBtn6;
 }
 
--(void)addLayout
+- (void)addLayout
 {
     [self.wealthLabel autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(15)];
     [self.wealthLabel autoSetDimension:ALDimensionWidth toSize:kWidthChange(120)];
@@ -225,24 +242,7 @@
     [self.longLine autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [self.longLine autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(69)];
     [self.longLine autoSetDimension:ALDimensionHeight toSize:kHeightChange(1)];
-    
-//    [self.giftBtn1 autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.longLine withOffset:kHeightChange(10)];
-//    [self.giftBtn1 autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(52)];
-//    [self.giftBtn1 autoSetDimensionsToSize:CGSizeMake(kWidthChange(110), kHeightChange(170))];
-//    
-//    [self.giftBtn2 autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.giftBtn1 withOffset:kWidthChange(71)];
-//    [self.giftBtn3 autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.giftBtn2 withOffset:kWidthChange(71)];
-//    [self.giftBtn4 autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.giftBtn3 withOffset:kWidthChange(71)];
-//
-//    [@[self.giftBtn1,self.giftBtn2,self.giftBtn3,self.giftBtn4,self.giftBtn5,self.giftBtn6]autoMatchViewsDimension:ALDimensionWidth];
-//    [@[self.giftBtn1,self.giftBtn2,self.giftBtn3,self.giftBtn4,self.giftBtn5,self.giftBtn6]autoMatchViewsDimension:ALDimensionHeight];
-//    [@[self.giftBtn1,self.giftBtn2,self.giftBtn3,self.giftBtn4]autoAlignViewsToAxis:ALAxisHorizontal];
-//
-//    [self.giftBtn5 autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.giftBtn1 withOffset:kHeightChange(10)];
-//    [@[self.giftBtn1,self.giftBtn5]autoAlignViewsToAxis:ALAxisVertical];
-//    
-//    [self.giftBtn6 autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:self.giftBtn5 withOffset:kWidthChange(71)];
-//    [@[self.giftBtn5,self.giftBtn6]autoAlignViewsToAxis:ALAxisHorizontal];
+
 }
 @end
 

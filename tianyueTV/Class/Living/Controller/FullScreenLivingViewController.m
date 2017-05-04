@@ -45,44 +45,46 @@
 #import <TXRTMPSDK/TXLivePlayer.h>
 
 
-@interface FullScreenLivingViewController () <TXLivePlayListener> {
-    //是否有设置界面
-    BOOL _isClear;
-    //断开后重连的次数
-    int _reconnectCount;
+@interface FullScreenLivingViewController ()
+<TXLivePlayListener,
+UICollectionViewDelegate,
+UICollectionViewDataSource>
+{
+    BOOL _isClear;  // 是否有设置界面
+    int _reconnectCount; // 断开后重连的次数
     DMS *_client;
     int _index;
 }
 
-@property(nonatomic,strong)BarrageRenderer *renderer;       //弹幕view
+@property(nonatomic,strong) BarrageRenderer *renderer;       //弹幕view
 //@property(nonatomic,strong)livingView *livingView;          //直播view
 @property(nonatomic, strong) UIView *livingView;            //直播view
-@property(nonatomic,strong)TextFieldView *textFieldView;    //输入框
-@property(nonatomic,strong)GiftView *giftView;              //礼物
+@property(nonatomic,strong) TextFieldView *textFieldView;    //输入框
+@property(nonatomic,strong) GiftView *giftView;              //礼物
 
-@property(nonatomic,strong)TopView *topView;
-@property(nonatomic,strong)BottomView *bottomView;
+@property(nonatomic,strong) TopView *topView;
+@property(nonatomic,strong) BottomView *bottomView;
 
-@property(nonatomic,strong)SettingView *settingView;
+@property(nonatomic,strong) SettingView *settingView;
 //播放器
 @property(nonatomic, strong) TXLivePlayer *livePlayer;
 @property(nonatomic, copy) NSString *flvUrl;        //视频地址
 //进度轮
-@property(nonatomic,strong)UIActivityIndicatorView *activityIndicatorView;
+@property(nonatomic,strong) UIActivityIndicatorView *activityIndicatorView;
 //互动
-@property(nonatomic,strong)UIView *interactiveView;
+@property(nonatomic,strong) UIView *interactiveView;
 //礼物排行榜
-@property(nonatomic,strong)UITableView *listTableView;
-@property(nonatomic,strong)NSMutableArray *danmuArray;
+@property(nonatomic,strong) UITableView *listTableView;
+@property(nonatomic,strong) NSMutableArray *danmuArray;
 //聊天室
-@property(nonatomic,strong)UITableView *chatTableView;
-@property(nonatomic,strong)NSMutableArray *messagesArray;
+@property(nonatomic,strong) UITableView *chatTableView;
+@property(nonatomic,strong) NSMutableArray *messagesArray;
 //取消关注需要的参数
-@property(nonatomic,copy)NSString *bcfocus;
+@property(nonatomic,copy) NSString *bcfocus;
 
 //礼物数组
-@property(nonatomic,strong)NSMutableArray *giftArray;
-@property(nonatomic,strong)AnimOperationManager *giftManager;
+@property(nonatomic,strong) NSMutableArray *giftArray;
+@property(nonatomic,strong) AnimOperationManager *giftManager;
 
 //消息管理器
 @property(nonatomic, strong) TIMManager *im_manager;
@@ -93,6 +95,7 @@
 @property (nonatomic, strong) NSString *userIdentifiler;
 
 @property (nonatomic, strong) NSString *userSig;
+
 @end
 
 @implementation FullScreenLivingViewController
@@ -103,6 +106,7 @@
     [self.view addSubview:self.livingView];
     [self.view addSubview:self.topView];
     [self.view addSubview:self.bottomView];
+    [self.view addSubview:self.giftView];
     [self layout];
     [self startPlayer];
 }
@@ -119,13 +123,15 @@
     [self.topView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [self.topView autoSetDimension:ALDimensionHeight toSize:fHeightChange(50)];
     
+    
     [self.bottomView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
     [self.bottomView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     [self.bottomView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
     [self.bottomView autoSetDimension:ALDimensionHeight toSize:50];
+
 }
 
-#pragma mark -- 腾讯视频播放相关
+#pragma mark - 腾讯视频播放相关
 - (TXLivePlayer *)livePlayer {
     if (!_livePlayer) {
         _livePlayer = [[TXLivePlayer alloc] init];
@@ -142,12 +148,12 @@
     return _livePlayer;
 }
 
-//开始播放
--(void)startPlayer
+// 开始播放
+- (void)startPlayer
 {
     
     //当设备在一定时间内没有触摸动作，iOS会锁屏，设置属性让他不会锁屏
-    [UIApplication sharedApplication].idleTimerDisabled =YES;
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     //  [self.player play];
     //    NSString *flvUrl = @"";
@@ -157,61 +163,60 @@
 //    [self.livePlayer startPlay:self.flvUrl type:PLAY_TYPE_LIVE_RTMP];
 }
 
-#pragma mark ------横屏下按钮的触发事件
+#pragma mark - button method
 //点击返回竖屏
 - (void)backButtonClick:(id)sender {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-//关注
--(void)focusButtonClick:(UIButton *)btn
+// 关注
+- (void)focusButtonClick:(UIButton *)btn
 {
-    btn.selected =!btn.selected;
-    if (btn.selected ==YES)
+    btn.selected = !btn.selected;
+    if (btn.selected == YES)
     {
-        self.topView.focusButton.selected =YES;
-//        self.hostInfoView.focusImageView.image =[UIImage imageNamed:@"爱心红"];
+        self.topView.focusButton.selected = YES;
+        //        self.hostInfoView.focusImageView.image =[UIImage imageNamed:@"爱心红"];
         [self focusOnRequest];
     }
     else
     {
-        self.topView.focusButton.selected =NO;
-//        self.hostInfoView.focusImageView.image =[UIImage imageNamed:@"爱心1"];
+        self.topView.focusButton.selected = NO;
+        //        self.hostInfoView.focusImageView.image =[UIImage imageNamed:@"爱心1"];
         [self cancleFocusRequest];
         
     }
 }
 
-
-#pragma mark -- button method
-//礼物
--(void)giftButtonClick:(UIButton *)btn
+// 礼物
+- (void)giftButtonClick:(UIButton *)btn
 {
-    btn.selected =!btn.selected;
-    if (btn.selected ==YES)
+    btn.selected = !btn.selected;
+    if (btn.selected == YES)
     {
-        self.giftView.hidden =NO;
-        self.giftView.frame =CGRectMake(SCREEN_WIDTH -kWidthChange(400), SCREEN_HEIGHT-fWidthChange(260)-fHeightChange(100), kWidthChange(400), kHeightChange(260));
-    }else
-    {
-        self.giftView.hidden =YES;
+        self.giftView.hidden = NO;
+        self.giftView.frame = CGRectMake(SCREEN_WIDTH - kWidthChange(400), SCREEN_HEIGHT - fWidthChange(260)-fHeightChange(100), kWidthChange(400), kHeightChange(260));
+    } else {
+        self.giftView.hidden = YES;
     }
 }
 
-//设置
--(void)settingButtonClick:(UIButton *)btn
+// 设置
+- (void)settingButtonClick:(UIButton *)btn
 {
-    self.settingView.hidden =NO;
+    self.settingView.hidden = NO;
+    NSLog(@"setting");
 }
 
-//分享
--(void)shareButtonClick:(id)sender
+// 分享
+- (void)shareButtonClick:(id)sender
 {
 //    [self share];
+    NSLog(@"share");
 }
 
-//开始 暂停（横屏）
--(void)startButtonClick:(UIButton *)btn
+// 开始 暂停（横屏）
+- (void)startButtonClick:(UIButton *)btn
 {
     self.activityIndicatorView.center =self.view.center;
     btn.selected =!btn.selected;
@@ -227,8 +232,8 @@
     }
 }
 
-//弹幕
--(void)barrageButtonClick:(UIButton *)btn
+// 弹幕
+- (void)barrageButtonClick:(UIButton *)btn
 {
     btn.selected =!btn.selected;
     if (btn.selected ==YES)//弹幕消失
@@ -240,9 +245,9 @@
     }
 }
 
-#pragma mark  ------设置view button method
-//软解
--(void)softBtnClick:(UIButton *)btn
+#pragma mark - 设置view button method
+// 软解
+- (void)softBtnClick:(UIButton *)btn
 {
     btn.selected=!btn.selected;
     if (btn.selected ==YES)
@@ -259,8 +264,9 @@
         NSLog(@"~~~~~2");
     }
 }
-//硬解
--(void)hardBtnClick:(UIButton *)btn
+
+// 硬解
+- (void)hardBtnClick:(UIButton *)btn
 {
     btn.selected =!btn.selected;
     if (btn.selected==YES)
@@ -280,10 +286,10 @@
     }
 }
 
-//音量大小
--(void)changerSound:(UISlider *)slider
+// 音量大小
+- (void)changerSound:(UISlider *)slider
 {
-    static UISlider * volumeViewSlider = nil;
+    static UISlider *volumeViewSlider = nil;
     if (volumeViewSlider == nil)
     {
         MPVolumeView *volumeView = [[MPVolumeView alloc] init];
@@ -299,26 +305,27 @@
         }
     }
 }
-//改变屏幕亮度
--(void)changerBrightness:(UISlider *)slider
+
+// 改变屏幕亮度
+- (void)changerBrightness:(UISlider *)slider
 {
     [[UIScreen mainScreen]setBrightness:self.settingView.brightnessSlider.value];
 }
 
-//改变弹幕透明度
--(void)changerAlpha:(UISlider *)slider
+// 改变弹幕透明度
+- (void)changerAlpha:(UISlider *)slider
 {
     _renderer.view.alpha =slider.value;
 }
 
-//改变弹幕大小
--(void)changerSize:(UISlider *)slider
+// 改变弹幕大小
+- (void)changerSize:(UISlider *)slider
 {
     
 }
 
 //返回按钮
--(void)backBtnClick:(id)sender
+- (void)backBtnClick:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 //    [self quitChatRoom];
@@ -332,44 +339,59 @@
     //    [self.renderer stop];
 }
 
-//living view的按钮事件
-//开始 暂停（竖屏）
-//-(void)startBtnClick:(UIButton *)btn
-//{
-//    if (_isFullScreen == NO)
-//    {
-//        _activityIndicatorView.center = CGPointMake(kWidth/2, kHeightChange(450/2));
-//        btn.selected =!btn.selected;
-//        
-//        if (btn.selected ==YES)
-//        {
-//            self.bottomView.startButton.selected =YES;
-//            [self.livePlayer pause];
-//        }else
-//        {
-//            self.bottomView.startButton.selected =NO;
-//            [self.livePlayer resume];
-//        };
-//    }
-//}
+#pragma mark - Collection delegate
+// 发送礼物
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.giftArray.count;
+}
 
-#pragma mark -- networking method
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier =@"GiftCollectionViewCell";
+    GiftCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell.picImage.image =[UIImage imageNamed:[NSString stringWithFormat:@"%@",self.giftArray[0][indexPath.row]]];
+    cell.nameLabel.text =[NSString stringWithFormat:@"%@",self.giftArray[1][indexPath.row]];
+    cell.priceLabel.text =[NSString stringWithFormat:@"%@",self.giftArray[2][indexPath.row]];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    GSPChatMessage *msg =[[GSPChatMessage alloc]init];
+    msg.text =[NSString stringWithFormat:@" 赠送主播 %@",self.giftArray[1][indexPath.row]];
+    msg.senderChatID =[NSString stringWithFormat:@"%ld",(long)indexPath.row];
+    // 礼物模型
+    GiftModel *giftModel = [[GiftModel alloc] init];
+    giftModel.headImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@",self.headUrl]];
+    giftModel.name = msg.senderName;
+    giftModel.giftImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@",self.giftArray[0][indexPath.row]]];
+    giftModel.giftName = msg.text;
+    giftModel.giftCount = 1;
+    
+    [self.giftManager animWithUserID:[NSString stringWithFormat:@"%@",msg.senderChatID] model:giftModel finishedBlock:^(BOOL result) {
+        
+    }];
+    
+}
+
+#pragma mark - networking method
 //关注的请求
 -(void)focusOnRequest
 {
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]initWithCapacity:2];
     paraments[@"user_id"]= self.uesr_id;
     paraments[@"bCastId"] =self.ID;
-    [[NetWorkTool sharedTool]requestMethod:POST URL:@"focusOnBc_app" paraments:paraments finish:^(id responseObject, NSError *error) {
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"focusOnBc_app" paraments:paraments finish:^(id responseObject, NSError *error) {
         NSLog(@"!~~~~%@关注~~~~%@",responseObject,error);
 //        self.hostInfoView.fansCount.text =[NSString stringWithFormat:@"%@",responseObject[@"count"]];
-        self.bcfocus =responseObject[@"bcfocus"];
-        self.topView.focusLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"count"]];
+        self.bcfocus = responseObject[@"bcfocus"];
+        self.topView.focusLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"count"]];
     }];
 }
 
-//取消关注的请求
--(void)cancleFocusRequest
+// 取消关注的请求
+- (void)cancleFocusRequest
 {
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]initWithCapacity:2];
     if (self.guanz_id)
@@ -388,7 +410,19 @@
     
 }
 
-#pragma mark -- Lazy method
+// 灵桃越币查询
+- (void)scoreQueryRequest {
+    NSMutableDictionary *parements =[[NSMutableDictionary alloc] init];
+    parements[@"uId"] =self.uesr_id;
+    [[NetWorkTool sharedTool]requestMethod:POST URL:@"score_and_integral" paraments:parements finish:^(id responseObject, NSError *error) {
+        NSLog(@"---scoreQuery--%@------",responseObject);
+        self.giftView.moneyLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"score"]];
+        self.giftView.coinsLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"integral"]];
+    }];
+    
+}
+
+#pragma mark - Lazy method
 - (BarrageRenderer *)renderer {
     if (!_renderer) {
         _renderer = [[BarrageRenderer alloc]init];
@@ -405,27 +439,14 @@
         _livingView = [[UIView alloc] init];
         _livingView.backgroundColor = [UIColor blackColor];
         
-        /*
-        _livingView =[[livingView alloc]init];
-        _livingView.onlineLabel.text =[NSString stringWithFormat:@"%@",self.onlineNum];
-        _livingView.titleLabel.text =[NSString stringWithFormat:@"%@",self.name];
-        [_livingView.startBtn addTarget:self action:@selector(startBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_livingView.backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_livingView.shareBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_livingView.fullBtn addTarget:self action:@selector(fullBtnClcik:) forControlEvents:UIControlEventTouchUpInside];
-        [_livingView.surpriseBtn addTarget:self action:@selector(surpriseBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _livingView.translatesAutoresizingMaskIntoConstraints=NO;
-        [self.view addSubview:self.livingView];
-         */
     }
     return _livingView;
 }
 
--(NSMutableArray *)danmuArray
+- (NSMutableArray *)danmuArray
 {
-    if (!_danmuArray)
-    {
-        _danmuArray =[[NSMutableArray alloc]init];
+    if (!_danmuArray) {
+        _danmuArray = [NSMutableArray array];
     }
     return _danmuArray;
 }
@@ -446,11 +467,10 @@
     return _topView;
 }
 
--(BottomView *)bottomView
+- (BottomView *)bottomView
 {
     if (!_bottomView)
     {
-//        _bottomView= [[BottomView alloc]initWithFrame:CGRectMake(0, 500, SCREEN_WIDTH, 100)];
         _bottomView = [[BottomView alloc] init];
         [_bottomView.startButton addTarget:self action:@selector(startButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_bottomView.barrageButton addTarget:self action:@selector(barrageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -461,11 +481,11 @@
     return _bottomView;
 }
 
--(SettingView *)settingView
+- (SettingView *)settingView
 {
     if (!_settingView)
     {
-        _settingView =[[SettingView alloc]init];
+        _settingView = [[SettingView alloc]init];
         _settingView.hidden=YES;
         [_settingView.softBtn.decodeButton addTarget:self action:@selector(softBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -486,8 +506,38 @@
     return _settingView;
 }
 
-#pragma mark -- TXLivePlayListener
--(void) onPlayEvent:(int)EvtID withParam:(NSDictionary*)param {
+
+- (GiftView *)giftView
+{
+    if (!_giftView)
+    {
+        _giftView = [[GiftView alloc] init];
+//        _giftView = [[GiftView alloc] initWithFrame:CGRectMake(0, 0, 260, 200)];
+        _giftView.hidden = YES;
+        [_giftView bringSubviewToFront:self.chatTableView];
+        _giftView.giftCollectionView.delegate = self;
+        _giftView.giftCollectionView.dataSource = self;
+        [self scoreQueryRequest];
+        _giftView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    }
+    return _giftView;
+}
+
+- (NSMutableArray *)giftArray
+{
+    if (!_giftArray)
+    {
+        NSArray *giftPic =[[NSArray alloc]initWithObjects:@"桃子-01-1",@"咖啡-1",@"鼓掌-1", nil];
+        NSArray *giftName =[[NSArray alloc]initWithObjects:@"灵桃",@"咖啡",@"鼓掌", nil];
+        NSArray *giftPrice =[[NSArray alloc]initWithObjects:@"10越币",@"10越币",@"10越币", nil];
+        _giftArray =[[NSMutableArray alloc]initWithObjects:giftPic,giftName,giftPrice, nil];
+    }
+    return _giftArray;
+}
+
+#pragma mark - TXLivePlayListener
+- (void)onPlayEvent:(int)EvtID withParam:(NSDictionary*)param {
     NSLog(@"EvtID  %d",EvtID);
     //播放结束或网络断开
     //    || EvtID == -2301
@@ -499,7 +549,7 @@
     }
 }
 
--(void) onNetStatus:(NSDictionary*) param {
+- (void) onNetStatus:(NSDictionary*) param {
     //    NSLog(@"------param %@",param);
 }
 

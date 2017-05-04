@@ -505,6 +505,7 @@
     }
     return _textFieldView;
 }
+
 -(GiftView *)giftView
 {
     if (!_giftView)
