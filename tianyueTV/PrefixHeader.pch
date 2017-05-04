@@ -22,6 +22,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "NetWorkHeader.h"
 #import "UIView+DHSAddtion.h"
+#import "NSObject+CacheData.h"
 
 #endif /* PrefixHeader_pch */
 

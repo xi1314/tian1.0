@@ -17,7 +17,6 @@
 #import "SelectionViewController.h"
 
 
-
 static int netI = 0; // 已请求完成的网络标识
 
 
@@ -70,7 +69,7 @@ static int netI = 0; // 已请求完成的网络标识
     
     // 登录腾讯sdk
     [self loginIMSDk];
-    
+
 }
 
 
@@ -79,6 +78,9 @@ static int netI = 0; // 已请求完成的网络标识
      self.navigationController.navigationBar.hidden = NO;
 }
 
+/**
+ 首页数据请求网络
+ */
 - (void)initializeDatasource {
     self.hud = [MBProgressHUD showMessage:nil];
     

@@ -211,6 +211,8 @@
 		CC47BC561E9B867E006B1EA2 /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */; };
 		CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */; };
 		CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47BC591E9B869E006B1EA2 /* TianyueTools.m */; };
+		CC7ECC9A1EBAFD0E0032AD9E /* LoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7ECC991EBAFD0E0032AD9E /* LoginHandler.m */; };
+		CC7ECC9D1EBB00A60032AD9E /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7ECC9C1EBB00A60032AD9E /* LoginModel.m */; };
 		CCC9F0651EA4BF5E00CA5702 /* BrandComeInView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0641EA4BF5E00CA5702 /* BrandComeInView.m */; };
 		CCC9F0681EA4BFD400CA5702 /* CarpenteroomView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0671EA4BFD400CA5702 /* CarpenteroomView.m */; };
 		CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */; };
@@ -655,6 +657,10 @@
 		CC47BC551E9B867E006B1EA2 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		CC47BC581E9B869E006B1EA2 /* TianyueTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TianyueTools.h; sourceTree = "<group>"; };
 		CC47BC591E9B869E006B1EA2 /* TianyueTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TianyueTools.m; sourceTree = "<group>"; };
+		CC7ECC981EBAFD0E0032AD9E /* LoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginHandler.h; path = tianyueTV/Class/Mine/mine/View/LoginHandler.h; sourceTree = SOURCE_ROOT; };
+		CC7ECC991EBAFD0E0032AD9E /* LoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginHandler.m; path = tianyueTV/Class/Mine/mine/View/LoginHandler.m; sourceTree = SOURCE_ROOT; };
+		CC7ECC9B1EBB00A60032AD9E /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginModel.h; path = tianyueTV/Class/Mine/mine/View/LoginModel.h; sourceTree = SOURCE_ROOT; };
+		CC7ECC9C1EBB00A60032AD9E /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginModel.m; path = tianyueTV/Class/Mine/mine/View/LoginModel.m; sourceTree = SOURCE_ROOT; };
 		CCC9F0631EA4BF5E00CA5702 /* BrandComeInView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandComeInView.h; sourceTree = "<group>"; };
 		CCC9F0641EA4BF5E00CA5702 /* BrandComeInView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandComeInView.m; sourceTree = "<group>"; };
 		CCC9F0661EA4BFD400CA5702 /* CarpenteroomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarpenteroomView.h; sourceTree = "<group>"; };
@@ -1159,6 +1165,8 @@
 		0468799D1E88BDF0004A5EE3 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				CC7ECC981EBAFD0E0032AD9E /* LoginHandler.h */,
+				CC7ECC991EBAFD0E0032AD9E /* LoginHandler.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -1166,6 +1174,8 @@
 		0468799E1E88BDF0004A5EE3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CC7ECC9B1EBB00A60032AD9E /* LoginModel.h */,
+				CC7ECC9C1EBB00A60032AD9E /* LoginModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2557,6 +2567,7 @@
 				0468792D1E88B71C004A5EE3 /* AnimOperation.m in Sources */,
 				04687AC81E88BDF0004A5EE3 /* WWGuanliSecondViewController.m in Sources */,
 				04687AB71E88BDF0004A5EE3 /* CustomRegistView.m in Sources */,
+				CC7ECC9A1EBAFD0E0032AD9E /* LoginHandler.m in Sources */,
 				CCFF612D1EB8905E009C5618 /* UpYunFormUploader.m in Sources */,
 				04687A991E88BDF0004A5EE3 /* MoreBtn.m in Sources */,
 				CCC9F0651EA4BF5E00CA5702 /* BrandComeInView.m in Sources */,
@@ -2703,6 +2714,7 @@
 				986A413A1EA865420066B3F4 /* BrandView.m in Sources */,
 				FF0110C31DAB26D6003146A7 /* main.m in Sources */,
 				04687AC31E88BDF0004A5EE3 /* WWResultStatusViewController.m in Sources */,
+				CC7ECC9D1EBB00A60032AD9E /* LoginModel.m in Sources */,
 				CCFF612E1EB8905E009C5618 /* UpApiUtils.m in Sources */,
 				9815EE211EB34A0600F2B3F7 /* LivingHandler.m in Sources */,
 				98FFCCC11EB1C5C5004743B0 /* CardView.m in Sources */,

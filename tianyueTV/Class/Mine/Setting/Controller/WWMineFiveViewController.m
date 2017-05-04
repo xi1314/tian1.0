@@ -44,6 +44,11 @@ UITableViewDelegate>
     [self initializeUserInterface];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+}
 
 #pragma mark - 添加约束
 - (void)initializeUserInterface{

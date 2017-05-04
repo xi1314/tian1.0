@@ -36,13 +36,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = NO;
-    self.tabBarController.tabBar.hidden = NO;
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+
 }
 
 #pragma mark ----Actions----
-- (void)respondsToOpenLiving:(UIButton *)sender{
+- (void)respondsToOpenLiving:(UIButton *)sender {
     NSLog(@"返回");
     [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"WWFirst"];
     [self.navigationController popViewControllerAnimated:YES];
@@ -61,7 +62,7 @@
 
 
 #pragma mark ----添加约束----
-- (void)addPurLayOut{
+- (void)addPurLayOut {
     //上边的图片
     [self.view addSubview:self.topImageView];
     [self.topImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(130) + 64];
@@ -94,7 +95,7 @@
 
 #pragma mark ----Getters----
 //返回按钮
-- (UIButton *)backButton{
+- (UIButton *)backButton {
     if (!_backButton) {
         _backButton = [[UIButton alloc] init];
         [_backButton setBackgroundImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
@@ -104,7 +105,7 @@
 }
 
 //标题
-- (UILabel *)titleLabelw{
+- (UILabel *)titleLabelw {
     if (!_titleLabelw) {
         _titleLabelw = [[UILabel alloc] init];
         _titleLabelw.text = @"验证结果";
@@ -114,7 +115,7 @@
 }
 
 //开启直播
--(UIButton *)openLiving{
+- (UIButton *)openLiving {
     if (!_openLiving) {
         _openLiving = [[UIButton alloc] init];
         [_openLiving setBackgroundImage:[UIImage imageNamed:@"redCornerJuxing"] forState:UIControlStateNormal];

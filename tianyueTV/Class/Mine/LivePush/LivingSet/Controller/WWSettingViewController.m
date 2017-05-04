@@ -39,17 +39,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-
+    self.title = @"直播间设置";
+    
+    self.navigationController.navigationBar.hidden = NO;
+    
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"baudit"] != nil) {
         NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"baudit"]);
         //如果有直播间进行网络请求
         [self netWorkRequestGet];
     }
-    
 
-    self.title = @"直播间设置";
     _settingView = [[WWSettingView alloc] initWithFrame:self.view.frame];
-      [self.view addSubview:_settingView];
+    [self.view addSubview:_settingView];
 //    _settingView.settingVc = self;
     
     __weak typeof(self) ww = self;

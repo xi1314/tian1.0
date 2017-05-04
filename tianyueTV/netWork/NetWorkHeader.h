@@ -12,6 +12,11 @@
 // 服务器地址
 #define TIANYUESERVERADDRESS  @"http://www.tianyue.tv/"
 
+
+
+// 登录
+#define api_mobileLogin @"mobileLogin"
+
 // 首页商标请求
 #define api_Brand_trademark  @"Brand_trademark"
 
@@ -39,6 +44,8 @@
 // 直播间商品
 #define api_showShop_app @"showShop_app"
 
+// 我的界面用户头像上传
+#define api_update_headUrl @"update_headUrl"
 
 // 我的订单（卖家）
 #define api_orderInfo_app  @"orderInfo_app"

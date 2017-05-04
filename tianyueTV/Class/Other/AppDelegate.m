@@ -125,21 +125,22 @@
 // 是否是第一次使用APP
 - (void)firstLoad
 {
-    NSString *key = @"CFBundleShortVersionString";
-    NSString *lastVersion = [[NSUserDefaults standardUserDefaults]objectForKey:key];
-    
-    NSString *currentVersion = [[NSUserDefaults standardUserDefaults]objectForKey:key];
-    NSLog(@"前面%@----当前%@", lastVersion, currentVersion);
-
-    if ([currentVersion isEqualToString:lastVersion])
-    {
-        //自动登录
-        [self autoLogin];
-    }else
-    {
+    id object = [self gainObjectFromUsersDefaults:@"firstUse"];
+    if (!object) {
+        // 第一次使用app，展示引导页
         self.window.rootViewController = [[GuideViewController alloc] init];
-        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self saveObjectToUsersDefaults:@(YES) andKey:@"firstUse"];
+    }else {
+        id obj = [self gainObjectFromUsersDefaults:@"loginSuccess"];
+        if (!obj) {
+            // 不是第一次打开app，但未登录，则进入登录页面
+            self.window.rootViewController = [[ViewController alloc] init];
+        }else {
+            // 已经登录，则进入主页
+            TabbarViewController *tabbarVC = [[TabbarViewController alloc] init];
+            [tabbarVC requestNetwork_login];
+            self.window.rootViewController = tabbarVC;
+        }
     }
 }
 
@@ -157,22 +158,6 @@
     NetworkStates currentStates = [NetWorkTool getNetworkStatus];
     if (currentStates == _preStatus) return;
     _preStatus = currentStates;
-}
-
-// 自动登录
-- (void)autoLogin
-{
-    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"cookies"])
-    {
-        NSLog(@"no cookies");
-        self.window.rootViewController = [[ViewController alloc]init];
-    }
-    else
-    {
-
-        TabbarViewController *tabbar = [[TabbarViewController alloc] init];        
-        self.window.rootViewController = tabbar;
-    }
 }
 
 // 分享

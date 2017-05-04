@@ -13,6 +13,7 @@
 #import "NetWorkTool.h"
 #import "CustomRegistView.h"
 #import "TabbarViewController.h"
+#import "LoginHandler.h"
 
 
 @interface ViewController ()
@@ -49,84 +50,41 @@
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.frame];
     imageView.image = [UIImage imageNamed:@"loginBack"];
     [self.view addSubview:imageView];
-    
-    //[self customBackBtn];
+
     [self addLayout];
 }
 
 - (void)loginRequest
 {
-    NSMutableDictionary *paraments =[[NSMutableDictionary alloc]init];
-    paraments[@"userName"] =self.phoneTextField.text;
-    paraments[@"password"] =self.passwordTextField.text;
-    
+    [MBProgressHUD showMessage:nil];
     @weakify(self);
-    [[NetWorkTool sharedTool]requestMethod:POST URL:@"mobileLogin" paraments:paraments finish:^(id responseObject, NSError *error) {
-        
-        @strongify(self);
-        
-        NSLog(@" 登录----%@----%@",responseObject,error);
-        if ([responseObject[@"status"] isEqualToString:@"success"])
-        {
-            // userSig用于初始化腾讯sdk
-            [USER_Defaults setObject:responseObject[@"user"][@"userSig"] forKey:@"userSig"];
-            
-            [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"user"][@"id"] forKey:@"user_id"];
-            [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"user"][@"nickName"] forKey:@"nickName"];
-            if (responseObject[@"user"][@"bCard"] != [NSNull null]) {
-                [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"user"][@"bCard"] forKey:@"bCard"];
-            }
-            
-            // 判断是否有直播间
-            if (responseObject[@"user"][@"baudit"] != [NSNull null]) {
-                [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"user"][@"baudit"] forKey:@"baudit"];
-            }
-            if ([responseObject[@"user"][@"userName"] isKindOfClass:[NSString class]]) {
-                [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"user"][@"userName"] forKey:@"account" ];
-            }
-        
-            
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            [self saveUserAccountInfo];
-            [self getAndSaveCookie];
-            
-            [self goToMain];
-        }else
-        {
-            [MBProgressHUD showError:@"账号或密码错误"];
-        }
-    }];
-}
+    [LoginHandler requestForLoginWithPhone:self.phoneTextField.text
+                                       pwd:self.passwordTextField.text
+                             completeBlock:^(id respondsObject, NSError *error) {
+                                 [MBProgressHUD hideHUD];
+                                 @strongify(self);
+                                 if (respondsObject) {
+                                     
+                                     LoginModel *loginM = (LoginModel *)respondsObject;
+                                     [self saveObjectToUsersDefaults:loginM andKey:@"loginSuccess"];
+                                     [self saveObjectToUsersDefaults:self.phoneTextField.text andKey:@"userName"];
+                                     [self saveObjectToUsersDefaults:self.passwordTextField.text andKey:@"password"];
+                                     
+                                     // 进入主页
+                                     [self goToMain];
+                                     
+                                 }else {
+                                     [MBProgressHUD showError:@"账号或密码错误"];
+                                 }
 
-- (void)saveUserAccountInfo
-{
-    [[NSUserDefaults standardUserDefaults]setObject:self.phoneTextField.text forKey:@"userName"];
-    [[NSUserDefaults standardUserDefaults]setObject:self.passwordTextField.text forKey:@"password"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-}
-
-// 注册按钮绑定方法
-- (void)registBtnClick
-{
-    registViewController *registVC =[[registViewController alloc]init];
-    UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:registVC];
-    [self presentViewController:nav animated:YES completion:nil];
-
-}
-
-// 忘记密码
-- (void)rightBtnClick:(UIButton *)btn
-{
-    ForgetPasswordViewController *ForgetPasswordVC =[[ForgetPasswordViewController alloc]init];
-    UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:ForgetPasswordVC];
-    [self presentViewController:nav animated:YES completion:nil];
+                             }];
 
 }
 
 // 登录按钮绑定方法
 - (void)loginBtnClcik:(UIButton *)loginButton
 {
-    if (self.phoneTextField.text.length ==0||self.passwordTextField.text.length ==0)
+    if (self.phoneTextField.text.length == 0 || self.passwordTextField.text.length == 0)
     {
         [MBProgressHUD showError:@"账号或密码不能为空"];
     }else
@@ -143,24 +101,29 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
+// 忘记密码
+- (void)rightBtnClick:(UIButton *)btn
+{
+    ForgetPasswordViewController *ForgetPasswordVC =[[ForgetPasswordViewController alloc]init];
+    UINavigationController *nav =[[UINavigationController alloc]initWithRootViewController:ForgetPasswordVC];
+    [self presentViewController:nav animated:YES completion:nil];
+
+}
+
+/*
 - (void)getAndSaveCookie
 {
     NSData *cookiesData =[NSKeyedArchiver archivedDataWithRootObject:[[NSHTTPCookieStorage sharedHTTPCookieStorage]cookies]];
     [[NSUserDefaults standardUserDefaults]setObject:cookiesData forKey:@"cookies"];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
+ */
 
 // 进入主页
 - (void)goToMain
 {
     TabbarViewController *tabbar = [[TabbarViewController alloc] init];
     [self presentViewController:tabbar animated:YES completion:nil];
-}
-
-
-- (void)backBtnClick:(UIButton *)btn
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (UIImageView *)logo
@@ -268,45 +231,6 @@
     return _horizontalLine1;
 }
 
-//-(CustomRegistView *)registView
-//{
-//    if (!_registView)
-//    {
-//        _registView =[[CustomRegistView alloc]init];
-//        _registView.backgroundColor =[UIColor whiteColor];
-//        [_registView.eyeImageView removeFromSuperview];
-//        _registView.nameLabel.text =@"手机号";
-//        _registView.nameTextField.placeholder =@"+86";
-//        _registView.passwordLabel.text =@"密码";
-//        _registView.passwordTextField.placeholder =@"请输入密码";
-//        _registView.layer.cornerRadius =5.0f;
-//        _registView.clipsToBounds =YES;
-//
-//        _registView.translatesAutoresizingMaskIntoConstraints=NO;
-//        [self.view addSubview:self.registView];
-//    }
-//    return _registView;
-//}
-//自动登陆
-//-(UIButton  *)leftBtn
-//{
-//    if (!_leftBtn)
-//    {
-//        _leftBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-//        [_leftBtn setTitle:@"自动登录" forState:UIControlStateNormal];
-//        [_leftBtn setImage:[UIImage imageNamed:@"register_juxing"] forState:UIControlStateNormal];
-//        [_leftBtn setImageEdgeInsets:UIEdgeInsetsMake(kHeightChange(3), kWidthChange(3), kHeightChange(3), kWidthChange(3))];
-//        
-//        [_leftBtn setImage:[UIImage imageNamed:@"register_gou"] forState:UIControlStateSelected];
-//        _leftBtn.titleLabel.font =[UIFont systemFontOfSize:kWidthChange(26)];
-//        [_leftBtn setTitleColor:WWColor(192, 67, 73) forState:UIControlStateNormal];
-//        [_leftBtn addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        _leftBtn.translatesAutoresizingMaskIntoConstraints =NO;
-//        [self.view addSubview:self.leftBtn];
-//    }
-//    return _leftBtn;
-//}
-
 // 立即注册
 - (UIButton *)leftBtn
 {
@@ -322,8 +246,9 @@
     }
     return _leftBtn;
 }
-//忘记密码
--(UIButton *)rightBtn
+
+// 忘记密码
+- (UIButton *)rightBtn
 {
     if (!_rightBtn)
     {
@@ -337,7 +262,8 @@
     }
     return _rightBtn;
 }
--(UIButton *)loginBtn
+
+- (UIButton *)loginBtn
 {
     if (!_loginBtn)
     {
@@ -354,43 +280,21 @@
     }
     return _loginBtn;
 }
-//-(void)customBackBtn
-//{
-//    UIButton *backBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-//    backBtn.frame =CGRectMake(0, 0, 44, 44);
-//    [backBtn setImage:[UIImage imageNamed:@"back_black"] forState:UIControlStateNormal];
-//    [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *backItem =[[UIBarButtonItem alloc]initWithCustomView:backBtn];
-//    self.navigationItem.leftBarButtonItem =backItem;
-//    
-//    UIButton *registBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-//    registBtn.frame =CGRectMake(0, 0, 44, 44);
-//    [registBtn setTitleColor:WWColor(16, 16, 16) forState:UIControlStateNormal];
-//    [registBtn setTitle:@"注册" forState:UIControlStateNormal];
-//    [registBtn addTarget:self action:@selector(registBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *registItem =[[UIBarButtonItem alloc]initWithCustomView:registBtn];
-//    self.navigationItem.rightBarButtonItem =registItem;
-//    
-//}
+
 #pragma mark --pureLayout--
--(void)addLayout
+- (void)addLayout
 {
-//    [self.registView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(60)+64];
-//    [self.registView autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(75)];
-//    [self.registView autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kWidthChange(75)];
-//    [self.registView autoSetDimension:ALDimensionHeight toSize:kHeightChange(260)];
-    
-    //logo
+    // logo
     self.logo.frame = CGRectMake(0, kHeightChange(222), kHeightChange(120) * 498 / 170, kHeightChange(120));
     self.logo.center = CGPointMake(SCREEN_WIDTH / 2.0, self.logo.center.y);
     
-    //登录按钮
+    // 登录按钮
     [self.loginBtn autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(405)];
     [self.loginBtn autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(75)];
     [self.loginBtn autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kWidthChange(75)];
     [self.loginBtn autoSetDimension:ALDimensionHeight toSize:kHeightChange(80)];
 
-    //密码
+    // 密码
     [@[self.horizontalLine1,self.horizontalLine,self.loginBtn]autoMatchViewsDimension:ALDimensionWidth ];
     [self.horizontalLine1 autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.loginBtn withOffset:-kHeightChange(87)];
     [self.horizontalLine1 autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(75)];
@@ -409,7 +313,7 @@
     [self.passwordTextField autoSetDimension:ALDimensionHeight toSize:kHeightChange(55)];
     [self.passwordTextField autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kWidthChange(75)];
     
-    //账号
+    // 账号
     [self.horizontalLine autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.passwordTextField withOffset:-kHeightChange(54)];
     [self.horizontalLine autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(75)];
     [self.horizontalLine autoSetDimension:ALDimensionHeight toSize:kHeightChange(2)];
@@ -427,12 +331,12 @@
     [self.phoneTextField autoSetDimension:ALDimensionHeight toSize:kHeightChange(55)];
     [self.phoneTextField autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kWidthChange(75)];
 
-    //立即注册
+    // 立即注册
     [self.leftBtn autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:kWidthChange(75)];
     [self.leftBtn autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.loginBtn withOffset:kHeightChange(15)];
     [self.leftBtn autoSetDimensionsToSize:CGSizeMake(kWidthChange(150), kHeightChange(28))];
     
-    //忘记密码
+    // 忘记密码
     [self.rightBtn autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kWidthChange(75)];
     [@[self.leftBtn,self.rightBtn]autoMatchViewsDimension:ALDimensionWidth];
     [@[self.leftBtn,self.rightBtn]autoMatchViewsDimension:ALDimensionHeight];
@@ -440,38 +344,6 @@
     
 }
 
-#pragma mark - 获取时间差
-- (NSString *)getTimeWithTime:(NSString *)timeString{
-    NSDate *currentDate = [NSDate date];//获取当前时间，日期
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-    NSString *dateString = [dateFormatter stringFromDate:currentDate];
-    
-    NSDate *nowDate=[dateFormatter dateFromString:dateString];
-    NSTimeInterval lateNow=[nowDate timeIntervalSince1970]*1;
-    
-    NSDate * sinceDate = [dateFormatter dateFromString:timeString];
-    NSTimeInterval lateSince = [sinceDate timeIntervalSince1970]*1;
-    
-    NSTimeInterval cha =  lateSince-lateNow ;
-    
-    if ((int)cha<60) {
-        return [NSString stringWithFormat:@"刚刚"];
-    }
-    else if ((int)cha/60<60) {
-        //分
-        return [NSString stringWithFormat:@"%d分前",(int)cha/60];
-    }
-    else{
-        if ((int)cha/3600 < 24) {
-            //时
-            return [NSString stringWithFormat:@"%d时前", (int)cha/3600];
-        } else {
-            //天
-            return [NSString stringWithFormat:@"%d天前", (int)cha/(3600*24)];
-        }
-    }
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -13,6 +13,7 @@
 #import "JPUSHService.h"
 #import "FindingViewController.h"
 #import "MyViewController.h"
+#import "LoginHandler.h"
 
 @interface TabbarViewController ()
 
@@ -28,7 +29,7 @@
     [[UITabBar appearance] setTintColor:WWColor(255, 65, 77)];
     [[UITabBar appearance] setBarTintColor:[UIColor whiteColor]];
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
-    
+
     /*
     HomepageViewController *liveVC = [[HomepageViewController alloc]init];
     liveVC.tabBarItem.image = [UIImage imageNamed:@""];
@@ -82,6 +83,30 @@
     NSString *userString = [NSString stringWithFormat:@"%@", userID];
     [JPUSHService setAlias:userString callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
 }
+
+
+/**
+ 登录数据请求网络
+ */
+- (void)requestNetwork_login
+{
+    NSString *phone = [self gainObjectFromUsersDefaults:@"userName"];
+    NSString *pwd = [self gainObjectFromUsersDefaults:@"password"];
+    @weakify(self);
+    [LoginHandler requestForLoginWithPhone:phone
+                                       pwd:pwd
+                             completeBlock:^(id respondsObject, NSError *error) {
+                                 @strongify(self);
+                                 if (respondsObject) {
+                                     
+                                     LoginModel *loginM = (LoginModel *)respondsObject;
+                                     [self saveObjectToUsersDefaults:loginM andKey:@"loginSuccess"];
+ 
+                                 }
+                                 
+                             }];
+}
+
 
 // 推送标签设置结果回调
 - (void)tagsAliasCallback:(int)iResCode
