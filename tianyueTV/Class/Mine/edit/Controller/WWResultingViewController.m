@@ -25,8 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBarHidden = YES;
-    self.tabBarController.tabBar.hidden = YES;
+    
+    self.navigationController.navigationBar.hidden = YES;
+
     [self addPurLayOut];
     // Do any additional setup after loading the view.
 }
