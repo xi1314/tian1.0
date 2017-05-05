@@ -15,6 +15,11 @@
 #import "WWLivingViewController.h"
 #import "HeadlineViewController.h"
 #import "SelectionViewController.h"
+#import "WWRealNameViewController.h"
+#import "WWSettingViewController.h"
+#import "WWResultDefailtViewController.h"
+#import "WWResultingViewController.h"
+#import "LoginModel.h"
 
 
 @interface HomeViewController ()
@@ -31,6 +36,7 @@
 // 登录腾讯需要的参数
 @property (nonatomic, strong) NSString *userIdentifiler;
 
+//
 @property (nonatomic, strong) NSString *userSig;
 
 // 遮挡视图
@@ -47,6 +53,9 @@
 
 // 已请求完成的网络标识
 @property (nonatomic, assign) int netI;
+
+// 登录数据模型
+@property (nonatomic, strong) LoginModel *loginModel;
 
 
 @end
@@ -68,6 +77,9 @@
     
     // 登录腾讯sdk
     [self loginIMSDk];
+    
+    // 获取用户登录信息
+    self.loginModel = [self gainObjectFromUsersDefaults:@"loginSuccess"];
 
 }
 
@@ -255,9 +267,8 @@
         
         switch (tag) {
             case 0: { // 直播
-                WWLivingViewController *liveVC = [[WWLivingViewController alloc] init];
-                liveVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:liveVC animated:YES];
+                [self zhuborenzhengClicker];
+
             } break;
                 
             case 1: { // 天越甄选
@@ -278,6 +289,43 @@
         }
         
     };
+}
+
+// 直播前进行认证判断
+- (void)zhuborenzhengClicker {
+    
+    NSString *bCardString = [NSString stringWithFormat:@"%@", self.loginModel.bCard];
+    if ([bCardString containsString:@"null"] || [bCardString isEqualToString:@""]) {
+        // 未进行实名认证，进入实名认证界面
+        WWRealNameViewController *realnameVC = [[WWRealNameViewController alloc] init];
+        realnameVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:realnameVC animated:YES];
+        
+    }else {
+        if ([bCardString intValue] == 1) { // 实名认证成功
+            if ([self.loginModel.baudit intValue] == 1) { // 直播间已设置
+                // 直播画面
+                WWLivingViewController *living = [[WWLivingViewController alloc] init];
+                living.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:living animated:YES];
+            }else {
+                // 进入直播间设置界面
+                WWSettingViewController *liveSetVC = [[WWSettingViewController alloc] init];
+                liveSetVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:liveSetVC animated:YES];
+            }
+        }else if ([bCardString intValue] == 2) { // 实名认证审核中
+            
+            WWResultingViewController *resulting = [[WWResultingViewController alloc] init];
+            resulting.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:resulting animated:YES];
+            
+        }else if ([bCardString intValue] == 0) { // 实名认证失败
+            WWResultDefailtViewController *resultFail = [[WWResultDefailtViewController alloc] init];
+            resultFail.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:resultFail animated:YES];
+        }
+    }
 }
 
 //在首页初始化腾讯SDk，并登录
