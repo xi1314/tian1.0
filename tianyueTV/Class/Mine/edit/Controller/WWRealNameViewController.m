@@ -37,14 +37,16 @@
     
 }
 
+
 - (void)nextVC{
     WWCardViewController *carVc = [[WWCardViewController alloc] init];
     [self.navigationController pushViewController:carVc animated:YES];
 //    [self presentViewController:carVc animated:YES completion:nil];
 }
 
+
 - (void)backItemClicked{
-//    self.navigationController.navigationBarHidden = YES;
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 

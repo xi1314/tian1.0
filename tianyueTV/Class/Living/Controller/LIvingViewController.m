@@ -204,8 +204,6 @@
 //进入直播间判断是否已经关注过
 -(void)isFocusRequest
 {
-    //NSString *url =@"http://192.168.0.88:8081/follow_app";
-//    NSString *url =@"http://www.tianyue.tv/follow_app";
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]init];
     paraments[@"user_id"] =self.uesr_id;
     paraments[@"id"] =self.ID;
@@ -924,10 +922,17 @@
     [self.livePlayer removeVideoWidget];
     
     
+
 //    FullScreenLivingViewController *fullVC = [[FullScreenLivingViewController alloc] init];
 //    [self presentViewController:fullVC animated:NO completion:nil];
     LivingLandscapeViewController *livingLandVC = [[LivingLandscapeViewController alloc] init];
     [self presentViewController:livingLandVC animated:NO completion:nil];
+
+    /*
+    FullScreenLivingViewController *fullVC = [[FullScreenLivingViewController alloc] init];
+    fullVC.liveModel = self.liveModel;
+    [self presentViewController:fullVC animated:NO completion:nil];
+     */
     
     /*
     if (_isFullScreen ==NO)
@@ -1165,7 +1170,7 @@
     }
 }
 
-//关注的请求
+// 关注的请求
 -(void)focusOnRequest
 {
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]initWithCapacity:2];
@@ -1179,11 +1184,9 @@
     }];
 }
 
-//取消关注的请求
+// 取消关注的请求
 -(void)cancleFocusRequest
 {
-//    NSString *url =@"http://www.tianyue.tv/deleteFocus_app";
-    //NSString *url =@"http://192.168.0.88:8081/deleteFocus_app";
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]initWithCapacity:2];
     if (self.guanz_id)
     {

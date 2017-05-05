@@ -72,6 +72,7 @@
     }
     return _focusButton;
 }
+
 -(UIButton *)settingButton
 {
     if (!_settingButton)

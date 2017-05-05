@@ -225,7 +225,7 @@ UINavigationControllerDelegate>
             break;
         }
         case 5: { // 我的订单
-            [self.view addSubview:self.myOrderView];
+            [self.baseScroll addSubview:self.myOrderView];
             [self.view addSubview:self.backButton];
             break;
         }
@@ -289,9 +289,9 @@ UINavigationControllerDelegate>
 
 #pragma mark - Getter method
 - (MyOrderView *)myOrderView {
-    CGFloat height = self.view_head.bottom;
+    CGFloat height = self.view_head.height;
     if (!_myOrderView) {
-        _myOrderView = [[MyOrderView alloc] initWithFrame:CGRectMake(0,height, SCREEN_WIDTH, SCREEN_HEIGHT - height - NavigationBarHeight)];
+        _myOrderView = [[MyOrderView alloc] initWithFrame:CGRectMake(0 ,self.view_head.bottom, SCREEN_WIDTH, SCREEN_HEIGHT - height - NavigationBarHeight)];
         _myOrderView.backgroundColor = WWColor(242, 242, 242);
         
         @weakify(self);

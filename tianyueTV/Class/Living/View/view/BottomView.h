@@ -20,4 +20,5 @@
 @property(nonatomic,strong)UIButton *sendBtn;
 //礼物按钮
 @property(nonatomic,strong)UIButton *giftBtn;
+
 @end
