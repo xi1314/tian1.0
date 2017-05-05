@@ -36,6 +36,10 @@ UITableViewDelegate>
     [super viewDidLoad];
     self.title = @"设置";
     self.view.backgroundColor = WWColor(240, 240, 240);
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backItemClicked:)];
+    leftItem.image = [UIImage imageNamed:@"nav_back"];
+    self.navigationItem.leftBarButtonItem = leftItem;
  
     NSArray *arr1 = [NSArray arrayWithObjects:@"非WIFI环境提醒", @"清除缓存",  nil];
     NSArray *arr2 = [[NSArray alloc] init];
@@ -50,8 +54,12 @@ UITableViewDelegate>
     self.navigationController.navigationBar.hidden = NO;
 }
 
+- (void)backItemClicked:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - 添加约束
-- (void)initializeUserInterface{
+- (void)initializeUserInterface {
     [self.view addSubview:self.tableViewSet];
     [self.tableViewSet autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
     [self.tableViewSet autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];

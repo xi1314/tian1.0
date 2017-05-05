@@ -17,6 +17,9 @@
 #import "WWRealNameViewController.h"
 #import "WWResultDefailtViewController.h"
 #import "WWSettingViewController.h"
+#import "MyOrderView.h"
+#import "OrderManagerViewController.h"
+#import "WWMineFourViewController.h"
 
 @interface MyViewController ()
 <UIImagePickerControllerDelegate,
@@ -31,6 +34,12 @@ UINavigationControllerDelegate>
 @property (nonatomic, strong) NSArray *itemArray;
 @property (nonatomic, strong) LoginModel *loginModel;
 @property (nonatomic, strong) UIImage *choiceImage;
+
+// 订单二级视图
+@property (nonatomic, strong) MyOrderView *myOrderView;
+
+// 返回上一级
+@property (nonatomic, strong) UIButton *backButton;
 
 
 @end
@@ -205,7 +214,9 @@ UINavigationControllerDelegate>
             break;
         }
         case 3: { // 账号安全
-            
+            WWMineFourViewController *mineFourVc = [[WWMineFourViewController alloc] init];
+            mineFourVc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:mineFourVc animated:YES];
             break;
         }
         case 4: { // 设置
@@ -214,7 +225,8 @@ UINavigationControllerDelegate>
             break;
         }
         case 5: { // 我的订单
-            
+            [self.view addSubview:self.myOrderView];
+            [self.view addSubview:self.backButton];
             break;
         }
         default:
@@ -268,6 +280,50 @@ UINavigationControllerDelegate>
     mineFiveVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:mineFiveVc animated:YES];
 }
+
+//返回，移除订单二级页面
+- (void)respondsToBackButton:(UIButton *)sender {
+    [self.myOrderView removeFromSuperview];
+    [self.backButton removeFromSuperview];
+}
+
+#pragma mark - Getter method
+- (MyOrderView *)myOrderView {
+    CGFloat height = self.view_head.bottom;
+    if (!_myOrderView) {
+        _myOrderView = [[MyOrderView alloc] initWithFrame:CGRectMake(0,height, SCREEN_WIDTH, SCREEN_HEIGHT - height - NavigationBarHeight)];
+        _myOrderView.backgroundColor = WWColor(242, 242, 242);
+        
+        @weakify(self);
+        _myOrderView.block = ^(NSInteger tag){
+            @strongify(self);
+            
+            OrderManagerViewController *orderVC = [[OrderManagerViewController alloc] init];
+            orderVC.hidesBottomBarWhenPushed = YES;
+            if (tag == 0) {
+                // 模拟买家入口
+                orderVC.isSeller = NO;
+                
+            } else {
+                // 模拟卖家入口
+                orderVC.isSeller = YES;
+            }
+            [self.navigationController pushViewController:orderVC animated:YES];
+        };
+    }
+    return _myOrderView;
+}
+
+- (UIButton *)backButton {
+    if (!_backButton) {
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _backButton.frame = CGRectMake(10, 20, 30, 30);
+        [_backButton setImage:[UIImage imageNamed:@"btn_backWhite"] forState:UIControlStateNormal];
+        [_backButton addTarget:self action:@selector(respondsToBackButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backButton;
+}
+
 
 #pragma mark - 开始拍照
 - (void)takePhoto

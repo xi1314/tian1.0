@@ -8,6 +8,7 @@
 
 #import "MyOrderView.h"
 #import "WWMyViewButton.h"
+#import "MyItemView.h"
 
 @interface MyOrderView ()
 
@@ -32,24 +33,27 @@
 }
 
 - (void)initilizeSubviews {
+    CGFloat itemWidth = (SCREEN_WIDTH - 40)/3.0f;
     NSArray *titleArr = @[@"买家订单", @"卖家订单"];
     for (int i = 0; i < 2; i ++) {
-        WWMyViewButton *button = [[WWMyViewButton alloc] init];
-        button.backImageView.image = [UIImage imageNamed:@"my_order"];
-        button.titlew.text = titleArr[i];
-        button.layer.borderWidth = 1.0;
-        button.layer.borderColor = WWColor(212, 212, 212).CGColor;
-        button.frame = CGRectMake(kWidthChange(20) + kWidthChange(245) * i, kHeightChange(30), kWidthChange(225), kHeightChange(234));
-        button.tag = 200 + i;
-        [button addTarget:self action:@selector(respondsToButton_action:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:button];
+        MyItemView *itemV = [[MyItemView alloc] initWithFrame:CGRectMake(10 + (10 + itemWidth) * i, 10 , itemWidth, itemWidth)];
+        itemV.tag = 100 + i;
+        [self addSubview:itemV];
+        
+        [itemV setImageString:@"my_order"];
+        [itemV setTitleString:titleArr[i]];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+        [itemV addGestureRecognizer:tap];
+        
     }
     
 }
 
 
-- (void)respondsToButton_action:(UIButton *)sender {
-    NSInteger tag = sender.tag - 200;
+- (void)tapAction:(UITapGestureRecognizer *)sender {
+    MyItemView *itemView = (MyItemView *)sender.view;
+    NSInteger tag = itemView.tag - 100;
     if (self.block) {
         self.block(tag);
     }

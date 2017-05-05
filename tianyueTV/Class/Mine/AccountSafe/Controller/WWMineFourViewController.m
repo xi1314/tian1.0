@@ -23,12 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-//    self.view.backgroundColor = WWColor(245, 245, 245);
-    
-//     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(backItemClicked2)];
-    leftItem.image = [UIImage imageNamed:@"back_black"];
-    leftItem.tintColor = [UIColor blackColor];
+
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backItemClicked:)];
+    leftItem.image = [UIImage imageNamed:@"nav_back"];
     self.navigationItem.leftBarButtonItem = leftItem;
 
     self.title = @"账号安全";
@@ -41,20 +38,21 @@
     self.saveView.confirmButtonHandler = ^(){
         [ws alreadyButtonClicked];
     };
+}
 
-    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 
-#pragma mark ----Actions---
-
-- (void)backItemClicked2{
+#pragma mark - Actions
+- (void)backItemClicked:(UIBarButtonItem *)item {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)getCodeButtonClicked{
-    
-    
+// 获取验证码
+- (void)getCodeButtonClicked {
     [self netWorkRequest];
     __block int timeout = 60;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
@@ -68,7 +66,7 @@
                 [self.saveView.getVerificationCodeButton setTitle:@"重新获取" forState:UIControlStateNormal];
                 self.saveView.getVerificationCodeButton.userInteractionEnabled = YES;
             });
-        }else{
+        } else {
             
             int seconds = timeout;
             NSString *strTime = [NSString stringWithFormat:@"%.2d",seconds];
@@ -92,8 +90,8 @@
 
 }
 
-- (void)alreadyButtonClicked{
-//    NSString *url = @"http://www.tianyue.tv/findPasswordmobile";
+- (void)alreadyButtonClicked {
+
     NSMutableDictionary *para = [[NSMutableDictionary alloc] init];
     para[@"telephone"] = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     para[@"code"] = self.saveView.verificationCode.text;
@@ -145,9 +143,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+// 获取验证码
 - (void)netWorkRequest{
-//    NSString *url = @"http://www.tianyue.tv/getPxgaiCodemobile";
-//    NSString *url = @"http://192.168.0.88:8081/Classifiedcataloguemobile";
     NSMutableDictionary *para = [[NSMutableDictionary alloc] init];
     para[@"telephone"] = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
     

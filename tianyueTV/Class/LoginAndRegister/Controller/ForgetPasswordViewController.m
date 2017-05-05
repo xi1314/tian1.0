@@ -42,8 +42,6 @@
 //验证按钮点击事件
 -(void)validationButtonClick:(UIButton *)sender
 {
-    //NSString *url =@"http://192.168.0.88:8081/getPxgaiCodemobile";
-//    NSString *url =@"http://www.tianyue.tv/getPxgaiCodemobile";
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]init];
     paraments[@"telephone"] =self.CustomView.phoneTextField.text;
     [[NetWorkTool sharedTool]requestMethod:POST URL:@"getPxgaiCodemobile" paraments:paraments finish:^(id responseObject, NSError *error) {

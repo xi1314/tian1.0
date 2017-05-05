@@ -62,7 +62,7 @@
 
 - (void)addPureLayout{
     [self addSubview:self.accountBgView];
-    [self.accountBgView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(25) +64];
+    [self.accountBgView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(25)];
     [self.accountBgView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:kWidthChange(20)];
     [self.accountBgView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:kWidthChange(20)];
     [self.accountBgView autoSetDimension:ALDimensionHeight toSize:kHeightChange(150)];
@@ -298,7 +298,7 @@
 - (UILabel *)accountLabel{
     if (!_accountLabel) {
          _accountLabel = [[UILabel alloc] init];
-        NSString *telephone = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+        NSString *telephone = [self gainObjectFromUsersDefaults:@"userName"];
         NSString *str1 = [telephone substringToIndex:3];//截取掉下标5之前的字符串
         NSLog(@"截取的值为：%@",str1);
         NSString *str2 = [telephone substringFromIndex:7];//截取掉下标3之后的字符串

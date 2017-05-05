@@ -38,8 +38,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title =@"注册";
-    self.view.backgroundColor=WWColor(240, 240, 240);
+    self.title = @"注册";
+    self.view.backgroundColor = WWColor(240, 240, 240);
     _isAgreement =YES;
     
     [self customBackBtn];
