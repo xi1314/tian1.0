@@ -376,36 +376,37 @@ UICollectionViewDataSource>
 }
 
 #pragma mark - networking method
-//关注的请求
--(void)focusOnRequest
+// 关注的请求
+- (void)focusOnRequest
 {
-    NSMutableDictionary *paraments =[[NSMutableDictionary alloc]initWithCapacity:2];
-    paraments[@"user_id"]= self.uesr_id;
-    paraments[@"bCastId"] =self.ID;
+    NSMutableDictionary *paraments = [[NSMutableDictionary alloc] initWithCapacity:2];
+    paraments[@"user_id"] = self.uesr_id;
+    paraments[@"bCastId"] = self.ID;
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"focusOnBc_app" paraments:paraments finish:^(id responseObject, NSError *error) {
-        NSLog(@"!~~~~%@关注~~~~%@",responseObject,error);
-//        self.hostInfoView.fansCount.text =[NSString stringWithFormat:@"%@",responseObject[@"count"]];
+        NSLog(@"!~~~~%@关注~~~~%@", responseObject, error);
+
         self.bcfocus = responseObject[@"bcfocus"];
-        self.topView.focusLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"count"]];
+//        self.topView.focusLabel.text = [NSString stringWithFormat:@"%@", responseObject[@"count"]];
+        self.topView.focusLabel.text = @"0";
     }];
 }
 
 // 取消关注的请求
 - (void)cancleFocusRequest
 {
-    NSMutableDictionary *paraments =[[NSMutableDictionary alloc]initWithCapacity:2];
+    NSMutableDictionary *paraments = [[NSMutableDictionary alloc] initWithCapacity:2];
     if (self.guanz_id)
     {
-        paraments[@"id"]= self.guanz_id;
+        paraments[@"id"] = self.guanz_id;
     }else
     {
-        paraments[@"id"]=self.bcfocus;
+        paraments[@"id"] = self.bcfocus;
     }
-    paraments[@"bcId"] =self.ID;
-    [[NetWorkTool sharedTool]requestMethod:POST URL:@"deleteFocus_app" paraments:paraments finish:^(id responseObject, NSError *error) {
-        NSLog(@"!~~~~%@取消关注~~~~%@",responseObject,error);
-//        self.hostInfoView.fansCount.text =[NSString stringWithFormat:@"%@",responseObject[@"count"]];
-        self.topView.focusLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"count"]];
+    paraments[@"bcId"] = self.ID;
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"deleteFocus_app" paraments:paraments finish:^(id responseObject, NSError *error) {
+        NSLog(@"!~~~~%@取消关注~~~~%@", responseObject, error);
+
+        self.topView.focusLabel.text = [NSString stringWithFormat:@"%@", responseObject[@"count"]];
     }];
     
 }

@@ -100,11 +100,11 @@
 {
     if (!_focusLabel)
     {
-        _focusLabel =[[UILabel alloc]init];
-        _focusLabel.font =[UIFont systemFontOfSize:kWidthChange(20)];
-        _focusLabel.text =@"100";
-        _focusLabel.textColor =[UIColor whiteColor];
-        _focusLabel.translatesAutoresizingMaskIntoConstraints =NO;[self addSubview:self.focusLabel];
+        _focusLabel = [[UILabel alloc]init];
+        _focusLabel.font = [UIFont systemFontOfSize:kWidthChange(20)];
+        _focusLabel.textColor = [UIColor whiteColor];
+        _focusLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:self.focusLabel];
     }
     return _focusLabel;
 }

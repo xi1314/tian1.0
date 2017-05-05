@@ -157,23 +157,25 @@ UITableViewDelegate>
 }
 
 #pragma mark ----Actions----
-- (void)respondsGetOut:(UIButton *)sender{
+- (void)respondsGetOut:(UIButton *)sender {
     NSLog(@"退出");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您确定要退出吗？" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *queding = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        [self.tabBarController.tabBar removeFromSuperview];
         [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"baudit"];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"cookies"]; // 取消自动登录
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user_id"]; // 删除user_id
-//        [NSUserDefaults standardUserDefaults]objectForKey:@"cookies"]
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"WIFIwarning"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"headUrl"];
-        ViewController *login = [[ViewController alloc] init];
-        login.navigationController.navigationBarHidden = NO;
-        [self presentViewController:login animated:YES completion:nil];
-//        [self.navigationController popToViewController:login animated:YES];
         [USER_Defaults removeObjectForKey:@"nickName"];
-        [USER_Defaults setBool:NO forKey:@"IM_Login"]; 
+        [USER_Defaults setBool:NO forKey:@"IM_Login"];
+        
+        [self removeDataFromUsersDefaults:@"loginSuccess"];
+        [self removeDataFromUsersDefaults:@"userName"];
+        [self removeDataFromUsersDefaults:@"password"];
+
+        ViewController *login = [[ViewController alloc] init];
+        [self presentViewController:login animated:YES completion:nil];
+
         //退出腾讯sdk
         [[TIMManager sharedInstance] logout:^() {
             NSLog(@"logout succ");

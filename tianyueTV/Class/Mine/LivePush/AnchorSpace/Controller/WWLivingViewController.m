@@ -628,7 +628,7 @@ AVCaptureVideoDataOutputSampleBufferDelegate>
 /**
  获取我的直播间
  */
-- (void)netWorkRequestGet{
+- (void)netWorkRequestGet {
     
     NSString *userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"user_id"];
     

@@ -154,12 +154,12 @@
                 
             default:
          //      [self startPlayer];
-                self.livingView.startBtn.selected =NO;
-                self.bottomView.startButton.selected =NO;
+                self.livingView.startBtn.selected = NO;
+                self.bottomView.startButton.selected = NO;
                 break;
         }
     }];
-    [[AFNetworkReachabilityManager sharedManager]startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -167,10 +167,10 @@
     [super viewWillAppear:animated];
     
     //在本控制器禁掉IQKeyboard的使用
-    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside =YES;
-    [IQKeyboardManager sharedManager].enableAutoToolbar =NO;
-    [IQKeyboardManager sharedManager].enable =NO;
-    [[IQKeyboardManager sharedManager]resignFirstResponder];
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [IQKeyboardManager sharedManager].enable = NO;
+    [[IQKeyboardManager sharedManager] resignFirstResponder];
     
     //增加通知中心监听，当键盘出现或消失时收到消息
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(UIKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -915,7 +915,7 @@
 }
 
 #pragma mark - 全屏
--(void)fullBtnClcik:(id)sender
+- (void)fullBtnClcik:(id)sender
 {
     // 停止播放
     [self.livePlayer stopPlay];

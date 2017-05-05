@@ -17,9 +17,6 @@
 #import "SelectionViewController.h"
 
 
-static int netI = 0; // 已请求完成的网络标识
-
-
 
 @interface HomeViewController ()
 
@@ -49,6 +46,10 @@ static int netI = 0; // 已请求完成的网络标识
 // 品牌入驻数据
 @property (nonatomic, strong) HomeSelectModel *homeSelM;
 
+// 已请求完成的网络标识
+@property (nonatomic, assign) int netI;
+
+
 @end
 
 @implementation HomeViewController
@@ -57,8 +58,7 @@ static int netI = 0; // 已请求完成的网络标识
     [super viewDidLoad];
     
     self.title = @"天越源作";
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     self.view.backgroundColor = WWColor(234, 230, 229);
     
     // 隐藏导航栏黑线
@@ -83,6 +83,7 @@ static int netI = 0; // 已请求完成的网络标识
  */
 - (void)initializeDatasource {
     self.hud = [MBProgressHUD showMessage:nil];
+    self.netI = 0;
     
     @weakify(self);
     
@@ -92,7 +93,7 @@ static int netI = 0; // 已请求完成的网络标识
         if (respondsObject) {
             
             self.brandArray = (NSArray *)respondsObject;
-            netI++;
+            self.netI++;
             [self initControllers];
         }
     }];
@@ -103,7 +104,7 @@ static int netI = 0; // 已请求完成的网络标识
         if (respondsObject) {
             
             self.liveArray = (NSArray *)respondsObject;
-            netI++;
+            self.netI++;
             [self initControllers];
         }
     }];
@@ -114,7 +115,7 @@ static int netI = 0; // 已请求完成的网络标识
         if (respondsObject) {
             
             self.homeSelM = (HomeSelectModel *)respondsObject;
-            netI++;
+            self.netI++;
             [self initControllers];
         }
     }];
@@ -122,7 +123,7 @@ static int netI = 0; // 已请求完成的网络标识
 
 - (void)initControllers
 {
-    if (netI == 3) {
+    if (self.netI == 3) {
         [self.hud hide:YES afterDelay:0.1];
         
         // 加载品牌入驻视图

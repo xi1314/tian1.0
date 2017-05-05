@@ -16,6 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     // 设置导航栏背景图片
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_whiteback"] forBarMetrics:UIBarMetricsDefault];
     // item 颜色

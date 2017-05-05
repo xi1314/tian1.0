@@ -14,6 +14,7 @@
 #import "CustomRegistView.h"
 #import "TabbarViewController.h"
 #import "LoginHandler.h"
+#import "AppDelegate.h"
 
 
 @interface ViewController ()
@@ -122,8 +123,9 @@
 // 进入主页
 - (void)goToMain
 {
-    TabbarViewController *tabbar = [[TabbarViewController alloc] init];
-    [self presentViewController:tabbar animated:YES completion:nil];
+    TabbarViewController *tabbarVC = [[TabbarViewController alloc] init];
+    AppDelegate *appD = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appD.window.rootViewController = tabbarVC;
 }
 
 - (UIImageView *)logo
