@@ -29,8 +29,8 @@
 
 //确认修改按钮
 
-
 @end
+
 @implementation WWSaveView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -45,14 +45,12 @@
 
 #pragma mark ----Actions---
 - (void)respondsToCodeClicked:(UIButton *)sender{
-    NSLog(@"获取验证码");
     if (self.getButtonHandler) {
         self.getButtonHandler();
     }
 }
 
 - (void)respondsTodetermineButton:(UIButton *)sender{
-    NSLog(@"确认修改");
     if (self.confirmButtonHandler) {
         self.confirmButtonHandler();
     }
@@ -166,13 +164,13 @@
     if (!_aginpasswdTextField) {
         _aginpasswdTextField = [[UITextField alloc] init];
         _aginpasswdTextField.layer.borderWidth = 0;
-//        NSAttributedString *attribute = [[NSAttributedString alloc] initWithString:@"请再次输入你的新密码"];
+
         _aginpasswdTextField.placeholder = @"请再次输入你的新密码";
         [_aginpasswdTextField setValue:[UIFont systemFontOfSize:kWidthChange(28)] forKeyPath:@"_placeholderLabel.font"];
-//        _aginpasswdTextField.attributedPlaceholder = attribute;
         
         _aginpasswdTextField.textAlignment = NSTextAlignmentLeft;
-        //        _newpasswdTextField1.placeholderRectForBounds
+        _aginpasswdTextField.secureTextEntry = YES;
+        _aginpasswdTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
     return _aginpasswdTextField;
 }
@@ -193,13 +191,11 @@
     if (!_newpasswdTextField1) {
         _newpasswdTextField1 = [[UITextField alloc] init];
         _newpasswdTextField1.layer.borderWidth = 0;
-//        NSAttributedString *attribute = [[NSAttributedString alloc] initWithString:@"输入你的新密码"];
         _newpasswdTextField1.placeholder = @"输入你的新密码";
         [_newpasswdTextField1 setValue:[UIFont systemFontOfSize:kWidthChange(28)] forKeyPath:@"_placeholderLabel.font"];
-        
-//        _newpasswdTextField1.attributedPlaceholder = attribute;
         _newpasswdTextField1.textAlignment = NSTextAlignmentLeft;
-//        _newpasswdTextField1.placeholderRectForBounds
+        _newpasswdTextField1.secureTextEntry = YES;
+        _newpasswdTextField1.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
     return _newpasswdTextField1;
 }
@@ -300,9 +296,9 @@
          _accountLabel = [[UILabel alloc] init];
         NSString *telephone = [self gainObjectFromUsersDefaults:@"userName"];
         NSString *str1 = [telephone substringToIndex:3];//截取掉下标5之前的字符串
-        NSLog(@"截取的值为：%@",str1);
+
         NSString *str2 = [telephone substringFromIndex:7];//截取掉下标3之后的字符串
-//         _accountLabel.text = @"188****0032";
+
         _accountLabel.text = [NSString stringWithFormat:@"%@****%@",str1,str2];
          _accountLabel.textColor = [UIColor blackColor];
          _accountLabel.font = [UIFont boldSystemFontOfSize:kWidthChange(38)];

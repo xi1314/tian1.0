@@ -90,25 +90,27 @@
 
 }
 
+// 确认修改
 - (void)alreadyButtonClicked {
-
-    NSMutableDictionary *para = [[NSMutableDictionary alloc] init];
-    para[@"telephone"] = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
-    para[@"code"] = self.saveView.verificationCode.text;
-    para[@"password"] = self.saveView.newpasswdTextField1.text;
-    para[@"nowpassword"] = self.saveView.aginpasswdTextField.text;
+    
+    NSString *telephone = [self gainObjectFromUsersDefaults:@"userName"];
+    
+    NSDictionary *paraDic = @{@"telephone" : telephone,
+                              @"code" : self.saveView.verificationCode.text,
+                              @"password" : self.saveView.newpasswdTextField1.text,
+                              @"nowpassword" : self.saveView.aginpasswdTextField.text};
+    
     if (self.saveView.verificationCode.text.length == 0) {
         [MBProgressHUD showError:@"验证码不能为空"];
     }else if (self.saveView.newpasswdTextField1.text.length == 0 || self.saveView.aginpasswdTextField.text.length == 0){
         [MBProgressHUD showError:@"密码不能为空"];
     }else if (self.saveView.newpasswdTextField1.text == self.saveView.aginpasswdTextField.text) {
-        [[NetWorkTool sharedTool] requestMethod:POST URL:@"findPasswordmobile" paraments:para finish:^(id responseObject, NSError *error) {
-            NSLog(@"%@",para);
+        [[NetWorkTool sharedTool] requestMethod:POST URL:@"findPasswordmobile" paraments:paraDic finish:^(id responseObject, NSError *error) {
+
             NSLog(@"responseObject:%@~~~~~~~~error:%@",responseObject,error);
             if (responseObject) {
                 if ([responseObject[@"ret"] isEqualToString:@"success"]) {
-//                    [MBProgressHUD showSuccess:@"修改成功"];
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"当前登录已失效" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"修改成功，当前登录已失效" preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *reloginAction = [UIAlertAction actionWithTitle:@"请重新登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         ViewController *login = [[ViewController alloc] init];
                          [self presentViewController:login animated:YES completion:nil];
@@ -136,23 +138,26 @@
         [MBProgressHUD showError:@"两次密码不一致"];
     }
 
-   }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+
 
 // 获取验证码
 - (void)netWorkRequest{
-    NSMutableDictionary *para = [[NSMutableDictionary alloc] init];
-    para[@"telephone"] = [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"];
+
+    NSString *telephone = [self gainObjectFromUsersDefaults:@"userName"];
+    NSDictionary *paraDic = @{@"telephone" : telephone};
     
-    [[NetWorkTool sharedTool] requestMethod:POST URL:@"getPxgaiCodemobile" paraments:para finish:^(id responseObject, NSError *error) {
+    @weakify(self);
+    [[NetWorkTool sharedTool] requestMethod:POST URL:@"getPxgaiCodemobile" paraments:paraDic finish:^(id responseObject, NSError *error) {
+        @strongify(self);
         NSLog(@"responseObject:%@~~~~~~~~error:%@",responseObject,error);
         if (responseObject) {
             if ([responseObject[@"ret"] isEqualToString:@"success"]) {
                 self.pCode = responseObject[@"pCode"];
+                [MBProgressHUD showSuccess:@"发送成功"];
+            } else {
+                [MBProgressHUD showError:@"发送失败"];
             }
         }
        

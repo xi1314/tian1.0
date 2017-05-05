@@ -115,11 +115,11 @@ UITableViewDelegate>
     //组个数
     return 1;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WWMineFiveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WWMineFiveTableViewCell"];
     if (!cell) {
         cell = [[WWMineFiveTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"WWMineFiveTableViewCell"];
@@ -156,9 +156,8 @@ UITableViewDelegate>
 
 }
 
-#pragma mark ----Actions----
+#pragma mark - Actions
 - (void)respondsGetOut:(UIButton *)sender {
-    NSLog(@"退出");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"您确定要退出吗？" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *queding = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        [self.tabBarController.tabBar removeFromSuperview];
@@ -195,7 +194,7 @@ UITableViewDelegate>
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark ----版本更新-----
+#pragma mark - 版本更新
 - (void)VersionButton{
     //获得发布版本的Version
     NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:@""] encoding:NSUTF8StringEncoding error:nil];
@@ -237,7 +236,7 @@ UITableViewDelegate>
 }
 
 
-#pragma mark ----处理cell的点击---
+#pragma mark - 处理cell的点击
 // 清楚缓存
 - (void)btnActionForUserSetting:(id) sender {
     [self clearFile];
@@ -247,17 +246,16 @@ UITableViewDelegate>
     cell.rightLabel.text =[str stringByAppendingString:@"M"];
 }
 
-#pragma mark ----清除缓存----
+#pragma mark - 清除缓存
 // 显示缓存大小
-
 -( float )filePath
 {
     NSString * cachPath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
-    return [ self folderSizeAtPath :cachPath];
+    return [self folderSizeAtPath :cachPath];
 }
 
 //1:首先我们计算一下 单个文件的大小
-- ( long long ) fileSizeAtPath:( NSString *) filePath{
+- ( long long ) fileSizeAtPath:( NSString *) filePath {
     NSFileManager * manager = [ NSFileManager defaultManager ];
     if ([manager fileExistsAtPath :filePath]){
         return [[manager attributesOfItemAtPath :filePath error : nil ] fileSize ];
@@ -266,7 +264,7 @@ UITableViewDelegate>
 }
 
 //2:遍历文件夹获得文件夹大小，返回多少 M（提示：你可以在工程界设置（)m）
-- ( float ) folderSizeAtPath:( NSString *) folderPath{
+- (float)folderSizeAtPath:( NSString *) folderPath {
     NSFileManager * manager = [ NSFileManager defaultManager ];
     if (![manager fileExistsAtPath :folderPath]) return 0 ;
     NSEnumerator *childFilesEnumerator = [[manager subpathsAtPath :folderPath] objectEnumerator ];
@@ -296,9 +294,8 @@ UITableViewDelegate>
 
 }
 
--(void)clearCachSuccess
+- (void)clearCachSuccess
 {
-    NSLog ( @" 清理成功 " );
     NSIndexPath *index=[NSIndexPath indexPathForRow:0 inSection:0];//刷新
     [self.tableViewSet reloadRowsAtIndexPaths:[NSArray arrayWithObjects:index,nil] withRowAnimation:UITableViewRowAnimationNone];
 }

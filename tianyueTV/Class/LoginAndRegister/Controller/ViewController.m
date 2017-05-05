@@ -88,6 +88,7 @@
         [MBProgressHUD showError:@"账号或密码不能为空"];
     }else
     {
+        [self.view endEditing:YES];
         [self loginRequest];
     }
 }

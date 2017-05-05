@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title =@"注册";
+    self.title = @"注册";
     self.view.backgroundColor=WWColor(240, 240, 240);
     [self customBackBtn];
     [self addLayout];
