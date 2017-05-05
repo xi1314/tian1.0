@@ -77,7 +77,7 @@ UICollectionViewDataSource>
 @property(nonatomic,strong) UITableView *listTableView;
 @property(nonatomic,strong) NSMutableArray *danmuArray;
 //聊天室
-@property(nonatomic,strong) UITableView *chatTableView;
+//@property(nonatomic,strong) UITableView *chatTableView;
 @property(nonatomic,strong) NSMutableArray *messagesArray;
 //取消关注需要的参数
 @property(nonatomic,copy) NSString *bcfocus;
@@ -195,7 +195,7 @@ UICollectionViewDataSource>
     if (btn.selected == YES)
     {
         self.giftView.hidden = NO;
-        self.giftView.frame = CGRectMake(SCREEN_WIDTH - kWidthChange(400), SCREEN_HEIGHT - fWidthChange(260)-fHeightChange(100), kWidthChange(400), kHeightChange(260));
+        self.giftView.frame = CGRectMake(SCREEN_WIDTH - 350, SCREEN_HEIGHT - 140 - 55, 340, 140);
     } else {
         self.giftView.hidden = YES;
     }
@@ -417,8 +417,8 @@ UICollectionViewDataSource>
     parements[@"uId"] =self.uesr_id;
     [[NetWorkTool sharedTool]requestMethod:POST URL:@"score_and_integral" paraments:parements finish:^(id responseObject, NSError *error) {
         NSLog(@"---scoreQuery--%@------",responseObject);
-        self.giftView.moneyLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"score"]];
-        self.giftView.coinsLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"integral"]];
+        self.giftView.moneyLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"score"]];
+        self.giftView.coinsLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"integral"]];
     }];
     
 }
@@ -433,7 +433,7 @@ UICollectionViewDataSource>
     return _renderer;
 }
 
--(UIView *)livingView
+- (UIView *)livingView
 {
     if (!_livingView)
     {
@@ -475,7 +475,6 @@ UICollectionViewDataSource>
         _bottomView = [[BottomView alloc] init];
         [_bottomView.startButton addTarget:self action:@selector(startButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_bottomView.barrageButton addTarget:self action:@selector(barrageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//        [_bottomView.sendBtn addTarget:self action:@selector(sendButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_bottomView.giftBtn addTarget:self action:@selector(giftButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         _bottomView.translatesAutoresizingMaskIntoConstraints =NO;
     }
@@ -515,7 +514,7 @@ UICollectionViewDataSource>
         _giftView = [[GiftView alloc] init];
 //        _giftView = [[GiftView alloc] initWithFrame:CGRectMake(0, 0, 260, 200)];
         _giftView.hidden = YES;
-        [_giftView bringSubviewToFront:self.chatTableView];
+//        [_giftView bringSubviewToFront:self.chatTableView];
         _giftView.giftCollectionView.delegate = self;
         _giftView.giftCollectionView.dataSource = self;
         [self scoreQueryRequest];

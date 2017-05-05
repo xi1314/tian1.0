@@ -19,8 +19,6 @@
 
 @interface ViewController ()
 
-//@property(nonatomic,strong)CustomRegistView *registView;
-
 @property(nonatomic,strong)UIImageView *logo;
 
 @property(nonatomic,strong)UIImageView *phoneImage;
@@ -110,15 +108,6 @@
     [self presentViewController:nav animated:YES completion:nil];
 
 }
-
-/*
-- (void)getAndSaveCookie
-{
-    NSData *cookiesData =[NSKeyedArchiver archivedDataWithRootObject:[[NSHTTPCookieStorage sharedHTTPCookieStorage]cookies]];
-    [[NSUserDefaults standardUserDefaults]setObject:cookiesData forKey:@"cookies"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-}
- */
 
 // 进入主页
 - (void)goToMain
@@ -352,5 +341,6 @@
 }
 
 
-
 @end
+
+

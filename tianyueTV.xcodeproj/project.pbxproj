@@ -215,6 +215,8 @@
 		CCC9F0651EA4BF5E00CA5702 /* BrandComeInView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0641EA4BF5E00CA5702 /* BrandComeInView.m */; };
 		CCC9F0681EA4BFD400CA5702 /* CarpenteroomView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0671EA4BFD400CA5702 /* CarpenteroomView.m */; };
 		CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */; };
+		CCF14FD21EBC543800D907DD /* LivingLandscapeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF14FD01EBC543800D907DD /* LivingLandscapeViewController.m */; };
+		CCF14FD31EBC543800D907DD /* LivingLandscapeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCF14FD11EBC543800D907DD /* LivingLandscapeViewController.xib */; };
 		CCF829431EB82EFE00037C5E /* HeadlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF8293E1EB82EFE00037C5E /* HeadlineViewController.m */; };
 		CCF829441EB82EFE00037C5E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF829401EB82EFE00037C5E /* HomeViewController.m */; };
 		CCF829451EB82EFE00037C5E /* SelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF829421EB82EFE00037C5E /* SelectionViewController.m */; };
@@ -665,6 +667,9 @@
 		CCC9F0671EA4BFD400CA5702 /* CarpenteroomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarpenteroomView.m; sourceTree = "<group>"; };
 		CCC9F0691EA4C11B00CA5702 /* HomeTianyueCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTianyueCategoryView.h; sourceTree = "<group>"; };
 		CCC9F06A1EA4C11B00CA5702 /* HomeTianyueCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTianyueCategoryView.m; sourceTree = "<group>"; };
+		CCF14FCF1EBC543800D907DD /* LivingLandscapeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivingLandscapeViewController.h; sourceTree = "<group>"; };
+		CCF14FD01EBC543800D907DD /* LivingLandscapeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivingLandscapeViewController.m; sourceTree = "<group>"; };
+		CCF14FD11EBC543800D907DD /* LivingLandscapeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LivingLandscapeViewController.xib; sourceTree = "<group>"; };
 		CCF8293D1EB82EFE00037C5E /* HeadlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadlineViewController.h; sourceTree = "<group>"; };
 		CCF8293E1EB82EFE00037C5E /* HeadlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadlineViewController.m; sourceTree = "<group>"; };
 		CCF8293F1EB82EFE00037C5E /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -1034,6 +1039,9 @@
 				046879661E88BDF0004A5EE3 /* LiveStreamingViewController.m */,
 				046879671E88BDF0004A5EE3 /* LIvingViewController.h */,
 				046879681E88BDF0004A5EE3 /* LIvingViewController.m */,
+				CCF14FCF1EBC543800D907DD /* LivingLandscapeViewController.h */,
+				CCF14FD01EBC543800D907DD /* LivingLandscapeViewController.m */,
+				CCF14FD11EBC543800D907DD /* LivingLandscapeViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2387,6 +2395,7 @@
 				04687AF51E88BDF0004A5EE3 /* FinalPaymentView.xib in Resources */,
 				04687B121E88BDF0004A5EE3 /* ShopDetailView.xib in Resources */,
 				04687AEB1E88BDF0004A5EE3 /* OrderManagerViewController.xib in Resources */,
+				CCF14FD31EBC543800D907DD /* LivingLandscapeViewController.xib in Resources */,
 				04687B101E88BDF0004A5EE3 /* ProductDetailVIew.xib in Resources */,
 				980822AB1E0D05B7007D9A11 /* typeData.plist in Resources */,
 				9815EE1B1EB33EB400F2B3F7 /* GoodsTableViewCell.xib in Resources */,
@@ -2726,6 +2735,7 @@
 				04687ACA1E88BDF0004A5EE3 /* WWPesonalShowViewController.m in Sources */,
 				04687AA01E88BDF0004A5EE3 /* LiveStreamingViewController.m in Sources */,
 				986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */,
+				CCF14FD21EBC543800D907DD /* LivingLandscapeViewController.m in Sources */,
 				CCF829451EB82EFE00037C5E /* SelectionViewController.m in Sources */,
 				04687B041E88BDF0004A5EE3 /* AddressTableViewCell.m in Sources */,
 				98FFCCBE1EB1C059004743B0 /* CycleCarouselView.m in Sources */,

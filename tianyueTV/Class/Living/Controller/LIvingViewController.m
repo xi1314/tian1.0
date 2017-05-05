@@ -51,6 +51,7 @@
 #import "LivingHandler.h"
 #import "GoodsModel.h"
 #import "GoodsTableViewCell.h"
+#import "LivingLandscapeViewController.h"
 
 
 @class AppDelegate;
@@ -923,8 +924,10 @@
     [self.livePlayer removeVideoWidget];
     
     
-    FullScreenLivingViewController *fullVC = [[FullScreenLivingViewController alloc] init];
-    [self presentViewController:fullVC animated:NO completion:nil];
+//    FullScreenLivingViewController *fullVC = [[FullScreenLivingViewController alloc] init];
+//    [self presentViewController:fullVC animated:NO completion:nil];
+    LivingLandscapeViewController *livingLandVC = [[LivingLandscapeViewController alloc] init];
+    [self presentViewController:livingLandVC animated:NO completion:nil];
     
     /*
     if (_isFullScreen ==NO)

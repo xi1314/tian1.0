@@ -122,7 +122,7 @@
     if (!_longLine)
     {
         _longLine =[[UIImageView alloc]init];
-        _longLine .image =[UIImage createImageWithColor:WWColor(235, 232, 232)];
+        _longLine.image =[UIImage createImageWithColor:WWColor(235, 232, 232)];
         _longLine.translatesAutoresizingMaskIntoConstraints =NO;[self addSubview:self.longLine];
     }
     return _longLine;

@@ -18,11 +18,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
+    
     self.title = @"实名认证须知";
     
-   
+    self.navigationController.navigationBar.hidden = NO;
+
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:self action:@selector(backItemClicked)];
     leftItem.image = [UIImage imageNamed:@"back_black"];
     leftItem.tintColor = [UIColor blackColor];
@@ -44,18 +44,10 @@
 }
 
 - (void)backItemClicked{
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
