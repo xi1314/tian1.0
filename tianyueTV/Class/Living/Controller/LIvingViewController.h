@@ -8,6 +8,7 @@
 
 
 #import "BaseViewController.h"
+#import "HomeModel.h"
 
 @interface LIvingViewController : BaseViewController
 
@@ -24,5 +25,8 @@
 @property(nonatomic,copy)NSString *name;
 @property(nonatomic,copy)NSString *nickName;
 @property(nonatomic,copy)NSString *headUrl;
+
+// 直播数据模型
+@property (nonatomic, strong) HomeLiveModel *liveModel;
 
 @end

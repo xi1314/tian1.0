@@ -17,7 +17,6 @@
 #import "SelectionViewController.h"
 
 
-
 @interface HomeViewController ()
 
 // 品牌入驻视图
@@ -232,6 +231,8 @@
         livingVC.name = liveM.name;
         livingVC.nickName = liveM.nickName;
         livingVC.headUrl = liveM.headUrl;
+        
+        livingVC.liveModel = liveM;
         
         livingVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:livingVC animated:YES];

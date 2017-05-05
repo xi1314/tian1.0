@@ -363,7 +363,7 @@ UICollectionViewDataSource>
     msg.senderChatID =[NSString stringWithFormat:@"%ld",(long)indexPath.row];
     // 礼物模型
     GiftModel *giftModel = [[GiftModel alloc] init];
-    giftModel.headImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@",self.headUrl]];
+    giftModel.headImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@",self.liveModel.headUrl]];
     giftModel.name = msg.senderName;
     giftModel.giftImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@",self.giftArray[0][indexPath.row]]];
     giftModel.giftName = msg.text;
@@ -380,8 +380,8 @@ UICollectionViewDataSource>
 - (void)focusOnRequest
 {
     NSMutableDictionary *paraments = [[NSMutableDictionary alloc] initWithCapacity:2];
-    paraments[@"user_id"] = self.uesr_id;
-    paraments[@"bCastId"] = self.ID;
+    paraments[@"user_id"] = self.liveModel.user_id;
+    paraments[@"bCastId"] = self.liveModel.ID;
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"focusOnBc_app" paraments:paraments finish:^(id responseObject, NSError *error) {
         NSLog(@"!~~~~%@关注~~~~%@", responseObject, error);
 
@@ -402,7 +402,7 @@ UICollectionViewDataSource>
     {
         paraments[@"id"] = self.bcfocus;
     }
-    paraments[@"bcId"] = self.ID;
+    paraments[@"bcId"] = self.liveModel.ID;
     [[NetWorkTool sharedTool] requestMethod:POST URL:@"deleteFocus_app" paraments:paraments finish:^(id responseObject, NSError *error) {
         NSLog(@"!~~~~%@取消关注~~~~%@", responseObject, error);
 
@@ -414,7 +414,7 @@ UICollectionViewDataSource>
 // 灵桃越币查询
 - (void)scoreQueryRequest {
     NSMutableDictionary *parements =[[NSMutableDictionary alloc] init];
-    parements[@"uId"] =self.uesr_id;
+    parements[@"uId"] =self.liveModel.user_id;
     [[NetWorkTool sharedTool]requestMethod:POST URL:@"score_and_integral" paraments:parements finish:^(id responseObject, NSError *error) {
         NSLog(@"---scoreQuery--%@------",responseObject);
         self.giftView.moneyLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"score"]];
@@ -457,7 +457,7 @@ UICollectionViewDataSource>
     if (!_topView)
     {
         _topView = [[TopView alloc] init];
-        _topView.onlineLabel.text =[NSString stringWithFormat:@"%@",self.onlineNum];
+        _topView.onlineLabel.text =[NSString stringWithFormat:@"%@",self.liveModel.onlineNum];
         [_topView.backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_topView.focusButton addTarget:self action:@selector(focusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_topView.shareButton addTarget:self action:@selector(shareButtonClick:) forControlEvents:UIControlEventTouchUpInside];
