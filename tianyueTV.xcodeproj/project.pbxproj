@@ -187,6 +187,7 @@
 		987842271E8F993D0084BF82 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 987842261E8F993D0084BF82 /* AddressModel.m */; };
 		987D31D41E77A2C700C3DF34 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */; };
 		989B18F01E9B6F38009C3174 /* area.json in Resources */ = {isa = PBXBuildFile; fileRef = 989B18EF1E9B6F38009C3174 /* area.json */; };
+		98A591381EC041880051EA8B /* LivingLandscapeGiftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98A591371EC041880051EA8B /* LivingLandscapeGiftView.xib */; };
 		98A8073B1E9F653500832F43 /* ShopModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A8073A1E9F653500832F43 /* ShopModel.m */; };
 		98AEA55D1EAB056900F2CB4C /* MyLivingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98AEA55C1EAB056900F2CB4C /* MyLivingView.m */; };
 		98FFCCBB1EB1998E004743B0 /* SelectionTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98FFCCBA1EB1998E004743B0 /* SelectionTopView.m */; };
@@ -618,6 +619,7 @@
 		987D31D21E77A2C700C3DF34 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		987D31D31E77A2C700C3DF34 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		989B18EF1E9B6F38009C3174 /* area.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = area.json; sourceTree = "<group>"; };
+		98A591371EC041880051EA8B /* LivingLandscapeGiftView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LivingLandscapeGiftView.xib; sourceTree = "<group>"; };
 		98A807391E9F653500832F43 /* ShopModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopModel.h; sourceTree = "<group>"; };
 		98A8073A1E9F653500832F43 /* ShopModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopModel.m; sourceTree = "<group>"; };
 		98AEA55B1EAB056900F2CB4C /* MyLivingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLivingView.h; sourceTree = "<group>"; };
@@ -1136,6 +1138,7 @@
 				0468798C1E88BDF0004A5EE3 /* TopView.m */,
 				CC4D069B1EC00F1B00196965 /* LivingLandscapeGiftView.h */,
 				CC4D069C1EC00F1B00196965 /* LivingLandscapeGiftView.m */,
+				98A591371EC041880051EA8B /* LivingLandscapeGiftView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2382,6 +2385,7 @@
 				980822A91E0D05A8007D9A11 /* cityData.plist in Resources */,
 				981FAF471EAEF6A400C63EAF /* HeadlineTableViewCell.xib in Resources */,
 				046879051E88AB83004A5EE3 /* MBProgressHUD.bundle in Resources */,
+				98A591381EC041880051EA8B /* LivingLandscapeGiftView.xib in Resources */,
 				04687B071E88BDF0004A5EE3 /* MessageTableViewCell.xib in Resources */,
 				04687B091E88BDF0004A5EE3 /* OrderTableViewCell.xib in Resources */,
 				04687AFA1E88BDF0004A5EE3 /* AddAddressViewController.xib in Resources */,
