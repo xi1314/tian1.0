@@ -175,7 +175,7 @@ UITableViewDelegate>
         ViewController *login = [[ViewController alloc] init];
         [self presentViewController:login animated:YES completion:nil];
 
-        //退出腾讯sdk
+        // 退出腾讯云通讯sdk
         [[TIMManager sharedInstance] logout:^() {
             NSLog(@"logout succ");
         } fail:^(int code, NSString * err) {

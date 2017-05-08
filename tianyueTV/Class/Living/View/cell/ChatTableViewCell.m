@@ -28,8 +28,8 @@
         [self addLayout];
 //        self.textLabel.font =[UIFont systemFontOfSize:kWidthChange(28)];
         self.textLabel.font = [UIFont systemFontOfSize:14];
-        self.selectionStyle =UITableViewCellSelectionStyleNone;
-        self.contentView.backgroundColor =WWColor(235, 235, 235);
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.contentView.backgroundColor = WWColor(235, 235, 235);
     }
     return self;
 }
@@ -46,6 +46,7 @@
     }
     return _chatLabel;
 }
+
 -(void)addLayout
 {
     [self.chatLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:kHeightChange(2)];
@@ -53,4 +54,5 @@
     [self.chatLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kHeightChange(2)];
     [self.chatLabel autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:kWidthChange(2)];
 }
+
 @end

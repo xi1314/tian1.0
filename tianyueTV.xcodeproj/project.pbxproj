@@ -212,6 +212,7 @@
 		CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */; };
 		CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47BC591E9B869E006B1EA2 /* TianyueTools.m */; };
 		CC4D069D1EC00F1B00196965 /* LivingLandscapeGiftView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D069C1EC00F1B00196965 /* LivingLandscapeGiftView.m */; };
+		CC4D06A01EC06AB800196965 /* ChatImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D069F1EC06AB800196965 /* ChatImageTableViewCell.m */; };
 		CC7ECC9A1EBAFD0E0032AD9E /* LoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7ECC991EBAFD0E0032AD9E /* LoginHandler.m */; };
 		CC7ECC9D1EBB00A60032AD9E /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7ECC9C1EBB00A60032AD9E /* LoginModel.m */; };
 		CCC9F0651EA4BF5E00CA5702 /* BrandComeInView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0641EA4BF5E00CA5702 /* BrandComeInView.m */; };
@@ -662,6 +663,8 @@
 		CC47BC591E9B869E006B1EA2 /* TianyueTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TianyueTools.m; sourceTree = "<group>"; };
 		CC4D069B1EC00F1B00196965 /* LivingLandscapeGiftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivingLandscapeGiftView.h; sourceTree = "<group>"; };
 		CC4D069C1EC00F1B00196965 /* LivingLandscapeGiftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivingLandscapeGiftView.m; sourceTree = "<group>"; };
+		CC4D069E1EC06AB800196965 /* ChatImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatImageTableViewCell.h; sourceTree = "<group>"; };
+		CC4D069F1EC06AB800196965 /* ChatImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatImageTableViewCell.m; sourceTree = "<group>"; };
 		CC7ECC981EBAFD0E0032AD9E /* LoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginHandler.h; path = tianyueTV/Class/Mine/mine/View/LoginHandler.h; sourceTree = SOURCE_ROOT; };
 		CC7ECC991EBAFD0E0032AD9E /* LoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginHandler.m; path = tianyueTV/Class/Mine/mine/View/LoginHandler.m; sourceTree = SOURCE_ROOT; };
 		CC7ECC9B1EBB00A60032AD9E /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginModel.h; path = tianyueTV/Class/Mine/mine/View/LoginModel.h; sourceTree = SOURCE_ROOT; };
@@ -1113,6 +1116,8 @@
 				9815EE171EB33EB400F2B3F7 /* GoodsTableViewCell.h */,
 				9815EE181EB33EB400F2B3F7 /* GoodsTableViewCell.m */,
 				9815EE191EB33EB400F2B3F7 /* GoodsTableViewCell.xib */,
+				CC4D069E1EC06AB800196965 /* ChatImageTableViewCell.h */,
+				CC4D069F1EC06AB800196965 /* ChatImageTableViewCell.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2760,6 +2765,7 @@
 				04687B0A1E88BDF0004A5EE3 /* BuyCountView.m in Sources */,
 				04687AC51E88BDF0004A5EE3 /* WWBianjiView.m in Sources */,
 				04687B011E88BDF0004A5EE3 /* WaitingOrderViewController.m in Sources */,
+				CC4D06A01EC06AB800196965 /* ChatImageTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,6 @@
 
 @interface ChatTableViewCell : UITableViewCell
 
-@property(nonatomic,strong)UILabel *chatLabel;
+@property (nonatomic, strong) UILabel *chatLabel;
 
 @end

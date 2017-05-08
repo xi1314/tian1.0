@@ -53,6 +53,7 @@
 #import "GoodsTableViewCell.h"
 #import "LivingLandscapeViewController.h"
 #import "LoginModel.h"
+#import "ChatImageTableViewCell.h"
 
 
 @class AppDelegate;
@@ -111,6 +112,9 @@
 // 商品数组
 @property (nonatomic, strong) NSArray *goodsDataArr;
 
+// 选中的礼物图片名称
+@property (nonatomic, copy) NSString *giftSelectdStr;
+
 @end
 
 @implementation LIvingViewController
@@ -119,7 +123,9 @@
     [super viewDidLoad];
     
     self.groupID = @"@TGS#3MZOSFMED";
-    [self joinChatRoom];
+    
+    // 先退出聊天室再进入
+    [self quitChatRoom];
     
     _isFullScreen =NO;
     _isClear =NO;
@@ -481,7 +487,7 @@
     return _textFieldView;
 }
 
--(GiftView *)giftView
+- (GiftView *)giftView
 {
     if (!_giftView)
     {
@@ -495,22 +501,26 @@
     }
     return _giftView;
 }
+
+
 #pragma mark  ----灵桃和越币的查询
--(void)scoreQueryRequest
+- (void)scoreQueryRequest
 {
 //    NSString *url =@"http://192.168.0.88:8080/score_and_integral";
     //NSString *url =@"http://www.tianyue.tv/score_and_integral";
-    NSMutableDictionary *parements =[[NSMutableDictionary alloc]init];
-    parements[@"uId"] =self.uesr_id;
+    NSMutableDictionary *parements = [[NSMutableDictionary alloc]init];
+    parements[@"uId"] = self.uesr_id;
     [[NetWorkTool sharedTool]requestMethod:POST URL:@"score_and_integral" paraments:parements finish:^(id responseObject, NSError *error) {
         NSLog(@"---scoreQuery--%@------",responseObject);
-        self.giftView.moneyLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"score"]];
-        self.giftView.coinsLabel.text =[NSString stringWithFormat:@"%@",responseObject[@"integral"]];
+        self.giftView.moneyLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"score"]];
+        self.giftView.coinsLabel.text = [NSString stringWithFormat:@"%@",responseObject[@"integral"]];
     }];
     
 }
+
+
 //灵桃送礼
--(void)integralRequest
+- (void)integralRequest
 {
 //    NSString *url =@"http://192.168.0.88:8080/modifyIntegral_app";
     NSMutableDictionary *parements =[[NSMutableDictionary alloc]init];
@@ -522,12 +532,11 @@
       
         NSLog(@"---integralRequest--%@------",responseObject);
 
-        
     }];
 }
 
-//越币送礼
--(void)scoreRequest
+// 越币送礼
+- (void)scoreRequest
 {
 //    NSString *url =@"http://192.168.0.88:8080/modifyScore_app";
     NSMutableDictionary *parements =[[NSMutableDictionary alloc]init];
@@ -541,7 +550,7 @@
 }
 
 #pragma mark  ------竖屏下的布局
--(void)addLayout
+- (void)addLayout
 {
     [self.livingView autoPinEdgeToSuperviewEdge:ALEdgeTop];
     [self.livingView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
@@ -666,10 +675,10 @@
 {
     if (!_giftArray)
     {
-        NSArray *giftPic =[[NSArray alloc]initWithObjects:@"桃子-01-1",@"咖啡-1",@"鼓掌-1", nil];
-        NSArray *giftName =[[NSArray alloc]initWithObjects:@"灵桃",@"咖啡",@"鼓掌", nil];
-        NSArray *giftPrice =[[NSArray alloc]initWithObjects:@"10越币",@"10越币",@"10越币", nil];
-        _giftArray =[[NSMutableArray alloc]initWithObjects:giftPic,giftName,giftPrice, nil];
+        NSArray *giftPic = [[NSArray alloc] initWithObjects:@"桃子-01-1",@"咖啡-1",@"鼓掌-1", nil];
+        NSArray *giftName = [[NSArray alloc] initWithObjects:@"灵桃",@"咖啡",@"鼓掌", nil];
+        NSArray *giftPrice = [[NSArray alloc] initWithObjects:@"10越币",@"10越币",@"10越币", nil];
+        _giftArray = [[NSMutableArray alloc] initWithObjects:giftPic, giftName, giftPrice, nil];
     }
     return _giftArray;
 }
@@ -694,84 +703,62 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GSPChatMessage *msg =[[GSPChatMessage alloc]init];
-    msg.text =[NSString stringWithFormat:@" 赠送主播 %@",self.giftArray[1][indexPath.row]];
-    msg.senderChatID =[NSString stringWithFormat:@"%ld",(long)indexPath.row];
+    /*
+    GSPChatMessage *msg = [[GSPChatMessage alloc] init];
+    msg.text = [NSString stringWithFormat:@" 赠送主播 %@", self.giftArray[1][indexPath.row]];
+    msg.senderChatID = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     // 礼物模型
     GiftModel *giftModel = [[GiftModel alloc] init];
-    giftModel.headImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@",self.headUrl]];
+    giftModel.headImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@", self.headUrl]];
     giftModel.name = msg.senderName;
-    giftModel.giftImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@",self.giftArray[0][indexPath.row]]];
+    giftModel.giftImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@", self.giftArray[0][indexPath.row]]];
     giftModel.giftName = msg.text;
     giftModel.giftCount = 1;
  
-    [self.giftManager animWithUserID:[NSString stringWithFormat:@"%@",msg.senderChatID] model:giftModel finishedBlock:^(BOOL result) {
+    [self.giftManager animWithUserID:[NSString stringWithFormat:@"%@", msg.senderChatID] model:giftModel finishedBlock:^(BOOL result) {
     
     }];
-
+     */
+    
+    /*NSArray *giftPic = [[NSArray alloc] initWithObjects:@"桃子-01-1",@"咖啡-1",@"鼓掌-1", nil];
+     NSArray *giftName = [[NSArray alloc] initWithObjects:@"灵桃",@"咖啡",@"鼓掌", nil];
+     NSArray *giftPrice = [[NSArray alloc] initWithObjects:@"10越币",@"10越币",@"10越币", nil];
+     _giftArray = [[NSMutableArray alloc] initWithObjects:giftPic, giftName, giftPrice, nil];*/
+    
+    // 取出图片数组
+    NSArray *giftPic = self.giftArray[0];
+    // 保存选择的图片名称
+    self.giftSelectdStr = giftPic[indexPath.row];
+    // 发送消息（带图片名称）
+    [self sendMassage:2];
 }
 
 #pragma mark - 聊天室
 // 加入群聊聊天室
 - (void)joinChatRoom {
-    
-//    self.userSig = @"eJxtz11PgzAUgOH-0luNaUu7MZNdwAIGbcPGdHO7aZpRluPkY1CRZfG-iwTjjbfvc05OzhU9i-WdripIlbbKqVN0jwjDGFPGOUe3g5uugtoonVlT-3gvtB8ZtTV1A2XRA8WEE*pg-IeQmsJCBsOiNY0dewPHPshgtYh8AZ5OQvEalJ86cbQ*zVi7ifAuXuRhst*SNRydaVfE55kHnt-FUbGH90Dszn4oJbw88di9LHP5lsh2a7LlzQQ-iGbzuJrPf4*lJzX8*N9zFnIzdHcyJZS5bOz6cCg-CqvspRocM0bQ1zeeuVlk";
-//    self.userIdentifiler = @"test";
-    
-    LoginModel *loM = [self gainObjectFromUsersDefaults:@"loginSuccess"];
-    
-    self.userIdentifiler = [NSString stringWithFormat:@"ty%@", loM.ID];
-    self.userSig = loM.userSig;
-    
-    TIMLoginParam * login_param = [[TIMLoginParam alloc ] init];
-    // accountType 和 sdkAppId 通讯云管理平台分配
-    // identifier为用户名，userSig 为用户登录凭证
-    // appidAt3rd 在私有帐号情况下，填写与sdkAppId 一样
-    login_param.accountType = @"10441";
-    login_param.identifier = self.userIdentifiler;
-    login_param.userSig = self.userSig;
-    login_param.appidAt3rd = @"1400024555";
-    login_param.sdkAppId = 1400024555;
-    
-    TIMManager *manager = [TIMManager sharedInstance];
-    [manager initSdk:[@"1400024555" intValue] accountType:@"10441"];
-    
-    //    NSLog(@"----------userSig   %@", login_param.userSig);
-    [manager login:login_param succ:^(){
-        NSLog(@"Login Succsss");
-        [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
-            NSLog(@"加入成功");
-        } fail:^(int code, NSString *msg) {
-            NSLog(@"加入失败%d---%@",code,msg);
-            //[MBProgressHUD showError:msg];
-        }];
-    } fail:^(int code, NSString * err) {
-        NSLog(@"Login Failed: %d->%@", code, err);
-        [USER_Defaults setBool:NO forKey:@"IM_Login"];
-        [USER_Defaults synchronize];
+
+    [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
+        NSLog(@"加入成功");
+    } fail:^(int code, NSString *msg) {
+        NSLog(@"加入失败%d---%@",code,msg);
+        //[MBProgressHUD showError:msg];
     }];
-    
-    
-    /*
-    if ([USER_Defaults boolForKey:@"IM_Login"]) {
-        [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
-//            [MBProgressHUD showSuccess:@"加入成功"];
-            NSLog(@"加入成功");
-        } fail:^(int code, NSString *msg) {
-            NSLog(@"加入失败%d---%@",code,msg);
-//            [MBProgressHUD showError:msg];
-        }];
-    } else {
-        [MBProgressHUD showError:@"sdk登录失败"];
-    }*/
+
 }
 
-//退出群聊聊天室
+// 退出群聊聊天室
 - (void)quitChatRoom {
+    
+    @weakify(self);
     [[TIMGroupManager sharedInstance] QuitGroup:self.groupID succ:^() {
-        NSLog(@"quit succ");
+        @strongify(self);
+        
+        [self joinChatRoom];
+        
     } fail:^(int code, NSString* err) {
-        NSLog(@"failed code: %d %@", code, err);
+        @strongify(self);
+        
+        [self joinChatRoom];
     }];
 }
 
@@ -781,69 +768,95 @@
     if (self.textFieldView.textField.text.length >0)
     {
         _index +=1;
-        [self sendMassage];
+        [self sendMassage:1];
     }
     [self.view endEditing:YES];
 }
 
-//消息发送
-//普通消息：消息类型+昵称+时分秒+消息
-//礼物消息：消息类型+昵称+时分秒+礼物类型+礼物数量
-//1.普通，2礼物
-- (void)sendMassage {
+// 消息发送
+// 普通消息：消息类型+昵称+时分秒+消息
+// 礼物消息：消息类型+昵称+时分秒+礼物类型+礼物数量
+// 1.普通，2礼物
+- (void)sendMassage:(int)type {
     NSDate *currentDate = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm:ss"];
     NSString *dateString = [dateFormatter stringFromDate:currentDate];
-    
-    TIMTextElem *text_elem = [[TIMTextElem alloc] init];
-    if (_isFullScreen) {
-        //横屏
-        [text_elem setText:self.bottomView.textField.text];
-    } else {
-        [text_elem setText:self.textFieldView.textField.text];
-    }
-    
+
     TIMTextElem *name_elem = [[TIMTextElem alloc] init];
     [name_elem setText:USER_NICK];
-    TIMTextElem *type_elem = [[TIMTextElem alloc] init];
-    [type_elem setText:@"1"];
+    
     TIMTextElem *time_elem = [[TIMTextElem alloc] init];
     [time_elem setText:dateString];
     
+    TIMTextElem *text_elem = [[TIMTextElem alloc] init];
+    
+    if (type == 1) { // 文字
+        if (_isFullScreen) {
+            //横屏
+            [text_elem setText:self.bottomView.textField.text];
+        } else {
+            [text_elem setText:self.textFieldView.textField.text];
+        }
+    }else { // 图片
+        [text_elem setText:self.giftSelectdStr];
+    }
+
+    TIMTextElem *type_elem = [[TIMTextElem alloc] init];
+    [type_elem setText:[NSString stringWithFormat:@"%d", type]];
+    
     TIMMessage *msg = [[TIMMessage alloc] init];
-    [msg addElem:type_elem];
     [msg addElem:name_elem];
     [msg addElem:time_elem];
     [msg addElem:text_elem];
+    [msg addElem:type_elem];
     
-    __weak typeof(self)weakSelf =self;
+    @weakify(self);
     [self.grp_conversation sendMessage:msg succ:^(){
-        self.textFieldView.textField.text =@"";
+        
+        @strongify(self);
+        
+        self.textFieldView.textField.text = @"";
+        
         NSLog(@"SendMsg Succ");
         //发送成功，加入消息数组
         //处理接收消息
         TIMMessage * message = msg;
-        TIMTextElem *name = (TIMTextElem *)[message getElem:1];
-        TIMTextElem *text = (TIMTextElem *)[message getElem:3];
-        NSString *msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@":%@",text.text]];
-        [weakSelf.messagesArray addObject:msgStr];
+        TIMTextElem *name = (TIMTextElem *)[message getElem:0];
+        TIMTextElem *text = (TIMTextElem *)[message getElem:2];
+        
+        NSString *msgStr = @"";
+        
+        if (type == 1) { // 文字拼接
+            
+            msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@": %@", text.text]];
+
+        }else { // 图片拼接
+            
+            msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@",%@", text.text]];
+    
+        }
+        
+        NSDictionary *dict = @{@"msgStr" : msgStr,
+                               @"textType" : [NSString stringWithFormat:@"%d", type]};
+        [self.messagesArray addObject:dict];
+        
         //发送弹幕
 //        [weakSelf sendBarrage];
         //处理横屏的情况
         if (_isFullScreen) {
             self.bottomView.textField.text = @"";
-            [weakSelf sendBarrage];
-            _index +=1;
+            [self sendBarrage];
+            _index += 1;
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (weakSelf.messagesArray.count >50)
-            {
-                [weakSelf.messagesArray removeObjectAtIndex:0];
-            }
-            [weakSelf.chatTableView reloadData];
-            [weakSelf.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:weakSelf.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        });
+
+        if (self.messagesArray.count > 50)
+        {
+            [self.messagesArray removeObjectAtIndex:0];
+        }
+        [self.chatTableView reloadData];
+        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        
     }fail:^(int code, NSString * err) {
         NSLog(@"SendMsg Failed:%d->%@", code, err);
     }];
@@ -852,19 +865,39 @@
 
 #pragma mark ---- 收到消息处理------
 //收到消息
-- (void)onNewMessage:(NSArray *)msgs{
-    for (NSInteger i =0; i<msgs.count; i++) {
+- (void)onNewMessage:(NSArray *)msgs {
+    for (NSInteger i = 0; i < msgs.count; i++) {
 //        TIMMessage *lastMsg =msgs[i];
         TIMMessage * message = msgs[i];
-        TIMTextElem *name = (TIMTextElem *)[message getElem:1];
-        TIMTextElem *text = (TIMTextElem *)[message getElem:3];
-        NSString *msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@":%@",text.text]];
-        [self.messagesArray addObject:msgStr];
-        _index += 1;
-        //横屏状态发送弹幕
-        if (_isFullScreen) {
-            [self sendBarrage];
+        TIMTextElem *name = (TIMTextElem *)[message getElem:0];
+        TIMTextElem *text = (TIMTextElem *)[message getElem:2];
+        TIMTextElem *type = (TIMTextElem *)[message getElem:3];
+        
+        NSString *msgStr = @"";
+        
+        NSLog(@"type.text :%@", type.text);
+        if ([type.text intValue] != 0) {
+            if ([type.text intValue] == 1) { // 文字拼接
+                NSLog(@"text.text :%@", text.text);
+                msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@": %@", text.text]];
+                
+            }else if ([type.text intValue] == 2) { // 图片拼接
+                NSLog(@"text.text :%@", text.text);
+                msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@",%@", text.text]];
+                
+            }
+            
+            NSDictionary *dict = @{@"msgStr" : msgStr,
+                                   @"textType" : type.text};
+            
+            [self.messagesArray addObject:dict];
+            _index += 1;
+            //横屏状态发送弹幕
+            if (_isFullScreen) {
+                [self sendBarrage];
+            }
         }
+        
     }
     [self.chatTableView reloadData];
     NSLog(@"-----收到的消息 %@",msgs);
@@ -894,30 +927,46 @@
         [cell configCellWithModel:detailM];
         
         return cell;
+    }else {
+        
+        NSDictionary *dict = self.messagesArray[indexPath.row];
+        if ([dict[@"textType"] intValue] == 1) { // 文字
+            
+            static NSString *cellID =@"chatCell";
+            ChatTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellID];
+            if (!cell)
+            {
+                cell =[[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            }
+
+            cell.textLabel.text =[NSString stringWithFormat:@"%@", dict[@"msgStr"]];
+            
+            return cell;
+            
+        }else {  // 图片
+            
+            static NSString *cellID = @"ChatImageTableViewCell";
+            ChatImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            if (!cell)
+            {
+                cell = [[ChatImageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            }
+            
+            [cell configureCell:dict[@"msgStr"]];
+            
+            return cell;
+
+        }
     }
     
-    static NSString *cellID =@"chatCell";
-    ChatTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellID];
-    if (!cell)
-    {
-        cell =[[ChatTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-    }
-    if (indexPath.row <= 49) {
-        cell.textLabel.text =[NSString stringWithFormat:@"%@",self.messagesArray[indexPath.row]];
-    }
-    if (indexPath.row > 49)
-    {
-        cell.textLabel.text =[NSString stringWithFormat:@"%@",self.messagesArray[49]];
-    }
-    
-    return cell;
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.listTableView) {
         return 100;
     }
-    return 44;
+    return 40;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -1280,9 +1329,9 @@
 //横屏发送按钮点击方法
 - (void)sendButtonClick:(UIButton *)btn
 {
-    if (self.bottomView.textField.text.length >0)
+    if (self.bottomView.textField.text.length > 0)
     {
-        [self sendMassage];
+//        [self sendMassage];
     }
     [self.view endEditing:YES];
 }
@@ -1318,7 +1367,7 @@
     descriptor.params[@"textColor"] = [UIColor whiteColor];
     descriptor.params[@"speed"] = @(100 * (double)random()/RAND_MAX+50);
     descriptor.params[@"direction"] = @(direction);
-    descriptor.params[@"side"] =@(side);
+    descriptor.params[@"side"] = @(side);
     return descriptor;
 }
 
@@ -1401,11 +1450,17 @@
 }
 
 //返回按钮
--(void)backBtnClick:(id)sender
+- (void)backBtnClick:(id)sender
 {
 //    [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popViewControllerAnimated:YES];
-    [self quitChatRoom];
+    
+    // 退出聊天室
+    [[TIMGroupManager sharedInstance] QuitGroup:self.groupID succ:^() {
+   
+    } fail:^(int code, NSString* err) {
+
+    }];
     
     // 停止播放
     [self.livePlayer stopPlay];

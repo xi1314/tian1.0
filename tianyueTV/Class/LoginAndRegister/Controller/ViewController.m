@@ -15,6 +15,7 @@
 #import "TabbarViewController.h"
 #import "LoginHandler.h"
 #import "AppDelegate.h"
+#import <ImSDK/ImSDK.h>
 
 
 @interface ViewController ()
@@ -53,6 +54,20 @@
     [self addLayout];
 }
 
+// 登录按钮绑定方法
+- (void)loginBtnClcik:(UIButton *)loginButton
+{
+    if (self.phoneTextField.text.length == 0 || self.passwordTextField.text.length == 0)
+    {
+        [MBProgressHUD showError:@"账号或密码不能为空"];
+    }else
+    {
+        [self.view endEditing:YES];
+        [self loginRequest];
+    }
+}
+
+
 - (void)loginRequest
 {
     [MBProgressHUD showMessage:nil];
@@ -69,29 +84,56 @@
                                      [self saveObjectToUsersDefaults:self.phoneTextField.text andKey:@"userName"];
                                      [self saveObjectToUsersDefaults:self.passwordTextField.text andKey:@"password"];
                                      
+                                     // 登录腾讯云通讯sdk
+                                     [self loginIMSDk:loginM];
+                                     
                                      // 进入主页
                                      [self goToMain];
                                      
                                  }else {
                                      [MBProgressHUD showError:@"账号或密码错误"];
                                  }
-
+                                 
                              }];
-
+    
 }
 
-// 登录按钮绑定方法
-- (void)loginBtnClcik:(UIButton *)loginButton
-{
-    if (self.phoneTextField.text.length == 0 || self.passwordTextField.text.length == 0)
-    {
-        [MBProgressHUD showError:@"账号或密码不能为空"];
-    }else
-    {
-        [self.view endEditing:YES];
-        [self loginRequest];
-    }
+
+// 登录腾讯云通讯sdk
+- (void)loginIMSDk:(LoginModel *)loginModel {
+    
+    //     self.userSig = @"eJxtz11PgzAUgOH-0luNaUu7MZNdwAIGbcPGdHO7aZpRluPkY1CRZfG-iwTjjbfvc05OzhU9i-WdripIlbbKqVN0jwjDGFPGOUe3g5uugtoonVlT-3gvtB8ZtTV1A2XRA8WEE*pg-IeQmsJCBsOiNY0dewPHPshgtYh8AZ5OQvEalJ86cbQ*zVi7ifAuXuRhst*SNRydaVfE55kHnt-FUbGH90Dszn4oJbw88di9LHP5lsh2a7LlzQQ-iGbzuJrPf4*lJzX8*N9zFnIzdHcyJZS5bOz6cCg-CqvspRocM0bQ1zeeuVlk";
+    //     self.userIdentifiler = @"test";
+    NSString *userIdentify = [NSString stringWithFormat:@"ty%@", loginModel.ID];
+    NSString *userSig = loginModel.userSig;
+    
+    TIMLoginParam * login_param = [[TIMLoginParam alloc ] init];
+    // accountType 和 sdkAppId 通讯云管理平台分配
+    // identifier为用户名，userSig 为用户登录凭证
+    // appidAt3rd 在私有帐号情况下，填写与sdkAppId 一样
+    login_param.accountType = @"10441";
+    login_param.identifier = userIdentify;
+    login_param.userSig = userSig;
+    login_param.appidAt3rd = @"1400024555";
+    login_param.sdkAppId = 1400024555;
+    
+    TIMManager *manager = [TIMManager sharedInstance];
+    [manager initSdk:[@"1400024555" intValue] accountType:@"10441"];
+    
+    //    NSLog(@"----------userSig   %@", login_param.userSig);
+
+    [manager login:login_param succ:^(){
+
+        NSLog(@"Login Succsss");
+
+    } fail:^(int code, NSString * err) {
+        
+        NSLog(@"Login Failed: %d->%@", code, err);
+        
+    }];
+    
 }
+
 
 // 自动登录
 - (void)leftBtnClick:(UIButton *)btn
