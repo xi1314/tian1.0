@@ -331,11 +331,11 @@
 // 在首页初始化腾讯SDk，并登录
 // 登录腾讯sdk
 - (void)loginIMSDk {
-   
-//    self.userSig = @"eJxtz11PgzAUgOH-0luNaUu7MZNdwAIGbcPGdHO7aZpRluPkY1CRZfG-iwTjjbfvc05OzhU9i-WdripIlbbKqVN0jwjDGFPGOUe3g5uugtoonVlT-3gvtB8ZtTV1A2XRA8WEE*pg-IeQmsJCBsOiNY0dewPHPshgtYh8AZ5OQvEalJ86cbQ*zVi7ifAuXuRhst*SNRydaVfE55kHnt-FUbGH90Dszn4oJbw88di9LHP5lsh2a7LlzQQ-iGbzuJrPf4*lJzX8*N9zFnIzdHcyJZS5bOz6cCg-CqvspRocM0bQ1zeeuVlk";
+   /*
+    self.userSig = @"eJxtz11PgzAUgOH-0luNaUu7MZNdwAIGbcPGdHO7aZpRluPkY1CRZfG-iwTjjbfvc05OzhU9i-WdripIlbbKqVN0jwjDGFPGOUe3g5uugtoonVlT-3gvtB8ZtTV1A2XRA8WEE*pg-IeQmsJCBsOiNY0dewPHPshgtYh8AZ5OQvEalJ86cbQ*zVi7ifAuXuRhst*SNRydaVfE55kHnt-FUbGH90Dszn4oJbw88di9LHP5lsh2a7LlzQQ-iGbzuJrPf4*lJzX8*N9zFnIzdHcyJZS5bOz6cCg-CqvspRocM0bQ1zeeuVlk";
     self.userIdentifiler = @"test";
-    self.userSig = self.loginModel.userSig;
-//    self.userIdentifiler = self.loginModel.userName;
+//    self.userIdentifiler = [NSString stringWithFormat:@"tv%@", self.loginModel.ID];
+//    self.userSig = self.loginModel.userSig;
     
     TIMLoginParam * login_param = [[TIMLoginParam alloc ] init];
     // accountType 和 sdkAppId 通讯云管理平台分配
@@ -360,6 +360,7 @@
         [USER_Defaults setBool:NO forKey:@"IM_Login"];
         [USER_Defaults synchronize];
     }];
+    */
 }
 
 

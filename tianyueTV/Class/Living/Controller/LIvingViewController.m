@@ -52,6 +52,7 @@
 #import "GoodsModel.h"
 #import "GoodsTableViewCell.h"
 #import "LivingLandscapeViewController.h"
+#import "LoginModel.h"
 
 
 @class AppDelegate;
@@ -283,30 +284,6 @@
     [_activityIndicatorView stopAnimating];
     
     self.activityIndicatorView = _activityIndicatorView;
-}
-
-//创建播放器
--(void)setUpPlayer
-{
-//    if (self.player.status != PLPlayerStatusError)
-//    {
-//        // add player view
-//        UIView *playerView = self.player.playerView;
-//        playerView.frame =self.livingView.bounds;
-//        if ([self.isPushPOM isEqualToString:@"1"])
-//        {
-//            playerView.autoresizingMask =              UIViewAutoresizingFlexibleWidth
-//            | UIViewAutoresizingFlexibleHeight;
-//            playerView.contentMode = UIViewContentModeScaleAspectFit;
-//        }else
-//        {
-//            playerView.autoresizingMask =              UIViewAutoresizingFlexibleWidth
-//            | UIViewAutoresizingFlexibleHeight;
-//        }
-//        [self.view addSubview:playerView];
-//        //把播放器放在父视图的最底下
-//        [self.livingView insertSubview:playerView atIndex:0];
-//    }
 }
 
 
@@ -735,24 +712,64 @@
 }
 
 #pragma mark - 聊天室
-//加入群聊聊天室
+// 加入群聊聊天室
 - (void)joinChatRoom {
+    
+//    self.userSig = @"eJxtz11PgzAUgOH-0luNaUu7MZNdwAIGbcPGdHO7aZpRluPkY1CRZfG-iwTjjbfvc05OzhU9i-WdripIlbbKqVN0jwjDGFPGOUe3g5uugtoonVlT-3gvtB8ZtTV1A2XRA8WEE*pg-IeQmsJCBsOiNY0dewPHPshgtYh8AZ5OQvEalJ86cbQ*zVi7ifAuXuRhst*SNRydaVfE55kHnt-FUbGH90Dszn4oJbw88di9LHP5lsh2a7LlzQQ-iGbzuJrPf4*lJzX8*N9zFnIzdHcyJZS5bOz6cCg-CqvspRocM0bQ1zeeuVlk";
+//    self.userIdentifiler = @"test";
+    
+    LoginModel *loM = [self gainObjectFromUsersDefaults:@"loginSuccess"];
+    
+    self.userIdentifiler = [NSString stringWithFormat:@"ty%@", loM.ID];
+    self.userSig = loM.userSig;
+    
+    TIMLoginParam * login_param = [[TIMLoginParam alloc ] init];
+    // accountType 和 sdkAppId 通讯云管理平台分配
+    // identifier为用户名，userSig 为用户登录凭证
+    // appidAt3rd 在私有帐号情况下，填写与sdkAppId 一样
+    login_param.accountType = @"10441";
+    login_param.identifier = self.userIdentifiler;
+    login_param.userSig = self.userSig;
+    login_param.appidAt3rd = @"1400024555";
+    login_param.sdkAppId = 1400024555;
+    
+    TIMManager *manager = [TIMManager sharedInstance];
+    [manager initSdk:[@"1400024555" intValue] accountType:@"10441"];
+    
+    //    NSLog(@"----------userSig   %@", login_param.userSig);
+    [manager login:login_param succ:^(){
+        NSLog(@"Login Succsss");
+        [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
+            NSLog(@"加入成功");
+        } fail:^(int code, NSString *msg) {
+            NSLog(@"加入失败%d---%@",code,msg);
+            //[MBProgressHUD showError:msg];
+        }];
+    } fail:^(int code, NSString * err) {
+        NSLog(@"Login Failed: %d->%@", code, err);
+        [USER_Defaults setBool:NO forKey:@"IM_Login"];
+        [USER_Defaults synchronize];
+    }];
+    
+    
+    /*
     if ([USER_Defaults boolForKey:@"IM_Login"]) {
         [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
-            [MBProgressHUD showSuccess:@"加入成功"];
+//            [MBProgressHUD showSuccess:@"加入成功"];
+            NSLog(@"加入成功");
         } fail:^(int code, NSString *msg) {
             NSLog(@"加入失败%d---%@",code,msg);
 //            [MBProgressHUD showError:msg];
         }];
     } else {
         [MBProgressHUD showError:@"sdk登录失败"];
-    }
+    }*/
 }
 
 //退出群聊聊天室
 - (void)quitChatRoom {
     [[TIMGroupManager sharedInstance] QuitGroup:self.groupID succ:^() {
-        NSLog(@"succ");
+        NSLog(@"quit succ");
     } fail:^(int code, NSString* err) {
         NSLog(@"failed code: %d %@", code, err);
     }];
