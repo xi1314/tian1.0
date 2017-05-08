@@ -151,7 +151,6 @@ UICollectionViewDataSource>
 // 开始播放
 - (void)startPlayer
 {
-    
     //当设备在一定时间内没有触摸动作，iOS会锁屏，设置属性让他不会锁屏
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     

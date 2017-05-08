@@ -210,6 +210,7 @@
 		CC47BC561E9B867E006B1EA2 /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */; };
 		CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */; };
 		CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47BC591E9B869E006B1EA2 /* TianyueTools.m */; };
+		CC4D069D1EC00F1B00196965 /* LivingLandscapeGiftView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4D069C1EC00F1B00196965 /* LivingLandscapeGiftView.m */; };
 		CC7ECC9A1EBAFD0E0032AD9E /* LoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7ECC991EBAFD0E0032AD9E /* LoginHandler.m */; };
 		CC7ECC9D1EBB00A60032AD9E /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7ECC9C1EBB00A60032AD9E /* LoginModel.m */; };
 		CCC9F0651EA4BF5E00CA5702 /* BrandComeInView.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F0641EA4BF5E00CA5702 /* BrandComeInView.m */; };
@@ -657,6 +658,8 @@
 		CC47BC551E9B867E006B1EA2 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		CC47BC581E9B869E006B1EA2 /* TianyueTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TianyueTools.h; sourceTree = "<group>"; };
 		CC47BC591E9B869E006B1EA2 /* TianyueTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TianyueTools.m; sourceTree = "<group>"; };
+		CC4D069B1EC00F1B00196965 /* LivingLandscapeGiftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivingLandscapeGiftView.h; sourceTree = "<group>"; };
+		CC4D069C1EC00F1B00196965 /* LivingLandscapeGiftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivingLandscapeGiftView.m; sourceTree = "<group>"; };
 		CC7ECC981EBAFD0E0032AD9E /* LoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginHandler.h; path = tianyueTV/Class/Mine/mine/View/LoginHandler.h; sourceTree = SOURCE_ROOT; };
 		CC7ECC991EBAFD0E0032AD9E /* LoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginHandler.m; path = tianyueTV/Class/Mine/mine/View/LoginHandler.m; sourceTree = SOURCE_ROOT; };
 		CC7ECC9B1EBB00A60032AD9E /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginModel.h; path = tianyueTV/Class/Mine/mine/View/LoginModel.h; sourceTree = SOURCE_ROOT; };
@@ -1131,6 +1134,8 @@
 				0468798A1E88BDF0004A5EE3 /* TextFieldView.m */,
 				0468798B1E88BDF0004A5EE3 /* TopView.h */,
 				0468798C1E88BDF0004A5EE3 /* TopView.m */,
+				CC4D069B1EC00F1B00196965 /* LivingLandscapeGiftView.h */,
+				CC4D069C1EC00F1B00196965 /* LivingLandscapeGiftView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2326,7 +2331,7 @@
 				TargetAttributes = {
 					FF0110BD1DAB26D6003146A7 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 3472FPLT8A;
+						DevelopmentTeam = N7TM7PU479;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -2650,6 +2655,7 @@
 				04832EF41E8E36F70080A06C /* FinalPaymentView.m in Sources */,
 				04687AE21E88BDF0004A5EE3 /* WWMineFirstViewController.m in Sources */,
 				CC2E466B1EB9E954004D615C /* CacheDataToLocate.m in Sources */,
+				CC4D069D1EC00F1B00196965 /* LivingLandscapeGiftView.m in Sources */,
 				04687AB41E88BDF0004A5EE3 /* loginViewController.m in Sources */,
 				9875DD6C1EB08F55004C6A76 /* SearchViewController.m in Sources */,
 				04687A981E88BDF0004A5EE3 /* BasicButton.m in Sources */,
@@ -2906,7 +2912,7 @@
 				CODE_SIGN_ENTITLEMENTS = tianyueTV/tianyueTV.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing Zhishu Network Technology Co., Ltd. (3472FPLT8A)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 3472FPLT8A;
+				DEVELOPMENT_TEAM = N7TM7PU479;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3008,10 +3014,10 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhangwen.tv;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chen.tv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8576aa31-492c-4e09-8bf8-a88007170edc";
-				PROVISIONING_PROFILE_SPECIFIER = tianyueTV_develop;
+				PROVISIONING_PROFILE = "59e3edde-1ce0-43c9-97b2-12a02e5bf331";
+				PROVISIONING_PROFILE_SPECIFIER = enterpriseTest_deve;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3029,7 +3035,7 @@
 				CODE_SIGN_ENTITLEMENTS = tianyueTV/tianyueTV.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing Zhishu Network Technology Co., Ltd. (3472FPLT8A)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 3472FPLT8A;
+				DEVELOPMENT_TEAM = N7TM7PU479;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3131,10 +3137,10 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhangwen.tv;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chen.tv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b6c29e39-421a-4e40-85a3-00e5c811051f";
-				PROVISIONING_PROFILE_SPECIFIER = tianyueTV_distribution;
+				PROVISIONING_PROFILE = "47536218-6ffd-4f76-a997-9e0ae10608e0";
+				PROVISIONING_PROFILE_SPECIFIER = enterprise_distribution;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";

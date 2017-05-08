@@ -189,17 +189,6 @@
     }];
 }
 
-//- (void)dengluchengg{
-//    //    __weak typeof(self) weakSelf = self;
-//    [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
-//        NSLog(@"加入成功");
-//        //        [weakSelf switchToLiveRoom:self.GroupId];
-//    } fail:^(int code, NSString *msg) {
-//        NSLog(@"加入失败%d---%@",code,msg);
-//    }];
-//}
-
-
 @end
 
 

@@ -12,7 +12,7 @@
 @interface FullScreenLivingViewController : UIViewController
 
 
-@property(nonatomic,copy)NSString *guanz_id;
+@property (nonatomic,copy) NSString *guanz_id;
 
 @property (nonatomic, strong) HomeLiveModel *liveModel;
 

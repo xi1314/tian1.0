@@ -69,6 +69,9 @@
 
     self.view.backgroundColor = WWColor(234, 230, 229);
     
+    // 获取用户登录信息
+    self.loginModel = [self gainObjectFromUsersDefaults:@"loginSuccess"];
+    
     // 隐藏导航栏黑线
     [self useMethodToFindBlackLineAndHind];
 
@@ -77,9 +80,6 @@
     
     // 登录腾讯sdk
     [self loginIMSDk];
-    
-    // 获取用户登录信息
-    self.loginModel = [self gainObjectFromUsersDefaults:@"loginSuccess"];
 
 }
 
@@ -328,13 +328,14 @@
     }
 }
 
-//在首页初始化腾讯SDk，并登录
-//登录腾讯sdk
+// 在首页初始化腾讯SDk，并登录
+// 登录腾讯sdk
 - (void)loginIMSDk {
-    //    self.userSig = [USER_Defaults objectForKey:@"userSig"];
-    self.userSig = @"eJxtz11PgzAUgOH-0luNaUu7MZNdwAIGbcPGdHO7aZpRluPkY1CRZfG-iwTjjbfvc05OzhU9i-WdripIlbbKqVN0jwjDGFPGOUe3g5uugtoonVlT-3gvtB8ZtTV1A2XRA8WEE*pg-IeQmsJCBsOiNY0dewPHPshgtYh8AZ5OQvEalJ86cbQ*zVi7ifAuXuRhst*SNRydaVfE55kHnt-FUbGH90Dszn4oJbw88di9LHP5lsh2a7LlzQQ-iGbzuJrPf4*lJzX8*N9zFnIzdHcyJZS5bOz6cCg-CqvspRocM0bQ1zeeuVlk";
-    //    self.userIdentifiler = [NSString stringWithFormat:@"ty%@",USER_NAME];
+   
+//    self.userSig = @"eJxtz11PgzAUgOH-0luNaUu7MZNdwAIGbcPGdHO7aZpRluPkY1CRZfG-iwTjjbfvc05OzhU9i-WdripIlbbKqVN0jwjDGFPGOUe3g5uugtoonVlT-3gvtB8ZtTV1A2XRA8WEE*pg-IeQmsJCBsOiNY0dewPHPshgtYh8AZ5OQvEalJ86cbQ*zVi7ifAuXuRhst*SNRydaVfE55kHnt-FUbGH90Dszn4oJbw88di9LHP5lsh2a7LlzQQ-iGbzuJrPf4*lJzX8*N9zFnIzdHcyJZS5bOz6cCg-CqvspRocM0bQ1zeeuVlk";
     self.userIdentifiler = @"test";
+    self.userSig = self.loginModel.userSig;
+//    self.userIdentifiler = self.loginModel.userName;
     
     TIMLoginParam * login_param = [[TIMLoginParam alloc ] init];
     // accountType 和 sdkAppId 通讯云管理平台分配
@@ -351,7 +352,7 @@
     
 //    NSLog(@"----------userSig   %@", login_param.userSig);
     [manager login:login_param succ:^(){
-        NSLog(@"Login Succ");
+        NSLog(@"Login Succsss");
         [USER_Defaults setBool:YES forKey:@"IM_Login"];
         [USER_Defaults synchronize];
     } fail:^(int code, NSString * err) {
@@ -366,8 +367,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 
 @end

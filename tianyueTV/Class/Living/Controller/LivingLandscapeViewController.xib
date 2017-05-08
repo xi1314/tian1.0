@@ -14,6 +14,7 @@
                 <outlet property="textF_input" destination="UaH-jT-YYO" id="18g-X2-Xnq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="view_bottom" destination="Smw-ov-QLP" id="Q11-I7-2eP"/>
+                <outlet property="view_live" destination="PIA-6i-Rn1" id="kXB-9P-fhR"/>
                 <outlet property="view_top" destination="KqZ-5G-feg" id="OQ1-vn-hQP"/>
             </connections>
         </placeholder>
@@ -22,6 +23,10 @@
             <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIA-6i-Rn1">
+                    <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KqZ-5G-feg">
                     <rect key="frame" x="0.0" y="0.0" width="736" height="45"/>
                     <subviews>
@@ -141,6 +146,9 @@
                             </constraints>
                             <state key="normal" image="暂停"/>
                             <state key="selected" image="播放(1)"/>
+                            <connections>
+                                <action selector="btn_playOrStop_action:" destination="-1" eventType="touchUpInside" id="4H0-fP-Dq6"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rh5-pV-ped">
                             <rect key="frame" x="50" y="0.0" width="45" height="45"/>
@@ -149,6 +157,9 @@
                             </constraints>
                             <state key="normal" image="barrage_open"/>
                             <state key="selected" image="barrage_close"/>
+                            <connections>
+                                <action selector="btn_openOrCloseBarrage_action:" destination="-1" eventType="touchUpInside" id="u7v-Q9-mrr"/>
+                            </connections>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入弹幕文字" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UaH-jT-YYO">
                             <rect key="frame" x="100" y="8" width="526" height="29"/>
@@ -163,6 +174,9 @@
                                 <constraint firstAttribute="width" constant="45" id="pYr-0e-1ba"/>
                             </constraints>
                             <state key="normal" image="礼物-(1)"/>
+                            <connections>
+                                <action selector="btn_giveGift_action:" destination="-1" eventType="touchUpInside" id="Fcx-YX-1AT"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7XK-Fc-ZhD">
                             <rect key="frame" x="631" y="0.0" width="50" height="45"/>
@@ -173,6 +187,9 @@
                             <state key="normal" title="发送">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="btn_sendMsg_action:" destination="-1" eventType="touchUpInside" id="853-z3-UfC"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -199,14 +216,18 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="PIA-6i-Rn1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7Zc-3T-Vs6"/>
                 <constraint firstAttribute="trailing" secondItem="Smw-ov-QLP" secondAttribute="trailing" id="Qvk-LN-dhp"/>
                 <constraint firstAttribute="trailing" secondItem="KqZ-5G-feg" secondAttribute="trailing" id="RoG-21-CtH"/>
+                <constraint firstAttribute="trailing" secondItem="PIA-6i-Rn1" secondAttribute="trailing" id="gdL-cz-RKG"/>
+                <constraint firstItem="PIA-6i-Rn1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ie0-Pe-3zB"/>
                 <constraint firstItem="KqZ-5G-feg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ijb-xR-wZu"/>
                 <constraint firstAttribute="bottom" secondItem="Smw-ov-QLP" secondAttribute="bottom" id="pKF-Yn-s6E"/>
+                <constraint firstAttribute="bottom" secondItem="PIA-6i-Rn1" secondAttribute="bottom" id="x2K-NN-Glj"/>
                 <constraint firstItem="KqZ-5G-feg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="yma-lD-skL"/>
                 <constraint firstItem="Smw-ov-QLP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zpr-6l-w2E"/>
             </constraints>
-            <point key="canvasLocation" x="-6" y="-32"/>
+            <point key="canvasLocation" x="661" y="95"/>
         </view>
     </objects>
     <resources>

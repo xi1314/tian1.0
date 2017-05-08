@@ -181,7 +181,7 @@
     [self startPlayer];
 }
 
--(void)viewDidDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
@@ -195,14 +195,14 @@
 
 - (void)dealloc {
     
-    //删除通知中心监听
+    // 删除通知中心监听
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.renderer stop];
 }
 
-//进入直播间判断是否已经关注过
--(void)isFocusRequest
+// 进入直播间判断是否已经关注过
+- (void)isFocusRequest
 {
     NSMutableDictionary *paraments =[[NSMutableDictionary alloc]init];
     paraments[@"user_id"] =self.uesr_id;
@@ -254,11 +254,11 @@
     return _livePlayer;
 }
 
-//开始播放
+// 开始播放
 -(void)startPlayer
 {
     [self addActivityIndicatorView];
-    //当设备在一定时间内没有触摸动作，iOS会锁屏，设置属性让他不会锁屏
+    // 当设备在一定时间内没有触摸动作，iOS会锁屏，设置属性让他不会锁屏
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
 //    frame 参数被废弃，画面区域的大小改成了时刻铺满您传入的view
@@ -386,8 +386,7 @@
 
 - (TIMConversation *)grp_conversation {
     if (!_grp_conversation) {
-        _grp_conversation = [self.im_manager getConversation:TIM_GROUP receiver:self.groupID
-                             ];
+        _grp_conversation = [self.im_manager getConversation:TIM_GROUP receiver:self.groupID];
     }
     return _grp_conversation;
 }
@@ -920,19 +919,16 @@
     [self.livePlayer stopPlay];
     // 记得销毁view控件
     [self.livePlayer removeVideoWidget];
-    
-    
 
-//    FullScreenLivingViewController *fullVC = [[FullScreenLivingViewController alloc] init];
-//    [self presentViewController:fullVC animated:NO completion:nil];
     LivingLandscapeViewController *livingLandVC = [[LivingLandscapeViewController alloc] init];
     [self presentViewController:livingLandVC animated:NO completion:nil];
-
+    
     /*
     FullScreenLivingViewController *fullVC = [[FullScreenLivingViewController alloc] init];
     fullVC.liveModel = self.liveModel;
     [self presentViewController:fullVC animated:NO completion:nil];
      */
+
     
     /*
     if (_isFullScreen ==NO)
