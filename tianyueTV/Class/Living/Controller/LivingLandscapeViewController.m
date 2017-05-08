@@ -26,7 +26,13 @@
 @property (weak, nonatomic) IBOutlet UITextField *textF_input;
 
 // 播放器
-@property(nonatomic, strong) TXLivePlayer *livePlayer;
+@property (nonatomic, strong) TXLivePlayer *livePlayer;
+
+// 礼物view
+@property (nonatomic, strong) LivingLandscapeGiftView *giftView;
+
+// 礼物按钮
+@property (weak, nonatomic) IBOutlet UIButton *giftButton;
 
 @end
 
@@ -43,6 +49,7 @@
     // 开始播放直播
     [self startPlayer];
 
+    [self initilizeGiftView];
 }
 
 - (IBAction)btn_back:(UIButton *)sender {
@@ -59,12 +66,19 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    // 点击屏幕，隐藏控件
     if (self.view_top.alpha == 1) {
         [UIView animateWithDuration:0.5 animations:^{
             self.view_top.alpha = 0;
             self.view_bottom.alpha = 0;
         }];
-    }else {
+        if (self.giftButton.selected) {
+            [UIView animateWithDuration:0.5 animations:^{
+                _giftView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT - GiftViewHeight - self.view_bottom.height, GiftViewWidth, GiftViewHeight);
+            }];
+            self.giftButton.selected = NO;
+        }
+    } else {
         [UIView animateWithDuration:0.5 animations:^{
             self.view_top.alpha = 1;
             self.view_bottom.alpha = 1;
@@ -126,6 +140,16 @@
  @param sender 送礼物按钮
  */
 - (IBAction)btn_giveGift_action:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        [UIView animateWithDuration:0.5 animations:^{
+            _giftView.frame = CGRectMake(SCREEN_WIDTH - GiftViewWidth, SCREEN_HEIGHT - GiftViewHeight - self.view_bottom.height, GiftViewWidth, GiftViewHeight);
+        }];
+    } else {
+        [UIView animateWithDuration:0.5 animations:^{
+            _giftView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT - GiftViewHeight - self.view_bottom.height, GiftViewWidth, GiftViewHeight);
+        }];
+    }
     
 }
 
@@ -191,6 +215,34 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)initilizeGiftView {
+    _giftView = [LivingLandscapeGiftView shareGiftViewInstancetype];
+    _giftView.frame = CGRectMake(SCREEN_HEIGHT, SCREEN_WIDTH - GiftViewHeight - self.view_bottom.height, GiftViewWidth, GiftViewHeight);
+    [self.view_live addSubview:_giftView];
+    _giftView.block = ^(NSInteger tag){
+        switch (tag) {
+            case 0: { // 灵桃
+                
+            } break;
+                
+            case 1: { // 咖啡
+                
+            } break;
+                
+            case 2: { // 鼓掌
+                
+            } break;
+                
+            case 3: { // 充值
+                
+            } break;
+                
+            default:
+                break;
+        }
+    };
 }
 
 

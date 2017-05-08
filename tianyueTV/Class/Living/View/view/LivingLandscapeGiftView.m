@@ -8,15 +8,30 @@
 
 #import "LivingLandscapeGiftView.h"
 
+@interface LivingLandscapeGiftView ()
+
+
+@end
+
 @implementation LivingLandscapeGiftView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        
+
++ (instancetype)shareGiftViewInstancetype {
+    return [[NSBundle mainBundle] loadNibNamed:@"LivingLandscapeGiftView" owner:nil options:nil].firstObject;
+}
+
+
+- (IBAction)tap_action:(UITapGestureRecognizer *)sender {
+    NSInteger index = sender.view.tag - 101;
+    if (self.block) {
+        self.block(index);
     }
-    return self;
+}
+
+- (IBAction)chargeButton_action:(UIButton *)sender {
+    if (self.block) {
+        self.block(sender.tag - 101);
+    }
 }
 
 @end
