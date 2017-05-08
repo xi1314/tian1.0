@@ -42,22 +42,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "tianyueTV/Class/Living/Controller/LIvingViewController.m"
-            timestampString = "515931194.618563"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "861"
-            endingLineNumber = "861"
-            landmarkName = "-sendMassage:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "tianyueTV/Class/Living/Controller/LIvingViewController.m"
             timestampString = "515931241.795858"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
