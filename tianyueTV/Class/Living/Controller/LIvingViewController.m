@@ -769,10 +769,21 @@ LivingLandscapeGiftDelegate>
 // 加入群聊聊天室
 - (void)joinChatRoom {
 
+    @weakify(self);
     [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
         
-        NSLog(@"加入成功");
         [MBProgressHUD hideHUD];
+        NSLog(@"加入成功");
+        
+        @strongify(self);
+
+        TIMMessage *msg = [[TIMMessage alloc] init];
+        
+        [self.grp_conversation sendMessage:msg succ:^(){
+  
+        }fail:^(int code, NSString * err) {
+            
+        }];
         
     } fail:^(int code, NSString *msg) {
         
@@ -909,18 +920,17 @@ LivingLandscapeGiftDelegate>
         TIMTextElem *name = (TIMTextElem *)[message getElem:0];
         TIMTextElem *text = (TIMTextElem *)[message getElem:2];
         TIMTextElem *type = (TIMTextElem *)[message getElem:3];
-        
-        NSLog(@"type.text :%@", type.text);
+    
         if ([type.text intValue] != 0) {
             
             NSString *msgStr = @"";
             
             if ([type.text intValue] == 1) { // 文字拼接
-                NSLog(@"text.text :%@", text.text);
+               
                 msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@": %@", text.text]];
                 
             }else if ([type.text intValue] == 2) { // 图片拼接
-                NSLog(@"text.text :%@", text.text);
+            
                 msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@",%@", text.text]];
                 
             }

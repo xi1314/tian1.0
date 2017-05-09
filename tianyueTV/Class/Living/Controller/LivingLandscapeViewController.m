@@ -198,7 +198,7 @@ TIMMessageListener>
 - (TIMManager *)im_manager {
     if (!_im_manager) {
         _im_manager = [TIMManager sharedInstance];
-        [_im_manager setMessageListener:self];//设置消息回调
+        [_im_manager setMessageListener:self]; // 设置消息回调
     }
     return _im_manager;
 }
@@ -407,9 +407,7 @@ TIMMessageListener>
                 [self sendBarrage];
                 
             }
-
         }
-        
     }
     NSLog(@"----messagesArray %@", self.messagesArray);
 }
