@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,25 +19,40 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="何有志：一位中国连环画最虔诚的匠人" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qhr-yd-owP">
-                        <rect key="frame" x="18" y="176.5" width="243" height="17"/>
+                        <rect key="frame" x="18" y="176.5" width="339" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="ZET-7L-mMM"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <color key="textColor" red="0.28235294117647058" green="0.28235294117647058" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作者：天越网" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xl-Ft-eIw">
                         <rect key="frame" x="18" y="199.5" width="74" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="74" id="Ktk-et-WAW"/>
+                            <constraint firstAttribute="height" constant="15" id="g8w-SF-Oyn"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一天前" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYM-DE-fMK">
-                        <rect key="frame" x="311" y="199.5" width="37" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1天前" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYM-DE-fMK">
+                        <rect key="frame" x="317.5" y="199.5" width="30.5" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30.5" id="jqu-IX-Opv"/>
+                            <constraint firstAttribute="height" constant="15" id="y8Y-xt-drL"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3X-gP-btq">
-                        <rect key="frame" x="290" y="199.5" width="6" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3X-gP-btq">
+                        <rect key="frame" x="295" y="199.5" width="7.5" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="FQn-8T-QZU"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="6" id="fCZ-Qf-JKK"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.56078431370000004" green="0.56078431370000004" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -49,7 +65,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9NL-xO-ghy">
-                        <rect key="frame" x="239" y="195.5" width="49" height="22"/>
+                        <rect key="frame" x="244" y="195.5" width="49" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="AcR-n5-lLc"/>
                             <constraint firstAttribute="width" constant="49" id="hkh-gx-Icp"/>
@@ -76,11 +92,12 @@
                     <constraint firstItem="zAq-RZ-NbI" firstAttribute="top" secondItem="AYM-DE-fMK" secondAttribute="bottom" constant="15" id="axs-8G-Jke"/>
                     <constraint firstItem="A3X-gP-btq" firstAttribute="leading" secondItem="9NL-xO-ghy" secondAttribute="trailing" constant="2" id="ce5-VL-veb"/>
                     <constraint firstItem="zAq-RZ-NbI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="eEg-o7-1gx"/>
+                    <constraint firstItem="Qhr-yd-owP" firstAttribute="top" secondItem="9mC-zF-za9" secondAttribute="bottom" constant="12" id="f5X-k4-U1e"/>
                     <constraint firstItem="AYM-DE-fMK" firstAttribute="leading" secondItem="A3X-gP-btq" secondAttribute="trailing" constant="15" id="f7r-EY-UKu"/>
                     <constraint firstAttribute="trailing" secondItem="9mC-zF-za9" secondAttribute="trailing" id="o9B-sw-mG1"/>
+                    <constraint firstAttribute="trailing" secondItem="Qhr-yd-owP" secondAttribute="trailing" constant="18" id="odY-Ee-mf1"/>
                     <constraint firstAttribute="bottom" secondItem="zAq-RZ-NbI" secondAttribute="bottom" id="pOV-yY-TYq"/>
                     <constraint firstItem="Qhr-yd-owP" firstAttribute="leading" secondItem="2xl-Ft-eIw" secondAttribute="leading" id="wKc-HP-wE1"/>
-                    <constraint firstItem="Qhr-yd-owP" firstAttribute="top" secondItem="9mC-zF-za9" secondAttribute="bottom" constant="12.5" id="yzD-xn-cmz"/>
                     <constraint firstItem="9mC-zF-za9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zbc-WO-WNA"/>
                 </constraints>
             </tableViewCellContentView>
@@ -92,7 +109,7 @@
                 <outlet property="newsImageView" destination="9mC-zF-za9" id="bjh-V7-wlK"/>
                 <outlet property="titleLabel" destination="Qhr-yd-owP" id="vn1-c4-yYh"/>
             </connections>
-            <point key="canvasLocation" x="24.5" y="86"/>
+            <point key="canvasLocation" x="40" y="3"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="kFindinfCellIndentifer" rowHeight="250" id="4Wk-gk-ZVW" customClass="HeadlineTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>

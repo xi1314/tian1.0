@@ -40,7 +40,7 @@
 @property (nonatomic, copy) NSString *time_new;
 
 // 作者
-@property (nonatomic, copy) NSString *author;
+//@property (nonatomic, copy) NSString *newsFrom;
 
 // 点赞数
 @property (nonatomic, copy) NSString *praiseNum;

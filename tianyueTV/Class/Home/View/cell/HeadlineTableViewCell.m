@@ -75,7 +75,7 @@
 
     [self.newsImageView setImageWithURL:[NSURL URLWithString:model.faceImage]];
     self.titleLabel.text = model.title;
-    self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",model.author];
+    self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",model.newsFrom];
     self.favourLabel.text = model.praiseNum;
     self.dateLabel.text = [self intervalSinceNow:model.time_new];
 }
