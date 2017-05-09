@@ -394,7 +394,6 @@ TIMMessageListener>
         TIMTextElem *text = (TIMTextElem *)[message getElem:2];
         TIMTextElem *type = (TIMTextElem *)[message getElem:3];
         
-        NSLog(@"type.text :%@", type.text);
         if ([type.text intValue] != 0) {
         
             if ([type.text intValue] == 1) {
