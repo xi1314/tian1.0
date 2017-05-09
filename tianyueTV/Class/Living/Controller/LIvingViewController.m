@@ -38,7 +38,6 @@
 
 #import "GiftCollectionViewCell.h"
 #import "PresentView.h"
-#import "GiftModel.h"
 #import "AnimOperation.h"
 #import "AnimOperationManager.h"
 #import "GSPChatMessage.h"
