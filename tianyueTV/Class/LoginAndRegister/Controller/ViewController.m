@@ -15,27 +15,27 @@
 #import "TabbarViewController.h"
 #import "LoginHandler.h"
 #import "AppDelegate.h"
-#import <ImSDK/ImSDK.h>
+
 
 
 @interface ViewController ()
 
-@property(nonatomic,strong)UIImageView *logo;
+@property (nonatomic, strong) UIImageView *logo;
 
-@property(nonatomic,strong)UIImageView *phoneImage;
-@property(nonatomic,strong)UIImageView *verticalLine;
-@property(nonatomic,strong)ZSCustomTextField *phoneTextField;
-@property(nonatomic,strong)UIImageView *horizontalLine;
+@property (nonatomic, strong) UIImageView *phoneImage;
+@property (nonatomic, strong) UIImageView *verticalLine;
+@property (nonatomic, strong) ZSCustomTextField *phoneTextField;
+@property (nonatomic, strong) UIImageView *horizontalLine;
 
-@property(nonatomic,strong)UIImageView *passwordImage;
-@property(nonatomic,strong)UIImageView *verticalLine1;
-@property(nonatomic,strong)ZSCustomTextField *passwordTextField;
-@property(nonatomic,strong)UIImageView *horizontalLine1;
+@property (nonatomic, strong) UIImageView *passwordImage;
+@property (nonatomic, strong) UIImageView *verticalLine1;
+@property (nonatomic, strong) ZSCustomTextField *passwordTextField;
+@property (nonatomic, strong) UIImageView *horizontalLine1;
 
-@property(nonatomic,strong)UIButton *leftBtn;
-@property(nonatomic,strong)UIButton *rightBtn;
+@property (nonatomic, strong) UIButton *leftBtn;
+@property (nonatomic, strong) UIButton *rightBtn;
 
-@property(nonatomic,strong)UIButton *loginBtn;
+@property (nonatomic, strong) UIButton *loginBtn;
 
 @end
 
@@ -85,7 +85,7 @@
                                      [self saveObjectToUsersDefaults:self.passwordTextField.text andKey:@"password"];
                                      
                                      // 登录腾讯云通讯sdk
-                                     [self loginIMSDk:loginM];
+//                                     [self loginIMSDk:loginM];
                                      
                                      // 进入主页
                                      [self goToMain];
@@ -99,6 +99,7 @@
 }
 
 
+/*
 // 登录腾讯云通讯sdk
 - (void)loginIMSDk:(LoginModel *)loginModel {
     
@@ -132,7 +133,7 @@
         
     }];
     
-}
+}*/
 
 
 // 自动登录

@@ -9,6 +9,10 @@
 #import "LivingLandscapeViewController.h"
 #import "LivingLandscapeGiftView.h"
 #import <TXRTMPSDK/TXLivePlayer.h>
+#import "PresentView.h"
+#import "AnimOperation.h"
+#import "AnimOperationManager.h"
+#import "LoginModel.h"
 
 @interface LivingLandscapeViewController ()
 <TXLivePlayListener>
@@ -25,14 +29,17 @@
 // 弹幕内容输入框
 @property (weak, nonatomic) IBOutlet UITextField *textF_input;
 
+// 礼物按钮
+@property (weak, nonatomic) IBOutlet UIButton *giftButton;
+
 // 播放器
 @property (nonatomic, strong) TXLivePlayer *livePlayer;
 
 // 礼物view
 @property (nonatomic, strong) LivingLandscapeGiftView *giftView;
 
-// 礼物按钮
-@property (weak, nonatomic) IBOutlet UIButton *giftButton;
+// 礼物动画管理类
+@property (nonatomic, strong) AnimOperationManager *giftManager;
 
 @end
 
@@ -44,7 +51,8 @@
     self.view_top.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
     self.view_bottom.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
     self.textF_input.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5f];
-    [self.textF_input setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"]; // 修改placeholder颜色
+    // 修改placeholder颜色
+    [self.textF_input setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     
     // 开始播放直播
     [self startPlayer];
@@ -130,7 +138,15 @@
  @param sender 发送消息按钮
  */
 - (IBAction)btn_sendMsg_action:(UIButton *)sender {
-    
+    if (self.textF_input.text.length > 0)
+    {
+        if ([self.delegate respondsToSelector:@selector(giftSendBack:text:)]) {
+            [self.delegate giftSendBack:nil text:self.textF_input.text];
+        }
+        
+        self.textF_input.text = @"";
+    }
+    [self.view endEditing:YES];
 }
 
 
@@ -161,7 +177,7 @@
         //        [_livePlayer setupVideoWidget:self.livingView.bounds containView:self.livingView insertIndex:0];
         _livePlayer.delegate = self;
         
-        TXLivePlayConfig*  _config = [[TXLivePlayConfig alloc] init];
+        TXLivePlayConfig *_config = [[TXLivePlayConfig alloc] init];
         //自动模式
         _config.bAutoAdjustCacheTime   = YES;
         _config.minAutoAdjustCacheTime = 1;
@@ -185,6 +201,81 @@
     [self.livePlayer startPlay:@"rtmp://live.hkstv.hk.lxdns.com/live/hks" type:PLAY_TYPE_LIVE_RTMP];
 }
 
+
+- (AnimOperationManager *)giftManager {
+    if (!_giftManager) {
+        _giftManager = [AnimOperationManager sharedManager];
+        _giftManager.parentView = self.view;
+        _giftManager.parentView.alpha = 1;
+    }
+    return _giftManager;
+}
+
+- (void)initilizeGiftView {
+    _giftView = [LivingLandscapeGiftView shareGiftViewInstancetype];
+    _giftView.frame = CGRectMake(SCREEN_HEIGHT, SCREEN_WIDTH - GiftViewHeight - self.view_bottom.height, GiftViewWidth, GiftViewHeight);
+    [self.view_live addSubview:_giftView];
+    
+    @weakify(self);
+    _giftView.block = ^(NSInteger tag){
+        
+        @strongify(self);
+
+        NSArray *array = @[@{@"pic" : @"桃子-01-1",
+                             @"name" : @"灵桃",
+                             @"price" : @"10越币"},
+                           
+                           @{@"pic" : @"咖啡-1",
+                             @"name" : @"咖啡",
+                             @"price" : @"10越币"},
+                           
+                           @{@"pic" : @"鼓掌-1",
+                             @"name" : @"鼓掌",
+                             @"price" : @"10越币"}];
+        
+        switch (tag) {
+            case 0:
+            case 1:
+            case 2: { // 灵桃 咖啡 鼓掌
+                
+                NSDictionary *dict = array[tag];
+                
+                [self giftAnimation:dict andIndex:(int)tag];
+                
+                if ([self.delegate respondsToSelector:@selector(giftSendBack:text:)]) {
+                    [self.delegate giftSendBack:dict[@"pic"] text:nil];
+                }
+                
+            } break;
+                
+            case 3: { // 充值
+                
+            } break;
+                
+            default:
+                break;
+        }
+    };
+}
+
+// 发送礼物展示的动画
+- (void)giftAnimation:(NSDictionary *)dict andIndex:(int)index
+{
+    LoginModel *loginM = [self gainObjectFromUsersDefaults:@"loginSuccess"];
+    
+    // 礼物模型
+    GiftModel *giftModel = [[GiftModel alloc] init];
+    giftModel.headImageUrl = loginM.headUrl;
+    giftModel.name = loginM.nickName;
+    giftModel.giftImage = [UIImage imageNamed:dict[@"pic"]];
+    giftModel.giftName = [NSString stringWithFormat:@"  %@", dict[@"name"]];
+    giftModel.giftCount = 1;
+    
+    [self.giftManager animWithUserID:[NSString stringWithFormat:@"%d", index] model:giftModel finishedBlock:^(BOOL result) {
+        
+    }];
+}
+
 #pragma mark - TXLivePlayListener
 - (void)onPlayEvent:(int)EvtID withParam:(NSDictionary*)param {
     NSLog(@"EvtID  %d",EvtID);
@@ -202,6 +293,7 @@
     //    NSLog(@"------param %@",param);
 }
 
+
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -216,35 +308,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (void)initilizeGiftView {
-    _giftView = [LivingLandscapeGiftView shareGiftViewInstancetype];
-    _giftView.frame = CGRectMake(SCREEN_HEIGHT, SCREEN_WIDTH - GiftViewHeight - self.view_bottom.height, GiftViewWidth, GiftViewHeight);
-    [self.view_live addSubview:_giftView];
-    _giftView.block = ^(NSInteger tag){
-        switch (tag) {
-            case 0: { // 灵桃
-                
-            } break;
-                
-            case 1: { // 咖啡
-                
-            } break;
-                
-            case 2: { // 鼓掌
-                
-            } break;
-                
-            case 3: { // 充值
-                
-            } break;
-                
-            default:
-                break;
-        }
-    };
-}
-
 
 @end
 

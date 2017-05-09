@@ -23,6 +23,7 @@
 #import "NetWorkHeader.h"
 #import "UIView+DHSAddtion.h"
 #import "NSObject+CacheData.h"
+#import "TIMLoginManager.h"
 
 #endif /* PrefixHeader_pch */
 

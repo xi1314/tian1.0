@@ -11,6 +11,9 @@
 
 @interface GiftModel : NSObject
 
+// 头像地址
+@property (nonatomic, copy) NSString *headImageUrl;
+
 // 头像
 @property (nonatomic,strong) UIImage *headImage;
 

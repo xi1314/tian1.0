@@ -14,7 +14,7 @@
 #import "FindingViewController.h"
 #import "MyViewController.h"
 #import "LoginHandler.h"
-#import <ImSDK/ImSDK.h>
+
 
 @interface TabbarViewController ()
 
@@ -75,7 +75,7 @@
     findNav.title = @"发现";
     */
 
-    self.viewControllers = @[liveNav,findingNav,mineNav];
+    self.viewControllers = @[liveNav, findingNav, mineNav];
     
     
     // 设置推送标签
@@ -104,7 +104,7 @@
                                      [self saveObjectToUsersDefaults:loginM andKey:@"loginSuccess"];
                                      
                                      // 登录腾讯云通讯sdk
-                                     [self loginIMSDk:loginM];
+//                                     [self loginIMSDk:loginM];
  
                                  }
                                  
@@ -112,6 +112,7 @@
 }
 
 
+/*
 // 登录腾讯云通讯sdk
 - (void)loginIMSDk:(LoginModel *)loginModel {
     
@@ -146,6 +147,7 @@
     }];
     
 }
+ */
 
 
 // 推送标签设置结果回调

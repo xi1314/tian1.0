@@ -57,19 +57,30 @@
 
 
 @class AppDelegate;
-@interface LIvingViewController () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, TIMMessageListener, TXLivePlayListener, TIMRefreshListener, TIMConnListener, TIMUserStatusListener>
+@interface LIvingViewController ()
+<UITableViewDelegate,
+UITableViewDataSource,
+UICollectionViewDelegate,
+UICollectionViewDataSource,
+TIMMessageListener,
+TXLivePlayListener,
+TIMRefreshListener,
+TIMConnListener,
+TIMUserStatusListener,
+LivingLandscapeGiftDelegate>
+
 {
-    //是否全屏
+    // 是否全屏
     BOOL _isFullScreen;
-    //是否有设置界面
+    // 是否有设置界面
     BOOL _isClear;
-    //断开后重连的次数
+    // 断开后重连的次数
     int _reconnectCount;
     DMS *_client;
     int _index;
 }
-@property(nonatomic,strong)livingView *livingView;          //直播view
-@property(nonatomic,strong)HostInfoView *hostInfoView;      //主播信息
+@property(nonatomic,strong)livingView *livingView;          // 直播view
+@property(nonatomic,strong)HostInfoView *hostInfoView;      // 主播信息
 @property(nonatomic,strong)TextFieldView *textFieldView;
 @property(nonatomic,strong)GiftView *giftView;
 
@@ -77,34 +88,34 @@
 @property(nonatomic,strong)BottomView *bottomView;
 
 @property(nonatomic,strong)SettingView *settingView;
-//播放器
+// 播放器
 @property(nonatomic, strong) TXLivePlayer *livePlayer;
-@property(nonatomic, copy) NSString *flvUrl;        //视频地址
+@property(nonatomic, copy) NSString *flvUrl;        // 视频地址
 
-//进度轮
+// 进度轮
 @property(nonatomic,strong)UIActivityIndicatorView *activityIndicatorView;
-//互动
+// 互动
 @property(nonatomic,strong)UIView *interactiveView;
-//礼物排行榜
+// 礼物排行榜
 @property(nonatomic,strong)UITableView *listTableView;
-//弹幕view
+// 弹幕view
 @property(nonatomic,strong)BarrageRenderer *renderer;
 @property(nonatomic,strong)NSMutableArray *danmuArray;
-//聊天室
+// 聊天室
 @property(nonatomic,strong)UITableView *chatTableView;
 @property(nonatomic,strong)NSMutableArray *messagesArray;
-//取消关注需要的参数
+// 取消关注需要的参数
 @property(nonatomic,copy)NSString *bcfocus;
 
-//礼物数组
+// 礼物数组
 @property(nonatomic,strong)NSMutableArray *giftArray;
 @property(nonatomic,strong)AnimOperationManager *giftManager;
 
-//消息管理器
+// 消息管理器
 @property(nonatomic, strong) TIMManager *im_manager;
-//会话对象
+// 会话对象
 @property(nonatomic, strong) TIMConversation *grp_conversation;
-//群组ID
+// 群组ID
 @property(nonatomic, copy) NSString *groupID;
 @property (nonatomic, strong) NSString *userIdentifiler;
 @property (nonatomic, strong) NSString *userSig;
@@ -122,19 +133,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 隐藏导航条
+    self.navigationController.navigationBar.hidden = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.groupID = @"@TGS#3MZOSFMED";
     
-    // 先退出聊天室再进入
-    [self quitChatRoom];
+    [MBProgressHUD showMessage:nil];
+    if ([TIMLoginManager shareManager].success) { // 腾讯云通讯登录成功
+        
+        // 先退出聊天室再进入
+        [self quitChatRoom];
+        
+    }else { // 腾讯云通讯登录失败，则重新登录
+        @weakify(self);
+        [[TIMLoginManager shareManager] timSdkLogin:^(BOOL successed) {
+            @strongify(self);
+            if (successed) { // 登录成功则进入聊天室
+                // 先退出聊天室再进入
+                [self quitChatRoom];
+            }else {
+                
+                [MBProgressHUD showError:@"腾讯云通讯登录失败!"];
+            }
+        }];
+    }
     
-    _isFullScreen =NO;
-    _isClear =NO;
-    _reconnectCount =0;
-    _index=0;
-    //隐藏导航条
-    self.navigationController.navigationBar.hidden = YES;
-    // Do any additional setup after loading the view.
-    self.automaticallyAdjustsScrollViewInsets =NO;
+    _isFullScreen = NO;
+    _isClear = NO;
+    _reconnectCount = 0;
+    _index = 0;
+    
     
     /*
     //手机
@@ -703,6 +732,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*NSArray *giftPic = [[NSArray alloc] initWithObjects:@"桃子-01-1",@"咖啡-1",@"鼓掌-1", nil];
+     NSArray *giftName = [[NSArray alloc] initWithObjects:@"灵桃",@"咖啡",@"鼓掌", nil];
+     NSArray *giftPrice = [[NSArray alloc] initWithObjects:@"10越币",@"10越币",@"10越币", nil];*/
+    
     /*
     GSPChatMessage *msg = [[GSPChatMessage alloc] init];
     msg.text = [NSString stringWithFormat:@" 赠送主播 %@", self.giftArray[1][indexPath.row]];
@@ -730,7 +763,7 @@
     // 保存选择的图片名称
     self.giftSelectdStr = giftPic[indexPath.row];
     // 发送消息（带图片名称）
-    [self sendMassage:2];
+    [self sendMassage:2 text:nil];
 }
 
 #pragma mark - 聊天室
@@ -738,10 +771,14 @@
 - (void)joinChatRoom {
 
     [[TIMGroupManager sharedInstance] JoinGroup:self.groupID msg:nil succ:^{
+        
         NSLog(@"加入成功");
+        [MBProgressHUD hideHUD];
+        
     } fail:^(int code, NSString *msg) {
+        
         NSLog(@"加入失败%d---%@",code,msg);
-        //[MBProgressHUD showError:msg];
+        [MBProgressHUD showError:@"加入聊天室失败!"];
     }];
 
 }
@@ -765,10 +802,10 @@
 //竖屏下发送按钮
 -(void)sendBtnClick:(UIButton *)btn
 {
-    if (self.textFieldView.textField.text.length >0)
+    if (self.textFieldView.textField.text.length > 0)
     {
         _index +=1;
-        [self sendMassage:1];
+        [self sendMassage:1 text:self.textFieldView.textField.text];
     }
     [self.view endEditing:YES];
 }
@@ -777,7 +814,7 @@
 // 普通消息：消息类型+昵称+时分秒+消息
 // 礼物消息：消息类型+昵称+时分秒+礼物类型+礼物数量
 // 1.普通，2礼物
-- (void)sendMassage:(int)type {
+- (void)sendMassage:(int)type text:(NSString *)message {
     NSDate *currentDate = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm:ss"];
@@ -796,7 +833,8 @@
             //横屏
             [text_elem setText:self.bottomView.textField.text];
         } else {
-            [text_elem setText:self.textFieldView.textField.text];
+
+            [text_elem setText:message];
         }
     }else { // 图片
         [text_elem setText:self.giftSelectdStr];
@@ -867,16 +905,17 @@
 //收到消息
 - (void)onNewMessage:(NSArray *)msgs {
     for (NSInteger i = 0; i < msgs.count; i++) {
-//        TIMMessage *lastMsg =msgs[i];
+
         TIMMessage * message = msgs[i];
         TIMTextElem *name = (TIMTextElem *)[message getElem:0];
         TIMTextElem *text = (TIMTextElem *)[message getElem:2];
         TIMTextElem *type = (TIMTextElem *)[message getElem:3];
         
-        NSString *msgStr = @"";
-        
         NSLog(@"type.text :%@", type.text);
         if ([type.text intValue] != 0) {
+            
+            NSString *msgStr = @"";
+            
             if ([type.text intValue] == 1) { // 文字拼接
                 NSLog(@"text.text :%@", text.text);
                 msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@": %@", text.text]];
@@ -900,7 +939,8 @@
         
     }
     [self.chatTableView reloadData];
-    NSLog(@"-----收到的消息 %@",msgs);
+    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
 }
 
 
@@ -987,6 +1027,7 @@
     [self.livePlayer removeVideoWidget];
 
     LivingLandscapeViewController *livingLandVC = [[LivingLandscapeViewController alloc] init];
+    livingLandVC.delegate = self;
     [self presentViewController:livingLandVC animated:NO completion:nil];
     
     /*
@@ -1072,6 +1113,23 @@
 //            weakSelf.bottomView.hidden =NO;
 //        });
 //    }];
+}
+
+
+#pragma mark - LivingLandscapeGiftDelegate
+- (void)giftSendBack:(NSString *)imgString text:(NSString *)string
+{
+    if (imgString) { // 发送礼物
+        // 保存选择的图片名称
+        self.giftSelectdStr = imgString;
+        // 发送消息（带图片名称）
+        [self sendMassage:2 text:nil];
+        
+    }else { // 发送弹幕
+        
+        [self sendMassage:1 text:string];
+    }
+    
 }
 
 #pragma mark ------横屏下添加的控件

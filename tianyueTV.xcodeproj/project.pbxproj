@@ -208,6 +208,7 @@
 		CC36CD551E9732FA007E35FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD541E9732FA007E35FF /* UIKit.framework */; };
 		CC36CD571E973334007E35FF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC36CD561E973334007E35FF /* UserNotifications.framework */; };
 		CC3B06EA1EB072C6003EB203 /* UIView+DHSAddtion.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3B06E91EB072C6003EB203 /* UIView+DHSAddtion.m */; };
+		CC451A331EC190CA0090206B /* TIMLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CC451A321EC190CA0090206B /* TIMLoginManager.m */; };
 		CC47BC561E9B867E006B1EA2 /* jcore-ios-1.1.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */; };
 		CC47BC571E9B867E006B1EA2 /* jpush-ios-3.0.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */; };
 		CC47BC5A1E9B869E006B1EA2 /* TianyueTools.m in Sources */ = {isa = PBXBuildFile; fileRef = CC47BC591E9B869E006B1EA2 /* TianyueTools.m */; };
@@ -656,6 +657,8 @@
 		CC36CD581E97344B007E35FF /* tianyueTV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tianyueTV.entitlements; sourceTree = "<group>"; };
 		CC3B06E81EB072C6003EB203 /* UIView+DHSAddtion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DHSAddtion.h"; sourceTree = "<group>"; };
 		CC3B06E91EB072C6003EB203 /* UIView+DHSAddtion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DHSAddtion.m"; sourceTree = "<group>"; };
+		CC451A311EC190CA0090206B /* TIMLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TIMLoginManager.h; sourceTree = "<group>"; };
+		CC451A321EC190CA0090206B /* TIMLoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TIMLoginManager.m; sourceTree = "<group>"; };
 		CC47BC531E9B867E006B1EA2 /* jcore-ios-1.1.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.2.a"; sourceTree = "<group>"; };
 		CC47BC541E9B867E006B1EA2 /* jpush-ios-3.0.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.3.a"; sourceTree = "<group>"; };
 		CC47BC551E9B867E006B1EA2 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
@@ -2022,6 +2025,8 @@
 				CC3B06E91EB072C6003EB203 /* UIView+DHSAddtion.m */,
 				CC47BC581E9B869E006B1EA2 /* TianyueTools.h */,
 				CC47BC591E9B869E006B1EA2 /* TianyueTools.m */,
+				CC451A311EC190CA0090206B /* TIMLoginManager.h */,
+				CC451A321EC190CA0090206B /* TIMLoginManager.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -2760,6 +2765,7 @@
 				04687ACE1E88BDF0004A5EE3 /* WWPcollectionViewCell.m in Sources */,
 				0468791D1E88B2A1004A5EE3 /* XHSegmentControl.m in Sources */,
 				CC2E465C1EB9AF57004D615C /* MyViewController.m in Sources */,
+				CC451A331EC190CA0090206B /* TIMLoginManager.m in Sources */,
 				04687AD21E88BDF0004A5EE3 /* WWAnchorSpaceCell.m in Sources */,
 				04687A9B1E88BDF0004A5EE3 /* MainCollectionViewCell.m in Sources */,
 				04687B0A1E88BDF0004A5EE3 /* BuyCountView.m in Sources */,

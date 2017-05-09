@@ -10,6 +10,7 @@
 
 static float GiftViewWidth = 320;
 static float GiftViewHeight = 150;
+
 typedef void(^GiftViewBlock)(NSInteger tag);
 
 @interface LivingLandscapeGiftView : UIView

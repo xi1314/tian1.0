@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol LivingLandscapeGiftDelegate <NSObject>
+
+- (void)giftSendBack:(NSString *)imgString text:(NSString *)string;
+
+@end
+
 @interface LivingLandscapeViewController : UIViewController
+
+@property (nonatomic, weak) id<LivingLandscapeGiftDelegate> delegate;
 
 @end

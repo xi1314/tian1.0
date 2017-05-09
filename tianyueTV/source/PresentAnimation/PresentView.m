@@ -125,7 +125,8 @@
 
 - (void)setModel:(GiftModel *)model {
     _model = model;
-    _headImageView.image = model.headImage;
+//    _headImageView.image = model.headImage;
+    [_headImageView setImageWithURL:[NSURL URLWithString:model.headImageUrl]];
     _giftImageView.image = model.giftImage;
     _nameLabel.text = model.name;
     _giftLabel.text = [NSString stringWithFormat:@"送了%@",model.giftName];
