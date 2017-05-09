@@ -13,9 +13,12 @@
 #import "AnimOperation.h"
 #import "AnimOperationManager.h"
 #import "LoginModel.h"
+#import <BarrageRenderer.h>
+#import <ImSDK/ImSDK.h>
 
 @interface LivingLandscapeViewController ()
-<TXLivePlayListener>
+<TXLivePlayListener,
+TIMMessageListener>
 
 // 直播view
 @property (weak, nonatomic) IBOutlet UIView *view_live;
@@ -32,6 +35,9 @@
 // 礼物按钮
 @property (weak, nonatomic) IBOutlet UIButton *giftButton;
 
+// 弹幕数组
+@property(nonatomic,strong)NSMutableArray *messagesArray;
+
 // 播放器
 @property (nonatomic, strong) TXLivePlayer *livePlayer;
 
@@ -40,6 +46,14 @@
 
 // 礼物动画管理类
 @property (nonatomic, strong) AnimOperationManager *giftManager;
+
+// 弹幕view
+@property (nonatomic, strong) BarrageRenderer *renderView;
+
+// 消息管理器
+@property (nonatomic, strong) TIMManager *im_manager;
+
+
 
 @end
 
@@ -56,8 +70,12 @@
     
     // 开始播放直播
     [self startPlayer];
-
+    // 礼物
     [self initilizeGiftView];
+    // 弹幕
+    [self initBarrageRender];
+    // 开始渲染弹幕
+    [self.renderView start];
 }
 
 - (IBAction)btn_back:(UIButton *)sender {
@@ -69,7 +87,7 @@
     [self.livePlayer removeVideoWidget];
     
     //停止弹幕渲染，必须调用，否则会引起内存泄漏
-    //    [self.renderer stop];
+    [self.renderView stop];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -144,6 +162,14 @@
             [self.delegate giftSendBack:nil text:self.textF_input.text];
         }
         
+        [self.messagesArray addObject:self.textF_input.text];
+        
+        if (self.messagesArray.count > 50)
+        {
+            [self.messagesArray removeObjectAtIndex:0];
+        }
+        [self sendBarrage];
+        
         self.textF_input.text = @"";
     }
     [self.view endEditing:YES];
@@ -167,6 +193,14 @@
         }];
     }
     
+}
+
+- (TIMManager *)im_manager {
+    if (!_im_manager) {
+        _im_manager = [TIMManager sharedInstance];
+        [_im_manager setMessageListener:self];//设置消息回调
+    }
+    return _im_manager;
 }
 
 
@@ -198,7 +232,7 @@
     //  frame 参数被废弃，画面区域的大小改成了时刻铺满您传入的view
     [self.livePlayer setupVideoWidget:CGRectMake(0, 0, 0, 0) containView:self.view_live insertIndex:0];
     //  self.flvUrl = @"rtmp://live.hkstv.hk.lxdns.com/live/hks";
-    [self.livePlayer startPlay:@"rtmp://live.hkstv.hk.lxdns.com/live/hks" type:PLAY_TYPE_LIVE_RTMP];
+//    [self.livePlayer startPlay:@"rtmp://live.hkstv.hk.lxdns.com/live/hks" type:PLAY_TYPE_LIVE_RTMP];
 }
 
 
@@ -276,6 +310,13 @@
     }];
 }
 
+- (void)initBarrageRender {
+    self.renderView = [[BarrageRenderer alloc] init];
+    self.renderView.canvasMargin = UIEdgeInsetsMake(45, 10, 10, 10);
+//    self.renderView.view.alpha = 0;
+    [self.view addSubview:self.renderView.view];
+}
+
 #pragma mark - TXLivePlayListener
 - (void)onPlayEvent:(int)EvtID withParam:(NSDictionary*)param {
     NSLog(@"EvtID  %d",EvtID);
@@ -294,6 +335,85 @@
 }
 
 
+#pragma mark - 弹幕
+- (void)sendBarrage
+{
+    NSLog(@"开始发送");
+    NSInteger spriteNumber = [_renderView spritesNumberWithName:nil];
+    if (spriteNumber <= 50) { // 限制屏幕上的弹幕量
+        [_renderView receive:[self walkTextSpriteDescriptorWithDirection:BarrageWalkDirectionR2L]];
+    }
+}
+
+- (BarrageDescriptor *)walkTextSpriteDescriptorWithDirection:(BarrageWalkDirection)direction
+{
+    return [self walkTextSpriteDescriptorWithDirection:direction side:BarrageWalkSideDefault];
+}
+
+- (BarrageDescriptor *)walkTextSpriteDescriptorWithDirection:(BarrageWalkDirection)direction side:(BarrageWalkSide)side
+{
+    BarrageDescriptor * descriptor = [[BarrageDescriptor alloc]init];
+    descriptor.spriteName = NSStringFromClass([BarrageWalkTextSprite class]);
+    /*
+    if (self.messagesArray != nil && ![self.messagesArray isKindOfClass:[NSNull class]] && self.messagesArray.count != 0)
+    {
+        if ([self.messagesArray[self.messagesArray.count -1] rangeOfString:@"赠送礼物"].location != NSNotFound)
+        {
+            [self.messagesArray removeObject:self.messagesArray[self.messagesArray.count -1]];
+        } else if ([self.messagesArray[self.messagesArray.count -1] rangeOfString:@":"].location !=NSNotFound) {
+            NSArray *array =[self.messagesArray[self.messagesArray.count -1] componentsSeparatedByString:@":"];
+            descriptor.params[@"text"] = array[1];
+        }
+    }
+     */
+    descriptor.params[@"text"] = self.messagesArray[self.messagesArray.count - 1];
+    descriptor.params[@"textColor"] = [UIColor whiteColor];
+    descriptor.params[@"speed"] = @(100 * (double)random()/RAND_MAX+50);
+    descriptor.params[@"direction"] = @(direction);
+    descriptor.params[@"side"] = @(side);
+    NSLog(@"descriptor %@",descriptor);
+    return descriptor;
+}
+
+- (NSMutableArray *)messagesArray
+{
+    if (!_messagesArray)
+    {
+        _messagesArray = [NSMutableArray array];
+    }
+    return _messagesArray;
+}
+
+
+#pragma mark - TIMMessageListener
+//收到消息
+- (void)onNewMessage:(NSArray *)msgs {
+    for (NSInteger i = 0; i < msgs.count; i++) {
+        
+        TIMMessage * message = msgs[i];
+        TIMTextElem *text = (TIMTextElem *)[message getElem:2];
+        TIMTextElem *type = (TIMTextElem *)[message getElem:3];
+        
+        NSLog(@"type.text :%@", type.text);
+        if ([type.text intValue] != 0) {
+        
+            if ([type.text intValue] == 1) {
+                NSLog(@"text.text :%@", text.text);
+                
+                [self.messagesArray addObject:text.text];
+                
+                NSLog(@"messagesArray %@", self.messagesArray);
+                
+                [self sendBarrage];
+                
+            }
+
+        }
+        
+    }
+    NSLog(@"----messagesArray %@", self.messagesArray);
+}
+
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -308,6 +428,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 @end
 
