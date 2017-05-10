@@ -37,7 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *giftButton;
 
 // 弹幕数组
-@property(nonatomic,strong)NSMutableArray *messagesArray;
+@property(nonatomic,strong) NSMutableArray *messagesArray;
 
 // 播放器
 @property (nonatomic, strong) TXLivePlayer *livePlayer;
@@ -204,6 +204,25 @@
     
 }
 
+/**
+ 直播设置
+
+ @param sender 设置按钮
+ */
+- (IBAction)btn_setting_action:(UIButton *)sender {
+//    sender.selected = !sender.selected;
+//    if (sender.selected) {
+//        [UIView animateWithDuration:0.5 animations:^{
+            self.settingView.frame = CGRectMake(0, 50, SettingViewWidth, SettingViewHeight);
+//        }];
+//    } else {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            self.settingView.frame = CGRectMake(0, 50, SettingViewWidth, SettingViewHeight);
+//        }];
+//    }
+}
+
+
 #pragma mark - 腾讯视频播放相关
 - (TXLivePlayer *)livePlayer {
     if (!_livePlayer) {
@@ -319,7 +338,7 @@
 
 - (void)initSettingView {
     self.settingView = [LivingSettingView shareLivingSettingInstancetype];
-    self.settingView.frame = CGRectMake(0, 50, SettingViewWidth, 315);
+    self.settingView.frame = CGRectMake(0, 50, SettingViewWidth, SettingViewHeight);
     [self.view addSubview:self.settingView];
 }
 

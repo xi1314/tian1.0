@@ -10,7 +10,7 @@
 
 
 static CGFloat SettingViewWidth = 315;
-static CGFloat SettingViewHeight = 255;
+static CGFloat SettingViewHeight = 235;
 
 @interface LivingSettingView : UIView
 

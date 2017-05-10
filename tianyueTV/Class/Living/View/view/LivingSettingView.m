@@ -13,6 +13,15 @@
 // 音量大小
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 
+// 亮度
+@property (weak, nonatomic) IBOutlet UISlider *brightSlider;
+
+// 透明度
+@property (weak, nonatomic) IBOutlet UISlider *alphaSlider;
+
+// 大小
+@property (weak, nonatomic) IBOutlet UISlider *sizeSlider;
+
 
 @end
 
@@ -26,6 +35,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.volumeSlider setThumbImage:[UIImage imageNamed:@"按钮"] forState:UIControlStateNormal];
+    [self.brightSlider setThumbImage:[UIImage imageNamed:@"按钮"] forState:UIControlStateNormal];
+    [self.alphaSlider setThumbImage:[UIImage imageNamed:@"按钮"] forState:UIControlStateNormal];
+    [self.sizeSlider setThumbImage:[UIImage imageNamed:@"按钮"] forState:UIControlStateNormal];
     self.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.3f];
 }
 

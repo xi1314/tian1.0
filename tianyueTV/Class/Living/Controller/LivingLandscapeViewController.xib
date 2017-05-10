@@ -47,6 +47,9 @@
                                 <constraint firstAttribute="width" constant="40" id="82z-Lj-ftT"/>
                             </constraints>
                             <state key="normal" image="更多"/>
+                            <connections>
+                                <action selector="btn_setting_action:" destination="-1" eventType="touchUpInside" id="psL-1J-sdY"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbe-gY-KHV">
                             <rect key="frame" x="646" y="0.0" width="40" height="45"/>
