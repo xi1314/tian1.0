@@ -177,6 +177,8 @@
 		981FAF471EAEF6A400C63EAF /* HeadlineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 981FAF451EAEF6A400C63EAF /* HeadlineTableViewCell.xib */; };
 		981FAF4A1EAF00B000C63EAF /* HeadlineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 981FAF491EAF00B000C63EAF /* HeadlineModel.m */; };
 		98285E8F929C186BEA3EDD6D /* libPods-tianyueTVUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC026177855CDB192D1BB06 /* libPods-tianyueTVUITests.a */; };
+		984706C21EC2AAA800063C35 /* LivingSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 984706C11EC2AAA800063C35 /* LivingSettingView.m */; };
+		984706C41EC2AAB600063C35 /* LivingSettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 984706C31EC2AAB600063C35 /* LivingSettingView.xib */; };
 		986A413A1EA865420066B3F4 /* BrandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A41391EA865420066B3F4 /* BrandView.m */; };
 		986A413D1EA8B0E10066B3F4 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 986A413C1EA8B0E10066B3F4 /* HomeModel.m */; };
 		9875DD601EB03799004C6A76 /* FindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9875DD5F1EB03799004C6A76 /* FindingViewController.m */; };
@@ -602,6 +604,9 @@
 		981FAF451EAEF6A400C63EAF /* HeadlineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadlineTableViewCell.xib; sourceTree = "<group>"; };
 		981FAF481EAF00B000C63EAF /* HeadlineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadlineModel.h; sourceTree = "<group>"; };
 		981FAF491EAF00B000C63EAF /* HeadlineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadlineModel.m; sourceTree = "<group>"; };
+		984706C01EC2AAA800063C35 /* LivingSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivingSettingView.h; sourceTree = "<group>"; };
+		984706C11EC2AAA800063C35 /* LivingSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivingSettingView.m; sourceTree = "<group>"; };
+		984706C31EC2AAB600063C35 /* LivingSettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LivingSettingView.xib; sourceTree = "<group>"; };
 		986A41381EA865420066B3F4 /* BrandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandView.h; sourceTree = "<group>"; };
 		986A41391EA865420066B3F4 /* BrandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandView.m; sourceTree = "<group>"; };
 		986A413B1EA8B0E10066B3F4 /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
@@ -1147,6 +1152,9 @@
 				CC4D069B1EC00F1B00196965 /* LivingLandscapeGiftView.h */,
 				CC4D069C1EC00F1B00196965 /* LivingLandscapeGiftView.m */,
 				98A591371EC041880051EA8B /* LivingLandscapeGiftView.xib */,
+				984706C01EC2AAA800063C35 /* LivingSettingView.h */,
+				984706C11EC2AAA800063C35 /* LivingSettingView.m */,
+				984706C31EC2AAB600063C35 /* LivingSettingView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2400,6 +2408,7 @@
 				04687B091E88BDF0004A5EE3 /* OrderTableViewCell.xib in Resources */,
 				04687AFA1E88BDF0004A5EE3 /* AddAddressViewController.xib in Resources */,
 				9815EE131EB2E84400F2B3F7 /* PayResultViewController.xib in Resources */,
+				984706C41EC2AAB600063C35 /* LivingSettingView.xib in Resources */,
 				FF0110CE1DAB26D6003146A7 /* Assets.xcassets in Resources */,
 				04687AFE1E88BDF0004A5EE3 /* OrderViewController.xib in Resources */,
 				04687B0C1E88BDF0004A5EE3 /* ChooseView.xib in Resources */,
@@ -2597,6 +2606,7 @@
 				CCC9F0651EA4BF5E00CA5702 /* BrandComeInView.m in Sources */,
 				04687AA71E88BDF0004A5EE3 /* GiftCollectionViewCell.m in Sources */,
 				04687AA81E88BDF0004A5EE3 /* BottomView.m in Sources */,
+				984706C21EC2AAA800063C35 /* LivingSettingView.m in Sources */,
 				04687AC21E88BDF0004A5EE3 /* WWResultingViewController.m in Sources */,
 				04687ABB1E88BDF0004A5EE3 /* WWSaveView.m in Sources */,
 				CCC9F06B1EA4C11B00CA5702 /* HomeTianyueCategoryView.m in Sources */,

@@ -15,6 +15,7 @@
 #import "LoginModel.h"
 #import <BarrageRenderer.h>
 #import <ImSDK/ImSDK.h>
+#import "LivingSettingView.h"
 
 @interface LivingLandscapeViewController ()
 <TXLivePlayListener,
@@ -53,6 +54,9 @@ TIMMessageListener>
 // 消息管理器
 @property (nonatomic, strong) TIMManager *im_manager;
 
+// 直播设置
+@property (nonatomic, strong) LivingSettingView *settingView;
+
 
 
 @end
@@ -76,6 +80,8 @@ TIMMessageListener>
     [self initBarrageRender];
     // 开始渲染弹幕
     [self.renderView start];
+    
+    [self initSettingView];
 }
 
 - (IBAction)btn_back:(UIButton *)sender {
@@ -315,6 +321,12 @@ TIMMessageListener>
     self.renderView.canvasMargin = UIEdgeInsetsMake(45, 10, 10, 10);
 //    self.renderView.view.alpha = 0;
     [self.view addSubview:self.renderView.view];
+}
+
+- (void)initSettingView {
+    self.settingView = [LivingSettingView shareLivingSettingInstancetype];
+    self.settingView.frame = CGRectMake(0, 50, SettingViewWidth, 315);
+    [self.view addSubview:self.settingView];
 }
 
 #pragma mark - TXLivePlayListener
