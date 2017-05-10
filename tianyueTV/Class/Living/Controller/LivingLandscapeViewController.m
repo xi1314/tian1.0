@@ -375,6 +375,7 @@
 }
 
 
+
 // 处理接收到的聊天室信息
 - (void)receiveMessageAction:(NSNotification *)notification
 {
@@ -385,6 +386,7 @@
     if (self.messagesArray.count > 50)
     {
         [self.messagesArray removeObjectAtIndex:0];
+
     }
     
     [self sendBarrage];
