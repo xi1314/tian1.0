@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LivingLandscapeViewController">
             <connections>
                 <outlet property="giftButton" destination="QGg-DX-hRb" id="AYm-w2-qeb"/>
+                <outlet property="settingButton" destination="boh-K5-d39" id="nAz-JG-Vqt"/>
                 <outlet property="textF_input" destination="UaH-jT-YYO" id="18g-X2-Xnq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="view_bottom" destination="Smw-ov-QLP" id="Q11-I7-2eP"/>

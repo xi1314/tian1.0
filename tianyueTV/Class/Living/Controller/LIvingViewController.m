@@ -897,6 +897,7 @@ LivingLandscapeGiftDelegate>
 #pragma mark - 收到消息处理
 //收到消息
 - (void)onNewMessage:(NSArray *)msgs {
+    /*
     for (NSInteger i = 0; i < msgs.count; i++) {
 
         TIMMessage * message = msgs[i];
@@ -934,6 +935,7 @@ LivingLandscapeGiftDelegate>
     }
     [self.chatTableView reloadData];
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+     */
     
 }
 

@@ -9,11 +9,21 @@
 #import <UIKit/UIKit.h>
 
 
-static CGFloat SettingViewWidth = 315;
-static CGFloat SettingViewHeight = 235;
+static CGFloat SettingViewWidth = 310;
+static CGFloat SettingViewHeight = 205;
+
+typedef void(^LivingSettingBlock)(NSInteger tag);
 
 @interface LivingSettingView : UIView
 
+// 按钮、滑动条回调
+@property (nonatomic, copy) LivingSettingBlock block;
+
+/**
+ 加载xib
+
+ @return 设置view
+ */
 + (instancetype)shareLivingSettingInstancetype;
 
 @end

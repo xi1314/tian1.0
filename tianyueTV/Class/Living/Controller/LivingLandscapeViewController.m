@@ -36,6 +36,9 @@
 // 礼物按钮
 @property (weak, nonatomic) IBOutlet UIButton *giftButton;
 
+// 设置按钮
+@property (weak, nonatomic) IBOutlet UIButton *settingButton;
+
 // 弹幕数组
 @property(nonatomic,strong) NSMutableArray *messagesArray;
 
@@ -76,7 +79,7 @@
     [self initBarrageRender];
     // 开始渲染弹幕
     [self.renderView start];
-    
+    // 直播设置
     [self initSettingView];
     
     // 接收聊天室的信息
@@ -107,11 +110,19 @@
             self.view_top.alpha = 0;
             self.view_bottom.alpha = 0;
         }];
+        // 隐藏礼物视图
         if (self.giftButton.selected) {
             [UIView animateWithDuration:0.5 animations:^{
-                _giftView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT - GiftViewHeight - self.view_bottom.height, GiftViewWidth, GiftViewHeight);
+                self.giftView.frame = CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT - GiftViewHeight - self.view_bottom.height, GiftViewWidth, GiftViewHeight);
             }];
             self.giftButton.selected = NO;
+        }
+        // 隐藏设置视图
+        if (self.settingButton.selected) {
+            [UIView animateWithDuration:0.5 animations:^{
+                self.settingView.frame = CGRectMake(SCREEN_WIDTH, 50, SettingViewWidth, SettingViewHeight);
+            }];
+            self.settingButton.selected = NO;
         }
     } else {
         [UIView animateWithDuration:0.5 animations:^{
@@ -210,16 +221,16 @@
  @param sender 设置按钮
  */
 - (IBAction)btn_setting_action:(UIButton *)sender {
-//    sender.selected = !sender.selected;
-//    if (sender.selected) {
-//        [UIView animateWithDuration:0.5 animations:^{
-            self.settingView.frame = CGRectMake(0, 50, SettingViewWidth, SettingViewHeight);
-//        }];
-//    } else {
-//        [UIView animateWithDuration:0.5 animations:^{
-//            self.settingView.frame = CGRectMake(0, 50, SettingViewWidth, SettingViewHeight);
-//        }];
-//    }
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.settingView.frame = CGRectMake(SCREEN_WIDTH - SettingViewWidth, 50, SettingViewWidth, SettingViewHeight);
+        }];
+    } else {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.settingView.frame = CGRectMake(SCREEN_WIDTH, 50, SettingViewWidth, SettingViewHeight);
+        }];
+    }
 }
 
 
@@ -251,7 +262,7 @@
     //  frame 参数被废弃，画面区域的大小改成了时刻铺满您传入的view
     [self.livePlayer setupVideoWidget:CGRectMake(0, 0, 0, 0) containView:self.view_live insertIndex:0];
     //  self.flvUrl = @"rtmp://live.hkstv.hk.lxdns.com/live/hks";
-//    [self.livePlayer startPlay:@"rtmp://live.hkstv.hk.lxdns.com/live/hks" type:PLAY_TYPE_LIVE_RTMP];
+    [self.livePlayer startPlay:@"rtmp://live.hkstv.hk.lxdns.com/live/hks" type:PLAY_TYPE_LIVE_RTMP];
 }
 
 
@@ -332,14 +343,36 @@
 - (void)initBarrageRender {
     self.renderView = [[BarrageRenderer alloc] init];
     self.renderView.canvasMargin = UIEdgeInsetsMake(45, 10, 10, 10);
-//    self.renderView.view.alpha = 0;
     [self.view addSubview:self.renderView.view];
 }
 
 - (void)initSettingView {
     self.settingView = [LivingSettingView shareLivingSettingInstancetype];
-    self.settingView.frame = CGRectMake(0, 50, SettingViewWidth, SettingViewHeight);
+    self.settingView.frame = CGRectMake(SCREEN_HEIGHT, 50, SettingViewWidth, SettingViewHeight);
     [self.view addSubview:self.settingView];
+    
+    self.settingView.block = ^(NSInteger tag){
+        switch (tag) {
+            case 0: { // 软解
+                NSLog(@"soft");
+            } break;
+                
+            case 1: { // 硬解
+                NSLog(@"hard");
+            } break;
+                
+            case 2: { // 弹幕透明度
+                
+            } break;
+                
+            case 3: { // 弹幕大小
+                
+            } break;
+                
+            default:
+                break;
+        }
+    };
 }
 
 #pragma mark - TXLivePlayListener
