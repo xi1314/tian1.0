@@ -14,12 +14,12 @@
 #import "AnimOperationManager.h"
 #import "LoginModel.h"
 #import <BarrageRenderer.h>
-#import <ImSDK/ImSDK.h>
+
 #import "LivingSettingView.h"
 
+
 @interface LivingLandscapeViewController ()
-<TXLivePlayListener,
-TIMMessageListener>
+<TXLivePlayListener>
 
 // 直播view
 @property (weak, nonatomic) IBOutlet UIView *view_live;
@@ -51,12 +51,8 @@ TIMMessageListener>
 // 弹幕view
 @property (nonatomic, strong) BarrageRenderer *renderView;
 
-// 消息管理器
-@property (nonatomic, strong) TIMManager *im_manager;
-
 // 直播设置
 @property (nonatomic, strong) LivingSettingView *settingView;
-
 
 
 @end
@@ -65,7 +61,7 @@ TIMMessageListener>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.view_top.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
     self.view_bottom.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
     self.textF_input.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5f];
@@ -82,6 +78,12 @@ TIMMessageListener>
     [self.renderView start];
     
     [self initSettingView];
+    
+    // 接收聊天室的信息
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessageAction:) name:@"ReceiveMessageNotification" object:nil];
+
+    
+
 }
 
 - (IBAction)btn_back:(UIButton *)sender {
@@ -89,10 +91,11 @@ TIMMessageListener>
     
     // 停止播放
     [self.livePlayer stopPlay];
+    
     // 记得销毁view控件
     [self.livePlayer removeVideoWidget];
     
-    //停止弹幕渲染，必须调用，否则会引起内存泄漏
+    // 停止弹幕渲染，必须调用，否则会引起内存泄漏
     [self.renderView stop];
 }
 
@@ -200,15 +203,6 @@ TIMMessageListener>
     }
     
 }
-
-- (TIMManager *)im_manager {
-    if (!_im_manager) {
-        _im_manager = [TIMManager sharedInstance];
-        [_im_manager setMessageListener:self]; // 设置消息回调
-    }
-    return _im_manager;
-}
-
 
 #pragma mark - 腾讯视频播放相关
 - (TXLivePlayer *)livePlayer {
@@ -397,32 +391,23 @@ TIMMessageListener>
 }
 
 
-#pragma mark - TIMMessageListener
-//收到消息
-- (void)onNewMessage:(NSArray *)msgs {
-    for (NSInteger i = 0; i < msgs.count; i++) {
-        
-        TIMMessage * message = msgs[i];
-        TIMTextElem *text = (TIMTextElem *)[message getElem:2];
-        TIMTextElem *type = (TIMTextElem *)[message getElem:3];
-        
-        if ([type.text intValue] != 0) {
-        
-            if ([type.text intValue] == 1) {
-                NSLog(@"text.text :%@", text.text);
-                
-                [self.messagesArray addObject:text.text];
-                
-                NSLog(@"messagesArray %@", self.messagesArray);
-                
-                [self sendBarrage];
-                
-            }
-        }
-    }
-    NSLog(@"----messagesArray %@", self.messagesArray);
-}
 
+// 处理接收到的聊天室信息
+- (void)receiveMessageAction:(NSNotification *)notification
+{
+    NSDictionary *dict = (NSDictionary *)notification.userInfo;
+    
+    [self.messagesArray addObject:dict[@"text"]];
+    
+    if (self.messagesArray.count > 50)
+    {
+        [self.messagesArray removeObjectAtIndex:0];
+
+    }
+    
+    [self sendBarrage];
+}
+ 
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -433,11 +418,15 @@ TIMMessageListener>
     return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 
 @end

@@ -477,7 +477,6 @@ LivingLandscapeGiftDelegate>
 {
     if (!_messagesArray)
     {
-//        _messagesArray =[[NSMutableArray alloc] initWithCapacity:50];
         _messagesArray = [NSMutableArray array];
     }
     return _messagesArray;
@@ -721,11 +720,11 @@ LivingLandscapeGiftDelegate>
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier =@"GiftCollectionViewCell";
-    GiftCollectionViewCell *cell =[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.picImage.image =[UIImage imageNamed:[NSString stringWithFormat:@"%@",self.giftArray[0][indexPath.row]]];
-    cell.nameLabel.text =[NSString stringWithFormat:@"%@",self.giftArray[1][indexPath.row]];
-    cell.priceLabel.text =[NSString stringWithFormat:@"%@",self.giftArray[2][indexPath.row]];
+    static NSString *cellIdentifier = @"GiftCollectionViewCell";
+    GiftCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell.picImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",self.giftArray[0][indexPath.row]]];
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@",self.giftArray[1][indexPath.row]];
+    cell.priceLabel.text = [NSString stringWithFormat:@"%@",self.giftArray[2][indexPath.row]];
     return cell;
 }
 
@@ -776,9 +775,9 @@ LivingLandscapeGiftDelegate>
         NSLog(@"加入成功");
         
         @strongify(self);
-
-        TIMMessage *msg = [[TIMMessage alloc] init];
         
+        // 发送空消息确认
+        TIMMessage *msg = [[TIMMessage alloc] init];
         [self.grp_conversation sendMessage:msg succ:^(){
   
         }fail:^(int code, NSString * err) {
@@ -809,8 +808,8 @@ LivingLandscapeGiftDelegate>
     }];
 }
 
-//竖屏下发送按钮
--(void)sendBtnClick:(UIButton *)btn
+// 竖屏下发送按钮
+- (void)sendBtnClick:(UIButton *)btn
 {
     if (self.textFieldView.textField.text.length > 0)
     {
@@ -839,13 +838,7 @@ LivingLandscapeGiftDelegate>
     TIMTextElem *text_elem = [[TIMTextElem alloc] init];
     
     if (type == 1) { // 文字
-        if (_isFullScreen) {
-            //横屏
-            [text_elem setText:self.bottomView.textField.text];
-        } else {
-
-            [text_elem setText:message];
-        }
+        [text_elem setText:message];
     }else { // 图片
         [text_elem setText:self.giftSelectdStr];
     }
@@ -865,8 +858,7 @@ LivingLandscapeGiftDelegate>
         @strongify(self);
         
         self.textFieldView.textField.text = @"";
-        
-        NSLog(@"SendMsg Succ");
+    
         //发送成功，加入消息数组
         //处理接收消息
         TIMMessage * message = msg;
@@ -888,17 +880,8 @@ LivingLandscapeGiftDelegate>
         NSDictionary *dict = @{@"msgStr" : msgStr,
                                @"textType" : [NSString stringWithFormat:@"%d", type]};
         [self.messagesArray addObject:dict];
-        
-        //发送弹幕
-//        [weakSelf sendBarrage];
-        //处理横屏的情况
-        if (_isFullScreen) {
-            self.bottomView.textField.text = @"";
-            [self sendBarrage];
-            _index += 1;
-        }
-
-        if (self.messagesArray.count > 50)
+    
+        if (self.messagesArray.count > 100)
         {
             [self.messagesArray removeObjectAtIndex:0];
         }
@@ -911,7 +894,7 @@ LivingLandscapeGiftDelegate>
 }
 
 
-#pragma mark ---- 收到消息处理------
+#pragma mark - 收到消息处理
 //收到消息
 - (void)onNewMessage:(NSArray *)msgs {
     for (NSInteger i = 0; i < msgs.count; i++) {
@@ -929,6 +912,9 @@ LivingLandscapeGiftDelegate>
                
                 msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@": %@", text.text]];
                 
+                // 向横屏页面发送通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceiveMessageNotification" object:nil userInfo:@{@"text" : text.text}];
+                
             }else if ([type.text intValue] == 2) { // 图片拼接
             
                 msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@",%@", text.text]];
@@ -939,10 +925,9 @@ LivingLandscapeGiftDelegate>
                                    @"textType" : type.text};
             
             [self.messagesArray addObject:dict];
-            _index += 1;
-            //横屏状态发送弹幕
-            if (_isFullScreen) {
-                [self sendBarrage];
+            
+            if (self.messagesArray.count > 100) {
+                [self.messagesArray removeObjectAtIndex:0];
             }
         }
         
@@ -951,7 +936,6 @@ LivingLandscapeGiftDelegate>
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
 }
-
 
 
 #pragma mark - TableView Delegate
