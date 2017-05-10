@@ -120,7 +120,7 @@
         // 隐藏设置视图
         if (self.settingButton.selected) {
             [UIView animateWithDuration:0.5 animations:^{
-                self.settingView.frame = CGRectMake(SCREEN_WIDTH, 50, SettingViewWidth, SettingViewHeight);
+                self.settingView.frame = CGRectMake(SCREEN_WIDTH, 45, SettingViewWidth, SettingViewHeight);
             }];
             self.settingButton.selected = NO;
         }
@@ -224,11 +224,11 @@
     sender.selected = !sender.selected;
     if (sender.selected) {
         [UIView animateWithDuration:0.5 animations:^{
-            self.settingView.frame = CGRectMake(SCREEN_WIDTH - SettingViewWidth, 50, SettingViewWidth, SettingViewHeight);
+            self.settingView.frame = CGRectMake(SCREEN_WIDTH - SettingViewWidth, 45, SettingViewWidth, SettingViewHeight);
         }];
     } else {
         [UIView animateWithDuration:0.5 animations:^{
-            self.settingView.frame = CGRectMake(SCREEN_WIDTH, 50, SettingViewWidth, SettingViewHeight);
+            self.settingView.frame = CGRectMake(SCREEN_WIDTH, 45, SettingViewWidth, SettingViewHeight);
         }];
     }
 }
@@ -348,17 +348,17 @@
 
 - (void)initSettingView {
     self.settingView = [LivingSettingView shareLivingSettingInstancetype];
-    self.settingView.frame = CGRectMake(SCREEN_HEIGHT, 50, SettingViewWidth, SettingViewHeight);
+    self.settingView.frame = CGRectMake(SCREEN_HEIGHT, 45, SettingViewWidth, SettingViewHeight);
     [self.view addSubview:self.settingView];
     
     self.settingView.block = ^(NSInteger tag){
         switch (tag) {
             case 0: { // 软解
-                NSLog(@"soft");
+                
             } break;
                 
             case 1: { // 硬解
-                NSLog(@"hard");
+                
             } break;
                 
             case 2: { // 弹幕透明度

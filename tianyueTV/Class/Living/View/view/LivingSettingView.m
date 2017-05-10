@@ -47,7 +47,7 @@
     [self.brightSlider setThumbImage:[UIImage imageNamed:@"按钮"] forState:UIControlStateNormal];
     [self.alphaSlider setThumbImage:[UIImage imageNamed:@"按钮"] forState:UIControlStateNormal];
     [self.sizeSlider setThumbImage:[UIImage imageNamed:@"按钮"] forState:UIControlStateNormal];
-    self.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.3f];
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
     
     // 获取MPVolumeSlider实例,MPVolumeSlider的父类是slider,可以通过它来控制系统音量
     MPVolumeView *volumeView = [[MPVolumeView alloc] init];
