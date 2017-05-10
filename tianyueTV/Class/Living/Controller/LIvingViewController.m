@@ -847,10 +847,10 @@ LivingLandscapeGiftDelegate>
     [type_elem setText:[NSString stringWithFormat:@"%d", type]];
     
     TIMMessage *msg = [[TIMMessage alloc] init];
+    [msg addElem:type_elem];
     [msg addElem:name_elem];
     [msg addElem:time_elem];
     [msg addElem:text_elem];
-    [msg addElem:type_elem];
     
     @weakify(self);
     [self.grp_conversation sendMessage:msg succ:^(){
@@ -862,8 +862,8 @@ LivingLandscapeGiftDelegate>
         //发送成功，加入消息数组
         //处理接收消息
         TIMMessage * message = msg;
-        TIMTextElem *name = (TIMTextElem *)[message getElem:0];
-        TIMTextElem *text = (TIMTextElem *)[message getElem:2];
+        TIMTextElem *name = (TIMTextElem *)[message getElem:1];
+        TIMTextElem *text = (TIMTextElem *)[message getElem:3];
         
         NSString *msgStr = @"";
         
@@ -900,10 +900,10 @@ LivingLandscapeGiftDelegate>
     for (NSInteger i = 0; i < msgs.count; i++) {
 
         TIMMessage * message = msgs[i];
-        TIMTextElem *name = (TIMTextElem *)[message getElem:0];
-        TIMTextElem *text = (TIMTextElem *)[message getElem:2];
-        TIMTextElem *type = (TIMTextElem *)[message getElem:3];
-    
+        TIMTextElem *type = (TIMTextElem *)[message getElem:0];
+        TIMTextElem *name = (TIMTextElem *)[message getElem:1];
+        TIMTextElem *text = (TIMTextElem *)[message getElem:3];
+        
         if ([type.text intValue] != 0) {
             
             NSString *msgStr = @"";
@@ -934,6 +934,25 @@ LivingLandscapeGiftDelegate>
     }
     [self.chatTableView reloadData];
     [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+}
+
+
+/**
+ *  刷新会话
+ */
+- (void) onRefresh
+{
+    
+}
+
+/**
+ *  刷新部分会话（包括多终端已读上报同步）
+ *
+ *  @param conversations 会话（TIMConversation*）列表
+ */
+- (void) onRefreshConversations:(NSArray*)conversations
+{
     
 }
 
