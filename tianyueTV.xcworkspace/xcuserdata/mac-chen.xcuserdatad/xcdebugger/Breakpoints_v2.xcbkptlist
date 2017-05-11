@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "tianyueTV/Class/Living/Controller/LIvingViewController.m"
-            timestampString = "516077745.546491"
+            timestampString = "516095890.795528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "900"
-            endingLineNumber = "900"
-            landmarkName = "-onNewMessage:"
+            startingLineNumber = "802"
+            endingLineNumber = "802"
+            landmarkName = "-quitChatRoom"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "tianyueTV/Class/Living/Controller/LIvingViewController.m"
-            timestampString = "516078228.934162"
+            timestampString = "516095890.795528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "946"
-            endingLineNumber = "946"
-            landmarkName = "-onRefresh"
+            startingLineNumber = "808"
+            endingLineNumber = "808"
+            landmarkName = "-quitChatRoom"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,12 +74,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "tianyueTV/Class/Living/Controller/LIvingViewController.m"
-            timestampString = "516078229.59826"
+            timestampString = "516095890.795528"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "956"
-            endingLineNumber = "956"
-            landmarkName = "-onRefreshConversations:"
+            startingLineNumber = "790"
+            endingLineNumber = "790"
+            landmarkName = "-joinChatRoom"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "tianyueTV/Tools/TIMLoginManager.m"
+            timestampString = "516095087.250278"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-timSdkLogin:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

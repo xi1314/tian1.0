@@ -51,9 +51,34 @@
 
 @implementation AppDelegate
 
+- (NSString *)libCachePath
+{
+    NSArray * paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    return [[paths objectAtIndex:0] stringByAppendingFormat:@"/Caches/imsdk_20170510.log"];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    NSFileManager *fileManage = [NSFileManager defaultManager];
+    NSString *myDirectory = [self libCachePath];
+    
+    NSData *data = [[NSData alloc] init];
+    data = [fileManage contentsAtPath:myDirectory];
+    NSLog(@"data :%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    
+//    if ([fileManage fileExistsAtPath:myDirectory]) {
+//        NSLog(@"jiushiyou");
+//    }else {
+//        NSLog(@"no  jiu  ");
+//    }
+    /*
+    NSArray *file = [fileManage subpathsOfDirectoryAtPath:myDirectory error:nil];
+    NSLog(@"file  :%@",file);
+    NSArray *files = [fileManage subpathsAtPath:myDirectory];
+    NSLog(@"files :%@",files);
+     */
+    
     // 极光推送
     [self jPushInit:launchOptions];
     

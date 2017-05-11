@@ -157,7 +157,7 @@ LivingLandscapeGiftDelegate>
             }
         }];
     }
-    
+
     _isFullScreen = NO;
     _isClear = NO;
     _reconnectCount = 0;
@@ -386,9 +386,9 @@ LivingLandscapeGiftDelegate>
         _im_manager = [TIMManager sharedInstance];
 //        [_im_manager setEnv:0];
 //        [_im_manager initSdk:[@"1400024555" intValue] accountType:@"10441"];
-        [_im_manager setMessageListener:self];//设置消息回调
+        [_im_manager setMessageListener:self]; // 设置消息回调
         [_im_manager setRefreshListener:self];
-        [_im_manager setConnListener:self];//设置链接通知回调
+        [_im_manager setConnListener:self]; // 设置链接通知回调
         [_im_manager setUserStatusListener:self];
 //        [_im_manager disableStorage]
     }
@@ -803,6 +803,7 @@ LivingLandscapeGiftDelegate>
         
     } fail:^(int code, NSString* err) {
         @strongify(self);
+        NSLog(@"退出聊天室失败失败%d---%@", code, err);
         
         [self joinChatRoom];
     }];
@@ -829,29 +830,39 @@ LivingLandscapeGiftDelegate>
     [dateFormatter setDateFormat:@"hh:mm:ss"];
     NSString *dateString = [dateFormatter stringFromDate:currentDate];
 
+    TIMTextElem *type_elem = [[TIMTextElem alloc] init];
+    [type_elem setText:[NSString stringWithFormat:@"%d", type]];
+    
     TIMTextElem *name_elem = [[TIMTextElem alloc] init];
     [name_elem setText:USER_NICK];
     
     TIMTextElem *time_elem = [[TIMTextElem alloc] init];
     [time_elem setText:dateString];
-    
-    TIMTextElem *text_elem = [[TIMTextElem alloc] init];
-    
-    if (type == 1) { // 文字
-        [text_elem setText:message];
-    }else { // 图片
-        [text_elem setText:self.giftSelectdStr];
-    }
 
-    TIMTextElem *type_elem = [[TIMTextElem alloc] init];
-    [type_elem setText:[NSString stringWithFormat:@"%d", type]];
-    
     TIMMessage *msg = [[TIMMessage alloc] init];
     [msg addElem:type_elem];
     [msg addElem:name_elem];
     [msg addElem:time_elem];
-    [msg addElem:text_elem];
     
+    if (type == 1) { // 文字
+        TIMTextElem *text_elem = [[TIMTextElem alloc] init];
+        [text_elem setText:message];
+ 
+        [msg addElem:text_elem];
+        
+    }else { // 图片
+//        [text_elem setText:self.giftSelectdStr];
+        TIMTextElem *giftType_elem = [[TIMTextElem alloc] init];
+        [giftType_elem setText:message];
+        
+        TIMTextElem *giftNum_elem = [[TIMTextElem alloc] init];
+        [giftNum_elem setText:@"1"];
+        
+        [msg addElem:giftType_elem];
+        [msg addElem:giftNum_elem];
+       
+    }
+
     @weakify(self);
     [self.grp_conversation sendMessage:msg succ:^(){
         
@@ -863,17 +874,16 @@ LivingLandscapeGiftDelegate>
         //处理接收消息
         TIMMessage * message = msg;
         TIMTextElem *name = (TIMTextElem *)[message getElem:1];
-        TIMTextElem *text = (TIMTextElem *)[message getElem:3];
         
         NSString *msgStr = @"";
-        
         if (type == 1) { // 文字拼接
             
+            TIMTextElem *text = (TIMTextElem *)[message getElem:3];
             msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@": %@", text.text]];
 
         }else { // 图片拼接
             
-            msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@",%@", text.text]];
+//            msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@",%@", text.text]];
     
         }
         
@@ -896,45 +906,53 @@ LivingLandscapeGiftDelegate>
 
 #pragma mark - 收到消息处理
 //收到消息
-- (void)onNewMessage:(NSArray *)msgs {
+- (void)onNewMessage:(NSArray*) msgs {
+    
+    NSLog(@"onNewMessage msgs :%@", msgs);
+    
     for (NSInteger i = 0; i < msgs.count; i++) {
-
         TIMMessage * message = msgs[i];
-        TIMTextElem *type = (TIMTextElem *)[message getElem:0];
-        TIMTextElem *name = (TIMTextElem *)[message getElem:1];
-        TIMTextElem *text = (TIMTextElem *)[message getElem:3];
-        
-        if ([type.text intValue] != 0) {
-            
-            NSString *msgStr = @"";
-            
-            if ([type.text intValue] == 1) { // 文字拼接
-               
-                msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@": %@", text.text]];
+        id timType = [message getElem:0];
+        if ([timType isKindOfClass:[TIMTextElem class]]) {
+            TIMTextElem *type = (TIMTextElem *)timType;
+
+            if ([type.text isEqualToString:@"1"] || [type.text isEqualToString:@"2"]) {
                 
-                // 向横屏页面发送通知
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceiveMessageNotification" object:nil userInfo:@{@"text" : text.text}];
+                NSString *msgStr = @"";
                 
-            }else if ([type.text intValue] == 2) { // 图片拼接
-            
-                msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@",%@", text.text]];
+                if ([type.text intValue] == 1) { // 文字拼接
+                    
+                    TIMTextElem *name = (TIMTextElem *)[message getElem:1];
+                    TIMTextElem *text = (TIMTextElem *)[message getElem:3];
+                    
+                    msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@": %@", text.text]];
+                    
+                    // 向横屏页面发送通知
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReceiveMessageNotification" object:nil userInfo:@{@"text" : text.text}];
+                    
+                }else if ([type.text intValue] == 2) { // 图片拼接
+                    
+                    //                msgStr = [name.text stringByAppendingString:[NSString stringWithFormat:@",%@", text.text]];
+                    
+                }
                 
-            }
-            
-            NSDictionary *dict = @{@"msgStr" : msgStr,
-                                   @"textType" : type.text};
-            
-            [self.messagesArray addObject:dict];
-            
-            if (self.messagesArray.count > 100) {
-                [self.messagesArray removeObjectAtIndex:0];
+                NSDictionary *dict = @{@"msgStr" : msgStr,
+                                       @"textType" : type.text};
+                
+                [self.messagesArray addObject:dict];
+                
+                if (self.messagesArray.count > 100) {
+                    [self.messagesArray removeObjectAtIndex:0];
+                }
             }
         }
-        
     }
-    [self.chatTableView reloadData];
-    [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
+    if (self.messagesArray.count) {
+        [self.chatTableView reloadData];
+        [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+
 }
 
 
@@ -943,7 +961,7 @@ LivingLandscapeGiftDelegate>
  */
 - (void) onRefresh
 {
-    
+    NSLog(@"onRefresh");
 }
 
 /**
@@ -953,7 +971,7 @@ LivingLandscapeGiftDelegate>
  */
 - (void) onRefreshConversations:(NSArray*)conversations
 {
-    
+    NSLog(@"onRefreshConversations  conversations");
 }
 
 
@@ -1527,9 +1545,9 @@ LivingLandscapeGiftDelegate>
     
     // 退出聊天室
     [[TIMGroupManager sharedInstance] QuitGroup:self.groupID succ:^() {
-   
+        
     } fail:^(int code, NSString* err) {
-
+        
     }];
     
     // 停止播放
