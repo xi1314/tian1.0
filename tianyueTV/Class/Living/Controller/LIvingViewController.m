@@ -947,12 +947,11 @@ LivingLandscapeGiftDelegate>
             }
         }
     }
-    
+
     if (self.messagesArray.count) {
         [self.chatTableView reloadData];
         [self.chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
-
 }
 
 
